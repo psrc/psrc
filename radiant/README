@@ -1,75 +1,49 @@
 == Welcome to Radiant
 
-Radiant is a lightweight content management system with a focus on simplicity
-and extensibility.
+Radiant is a no-fluff, open source content management system designed for
+small teams.
 
-There are a lot of options out there for content management systems today. Many
-of them are full-service options seeking to provide everything that you could
-possibly need for a Web site. Need a blog, web forums, user management,
-polling? They provide it---but at a heavy cost---their systems are complicated
-and unwieldy. The ironic part is that they have sought to simplify the process
-of building a Web site, but many times they have only complicated it.
+Radiant features:
 
-Radiant is different. Instead of focusing on building small systems (blogs,
-forums, etc....) that interoperate well with each other, Radiant's focus is to
-do one thing well: manage content. It seeks to provide tools that make it easy
-to use the content that you produce well.
+ * An elegant user interface
+ * Flexible templating with layouts, snippets, and page parts
+ * Support for Radius--a tag-based template language
+ * Support for Markdown and Textile as well as traditional HTML
+ * Extendable through special page-oriented plugins called behaviors
+ * A five minute caching system
 
-How does Radiant provide this?
+This is a prerelease version of Radiant.
 
-1. Pages, snippets, and layouts. Radiant's core content management building
-blocks would be familiar to any Web developer. Pages of course represent a
-physical page on the Web server. Snippets correspond to "includes" in PHP or
-"partials" in Rails. And layouts are simply templates which you can apply to a
-page.
 
-2. First class support for the Radius template language. Radius is is a tag
-language which makes it easy to include content from snippets or other pages in
-another page. Using Radius you can spin through a series of pages on an index
-and display a summary of those pages or perform any number of tasks. Radius
-makes it easy to follow the mantra "Don't repeat yourself" when it comes to
-content.
+== License
 
-3. Textile and Markdown support. Radiant provides full support for two plain
-text formating languages. You won't need to work with a clunky WYSIWYG editor
-or mess with a lot of HTML. In cases where Markdown or Textile won't suffice
-Radiant allows you to compose documents using pure HTML.
-
-4. Extensibility through page behaviors. In cases where the normal
-functionality doesn't quite meet your needs you can use a unique kind of
-plugin. A behavior adds functionality to a page. By writing your own behavior
-(in Ruby) you can completely alter the way Radiant works for a single page.
-Behaviors have complete access to the request and can set headers, manipulate
-content, and much more.
-
-5. Radiant is built with Ruby on Rails. This means that if the core
-functionality of the Radiant doesn't quite meet your needs you can easily write
-your own controllers, model objects, etc.... All with the support of a leading
-Web Application framework.
+Radiant is released under the MIT license and is Copyright 2006 John W. Long. 
 
 
 == Installation and Setup
 
-Radiant is a traditional Ruby on Rails application, meaning that you can run it
-in the traditional way that you install and run Rails applications (with
-lighttpd, Apache, FastCGI, etc...).
+Radiant is a traditional Ruby on Rails application, meaning that you can
+configure and run it the way you would a normal Rails application.
 
-1. Download and install latest version of the Radius tagging library.
-(Currently the only way to do this is to check out the project from it's
-subversion repository on Ruby Forge. See http://radius.rubyforge.org/.)
+Once you have extracted the file into the directory where you would like
+to install Radiant:
 
-2. Install the latest versions of Redcloth and Bluecloth.
+1. Edit config/database.yml making changes for your database setup.
 
-3. Edit config/database.yml appropriately.
+2. Run the database setup script:
 
-3. Execute:
+   % ruby db/setup.orb
 
-   % rake db:schema:load
-
-4. Load the default database:
-
-   % mysql -p -u username database < db/ruby-lang.sql
-
-And start it like a normal Rails application. To test do:
+3. Start it like a normal Rails application. To test execute:
 
    % script/server
+   
+   And open your Web browser on port 3000 (http://localhost:3000).
+
+
+== Support
+
+Radiant is still in the development stages and has not been officially
+released. Hopefully, this won't hinder you from jumping on board and
+downloading it from the Subversion repository. To get started, head on over
+to our Trac powered dev site at http://dev.radiantcms.org/.
