@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+main:
+  id: 1
+  name: Home Page
+  content: |
+    <html>
+      <head>
+        <title><r:page:title /></title>
+      </head>
+      <body>
+        <r:page:content />
+      </body>
+    </html>

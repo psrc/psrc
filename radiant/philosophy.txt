@@ -1,0 +1,14 @@
+Pages
+-----
+
+Pages are the fundamental unit in Radiant. In order to keep things simple pages
+will always represent physical pages on the Web server. That is, there is a one
+to one mapping from URLs to pages. For each URL only one page maps to
+that URL and vise versa. Pages should not be made into templates. Layouts serve
+that purpose.
+
+There is one exception to this: the virtual page. There are times when it is
+necessary to map many URLs to one page. In this case it is acceptable to
+implement a virtual page. The classic example of this is the archive behavior
+indexes for years, months, and days. In this case 2004/, 2005/, and 2006/ all
+map to the same year index page.

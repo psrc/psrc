@@ -1,0 +1,311 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+homepage:
+  id: 1
+  title: Ruby Home Page
+  breadcrumb: Home
+  slug: /
+  status_id: 100
+  parent_id:
+  published_at: 2006-01-30 08:41:07 -05:00
+documentation:
+  id: 2
+  title: Documentation
+  breadcrumb: Documentation
+  slug: documentation
+  status_id: 100
+  parent_id: 1
+  published_at: 2006-01-30 08:41:07 -05:00
+books:
+  id: 3
+  title: Books
+  breadcrumb: Books
+  slug: books
+  status_id: 100
+  parent_id: 2
+  published_at: 2006-01-30 08:41:07 -05:00
+textile:
+  id: 4
+  title: Textile
+  breadcrumb: Textile
+  slug: textile
+  status_id: 100
+  parent_id: 1
+  published_at: 2006-01-30 08:41:07 -05:00
+radius:
+  id: 5
+  title: Radius Test Page
+  breadcrumb: Radius Test Page
+  slug: radius
+  status_id: 100
+  parent_id: 1
+  created_by: 3
+  published_at: 2006-01-30 08:41:07 -05:00
+<% for i in 1..3 %>
+radius_child_<%= i %>:
+  id: <%= 5 + i %>
+  title: Radius Test Child <%= i %>
+  breadcrumb: Radius Test Child <%= i %>
+  slug: child-<%= i %>
+  status_id: 100
+  parent_id: 5
+  created_by: 1
+  published_at: 2006-01-30 08:41:07 -05:00
+<% end %>
+page_with_layout:
+  id: 9
+  title: Page With Layout
+  breadcrumb: Page With Layout
+  slug: page-with-layout
+  status_id: 100
+  layout_id: 1
+  parent_id: 1
+  published_at: 2006-01-30 08:41:07 -05:00
+child_of_page_with_layout:
+  id: 18
+  title: Child of Page With Layout
+  breadcrumb: Child of Page With Layout
+  slug: child-of-page-with-layout
+  status_id: 100
+  parent_id: 9
+  published_at: 2006-01-30 08:47:07 -05:00
+parent:
+  id: 10
+  title: Parent
+  breadcrumb: Parent
+  slug: parent
+  status_id: 100
+  parent_id: 1
+  published_at: 2006-01-30 08:41:07 -05:00
+child:
+  id: 11
+  title: Child
+  breadcrumb: Child
+  slug: child
+  status_id: 100
+  parent_id: 10
+  published_at: 2006-01-30 08:41:07 -05:00
+archive:
+  id: 12
+  title: Archive
+  breadcrumb: Parent
+  slug: archive
+  behavior_id: Archive
+  status_id: 100
+  parent_id: 1
+  published_at: 2006-01-30 08:41:07 -05:00
+year_index:
+  id: 41
+  title: Year Index
+  slug: year
+  behavior_id: Archive Year Index
+  status_id: 101
+  parent_id: 12
+  virtual: true
+  published_at: 2006-02-05 08:44:07 -05:00
+month_index:
+  id: 42
+  title: Month Index
+  slug: month
+  behavior_id: Archive Month Index
+  status_id: 101
+  parent_id: 12
+  virtual: true
+  published_at: 2006-02-05 08:44:07 -05:00
+day_index:
+  id: 43
+  title: Day Index
+  slug: day
+  behavior_id: Archive Day Index
+  status_id: 101
+  parent_id: 12
+  virtual: true
+  published_at: 2006-02-05 08:44:07 -05:00
+article:
+  id: 13
+  title: Article
+  breadcrumb: Article
+  slug: article
+  status_id: 100
+  parent_id: 12
+  published_at: 2000-06-09 08:41:07 -05:00
+article2:
+  id: 14
+  title: Article Two
+  breadcrumb: Article Two
+  slug: article-2
+  status_id: 100
+  parent_id: 12
+article3:
+  id: 44
+  title: Article Three
+  breadcrumb: Article Three
+  slug: article-3
+  status_id: 100
+  parent_id: 12
+  published_at: 2000-06-10 12:02:43 -05:00
+article4:
+  id: 45
+  title: Article Four
+  breadcrumb: Article Four
+  slug: article-4
+  status_id: 100
+  parent_id: 12
+  published_at: 2000-08-06 03:32:31 -05:00
+article5:
+  id: 46
+  title: Article Five
+  breadcrumb: Article Five
+  slug: article-5
+  status_id: 100
+  parent_id: 12
+  published_at: 2001-08-06 03:32:31 -05:00
+draft:
+  id: 15
+  title: Draft Page
+  breadcrumb: Draft Page
+  slug: draft
+  status_id: 1
+  parent_id: 1
+hidden:
+  id: 16
+  title: Hidden Page
+  breadcrumb: Hidden Page
+  slug: hidden
+  status_id: 101
+  parent_id: 1
+no_cache:
+  id: 17
+  title: No Cache
+  breadcrumb: No Cache
+  slug: no-cache
+  status_id: 100
+  parent_id: 1
+  behavior_id: No Cache
+assorted:
+  id: 19
+  title: Assorted Root
+  breadcrumb: No Cache
+  slug: assorted
+  status_id: 100
+  parent_id: 1
+<% for i in 1..10 %>
+assorted<%= i %>:
+  id: <%= 19 + i %>
+  title: Assorted <%= i %>
+  breadcrumb: <%= (i + 5) % 10 %>
+  slug: <%= (?a + (10 - i)).chr %>
+  status_id: 100
+  parent_id: 19
+  published_at: 2000-06-10 07:<%= '%02d' % (17 - i) %>:<%= '%02d' % (i + 11) %> -05:00
+<% end %>
+assorted-draft:
+  id: 40
+  title: Draft
+  breadcrumb: Draft
+  slug: draft
+  status_id: 1
+  parent_id: 19
+news:
+  id: 30
+  title: News Archives
+  breadcrumb: news
+  slug: news
+  status_id: 100
+  parent_id: 1
+  published_at: 2006-01-30 08:41:07 -05:00
+news_child_published:
+  id: 31
+  title: A Great Day for Ruby
+  breadcrumb: news
+  slug: a-great-day-for-ruby
+  status_id: 100
+  parent_id: 30
+  published_at: 2006-01-30 08:41:07 -05:00
+news_child_published_2:
+  id: 32
+  title: Another Great Day for Ruby
+  breadcrumb: news
+  slug: another-great-day-for-ruby
+  status_id: 100
+  parent_id: 30
+  published_at: 2006-02-05 08:44:07 -05:00
+grandchild:
+  id: 33
+  title: Grandchild
+  breadcrumb: Grandchild
+  slug: grandchild
+  status_id: 100
+  parent_id: 11
+  published_at: 2006-02-05 08:44:07 -05:00
+great_grandchild:
+  id: 34
+  title: Great-Grandchild
+  slug: great-grandchild
+  status_id: 100
+  parent_id: 33
+  published_at: 2006-02-05 08:44:07 -05:00
+custom_tags:
+  id: 35
+  title: Custom Tags
+  slug: custom-tags
+  behavior_id: Test Behavior
+  status_id: 100
+  parent_id: 1
+  published_at: 2006-02-05 08:44:07 -05:00
+custom_tags_child:
+  id: 36
+  title: Custom Tags Child
+  slug: child
+  status_id: 100
+  parent_id: 35
+  published_at: 2006-02-05 08:44:07 -05:00
+page_with_yaml_config:
+  id: 37
+  title: Page with YAML config
+  slug: page-with-yaml-config
+  status_id: 100
+  parent_id: 1
+  published_at: 2006-02-05 08:44:07 -05:00
+small_test:
+  id: 38
+  title: Small Test
+  slug: small-test
+  status_id: 100
+  parent_id: 1
+  published_at: 2006-02-05 08:44:07 -05:00
+inheritance_test_page:
+  id: 47
+  title: Inheritance Test Page
+  slug: inheritance-test-page
+  status_id: 100
+  parent_id: 1
+  published_at: 2006-02-05 08:44:07 -05:00
+inheritance_test_page_child:
+  id: 48
+  title: Inheritance Test Page Child
+  slug: child
+  status_id: 100
+  parent_id: 47
+  published_at: 2006-02-05 08:44:07 -05:00
+inheritance_test_page_grandchild:
+  id: 49
+  title: Inheritance Test Page Grandchild
+  slug: grandchild
+  status_id: 100
+  parent_id: 48
+  published_at: 2006-02-05 08:44:07 -05:00
+gallery:
+  id: 50
+  title: Gallery
+  slug: gallery
+  status_id: 100
+  parent_id: 1
+  published_at: 2006-02-05 08:44:07 -05:00
+missing:
+  id: 51
+  title: File Not Found
+  slug: missing
+  behavior_id: Page Missing
+  status_id: 100
+  parent_id: 50
+  published_at: 2006-02-05 08:44:07 -05:00
