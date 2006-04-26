@@ -6,11 +6,15 @@ small teams.
 Radiant features:
 
  * An elegant user interface
+ * A hierarchal page system
+ * Multiple parts for pages (body, sidebar, extended) which are completely user-defined
  * Flexible templating with layouts, snippets, and page parts
  * Support for Radius--a tag-based template language
  * Support for Markdown and Textile as well as traditional HTML
  * Extendable through special page-oriented plugins called behaviors
  * A five minute caching system
+ * Dev site functionality
+ * Simple User management/rights system
 
 This is a prerelease version of Radiant.
 
