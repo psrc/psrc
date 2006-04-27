@@ -26,10 +26,12 @@ h1, h2, h3, h4, h5, h6, strong {
 }
 h1 {
   font-size: 200%;
+  margin-bottom: .75em;
 } 
 h2 {
   background: none;
   border-bottom: 2px solid #666;
+  margin-top: 1.5em;
 }
 hr {
   display: none;
@@ -75,7 +77,6 @@ hr {
 }
 #logo {
   padding-left: 9px;
-  display: block;
 }
 #metanav ul {
   font-size: 90%;
