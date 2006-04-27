@@ -1,27 +1,26 @@
 == Welcome to Radiant
 
-Radiant is a no-fluff, open source content management system designed for
-small teams.
+Radiant is a no-fluff, open source content management system designed for small teams. It is similar to Textpattern or MovableType, but is a general purpose content management system (not a blogging engine).
 
 Radiant features:
 
  * An elegant user interface
- * A hierarchal page system
- * Multiple parts for pages (body, sidebar, extended) which are completely user-defined
- * Flexible templating with layouts, snippets, and page parts
- * Support for Radius--a tag-based template language
- * Support for Markdown and Textile as well as traditional HTML
- * Extendable through special page-oriented plugins called behaviors
- * A five minute caching system
- * Dev site functionality
- * Simple User management/rights system
+ * Flexible templating with layouts, snippets, page parts, and a custom tagging language (Radius)
+ * Extensible with special page-oriented plugins called behaviors
+ * Support for Markdown and Textile as well as traditional HTML (other filters are easy to write)
+ * Simple user management/rights system
+ * Operates in two modes: dev and production depending on the URL
+ * A caching system which expires pages every 5 minutes
+ * Built using Ruby on Rails
+ * And much more...
 
 This is a prerelease version of Radiant.
 
 
 == License
 
-Radiant is released under the MIT license and is Copyright 2006 John W. Long. 
+Radiant is released under the MIT license and is Copyright (c) 2006 John W.
+Long. A copy of the MIT license can be found in the LICENSE file.
 
 
 == Installation and Setup
@@ -29,7 +28,7 @@ Radiant is released under the MIT license and is Copyright 2006 John W. Long.
 Radiant is a traditional Ruby on Rails application, meaning that you can
 configure and run it the way you would a normal Rails application.
 
-Once you have extracted the file into the directory where you would like
+Once you have extracted the files into the directory where you would like
 to install Radiant:
 
 1. Edit config/database.yml making changes for your database setup.
