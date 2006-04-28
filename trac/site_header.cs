@@ -8,6 +8,8 @@
     <span class="separator"> | </span>
     <strong><a href="/">Development</a></strong>
     <span class="separator"> | </span>
+    <a href="http://radiantcms.org/mailing-list/">Mailing List</a>
+    <span class="separator"> | </span>
     <a href="http://radiantcms.org/blog/">Weblog</a>
   </div>
 </div>
