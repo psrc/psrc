@@ -49,6 +49,11 @@ like to install Radiant:
    
    And open your Web browser on port 3000 (http://localhost:3000).
    
+Once you've installed Radiant on your own Web site, be sure to add your
+name and Web site to the list of radiant users:
+
+http://dev.radiantcms.org/radiant/wiki/RadiantUsers
+
 
 == Radiant Admin Interface
 
@@ -64,3 +69,7 @@ officially released. Hopefully, this won't hinder you from jumping on
 board and downloading it from the Subversion repository. To get
 started, head on over to our Trac powered dev site at
 http://dev.radiantcms.org/.
+
+There is also a mailing list available here:
+
+http://lists.radiantcms.org/mailman/listinfo/radiant
