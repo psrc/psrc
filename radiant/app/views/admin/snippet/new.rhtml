@@ -16,7 +16,7 @@
 		  <%= text_area "snippet", "content", :class => "textarea", :style => "width: 100%" %></p>
 		<p>
 		  <label for="snippet_filter">Filter</label>
-		  <%= select_tag "snippet_filter_id", options_for_select([['none', '']] + TextFilter.find_all.map { |f| f.registered_id }, @snippet.filter_id) %>
+      <%= select_tag "snippet[filter_id]", options_for_select([['none', '']] + TextFilter.find_all.map { |f| f.registered_id }, @snippet.filter_id) %>
 		</p>
     <%= updated_stamp @snippet %>
   </div>
