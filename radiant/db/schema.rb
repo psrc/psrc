@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(:version => 8) do
     t.column "updated_by", :integer
     t.column "virtual", :boolean, :default => false, :null => false
   end
-  
+
   create_table "snippets", :force => true do |t|
     t.column "name", :string, :limit => 100, :default => "", :null => false
     t.column "filter_id", :string, :limit => 25
@@ -69,6 +69,5 @@ ActiveRecord::Schema.define(:version => 8) do
   end
 
   add_index "users", ["login"], :name => "login", :unique => true
-  
 
 end

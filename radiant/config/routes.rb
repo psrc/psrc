@@ -1,48 +1,58 @@
 ActionController::Routing::Routes.draw do |map|
 
-  # Admin
-  map.admin            'admin',                              :controller => 'admin/welcome',  :action => 'index'
+  # Admin Routes
+  map.with_options(:controller => 'admin/welcome') do |welcome|
+    welcome.admin          'admin',                              :action => 'index'
+    welcome.welcome        'admin/welcome',                      :action => 'index'
+    welcome.login          'admin/login',                        :action => 'login'
+    welcome.logout         'admin/logout',                       :action => 'logout'
+  end
 
-  # Welcome
-  map.welcome          'admin/welcome',                      :controller => 'admin/welcome',  :action => 'index'
-  map.login            'admin/login',                        :controller => 'admin/welcome',  :action => 'login'
-  map.logout           'admin/logout',                       :controller => 'admin/welcome',  :action => 'logout'
+  # Page Routes
+  map.with_options(:controller => 'admin/page') do |page|
+    page.page_index        'admin/pages',                        :action => 'index'
+    page.page_edit         'admin/pages/edit/:id',               :action => 'edit'
+    page.page_new          'admin/pages/:parent_id/child/new',   :action => 'new'
+    page.homepage_new      'admin/pages/new/homepage',           :action => 'new',        :slug => '/', :breadcrumb => 'Home'
+    page.page_remove       'admin/pages/remove/:id',             :action => 'remove'
+    page.page_add_part     'admin/ui/pages/part/add',            :action => 'add_part'
+    page.page_children     'admin/ui/pages/children/:id/:level', :action => 'children',   :level => '1'
+    page.clear_cache       'admin/pages/cache/clear',            :action => 'clear_cache'    
+  end
+
+  # Layouts Routes
+  map.with_options(:controller => 'admin/layout') do |layout|
+    layout.layout_index    'admin/layouts',                      :action => 'index'
+    layout.layout_edit     'admin/layouts/edit/:id',             :action => 'edit'
+    layout.layout_new      'admin/layouts/new',                  :action => 'new'
+    layout.layout_remove   'admin/layouts/remove/:id',           :action => 'remove'  
+  end  
                        
-  # Pages              
-  map.page_index       'admin/pages',                        :controller => 'admin/page',     :action => 'index'
-  map.page_edit        'admin/pages/edit/:id',               :controller => 'admin/page',     :action => 'edit'
-  map.page_new         'admin/pages/:parent_id/child/new',   :controller => 'admin/page',     :action => 'new'
-  map.homepage_new     'admin/pages/new/homepage',           :controller => 'admin/page',     :action => 'new',        :slug => '/', :breadcrumb => 'Home'
-  map.page_remove      'admin/pages/remove/:id',             :controller => 'admin/page',     :action => 'remove'
-  map.page_add_part    'admin/ui/pages/part/add',            :controller => 'admin/page',     :action => 'add_part'
-  map.page_children    'admin/ui/pages/children/:id/:level', :controller => 'admin/page',     :action => 'children',   :level => '1'
-  map.clear_cache      'admin/pages/cache/clear',            :controller => 'admin/page',     :action => 'clear_cache'
+  # Snippets Routes
+  map.with_options(:controller => 'admin/snippet') do |snippet|
+    snippet.snippet_index  'admin/snippets',                     :action => 'index'
+    snippet.snippet_edit   'admin/snippets/edit/:id',            :action => 'edit'
+    snippet.snippet_new    'admin/snippets/new',                 :action => 'new'
+    snippet.snippet_remove 'admin/snippets/remove/:id',          :action => 'remove'
+  end
+                        
+  # Users Routes
+  map.with_options(:controller => 'admin/user') do |user|
+    user.user_index        'admin/users',                        :action => 'index'
+    user.user_edit         'admin/users/edit/:id',               :action => 'edit'
+    user.user_new          'admin/users/new',                    :action => 'new'
+    user.user_remove       'admin/users/remove/:id',             :action => 'remove'
+    user.user_preferences  'admin/preferences',                  :action => 'preferences'
+  end
   
-  # Layouts            
-  map.layout_index     'admin/layouts',                      :controller => 'admin/layout',   :action => 'index'
-  map.layout_edit      'admin/layouts/edit/:id',             :controller => 'admin/layout',   :action => 'edit'
-  map.layout_new       'admin/layouts/new',                  :controller => 'admin/layout',   :action => 'new'
-  map.layout_remove    'admin/layouts/remove/:id',           :controller => 'admin/layout',   :action => 'remove'
-                       
-  # Snippets           
-  map.snippet_index    'admin/snippets',                     :controller => 'admin/snippet',  :action => 'index'
-  map.snippet_edit     'admin/snippets/edit/:id',            :controller => 'admin/snippet',  :action => 'edit'
-  map.snippet_new      'admin/snippets/new',                 :controller => 'admin/snippet',  :action => 'new'
-  map.snippet_remove   'admin/snippets/remove/:id',          :controller => 'admin/snippet',  :action => 'remove'
-                       
-  # Users              
-  map.user_index       'admin/users',                        :controller => 'admin/user',     :action => 'index'
-  map.user_edit        'admin/users/edit/:id',               :controller => 'admin/user',     :action => 'edit'
-  map.user_new         'admin/users/new',                    :controller => 'admin/user',     :action => 'new'
-  map.user_remove      'admin/users/remove/:id',             :controller => 'admin/user',     :action => 'remove'
-  map.user_preferences 'admin/preferences',                  :controller => 'admin/user',     :action => 'preferences'
-
   # Site URLs
-  map.homepage         '',                                 :controller => 'site',           :action => 'show_page', :url => '/'
-  map.not_found        'error/404',                        :controller => 'site',           :action => 'not_found'
-  map.error            'error/500',                        :controller => 'site',           :action => 'error'
-  
-  # Everything else
-  map.connect          '*url',                             :controller => 'site',           :action => 'show_page'
+  map.with_options(:controller => 'site') do |site|
+    site.homepage          '',                                   :action => 'show_page', :url => '/'
+    site.not_found         'error/404',                          :action => 'not_found'
+    site.error             'error/500',                          :action => 'error'
+
+    # Everything else
+    site.connect           '*url',                               :action => 'show_page'
+  end
   
 end
