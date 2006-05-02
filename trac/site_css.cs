@@ -271,3 +271,24 @@ pre.wiki, pre.literal-block {
 .diff table.inline {
   color: black;
 }
+#ticket {
+  background-color: #555;
+  border: 0;
+}
+#ticket .date {
+  background-color: #555;
+  color: #ccc;
+  padding-left: 1em;
+}
+#ticket h3.status {
+  color: white;
+}
+#ticket table.properties th {
+  color: white;
+}
+#changelog, #attachments {
+  border: 0;
+  padding: 0;
+  margin-bottom: 2em;
+  margin-top: 1em;
+}
