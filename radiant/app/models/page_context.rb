@@ -383,7 +383,7 @@ class PageContext < Radius::Context
   
   def render_tag(name, attributes = {}, &block)
     super
-  rescue TagError => e
+  rescue Exception => e
     render_error_message(e.message)
   end
   
