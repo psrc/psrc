@@ -60,6 +60,15 @@ page_with_layout:
   layout_id: 1
   parent_id: 1
   published_at: 2006-01-30 08:41:07 -05:00
+another_page_with_layout:
+  id: 52
+  title: Another Page With Layout
+  breadcrumb: Another Page With Layout
+  slug: another-page-with-layout
+  status_id: 100
+  layout_id: 1
+  parent_id: 1
+  published_at: 2006-01-30 08:41:07 -05:00
 child_of_page_with_layout:
   id: 18
   title: Child of Page With Layout

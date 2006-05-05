@@ -169,13 +169,13 @@ h1 {
 #content table.index td.status {
 	color: #9eb3bf;
 }
-#content table.index td.status.draft {
+#content table.index td.status.draft-status {
   color: #c00;
 }
-#content table.index td.status.published {
+#content table.index td.status.published-status {
   color: black;
 }
-#content table.index td.status.hidden {
+#content table.index td.status.hidden-stats {
   color: #0c0;
 }
 #content table.index .add-child {

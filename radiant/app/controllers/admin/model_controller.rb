@@ -1,9 +1,7 @@
 class Admin::AbstractModelController < ApplicationController
   def self.model(*symbols)
     first = symbols.first
-    class_eval %{
-      @@model_class = "#{first}".singularize.camelize.constantize
-    }
+    class_eval %{ @@model_class = "#{first}".singularize.camelize.constantize }
     super
   end
 
@@ -71,6 +69,10 @@ class Admin::AbstractModelController < ApplicationController
     def model_index_url
       send("#{ model_symbol }_index_url")
     end
+
+    def save
+      model.save
+    end
     
     def announce_saved(message = nil)
       flash[:notice] = message || "#{humanized_model_name} saved below."
@@ -85,10 +87,10 @@ class Admin::AbstractModelController < ApplicationController
     end
     
     def handle_new_or_edit_post(options = {})
-      opitons = options.symbolize_keys!
+      options.symbolize_keys
       if request.post?
         model.attributes = params[model_symbol]
-        if model.save
+        if save
           announce_saved(options[:saved_message])
           redirect_to options[:redirect_to] || model_index_url
           return false

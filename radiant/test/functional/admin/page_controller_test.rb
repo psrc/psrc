@@ -6,20 +6,7 @@ class Admin::PageController; def rescue_action(e) raise e end; end
 
 class Admin::PageControllerTest < Test::Unit::TestCase
   fixtures :users, :pages
-  test_helper :pages, :page_parts
-  
-  class FakePageCache
-    attr_accessor :cleared, :expired_path
-    def clear
-      @cleared = true
-    end
-    def expire(path)
-      @expired_path = path
-    end
-    def cleared
-      @cleared || false
-    end
-  end
+  test_helper :pages, :page_parts, :caching
   
   def setup
     @controller = Admin::PageController.new
