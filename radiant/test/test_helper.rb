@@ -41,7 +41,7 @@ unless defined? TEST_ROOT
             constant = (name.camelize + 'TestHelper').constantize
             self.class_eval { include constant }
           rescue NameError
-            filename = File.expand_path(File.dirname(__FILE__) + '/helpers/' + name + '_test_helper.rb')
+            filename = File.expand_path(TEST_ROOT + '/helpers/' + name + '_test_helper.rb')
             require filename if first_time
             first_time = false
             retry

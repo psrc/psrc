@@ -67,6 +67,10 @@ class Page < ActiveRecord::Base
     root.find_by_url(url)
   end
   
+  def virtual
+    !(read_attribute('virtual').to_s =~ /^(false|f|0|)$/)
+  end
+  
   private
   
     def update_published_at

@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-first:
-  id: 1
-  key: test
-  value: cool
-another:
-  id: 2
-  key: foo
-  value: bar

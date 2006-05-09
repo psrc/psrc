@@ -17,7 +17,8 @@ class PageContextTest < Test::Unit::TestCase
   end
   
   def test_tags_page_attributes
-    @page.attributes.each do |attr, value|
+    @page.attributes.keys.each do |attr|
+      value = @page.send(attr)
       unless [:created_by, :updated_by].include? attr.to_s.intern
         assert_parse_output value.to_s, "<r:#{attr} />"
       end
@@ -43,7 +44,7 @@ class PageContextTest < Test::Unit::TestCase
   end
   def test_tag_children_each_with_status_attribute
     setup_for_page(:assorted)
-    assert_parse_output 'draft a b c d e f g h i j ', page_children_each_tags(%{status="all"})
+    assert_parse_output_match /^(draft |)a b c d e f g h i j( draft|) $/, page_children_each_tags(%{status="all"})
     assert_parse_output 'draft ', page_children_each_tags(%{status="draft"})
     assert_parse_output 'a b c d e f g h i j ', page_children_each_tags(%{status="published"})
     assert_parse_output_match "`status' attribute of `each' tag must be set to a valid status", page_children_each_tags(%{status="askdf"})
@@ -70,8 +71,8 @@ class PageContextTest < Test::Unit::TestCase
   end
   def test_tag_children_each_does_not_list_virtual_pages
     setup_for_page(:archive)
-    assert_parse_output 'article-2 article article-3 article-4 article-5 ', '<r:children:each><r:slug /> </r:children:each>'
-    assert_parse_output 'article-2 article article-3 article-4 article-5 ', '<r:children:each status="all"><r:slug /> </r:children:each>'
+    assert_parse_output 'article article-2 article-3 article-4 article-5 ', '<r:children:each><r:slug /> </r:children:each>'
+    assert_parse_output_match /^(draft |)article article-2 article-3 article-4 article-5( draft|) $/, '<r:children:each status="all"><r:slug /> </r:children:each>'
   end
   
   def test_tag_children_count

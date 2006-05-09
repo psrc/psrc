@@ -13,22 +13,19 @@ class Admin::UserControllerTest < Test::Unit::TestCase
     @request = ActionController::TestRequest.new
     @response = ActionController::TestResponse.new
     @user = @request.session[:user] = users(:existing)
-    @admin_actions = [:index, :new, :edit, :remove]
   end
 
   def test_ancestors
     assert Admin::UserController.ancestors.include?(Admin::AbstractModelController)
   end
   
-  def test_admin_actions_allowed_if_admin
-    @admin_actions.each do |action|
+  [:index, :new, :edit, :remove].each do |action|
+    define_method "test_#{action}_action_allowed_if_admin" do
       get action, { :id => 1 }, { :user => users(:admin) }
       assert_response :success, "action: #{action}"
     end
-  end
-  def test_admin_actions_not_allowed_if_other
-    @admin_actions.each do |action|
-      setup
+
+    define_method "test_#{action}_action_not_allowed_if_other" do
       get action, { :id => 1 }, { :user => users(:non_admin) }
       assert_redirected_to page_index_url, "action: #{action}"
       assert_match /privileges/, flash[:error], "action: #{action}"

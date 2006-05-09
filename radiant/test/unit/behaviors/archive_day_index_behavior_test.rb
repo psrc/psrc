@@ -9,8 +9,8 @@ class ArchiveDayIndexBehaviorTest < Test::Unit::TestCase
   end
 
   def test_children_tag
-    assert_renders 'article ', '<r:archive:children:each><r:slug /> </r:archive:children:each>', '/archive/2000/06/09/'
-    assert_renders 'article ', '<r:archive:children:each><r:slug /> </r:archive:children:each>', '/archive/2000/06/09'
+    assert_renders 'article-2 ', '<r:archive:children:each><r:slug /> </r:archive:children:each>', '/archive/2000/06/09/'
+    assert_renders 'article-2 ', '<r:archive:children:each><r:slug /> </r:archive:children:each>', '/archive/2000/06/09'
   end
   
   include ArchiveIndexTests

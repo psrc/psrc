@@ -119,12 +119,12 @@ class PageContext < Radius::Context
       unless status == 'all'
         stat = Status[status]
         unless stat.nil?
-          options[:conditions] = ['(virtual = 0) and (status_id = ?)', stat.id]
+          options[:conditions] = ["(virtual = ?) and (status_id = ?)", false, stat.id]
         else
           raise TagError.new(%{`status' attribute of `each' tag must be set to a valid status})
         end
       else
-        options[:conditions] = ['virtual = 0']
+        options[:conditions] = ["virtual = ?", false]
       end
       
       result = []
@@ -149,13 +149,15 @@ class PageContext < Radius::Context
     end
 
     #
-    # <r:content [part="part_name"] [inherit="true|false"] />
+    # <r:content [part="part_name"] [inherit="true|false"] [contextual="true|false"] />
     #
     # Renders the main content of a page. Use the 'part' attribute to select a specific
     # page part. By default the 'part' attribute is set to body. Use the 'inherit'
     # attribute to specify that if a page does not have a content part by that name that
     # the tag should render the parent's content part. By default 'inherit' is set to
-    # 'false'.
+    # 'false'. Use the 'contextual' attribute to force a part inherited from a parent
+    # part to be evaluated in the context of the child page. By default 'contextual'
+    # is set to false.
     #
     define_tag 'content' do |tag|
       page = tag.locals.page
@@ -393,7 +395,7 @@ class PageContext < Radius::Context
     raise TagError.new(e.message)
   end
   
-  protected
+  private
   
     def render_error_message(message)
       "<div><strong>#{message}</strong></div>"
@@ -409,5 +411,9 @@ class PageContext < Radius::Context
     
     def tag_time_format(tag)
       (tag.attr['format'] || '%A, %B %d, %Y')
+    end
+    
+    def postgres?
+      ActiveRecord::Base.connection.adapter_name =~ /postgres/i
     end
 end

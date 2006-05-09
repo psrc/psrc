@@ -10,7 +10,7 @@ class ArchiveFinder
   class << self
     def year_finder(finder, year)
       new do |method, options|
-        add_condition(options, "YEAR(published_at) = ?", year)
+        add_condition(options, "#{date_part('year', 'published_at')} = ?", year)
         finder.find(method, options)
       end
     end
@@ -18,7 +18,7 @@ class ArchiveFinder
     def month_finder(finder, year, month)
       finder = year_finder(finder, year)
       new do |method, options|
-        add_condition(options, "MONTH(published_at) = ?", month)
+        add_condition(options, "#{date_part('month', 'published_at')} = ?", month)
         finder.find(method, options)
       end
     end
@@ -26,7 +26,7 @@ class ArchiveFinder
     def day_finder(finder, year, month, day)
       finder = month_finder(finder, year, month)
       new do |method, options|
-        add_condition(options, "DAY(published_at) = ?", day)
+        add_condition(options, "#{date_part('day', 'published_at')} = ?", day)
         finder.find(method, options)
       end
     end
@@ -45,5 +45,24 @@ class ArchiveFinder
         options[:conditions] = conditions
         options
       end
+      
+      def date_part(part, field)
+        case ActiveRecord::Base.connection.adapter_name
+        when /postgres/i
+          "DATE_PART('#{part.downcase}', #{field})"
+        when /sqlite/i
+          case part
+          when /year/i
+            "STRFTIME('%Y', #{field})"
+          when /month/i
+            "STRFTIME('%m', #{field})"
+          when /day/i
+            "STRFTIME('%d', #{field})"
+          end
+        else
+          "#{part.upcase}(#{field})"
+        end
+      end
+  
   end
 end

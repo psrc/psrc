@@ -5,13 +5,13 @@ class ArchiveBehaviorTest < Test::Unit::TestCase
 
   def test_child_url
     child = pages(:article)
-    assert_equal '/archive/2000/06/09/article/', child.url
+    assert_equal '/archive/2000/05/01/article/', child.url
   end
 
   def test_child_url__nil_published_at_date
-    child = pages(:article2)
+    child = pages(:article_draft)
     assert_nil child.published_at
-    assert_equal '/archive/' + Time.now.strftime('%Y/%m/%d') + '/article-2/', child.url
+    assert_equal '/archive/' + Time.now.strftime('%Y/%m/%d') + '/draft/', child.url
   end
 
   def test_find__year_index

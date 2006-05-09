@@ -136,7 +136,7 @@ article:
   slug: article
   status_id: 100
   parent_id: 12
-  published_at: 2000-06-09 08:41:07 -05:00
+  published_at: 2000-05-01 08:41:07 -05:00
 article2:
   id: 14
   title: Article Two
@@ -144,6 +144,7 @@ article2:
   slug: article-2
   status_id: 100
   parent_id: 12
+  published_at: 2000-06-09 08:42:04 -05:00
 article3:
   id: 44
   title: Article Three
@@ -168,6 +169,13 @@ article5:
   status_id: 100
   parent_id: 12
   published_at: 2001-08-06 03:32:31 -05:00
+article_draft:
+  id: 53
+  title: Draft Article
+  breadcrumb: Draft Article
+  slug: draft
+  status_id: 1
+  parent_id: 12
 draft:
   id: 15
   title: Draft Page

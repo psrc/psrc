@@ -128,7 +128,7 @@ class PageTest < Test::Unit::TestCase
   
   def test_find_by_url
     @page = pages(:homepage)
-    assert_equal pages(:article), @page.find_by_url('/archive/2000/06/09/article/')
+    assert_equal pages(:article), @page.find_by_url('/archive/2000/05/01/article/')
   end
 
   def test_find_by_url_class_method

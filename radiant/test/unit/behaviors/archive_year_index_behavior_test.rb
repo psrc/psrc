@@ -9,8 +9,8 @@ class ArchiveYearIndexBehaviorTest < Test::Unit::TestCase
   end
   
   def test_children_tag
-    assert_renders 'article article-3 article-4 ', '<r:archive:children:each><r:slug /> </r:archive:children:each>', '/archive/2000/'
-    assert_renders 'article article-3 article-4 ', '<r:archive:children:each><r:slug /> </r:archive:children:each>', '/archive/2000'
+    assert_renders 'article article-2 article-3 article-4 ', '<r:archive:children:each><r:slug /> </r:archive:children:each>', '/archive/2000/'
+    assert_renders 'article article-2 article-3 article-4 ', '<r:archive:children:each><r:slug /> </r:archive:children:each>', '/archive/2000'
   end
   
   include ArchiveIndexTests

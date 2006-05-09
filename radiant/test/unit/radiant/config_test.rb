@@ -2,10 +2,10 @@ require File.dirname(__FILE__) + '/../../test_helper'
 require 'radiant/config'
 
 class Radiant::ConfigTest < Test::Unit::TestCase
-  fixtures 'radiant/config'
-
   def setup
     @conf = Radiant::Config
+    set('test', 'cool')
+    set('foo', 'bar')
   end
   
   def test_brackets
@@ -35,4 +35,12 @@ class Radiant::ConfigTest < Test::Unit::TestCase
     assert_equal 'cool', h['test']
     assert h.size > 1
   end
+  
+  private
+    def set(key, value)
+      setting = Radiant::Config.find_by_key(key)
+      setting.destroy if setting
+      Radiant::Config.new(:key => key, :value => value).save
+    end
+
 end
