@@ -8,7 +8,7 @@ Radiant features:
 
  * An elegant user interface
  * Flexible templating with layouts, snippets, page parts, and a 
-   custom tagging language (Radius)
+   custom tagging language (Radius: http://radius.rubyforge.org)
  * Extensible with special page-oriented plugins called behaviors
  * Support for Markdown and Textile as well as traditional HTML
    (other filters are easy to write)
@@ -37,13 +37,15 @@ application.
 Once you have extracted the files into the directory where you would
 like to install Radiant:
 
-1. Edit config/database.yml making changes for your database setup.
+1. Create a MySQL/PostgreSQL/SQLite database for your Web site
 
-2. Run the database setup script:
+2. Edit config/database.yml making changes for your database setup
+
+3. Run the database setup script:
 
    % ruby db/setup.rb
 
-3. Start it like a normal Rails application. To test execute:
+4. Start it like a normal Rails application. To test execute:
 
    % script/server
    
@@ -64,12 +66,10 @@ db/setup.rb script creates a user called "admin" with a password of
 
 == Support
 
-Radiant is still in the development stages and has not been
-officially released. Hopefully, this won't hinder you from jumping on
-board and downloading it from the Subversion repository. To get
-started, head on over to our Trac powered dev site at
+There is a Trac powered dev site here:
+
 http://dev.radiantcms.org/.
 
-There is also a mailing list available here:
+And a mailing list here:
 
 http://lists.radiantcms.org/mailman/listinfo/radiant
