@@ -68,7 +68,7 @@ db/setup.rb script creates a user called "admin" with a password of
 
 There is a Trac powered dev site here:
 
-http://dev.radiantcms.org/.
+http://dev.radiantcms.org/
 
 And a mailing list here:
 
