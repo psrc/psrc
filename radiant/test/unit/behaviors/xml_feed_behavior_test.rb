@@ -18,7 +18,7 @@ class XMLFeedBehaviorTest < Test::Unit::TestCase
   end
   
   def test_rfc1123_date_tag
-    @page.published_at = Date.new(2004, 5, 2)
-    assert_renders 'Sun, 02 May 2004 04:00:00 GMT', '<r:rfc1123_date />'
+    @page.published_at = Time.utc(2004, 5, 2)
+    assert_renders 'Sun, 02 May 2004 00:00:00 GMT', '<r:rfc1123_date />'
   end
 end
