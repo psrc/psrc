@@ -66,10 +66,12 @@ db/setup.rb script creates a user called "admin" with a password of
 
 == Support
 
+The best place to get support is on the mailing list:
+
+http://radiantcms.org/mailing-list/
+
 There is a Trac powered dev site here:
 
 http://dev.radiantcms.org/
 
-And a mailing list here:
-
-http://radiantcms.org/mailing-list/
+Before filing a ticket please discuss it on the mailing list.
