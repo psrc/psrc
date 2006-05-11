@@ -80,6 +80,8 @@ announce "Creating the user 'admin' with password 'radiant'" do
   @admin = User.find(@admin.id)
   UserActionObserver.current_user = @admin
   @admin.created_by = @admin
+  @admin.password = 'radiant'
+  @admin.password_confirmation = 'radiant'
   @admin.save
 end
 
