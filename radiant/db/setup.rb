@@ -232,7 +232,7 @@ announce "Creating RSS feed for articles" do
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>Article RSS Feed/title>
+    <title>Article RSS Feed</title>
     <link>http://your-web-site.com<r:url /></link>
     <language>en-us</language>
     <ttl>40</ttl>
