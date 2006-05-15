@@ -6,21 +6,13 @@ class Admin::LayoutController; def rescue_action(e) raise e end; end
 
 class Admin::LayoutControllerTest < Test::Unit::TestCase
   fixtures :users, :layouts
-  test_helper :users, :layouts, :caching
+  test_helper :users, :layouts
   
   def setup
     @controller = Admin::LayoutController.new
     @request = ActionController::TestRequest.new
     @response = ActionController::TestResponse.new
     @request.session[:user] = users(:developer)
-    @cache = @controller.page_cache = FakePageCache.new
-    @layout_name = 'Test Layout'
-    @layout = layouts(:main)
-  end
-
-  def test_initialize
-    @controller = Admin::LayoutController.new
-    assert_kind_of PageCache, @controller.page_cache
   end
 
   def test_ancestors
@@ -43,19 +35,6 @@ class Admin::LayoutControllerTest < Test::Unit::TestCase
       assert_redirected_to page_index_url, "action: #{action}"
       assert_match /privileges/, flash[:error], "action: #{action}"
     end
-  end
-  
-  def test_pages_that_use_layout_expired_on_save
-    post :edit, :id => @layout.id, :layout => layout_params(:content => 'edited')
-    assert_redirected_to layout_index_url
-    assert_equal 2, @cache.expired_paths.size
-    assert_equal 0, (@cache.expired_paths - ['/page-with-layout/', '/another-page-with-layout/']).size
-  end
-  
-  def test_pages_that_use_layout_not_expired_on_save_when_invalid
-    post :edit, :id => @layout.id, :layout => layout_params(:name => 'x' * 1000)
-    assert_response :success
-    assert_equal 0, @cache.expired_paths.size
   end
   
 end

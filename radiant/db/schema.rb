@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(:version => 9) do
   create_table "layouts", :force => true do |t|
     t.column "name", :string, :limit => 100
     t.column "content", :text
+    t.column "content_type", :string, :limit => 40
     t.column "created_at", :datetime
     t.column "updated_at", :datetime
     t.column "created_by", :integer

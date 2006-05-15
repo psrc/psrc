@@ -45,6 +45,10 @@ module Behavior
     
     def process(request, response)
       @request, @response = request, response
+      if @page.layout
+        content_type = @page.layout.content_type.to_s.strip
+        @response.headers['Content-Type'] = content_type unless content_type.empty?
+      end
       page_headers.each { |k,v| @response.headers[k] = v }
       @response.body = render_page
       @request, @response = nil, nil
@@ -113,7 +117,7 @@ module Behavior
       end
     end
 
-    def render_page_part(part_name) #test
+    def render_page_part(part_name)
       lazy_initialize_parser_and_context
       part = @page.part(part_name)
       if part
@@ -123,17 +127,17 @@ module Behavior
       end
     end
 
-    def render_snippet(snippet) #test
+    def render_snippet(snippet)
       lazy_initialize_parser_and_context
       parse_object(snippet)
     end
     
-    def render_text(text) #test
+    def render_text(text)
       lazy_initialize_parser_and_context
       parse(text)
     end
     
-    def add_tags_to_child_context(behavior) #test
+    def add_tags_to_child_context(behavior)
       self.class.additional_child_tag_definition_blocks.each { |block| behavior.instance_eval &block }
     end
     
@@ -186,6 +190,5 @@ module Behavior
       def tag(*args, &block)
         @context.define_tag(*args, &block)
       end
-    
   end
 end

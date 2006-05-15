@@ -1,26 +1,27 @@
-require_dependency 'page_cache'
+require_dependency 'response_cache'
 
 class SiteController < ApplicationController
   session :off
   
   no_login_required
   
-  attr_accessor :config, :page_cache
+  attr_accessor :config, :cache
   
   def initialize
     @config = Radiant::Config
-    @page_cache = PageCache.instance
+    @cache = ResponseCache.instance
   end
 
   def show_page
     url = params[:url].to_s
-    if live? and (content = @page_cache[url])
-      render :text => content
+    if live? and (@cache.response_cached?(url))
+      @cache.update_response(url, response)
+      @performed_render = true
     else
       @page = find_page(url)
       unless @page.nil?
         @page.process(request, response)
-        @page_cache[url] = response.body if live? and @page.cache?
+        @cache.cache_response(url, response) if live? and @page.cache?
         @performed_render = true
       else
         render :template => 'site/not_found', :status => 404

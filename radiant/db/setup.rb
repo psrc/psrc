@@ -1,15 +1,68 @@
 #!/usr/bin/env ruby
-require File.dirname(__FILE__) + '/../config/environment'
+
+params = ARGV.map { |param| param.downcase.strip }
+force = !!(params.delete('--force') || params.delete('-f') )
+help = !!params.delete('--help')
+env = params.delete('development') || params.delete('production') || params.delete('test')
+
+if help or not params.empty?
+  if not params.empty?
+    puts "Invalid option."
+    puts
+  end
+  puts "Usage: #{File.basename($0)} [options] environment"
+  puts "Setup Radiant database for the appropriate environment."
+  puts
+  puts "Options:"
+  puts "  --force    do not display the overwrite warning"
+  puts "  --help     display this message"
+  puts
+  puts "For more information see http://radiantcms.org/."
+  exit
+end
+
+RAILS_ENV = case env
+when /production/i
+  'production'
+when /test/i
+  'test'
+else
+  'development'
+end
 
 def announce(something)
-  print "#{something}..."
+  $defout.print "#{something}..."
+  $defout.flush
   yield
-  puts "OK"
+  $defout.puts "OK"
+end
+
+puts "Execute `setup.rb --help` for more options."
+puts
+
+announce "Loading #{RAILS_ENV} environment" do
+  require File.dirname(__FILE__) + '/../config/environment'
+end
+
+unless force
+  print "\nWARNING! This script will overwrite any information currently stored in\n" + 
+        "the database #{(ActiveRecord::Base.connection.current_database).inspect}. " + 
+        "Are you sure you want to continue? [Yn] "
+  case gets.strip.downcase
+  when "yes", "y", ""
+    puts
+  when "no", "n"
+    puts "Setup canceled."
+    exit
+  else
+    puts "Invalid option."
+    exit
+  end
 end
 
 announce "Creating database" do
   puts
-  ActiveRecord::Schema.define(:version => 8) do
+  ActiveRecord::Schema.define(:version => 9) do
     create_table "config", :force => true do |t|
       t.column "key", :string, :limit => 40, :default => "", :null => false
       t.column "value", :string, :default => ""
@@ -19,6 +72,7 @@ announce "Creating database" do
     create_table "layouts", :force => true do |t|
       t.column "name", :string, :limit => 100
       t.column "content", :text
+      t.column "content_type", :string, :limit => 40
       t.column "created_at", :datetime
       t.column "updated_at", :datetime
       t.column "created_by", :integer
@@ -75,7 +129,7 @@ announce "Creating database" do
   end
 end
 
-announce "Creating the user 'admin' with password 'radiant'" do
+announce "Creating user 'admin' with password 'radiant'" do
   @admin = User.create :name => 'Administrator', :login => 'admin', :password => 'radiant', :password_confirmation => 'radiant', :admin => true
   @admin = User.find(@admin.id)
   UserActionObserver.current_user = @admin
@@ -86,18 +140,20 @@ announce "Creating the user 'admin' with password 'radiant'" do
 end
 
 announce "Initializing configuration" do
-  Radiant::Config['admin.title'   ] = 'Radiant CMS'
-  Radiant::Config['admin.subtitle'] = 'Publishing for Small Teams'
-  Radiant::Config['default.parts' ] = 'body, extended'
+  config = Radiant::Config
+  config['admin.title'   ] = 'Radiant CMS'
+  config['admin.subtitle'] = 'Publishing for Small Teams'
+  config['default.parts' ] = 'body, extended'
 end
 
-announce "Create initial layout" do
+announce "Creating main layout" do
   @layout = Layout.create :name => 'Normal', :content => <<-HTML
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
   <head>
     <title><r:title /></title>
+    <link href="/rss/" rel="alternate" title="RSS" type="application/rss+xml" />
     <style type="text/css">
     <!--
       body {
@@ -121,44 +177,103 @@ announce "Create initial layout" do
   HTML
 end
 
+announce "Creating XML layout" do
+  @xml_layout = Layout.create :name => 'XML Feed', :content_type => 'text/xml', :content => '<r:content />'
+end
+
+@page_parent = nil
+@page_layout = @layout
+
+def create_page(options)
+  options.symbolize_keys!
+  options = {
+    :breadcrumb => options[:title],
+    :slug => options[:title].strip.downcase.gsub(/\W+/, '-'),
+    :status_id => 100,
+    :layout => @page_layout,
+    :parent => @page_parent
+  }.merge(options)
+  body = options.delete(:body)
+  filter_id = options.delete(:filter_id)
+  page = Page.create(options)
+  PagePart.create(:page => page, :name => 'body', :filter_id => filter_id, :content => body)
+  page
+end
+
 announce "Creating home page" do
-  @home_page = Page.create :title => 'Home Page', :slug => '/', :breadcrumb => 'Home', :status_id => 100, :layout => @layout
-  PagePart.create :name => 'body', :content => <<-HTML, :page => @home_page
+  @home_page = create_page :title => 'Home Page', :slug => '/', :breadcrumb => 'Home', :body => <<-HTML
 <r:find url="/articles/">
 <r:children:each limit="5" order="desc">
 <div class="entry">
-  <h3><r:link /></h3>
+  <h3><r:link /> <small><r:author /></small></h3>
   <r:content />
   <r:if_content part="extended"><r:link anchor="extended">Continue Reading&#8230;</r:link></r:if_content>
 </div>
 </r:children:each>
 </r:find>
   HTML
+  @page_parent = @home_page
 end
-  
-announce "Creating archives page" do
-  @archives = Page.create :title => 'Articles', :slug => 'articles', :breadcrumb => 'Articles', :status_id => 100, :parent => @home_page, :layout => @layout, :behavior_id => 'Archive' 
-  PagePart.create :name => 'body', :content => <<-HTML, :page => @archives
+
+announce "Creating file not found error page" do
+  @page_missing_page = create_page :title => 'File Not Found', :behavior_id => 'Page Missing', :filter_id => 'Textile', :body => <<-HTML
+The file you were looking for could not be found.
+
+Attempted URL: @<r:attempted_url />@
+
+It is possible that you typed the URL incorrectly or that you clicked on a bad link.
+
+"<< Back to Home Page":/
+  HTML
+end
+
+announce "Creating RSS feed for articles" do
+  @rss_page = create_page :title => 'RSS Feed', :slug => 'rss', :layout => @xml_layout, :body => <<-XML
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Article RSS Feed/title>
+    <link>http://your-web-site.com<r:url /></link>
+    <language>en-us</language>
+    <ttl>40</ttl>
+    <description>The main blog feed for my Web site.</description>
+    <r:find url="/articles/">
+    <r:children:each limit="10">
+        <item>
+          <title><r:title /></title>
+          <description><r:escape_html><r:content /></r:escape_html></description>
+          <pubDate><r:rfc1123_date /></pubDate>
+          <guid>http://your-web-site.com<r:url /></guid>
+          <link>http://your-web-site.com<r:url /></link>
+        </item>
+    </r:children:each>
+    </r:find>
+  </channel>
+</rss>
+  XML
+end
+
+announce "Creating articles index page" do
+  @archives = create_page :title => 'Articles', :behavior_id => 'Archive', :body => <<-HTML
 <ul>
 <r:children:each order="desc">
   <li><r:link /></li>
 </r:children:each>
 </ul>
   HTML
+  @page_parent = @archives
 end
 
 announce "Creating first post" do
-  @first_post = Page.create :title => 'First Post', :slug => 'first-post', :breadcrumb => 'First Post', :status_id => 100, :parent => @archives, :layout => @layout
-  PagePart.create :name => 'body', :filter_id => 'Textile', :content => <<-HTML, :page => @first_post
+  @first_post = create_page :title => 'First Post', :filter_id => 'Textile', :body => <<-TEXTILE
 This post uses "textile":http://www.textism.com/tools/textile/.
-  HTML
+  TEXTILE
 end
 
 announce "Creating second post" do
-  @second_post = Page.create :title => 'Second Post', :slug => 'second-post', :breadcrumb => 'Second Post', :status_id => 100, :parent => @archives, :layout => @layout
-  PagePart.create :name => 'body', :filter_id => 'Markdown', :content => <<-HTML, :page => @second_post
+  @second_post = create_page :title => 'Second Post', :filter_id => 'Markdown', :body => <<-MARKDOWN
 This post uses **Markdown**.
-  HTML
+  MARKDOWN
 end
 
 announce "Creating snippets" do
@@ -176,4 +291,5 @@ announce "Creating snippets" do
   HTML
 end
 
+puts
 puts "Finished."

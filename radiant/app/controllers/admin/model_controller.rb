@@ -1,8 +1,15 @@
 class Admin::AbstractModelController < ApplicationController
+  attr_accessor :cache
+  
   def self.model(*symbols)
     first = symbols.first
     class_eval %{ @@model_class = "#{first}".singularize.camelize.constantize }
     super
+  end
+
+  def initialize
+    super
+    @cache = ResponseCache.instance
   end
 
   def index
@@ -91,6 +98,7 @@ class Admin::AbstractModelController < ApplicationController
       if request.post?
         model.attributes = params[model_symbol]
         if save
+          cache.clear
           announce_saved(options[:saved_message])
           redirect_to options[:redirect_to] || model_index_url
           return false

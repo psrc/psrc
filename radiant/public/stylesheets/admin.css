@@ -272,6 +272,7 @@ h1 {
 	margin-right: -20px;
 	padding: 20px;
 	padding-top: 15px;
+	padding-bottom: 10px;
 }
 #content .form-area h3 {
 	font-size: 100%;
@@ -351,8 +352,6 @@ h1 {
 }
 #content table.fieldset td.label .optional {
   color: #929488;
-}
-#content table.fieldset td.field {
 }
 #content table.fieldset td.field .textbox {
   width: 100%;

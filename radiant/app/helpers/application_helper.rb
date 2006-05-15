@@ -14,7 +14,7 @@ module ApplicationHelper
   end
   
   def subtitle
-    config['admin.subtitle'] || 'Web Publishing for Small Teams'
+    config['admin.subtitle'] || 'Publishing for Small Teams'
   end
   
   def logged_in?
@@ -52,6 +52,10 @@ module ApplicationHelper
 	  tabs.join(separator)
   end
   
+  def separator
+    %{ <span class="separator"> | </span> }
+  end
+    
   def current_url?(options)
     url = case
     when Hash
@@ -86,10 +90,6 @@ module ApplicationHelper
     user and (user.developer? or user.admin?)
   end
   
-  def separator
-    %{ <span class="separator"> | </span> }
-  end
-  
   def focus(field_name)
     %{
     <script type="text/javascript">
@@ -106,13 +106,32 @@ module ApplicationHelper
       login = updated_by ? updated_by.login : nil
       time = (model.updated_at || model.created_at)
       if login or time
-        html = %{<p style="clear: left"><small>Updated } 
+        html = %{<p style="clear: left"><small>Last updated } 
         html << %{by #{login} } if login
-        
         html << %{at #{ time.strftime("%I:%M <small>%p</small> on %B %d, %Y") }} if time
         html << %{</small></p>}
         html
       end
+    else
+      %{<p class="clear">&nbsp;</p>}
     end
+  end
+  
+  def meta_visible(symbol)
+    v = case symbol
+    when :meta_more
+      not meta_errors?
+    when :meta, :meta_less
+      meta_errors?
+    end
+    ' style="display: none"' unless v
+  end
+  
+  def meta_errors?
+    false
+  end
+  
+  def toggle_javascript_for(id)
+    "javascript:Element.toggle('#{id}', 'more-#{id}', 'less-#{id}')"
   end
 end

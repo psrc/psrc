@@ -43,7 +43,7 @@ like to install Radiant:
 
 3. Run the database setup script:
 
-   % ruby db/setup.rb
+   % ruby db/setup.rb production
 
 4. Start it like a normal Rails application. To test execute:
 
@@ -51,6 +51,10 @@ like to install Radiant:
    
    And open your Web browser on port 3000 (http://localhost:3000).
    
+When using Radiant on a production system you may also need to set
+permissions on the public and cache directories so that your Web server
+can access those directories with the user that it runs under.
+
 Once you've installed Radiant on your own Web site, be sure to add your
 name and Web site to the list of radiant users:
 
@@ -70,8 +74,9 @@ The best place to get support is on the mailing list:
 
 http://radiantcms.org/mailing-list/
 
-There is a Trac powered dev site here:
+There is also a Trac powered dev site available here:
 
 http://dev.radiantcms.org/
 
-Before filing a ticket please discuss it on the mailing list.
+Before filing a ticket please discuss your proposed changes on the
+mailing list.

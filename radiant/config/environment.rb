@@ -62,6 +62,6 @@ Dir["#{RAILS_ROOT}/app/behaviors/*_behavior.rb"].each do |behavior|
   require_dependency behavior
 end
 
-# Page Caching Defaults
-PageCache.defaults[:directory] = ActionController::Base.page_cache_directory
-PageCache.defaults[:logger]    = ActionController::Base.logger
+# Response Caching Defaults
+ResponseCache.defaults[:directory] = ActionController::Base.page_cache_directory
+ResponseCache.defaults[:logger]    = ActionController::Base.logger

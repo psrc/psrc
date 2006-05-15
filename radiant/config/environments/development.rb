@@ -14,7 +14,7 @@ config.breakpoint_server = true
 # Show full error reports and caching is turned off, but PageCache caching is on
 config.action_controller.consider_all_requests_local = true
 config.action_controller.perform_caching             = false
-PageCache.defaults[:perform_caching]                 = true
+ResponseCache.defaults[:perform_caching]             = true
 
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false

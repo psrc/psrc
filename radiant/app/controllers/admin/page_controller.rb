@@ -1,11 +1,11 @@
 class Admin::PageController < ApplicationController
   model :page
   
-  attr_accessor :page_cache
+  attr_accessor :cache
 
   def initialize
     super
-    @page_cache = PageCache.instance
+    @cache = ResponseCache.instance
   end
   
   def index
@@ -41,7 +41,7 @@ class Admin::PageController < ApplicationController
 
   def clear_cache
     if request.post?
-      @page_cache.clear
+      @cache.clear
       announce_cache_cleared
       redirect_to page_index_url
     else
@@ -102,7 +102,7 @@ class Admin::PageController < ApplicationController
         if @page.save
           names_to_remove.each { |name| @page.parts.find_by_name(name).destroy }
           parts_to_update.each { |part| part.save }
-          @page_cache.expire(@page.url)
+          @cache.expire_response(@page.url)
           announce_page_saved
           redirect_to page_index_url
           return false

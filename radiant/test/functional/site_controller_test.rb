@@ -12,19 +12,18 @@ class SiteControllerTest < Test::Unit::TestCase
     @controller = SiteController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    @cache      = @controller.page_cache
+    @cache      = @controller.cache
     @cache.perform_caching = false
+    @cache.clear
   end
 
   def test_initialize
     assert_equal Radiant::Config, @controller.config
-    
-    cache = @controller.page_cache
-    assert_kind_of PageCache, cache
+    assert_kind_of ResponseCache, @cache
   end
 
-  def test_show_page
-    get :show_page, :url => '' #root node
+  def test_show_page__home_page
+    get :show_page, :url => ''
     assert_response :success
     assert_equal 'This is the body portion of the Ruby home page.', @response.body
   end
@@ -108,7 +107,7 @@ class SiteControllerTest < Test::Unit::TestCase
   end
   
   def test_show_page__cached
-    @controller.page_cache.perform_caching = true
+    @controller.cache.perform_caching = true
     @cache.clear
     get :show_page, :url => 'documentation'
     assert_response :success
@@ -116,7 +115,7 @@ class SiteControllerTest < Test::Unit::TestCase
   end
   
   def test_show_page__no_cache
-    @controller.page_cache.perform_caching = true
+    @controller.cache.perform_caching = true
     @cache.clear
     get :show_page, :url => 'no-cache'
     assert_response :success
@@ -124,7 +123,7 @@ class SiteControllerTest < Test::Unit::TestCase
   end
   
   def test_show_page__no_cache_on_dev_site
-    @controller.page_cache.perform_caching = true
+    @controller.cache.perform_caching = true
     @request.host = 'devsite.com'
     @cache.clear
     get :show_page, :url => 'documentation'
@@ -133,9 +132,9 @@ class SiteControllerTest < Test::Unit::TestCase
   end
   
   def test_show_page__no_cache_on_dev_site__cached
-    @controller.page_cache.perform_caching = true
+    @controller.cache.perform_caching = true
     @request.host = 'devsite.com'
-    @cache.cache('documentation', 'wildly different')
+    @cache.cache_response('documentation', response(:body => 'expired body'))
     get :show_page, :url => 'documentation'
     assert_response :success
     assert_equal 'This is the documentation section.', @response.body
@@ -144,6 +143,14 @@ class SiteControllerTest < Test::Unit::TestCase
   private
   
     def cache_file(path)
-      "#{@cache.directory}/#{path}.html"
+      "#{@cache.directory}/#{path}.yml"
+    end
+    
+    def response(options = {})
+      r = ActionController::TestResponse.new
+      options.each do |k, v|
+        r.send("#{k}=", v)
+      end
+      r
     end
 end

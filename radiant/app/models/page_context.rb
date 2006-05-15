@@ -323,6 +323,27 @@ class PageContext < Radius::Context
     end
     
     #
+    # <r:escape_html>...</r:escape_html>
+    #
+    # Escapes angle brackets, etc...
+    #
+    define_tag "escape_html" do |tag|
+      CGI.escapeHTML(tag.expand)
+    end
+    
+    #
+    # <r:rfc1123_date />
+    #
+    # Outputs the date using the format mandated by RFC 1123. (Ideal for RSS feeds.)
+    #
+    define_tag "rfc1123_date" do |tag|
+      page = tag.locals.page
+      if date = page.published_at || page.created_at
+        CGI.rfc1123_date(date.to_time)
+      end
+    end
+    
+    #
     # <r:navigation urls="[Title: url; Title: url; ...]">
     #   <r:normal><a href="<r:url />"><r:title /></a></r:normal>
     #   <r:here><strong><r:title /></strong></r:here>

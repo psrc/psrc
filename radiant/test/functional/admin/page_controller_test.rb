@@ -21,7 +21,7 @@ class Admin::PageControllerTest < Test::Unit::TestCase
   end
   
   def test_initialize
-    assert_kind_of PageCache, @controller.page_cache
+    assert_kind_of ResponseCache, @controller.cache
   end
 
   def test_index
@@ -54,7 +54,7 @@ class Admin::PageControllerTest < Test::Unit::TestCase
     assert_equal 'me', @page.breadcrumb
   end
   def test_new__post
-    @cache = @controller.page_cache = FakePageCache.new
+    @cache = @controller.cache = FakeResponseCache.new
     post :new, :parent_id => '1', :page => page_params
     assert_redirected_to page_index_url
     assert_match /saved/, flash[:notice]
@@ -143,18 +143,18 @@ class Admin::PageControllerTest < Test::Unit::TestCase
   end
   
   def test_clear_cache
-    @cache = @controller.page_cache = FakePageCache.new
+    @cache = @controller.cache = FakeResponseCache.new
     get :clear_cache
     assert_response :success
     assert_match /Do.*?not.*?access/i, @response.body
-    assert_equal false, @cache.cleared
+    assert_equal false, @cache.cleared?
   end
   def test_clear_cache__post
-    @cache = @controller.page_cache = FakePageCache.new
+    @cache = @controller.cache = FakeResponseCache.new
     post :clear_cache
     assert_redirected_to page_index_url
     assert_match /cache.*clear/i, flash[:notice]
-    assert_equal true, @cache.cleared
+    assert_equal true, @cache.cleared?
   end
   
   def test_add_part

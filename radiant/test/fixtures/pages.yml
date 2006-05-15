@@ -326,3 +326,11 @@ missing:
   status_id: 100
   parent_id: 50
   published_at: 2006-02-05 08:44:07 -05:00
+page_with_content_type_set_on_layout:
+  id: 54
+  title: Page With Content Type Set On Layout
+  slug: page_with_content_type_set_on_layout
+  status_id: 100
+  layout_id: 2
+  parent_id: 1
+  published_at: 2006-02-05 08:44:07 -05:00

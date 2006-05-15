@@ -3,7 +3,7 @@ require_dependency 'admin/model_controller'
 class Admin::LayoutController < Admin::AbstractModelController
   model :layout
   
-  attr_accessor :page_cache
+  attr_accessor :cache
   
   only_allow_access_to :index, :new, :edit, :remove,
     :when => [:developer, :admin],
@@ -12,12 +12,12 @@ class Admin::LayoutController < Admin::AbstractModelController
 
   def initialize
     super
-    @page_cache = PageCache.instance
+    @cache = ResponseCache.instance
   end
   
   def save
     saved = super
-    model.pages.each { |page| @page_cache.expire(page.url) } if saved
+    model.pages.each { |page| @cache.expire_response(page.url) } if saved
     saved
   end
 end

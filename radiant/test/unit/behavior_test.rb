@@ -36,6 +36,12 @@ class BehaviorTest < Test::Unit::TestCase
     assert_equal 'TestRequest', @response.headers['request']
     assert_equal 'TestResponse', @response.headers['response']
   end
+  def test_process__page_with_content_type_set_on_layot
+    @behavior = pages(:page_with_content_type_set_on_layout).behavior
+    @behavior.process(@request, @response)
+    assert_response :success
+    assert_equal 'text/html;charset=utf8', @response.headers['Content-Type']
+  end
 
   def test_child_url
     setup_for_page(:parent)
@@ -70,7 +76,7 @@ class BehaviorTest < Test::Unit::TestCase
     assert_render_with_base_behavior :radius, expected
   end
   def test_render_page__page_with_layout
-    expected = "<html>\n  <head>\n    <title>Page With Layout</title>\n  </head>\n  <body>\n    Page With Layout\n  </body>\n</html>"
+    expected = "<html>\n  <head>\n    <title>Page With Layout</title>\n  </head>\n  <body>\n    Page With Layout\n  </body>\n</html>\n"
     assert_render_with_base_behavior :page_with_layout, expected
   end
 
@@ -131,11 +137,6 @@ class BehaviorTest < Test::Unit::TestCase
     assert_equal 'Page Missing', found.behavior_id
   end
   
-  
-  def test_child_page_defaults
-    # To-do
-  end
-  
   def test_page_config
     setup_for_page(:page_with_yaml_config)
     config = @behavior.page_config
@@ -146,6 +147,22 @@ class BehaviorTest < Test::Unit::TestCase
     setup_for_page(:homepage)
     config = @behavior.page_config
     assert_equal Hash.new, @behavior.page_config
+  end
+  
+  def test_child_page_defaults
+    # TODO: allow behaviors to define child page defaults
+  end
+  
+  def test_render_page_part
+    # TODO: test #render_page_part
+  end
+  
+  def test_render_text
+    # TODO: test #render_text
+  end
+  
+  def test_add_tags_to_child_context
+    # TODO: test #add_tags_to_child_context
   end
   
   private

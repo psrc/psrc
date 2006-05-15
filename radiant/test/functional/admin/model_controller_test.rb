@@ -18,17 +18,23 @@ class Admin::AbstractModelControllerTest < Test::Unit::TestCase
   end
 
   fixtures :users, :layouts
-  test_helper :layouts
+  test_helper :layouts, :caching
   
   def setup
     @controller = TestController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
     @request.session[:user] = users(:existing)
+    @cache = @controller.cache = FakeResponseCache.new
     
     @layout_name = "Test Layout"
     
     destroy_test_layout
+  end
+  
+  def test_initialize
+    @controller = TestController.new
+    assert_kind_of ResponseCache, @controller.cache
   end
 
   def test_index
@@ -108,12 +114,30 @@ class Admin::AbstractModelControllerTest < Test::Unit::TestCase
       assert_match /deleted/, flash[:notice]
     end
   end
+  
+  def test_clears_cache_on_save
+    custom_routes do
+      @layout = layouts(:main)
+      post :edit, :id => @layout.id, :layout => layout_params(:content => 'edited')
+      assert_redirected_to layout_index_url
+      assert_equal true, @cache.cleared?
+    end
+  end
+  
+  def test_not_cleared_when_invalid
+    custom_routes do
+      @layout = layouts(:main)
+      post :edit, :id => @layout.id, :layout => layout_params(:name => 'x' * 1000)
+      assert_response :success
+      assert_equal false, @cache.cleared?
+    end
+  end
 
   private
   
     def custom_routes
       with_routing do |set|
-        set.draw { set.connect ':controller/:action' }
+        set.draw { set.connect ':controller/:action/:id' }
         yield
       end
     end

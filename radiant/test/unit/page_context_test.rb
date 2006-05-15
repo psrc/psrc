@@ -249,6 +249,15 @@ class PageContextTest < Test::Unit::TestCase
     assert_parse_output 'a-great-day-for-ruby another-great-day-for-ruby ', %{<r:find url="/news/"><r:children:each><r:slug /> </r:children:each></r:find>}
   end
   
+  def test_tag_escape_html
+    assert_parse_output '&lt;strong&gt;a bold move&lt;/strong&gt;', '<r:escape_html><strong>a bold move</strong></r:escape_html>'
+  end
+  
+  def test_tag_rfc1123_date
+    @page.published_at = Time.utc(2004, 5, 2)
+    assert_parse_output 'Sun, 02 May 2004 00:00:00 GMT', '<r:rfc1123_date />'
+  end
+  
   def test_tag_missing
     assert_parse_output_match "undefined tag `missing'", '<r:missing />'
   end

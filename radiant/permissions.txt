@@ -41,7 +41,7 @@ Status:
 Versions:
   -- when a page's status is changed to published the current version is marked as published
   -- if a published page is edited a new version of the page is created and marked as Draft
-     if you are a Writer or Reviewed if you are an Editor
+     if you are a Writer or the page is marked as Reviewed if you are an Editor
   -- anyone can go back in time and select a version to become the current version (of course
      only Publishers could change that version's status to published)
-  -- Publisher can move a page to hidden status to take it offline
+  -- only a Publisher can move a page to hidden status to take it offline

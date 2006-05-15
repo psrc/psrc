@@ -1,4 +1,28 @@
 module Radiant
+  #
+  # The Radiant::Config object emulates a hash with simple bracket methods
+  # which allow you to get and set values in the configuration table:
+  #
+  #   Radiant::Config['setting.name'] = 'value'
+  #   Radiant::Config['setting.name'] #=> "value"
+  #
+  # Currently, there is not a way to edit configuration through the admin
+  # system so it must be done manually. The console script is probably the
+  # easiest way to this:
+  #
+  #   % script/console production
+  #   Loading production environment.
+  #   >> Radiant::Config['setting.name'] = 'value'
+  #   => "value"
+  #   >> 
+  #
+  # Radiant currently uses the following settings:
+  #
+  # admin.title    :: the title of the admin system
+  # admin.subtitle :: the subtitle of the admin system
+  # default.parts  :: a comma separated list of default page parts
+  # dev.host       :: the hostname where draft pages are viewable
+  #
   class Config < ActiveRecord::Base
     set_table_name "config"
 
