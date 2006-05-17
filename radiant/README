@@ -47,7 +47,7 @@ like to install Radiant:
 
 4. Start it like a normal Rails application. To test execute:
 
-   % script/server
+   % script/server production
    
    And open your Web browser on port 3000 (http://localhost:3000).
    

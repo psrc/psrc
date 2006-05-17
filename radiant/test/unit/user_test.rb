@@ -110,6 +110,11 @@ class UserTest < Test::Unit::TestCase
     assert @user.save, "Errors: #{@user.errors.inspect}"
     assert_equal User.sha1('cool beans'), @user.password
   end
+  
+  def test_save__existing_but_same_password
+    assert @user.save && @user.save
+    assert_equal User.sha1('coolness'), @user.password
+  end
 
   # Class Methods
   

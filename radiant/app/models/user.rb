@@ -55,11 +55,13 @@ class User < ActiveRecord::Base
       self.password = self.class.sha1(password)
     end
   
-    before_update :encrypt_password_unless_empty
-    def encrypt_password_unless_empty
-      if password.empty?
-        user = self.class.find(self.id)
+    before_update :encrypt_password_unless_empty_or_unchanged
+    def encrypt_password_unless_empty_or_unchanged
+      user = self.class.find(self.id)
+      case password
+      when ''
         self.password = user.password
+      when user.password  
       else
         encrypt_password
       end
