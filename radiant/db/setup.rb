@@ -21,14 +21,7 @@ if help or not params.empty?
   exit
 end
 
-RAILS_ENV = case env
-when /production/i
-  'production'
-when /test/i
-  'test'
-else
-  'development'
-end
+RAILS_ENV = (env || 'development').downcase
 
 def announce(something)
   $defout.print "#{something}..."
@@ -45,18 +38,20 @@ announce "Loading #{RAILS_ENV} environment" do
 end
 
 unless force
-  print "\nWARNING! This script will overwrite any information currently stored in\n" + 
+  puts
+  print "WARNING! This script will overwrite any information currently stored in\n" + 
         "the database #{(ActiveRecord::Base.configurations[RAILS_ENV]['database']).inspect}. " + 
         "Are you sure you want to continue? [Yn] "
   case $stdin.gets.strip.downcase
   when "yes", "y", ""
     puts
   when "no", "n"
+    puts
     puts "Setup canceled."
     exit
   else
+    puts
     puts "Invalid option."
-    exit
   end
 end
 

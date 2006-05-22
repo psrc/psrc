@@ -18,8 +18,3 @@ ResponseCache.defaults[:perform_caching]             = true
 
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
-
-# Auto-require models (solves problem with models failing to load)
-Dir["#{RAILS_ROOT}/app/models/**/*.rb"].each do |model|
-  require_dependency model
-end

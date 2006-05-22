@@ -1,8 +1,8 @@
 PERMISSIONS SYSTEM ROADMAP
 
 
-First Cut (Completed)
----------------------
+First Pass (Completed)
+----------------------
 
 Roles:
   Administrator = Super user
