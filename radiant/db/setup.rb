@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
 params = ARGV.map { |param| param.downcase.strip }
-force = !!(params.delete('--force') || params.delete('-f') )
-help = !!params.delete('--help')
+force = !!( params.delete('--force') || params.delete('-f') )
+help = !!( params.delete('--help') || params.delete('-h') )
 env = params.delete('development') || params.delete('production') || params.delete('test')
 
 if help or not params.empty?
@@ -17,7 +17,7 @@ if help or not params.empty?
   puts "  --force    do not display the overwrite warning"
   puts "  --help     display this message"
   puts
-  puts "For more information see http://radiantcms.org/."
+  puts "For more information visit http://radiantcms.org/."
   exit
 end
 
@@ -46,9 +46,9 @@ end
 
 unless force
   print "\nWARNING! This script will overwrite any information currently stored in\n" + 
-        "the database #{(ActiveRecord::Base.connection.current_database).inspect}. " + 
+        "the database #{(ActiveRecord::Base.configurations[RAILS_ENV]['database']).inspect}. " + 
         "Are you sure you want to continue? [Yn] "
-  case gets.strip.downcase
+  case $stdin.gets.strip.downcase
   when "yes", "y", ""
     puts
   when "no", "n"

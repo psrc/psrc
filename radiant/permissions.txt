@@ -23,7 +23,7 @@ Second Pass
 -----------
 
 Roles:
-  Administrator = Super user--can do everything
+  Administrator = Super user--can do everything.
   Publisher = Can change status to published (live).
   Developer = View Content or Snippets, Create and edit layouts.
   Writer = View and Create Content or Snippets (Can't edit something that has been reviewed.)
