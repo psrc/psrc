@@ -11,7 +11,7 @@ config.whiny_nils        = true
 # Enable the breakpoint server that script/breakpointer connects to
 config.breakpoint_server = true
 
-# Show full error reports and caching is turned off, but PageCache caching is on
+# Show full error reports and caching is turned off, but ResponseCache caching is on
 config.action_controller.consider_all_requests_local = true
 config.action_controller.perform_caching             = false
 ResponseCache.defaults[:perform_caching]             = true
