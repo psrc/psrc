@@ -75,6 +75,11 @@ class PageContextTest < Test::Unit::TestCase
     assert_parse_output_match /^(draft |)article article-2 article-3 article-4 article-5( draft|) $/, '<r:children:each status="all"><r:slug /> </r:children:each>'
   end
   
+  def test_tag_children_each_header
+    setup_for_page(:archive)
+    assert_parse_output '[May/00] article [Jun/00] article-2 article-3 [Aug/00] article-4 [Aug/01] article-5 ', '<r:children:each><r:header>[<r:date format="%b/%y" />] </r:header><r:slug /> </r:children:each>'
+  end
+  
   def test_tag_children_count
     assert_parse_output '3', '<r:children:count />'
   end

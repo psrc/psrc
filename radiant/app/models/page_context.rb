@@ -129,6 +129,7 @@ class PageContext < Radius::Context
       
       result = []
       children = tag.locals.children
+      tag.locals.previous_header_container = [] # a clever way of preserving the previous header using tag.locals
       children.find(:all, options).each do |item|
         tag.locals.child = item
         tag.locals.page = item
@@ -146,6 +147,21 @@ class PageContext < Radius::Context
     define_tag 'children:each:child' do |tag|
       tag.locals.page = tag.locals.child
       tag.expand
+    end
+
+    #
+    # <header>...</r:header>
+    #
+    # Renders the tag contents only if the contents do not match the previous header. This
+    # is extremely useful for rendering date headers for a list of child pages.
+    #
+    define_tag 'children:each:header' do |tag|
+      previous_header_container = tag.locals.previous_header_container
+      header = tag.expand
+      unless header == previous_header_container.first
+        previous_header_container[0] = header
+        header
+      end
     end
 
     #
