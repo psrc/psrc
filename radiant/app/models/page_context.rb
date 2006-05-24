@@ -129,7 +129,7 @@ class PageContext < Radius::Context
       
       result = []
       children = tag.locals.children
-      tag.locals.previous_header_container = [] # a clever way of preserving the previous header using tag.locals
+      tag.locals.previous_headers = {}
       children.find(:all, options).each do |item|
         tag.locals.child = item
         tag.locals.page = item
@@ -150,16 +150,31 @@ class PageContext < Radius::Context
     end
 
     #
-    # <header>...</r:header>
+    # <header [name="header_name"] [restart="name1[;name2;...]"]>...</r:header>
     #
     # Renders the tag contents only if the contents do not match the previous header. This
     # is extremely useful for rendering date headers for a list of child pages.
     #
+    # If you would like to use several header blocks you may use the 'name' attribute to
+    # name the header. When a header is named it will not restart until another header of
+    # the same name is different.
+    #
+    # Using the 'restart' attribute you can cause other named headers to restart when the
+    # present header changes. Simply specify the names of the other headers in a semicolon
+    # separated list.
+    #
     define_tag 'children:each:header' do |tag|
-      previous_header_container = tag.locals.previous_header_container
+      previous_headers = tag.locals.previous_headers
+      name = tag.attr['name'] || :unnamed
+      restart = (tag.attr['restart'] || '').split(';')
       header = tag.expand
-      unless header == previous_header_container.first
-        previous_header_container[0] = header
+      unless header == previous_headers[name]
+        previous_headers[name] = header
+        unless restart.empty?
+          restart.each do |n|
+            previous_headers[n] = nil
+          end
+        end
         header
       end
     end

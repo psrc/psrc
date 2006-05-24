@@ -79,6 +79,21 @@ class PageContextTest < Test::Unit::TestCase
     setup_for_page(:archive)
     assert_parse_output '[May/00] article [Jun/00] article-2 article-3 [Aug/00] article-4 [Aug/01] article-5 ', '<r:children:each><r:header>[<r:date format="%b/%y" />] </r:header><r:slug /> </r:children:each>'
   end
+  def test_tag_children_each_header_with_name_attribute
+    setup_for_page(:archive)
+    assert_parse_output '[2000] (May) article (Jun) article-2 article-3 (Aug) article-4 [2001] article-5 ', %{<r:children:each><r:header name="year">[<r:date format='%Y' />] </r:header><r:header name="month">(<r:date format="%b" />) </r:header><r:slug /> </r:children:each>}  
+  end
+  def test_tag_children_each_header_with_restart_attribute
+    setup_for_page(:archive)
+    assert_parse_output(
+      '[2000] (May) article (Jun) article-2 article-3 (Aug) article-4 [2001] (Aug) article-5 ',
+      %{<r:children:each><r:header name="year" restart="month">[<r:date format='%Y' />] </r:header><r:header name="month">(<r:date format="%b" />) </r:header><r:slug /> </r:children:each>}
+    )
+    assert_parse_output(
+      '[2000] (May) <01> article (Jun) <09> article-2 <10> article-3 (Aug) <06> article-4 [2001] (Aug) <06> article-5 ',
+      %{<r:children:each><r:header name="year" restart="month;day">[<r:date format='%Y' />] </r:header><r:header name="month" restart="day">(<r:date format="%b" />) </r:header><r:header name="day"><<r:date format='%d' />> </r:header><r:slug /> </r:children:each>}
+    )
+  end
   
   def test_tag_children_count
     assert_parse_output '3', '<r:children:count />'
