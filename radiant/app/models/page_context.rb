@@ -428,13 +428,11 @@ class PageContext < Radius::Context
     #
     define_tag 'breadcrumbs' do |tag|
       page = tag.locals.page
-      separator = tag.attr['separator'] || ' &gt; '
       breadcrumbs = [page.breadcrumb]
-      while page.parent
-        breadcrumb = %{<a href="#{page.parent.url}">#{page.parent.breadcrumb}</a>}
-        breadcrumbs.unshift breadcrumb
-        page = page.parent
+      page.ancestors.each do |ancestor|
+        breadcrumbs.unshift %{<a href="#{ancestor.url}">#{ancestor.breadcrumb}</a>}
       end
+      separator = tag.attr['separator'] || ' &gt; '
       breadcrumbs.join(separator)
     end
   end
