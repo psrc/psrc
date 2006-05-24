@@ -34,9 +34,6 @@ Rails::Initializer.run do |config|
   # (remember to create the caching directory and make it readable to the application)
   # config.action_controller.fragment_cache_store = :file_store, "#{RAILS_ROOT}/fragment_cache"
   config.action_controller.page_cache_directory = "#{RAILS_ROOT}/cache"
-  
-  # Activate observers that should always be running
-  config.active_record.observers = :user_action_observer
 
   # Make Active Record use UTC-base instead of local time
   config.active_record.default_timezone = :utc
@@ -65,3 +62,6 @@ end
 # Response Caching Defaults
 ResponseCache.defaults[:directory] = ActionController::Base.page_cache_directory
 ResponseCache.defaults[:logger]    = ActionController::Base.logger
+
+# Activate observers that should always be running
+ActiveRecord::Base.observers = :user_action_observer
