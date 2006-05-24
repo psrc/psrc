@@ -104,7 +104,7 @@ archive:
   published_at: 2006-01-30 08:41:07 -05:00
 year_index:
   id: 41
-  title: Year Index
+  title: %Y Archive
   slug: year
   behavior_id: Archive Year Index
   status_id: 101
@@ -113,7 +113,7 @@ year_index:
   published_at: 2006-02-05 08:44:07 -05:00
 month_index:
   id: 42
-  title: Month Index
+  title: %B %Y Archive
   slug: month
   behavior_id: Archive Month Index
   status_id: 101
@@ -122,7 +122,7 @@ month_index:
   published_at: 2006-02-05 08:44:07 -05:00
 day_index:
   id: 43
-  title: Day Index
+  title: %B %d, %Y Archive
   slug: day
   behavior_id: Archive Day Index
   status_id: 101

@@ -20,7 +20,6 @@ class ArchiveYearIndexBehavior < Behavior::Base
   
   define_tags do
     url = request.request_uri unless request.nil?
-    
     tag "archive:children" do |tag|
       year = $1 if url =~ %r{/(\d{4})/?$}
       tag.locals.children = ArchiveFinder.year_finder(page.parent.children, year)

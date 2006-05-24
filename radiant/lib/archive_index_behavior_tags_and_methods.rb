@@ -9,7 +9,16 @@ module ArchiveIndexBehaviorTagsAndMethods
         end
 
         year, month, day = $1, $2, $3 if url =~ %r{/(\d{4})(?:/(\d{2})(?:/(\d{2}))?)?/?$}
-        
+
+        tag "title" do |tag|
+          page = tag.locals.page
+          if year
+            Date.new((year || 1).to_i, (month || 1).to_i, (day || 1).to_i).strftime(page.title)
+          else
+            page.title
+          end
+        end
+
         tag "archive:year" do |tag|
           year unless year.nil?
         end

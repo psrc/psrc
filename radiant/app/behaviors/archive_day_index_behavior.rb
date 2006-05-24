@@ -20,7 +20,6 @@ class ArchiveDayIndexBehavior < Behavior::Base
   
   define_tags do
     url = request.request_uri unless request.nil?
-    
     tag "archive:children" do |tag|
       year, month, day = $1, $2, $3 if url =~ %r{/(\d{4})/(\d{2})/(\d{2})/?$}
       tag.locals.children = ArchiveFinder.day_finder(page.parent.children, year, month, day)
