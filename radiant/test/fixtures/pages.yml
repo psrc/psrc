@@ -334,3 +334,11 @@ page_with_content_type_set_on_layout:
   layout_id: 2
   parent_id: 1
   published_at: 2006-02-05 08:44:07 -05:00
+deep_nested_child_for_breadcrumbs:
+  id: 55
+  title: Deeply nested child for testing breadcrumbs
+  slug: deep-nested-child
+  breadcrumb: Deeply nested child
+  status_id: 100
+  parent_id: 6
+  published_at: 2006-02-05 08:44:07 -05:00

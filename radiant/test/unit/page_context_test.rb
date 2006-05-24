@@ -263,10 +263,22 @@ class PageContextTest < Test::Unit::TestCase
     assert_parse_output 'Sun, 02 May 2004 00:00:00 GMT', '<r:rfc1123_date />'
   end
   
+  def test_tag_breadcrumbs
+    setup_for_page(:deep_nested_child_for_breadcrumbs)
+    assert_parse_output '<a href="/">Home</a> &gt; <a href="/radius/">Radius Test Page</a> &gt; <a href="/radius/child-1/">Radius Test Child 1</a> &gt; Deeply nested child',
+      '<r:breadcrumbs />'
+  end
+  
+  def test_tag_breadcrumbs_with_separator_attribute
+    setup_for_page(:deep_nested_child_for_breadcrumbs)
+    assert_parse_output '<a href="/">Home</a> :: <a href="/radius/">Radius Test Page</a> :: <a href="/radius/child-1/">Radius Test Child 1</a> :: Deeply nested child',
+      '<r:breadcrumbs separator=" :: " />'
+  end
+  
   def test_tag_missing
     assert_parse_output_match "undefined tag `missing'", '<r:missing />'
   end
-  
+    
   protected
     
     def setup_for_page(page)

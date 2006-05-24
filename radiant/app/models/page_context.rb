@@ -418,6 +418,25 @@ class PageContext < Radius::Context
         hash[symbol]
       end
     end
+    
+    #
+    # <r:breadcrumbs [separator="separator_string"] />
+    #
+    # Renders a trail of breadcrumbs to the current page. The separator attribute
+    # specifies the HTML fragment that is inserted between each of the breadcrumbs. By
+    # default it is set to ' &gt; '.
+    #
+    define_tag 'breadcrumbs' do |tag|
+      page = tag.locals.page
+      separator = tag.attr['separator'] || ' &gt; '
+      breadcrumbs = [page.breadcrumb]
+      while page.parent
+        breadcrumb = %{<a href="#{page.parent.url}">#{page.parent.breadcrumb}</a>}
+        breadcrumbs.unshift breadcrumb
+        page = page.parent
+      end
+      breadcrumbs.join(separator)
+    end
   end
   
   def render_tag(name, attributes = {}, &block)
