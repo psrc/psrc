@@ -130,11 +130,23 @@ class BehaviorTest < Test::Unit::TestCase
     found = @behavior.find_page_by_url('/archive/2006/02/05/month/')
     assert_equal nil, found
   end
-  def test_find_page_by_url__when_not_found
+  def test_find_page_by_url__when_not_found_and_missing_page_defined
     setup_for_page(:homepage)
     found = @behavior.find_page_by_url('/gallery/asdf/')
     assert_not_nil found
     assert_equal 'Page Missing', found.behavior_id
+  end
+  def test_find_page_by_url__when_not_found_on_live
+    setup_for_page(:homepage)
+    found = @behavior.find_page_by_url('/gallery/gallery_draft/')
+    assert_not_nil found
+    assert_equal 'Page Missing', found.behavior_id    
+  end
+  def test_find_page_by_url__when_not_found_on_dev
+    setup_for_page(:homepage)
+    found = @behavior.find_page_by_url('/gallery/gallery_draft/', false)
+    assert_not_nil found
+    assert_equal nil, found.behavior_id    
   end
   
   def test_page_config

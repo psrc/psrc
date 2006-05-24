@@ -58,6 +58,13 @@ class SiteControllerTest < Test::Unit::TestCase
       assert_response :missing, "for URL: #{url}"
       assert_template 'site/not_found', "for URL: #{url}"
     end
+    
+    #validates the custom 404 page is rendered
+    get :show_page, :url => "/gallery/gallery_draft/"
+    assert_response :missing
+    assert_template nil
+    
+
   end
   
   def test_show_page__not_published__on_dev_site
@@ -66,6 +73,7 @@ class SiteControllerTest < Test::Unit::TestCase
       get :show_page, :url => url
       assert_response :success, "for URL: #{url}"
     end
+
   end
   
   def test_show_page__not_published__on_dev_site_in_conf

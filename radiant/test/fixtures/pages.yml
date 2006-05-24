@@ -342,3 +342,18 @@ deep_nested_child_for_breadcrumbs:
   status_id: 100
   parent_id: 6
   published_at: 2006-02-05 08:44:07 -05:00
+homepage_draft:
+  id: 56
+  title: Home Page Draft
+  breadcrumb: Home Page Draft
+  slug: homepage_draft
+  status_id: 1
+  parent_id: 1
+  published_at: 2006-01-30 08:41:07 -05:00
+gallery_draft:
+  id: 57
+  title: Gallery Draft
+  slug: gallery_draft
+  status_id: 1
+  parent_id: 50
+  published_at: 2006-02-05 08:44:07 -05:00

@@ -62,9 +62,9 @@ class Page < ActiveRecord::Base
     end
   end
   
-  def self.find_by_url(url)
+  def self.find_by_url(url, live = true)
     root = find_by_parent_id(nil)
-    root.find_by_url(url)
+    root.find_by_url(url, live)
   end
   
   def virtual

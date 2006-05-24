@@ -32,7 +32,7 @@ class SiteController < ApplicationController
   private
     
     def find_page(url)
-      found = Page.find_by_url(url)
+      found = Page.find_by_url(url, live?)
       found if found and (found.published? or dev?)
     end
 

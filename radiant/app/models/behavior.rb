@@ -87,14 +87,14 @@ module Behavior
       true
     end
     
-    def find_page_by_url(url, clean = true)
+    def find_page_by_url(url, live = true, clean = true)
       url = clean_url(url) if clean
-      if page_url == url
+      if page_url == url && (not live or @page.published?)
         @page
       else
         @page.children.each do |child|
           if (url =~ Regexp.compile( '^' + Regexp.quote(child.url))) and (not child.virtual?)
-            found = child.behavior.find_page_by_url(url, false)
+            found = child.behavior.find_page_by_url(url, live, clean)
             return found if found
           end
         end

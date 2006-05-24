@@ -137,6 +137,10 @@ class PageTest < Test::Unit::TestCase
     
     @page = pages(:books)
     assert_equal @page, Page.find_by_url('/documentation/books/')
+    
+    @root = pages(:homepage)
+    assert_equal 'File Not Found', Page.find_by_url('/gallery/gallery_draft/').title
+    assert_equal 'Gallery Draft', Page.find_by_url('/gallery/gallery_draft/', false).title
   end
   
   def test_render

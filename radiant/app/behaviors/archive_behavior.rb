@@ -21,7 +21,7 @@ class ArchiveBehavior < Behavior::Base
     clean_url "#{ page_url }/#{ date.strftime '%Y/%m/%d' }/#{ child.slug }"
   end
   
-  def find_page_by_url(url, clean = false)
+  def find_page_by_url(url, live = true, clean = false)
     url = clean_url(url) if clean
     if url =~ %r{^#{ page.url }(\d{4})(?:/(\d{2})(?:/(\d{2}))?)?/?$}
       year, month, day = $1, $2, $3
