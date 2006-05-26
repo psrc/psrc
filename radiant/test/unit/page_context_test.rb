@@ -290,6 +290,62 @@ class PageContextTest < Test::Unit::TestCase
       '<r:breadcrumbs separator=" :: " />'
   end
   
+  def test_tag_if_url_does_not_match
+    assert_parse_output '', '<r:if_url matches="fancypants">true</r:if_url>'
+  end
+ 
+  def test_tag_if_url_matches
+     assert_parse_output 'true', '<r:if_url matches="r.dius/$">true</r:if_url>'
+  end
+   
+  def test_tag_if_url_without_ignore_case
+    assert_parse_output 'true', '<r:if_url matches="rAdius/$">true</r:if_url>'
+  end
+  
+  def test_tag_if_url_with_ignore_case_true
+    assert_parse_output 'true', '<r:if_url matches="rAdius/$" ignore_case="true">true</r:if_url>'
+  end
+ 
+  def test_tag_if_url_with_ignore_case_false
+    assert_parse_output '', '<r:if_url matches="rAdius/$" ignore_case="false">true</r:if_url>'
+  end
+  
+  def test_tag_if_url_with_malformatted_regexp
+    assert_parse_output_match "Malformed regular expression in `matches' argument of `if_url' tag:", '<r:if_url matches="r(dius/$">true</r:if_url>'
+  end
+  
+  def test_tag_if_url_empty
+    assert_parse_output_match "`if_url' tag must contain a `matches' attribute", '<r:if_url>test</r:if_url>'
+  end
+  
+  def test_tag_unless_url_does_not_match
+    assert_parse_output 'true', '<r:unless_url matches="fancypants">true</r:unless_url>'
+  end
+  
+  def test_tag_unless_url_matches
+    assert_parse_output '', '<r:unless_url matches="r.dius/$">true</r:unless_url>'
+  end
+  
+  def test_tag_unless_url_without_ignore_case
+    assert_parse_output '', '<r:unless_url matches="rAdius/$">true</r:unless_url>'
+  end
+  
+  def test_tag_unless_url_with_ignore_case_true
+    assert_parse_output '', '<r:unless_url matches="rAdius/$" ignore_case="true">true</r:unless_url>'
+  end
+  
+  def test_tag_unless_url_with_ignore_case_false
+    assert_parse_output 'true', '<r:unless_url matches="rAdius/$" ignore_case="false">true</r:unless_url>'
+  end
+  
+  def test_tag_unless_url_with_malformatted_regexp
+    assert_parse_output_match "Malformed regular expression in `matches' argument of `unless_url' tag:", '<r:unless_url matches="r(dius/$">true</r:unless_url>'
+  end
+  
+  def test_tag_unless_url_empty
+    assert_parse_output_match "`unless_url' tag must contain a `matches' attribute", '<r:unless_url>test</r:unless_url>'
+  end
+
   def test_tag_missing
     assert_parse_output_match "undefined tag `missing'", '<r:missing />'
   end

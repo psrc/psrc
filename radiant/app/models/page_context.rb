@@ -242,6 +242,34 @@ class PageContext < Radius::Context
     end
     
     #
+    # <r:if_url matches="regexp" [ignore_case="true|false"]>...</if_url>
+    #
+    # Renders the containing elements only if the page's url matches the regular expression
+    # given in the 'matches' attribute. If the 'ìgnore_case' attribute is set to false, the
+    # match is case sensitive. By default, 'ignore_case' is set to true.
+    #
+    define_tag 'if_url' do |tag|
+      raise TagError.new("`if_url' tag must contain a `matches' attribute.") unless tag.attr.has_key?('matches')
+      regexp = build_regexp_for(tag,'matches')
+      unless tag.locals.page.url.match(regexp).nil?
+         tag.expand
+      end
+    end
+    
+    #
+    # <r:unless_url matches="regexp" [ignore_case="true|false"]>...</unless_url>
+    #
+    # The opposite of the 'if_url' tag.
+    #  
+    define_tag 'unless_url' do |tag|
+      raise TagError.new("`unless_url' tag must contain a `matches' attribute.") unless tag.attr.has_key?('matches')
+      regexp = build_regexp_for(tag,'matches')
+      if tag.locals.page.url.match(regexp).nil?
+          tag.expand
+      end
+    end
+        
+    #
     # <r:author />
     #
     # Renders the name of the Author of the current page.
@@ -288,6 +316,23 @@ class PageContext < Radius::Context
       attributes = " #{attributes}" unless attributes.empty?
       text = tag.double? ? tag.expand : tag.render('title')
       %{<a href="#{tag.render('url')}#{anchor}"#{attributes}>#{text}</a>}
+    end
+
+    #
+    # <r:breadcrumbs [separator="separator_string"] />
+    #
+    # Renders a trail of breadcrumbs to the current page. The separator attribute
+    # specifies the HTML fragment that is inserted between each of the breadcrumbs. By
+    # default it is set to ' &gt; '.
+    #
+    define_tag 'breadcrumbs' do |tag|
+      page = tag.locals.page
+      breadcrumbs = [page.breadcrumb]
+      page.ancestors.each do |ancestor|
+        breadcrumbs.unshift %{<a href="#{ancestor.url}">#{ancestor.breadcrumb}</a>}
+      end
+      separator = tag.attr['separator'] || ' &gt; '
+      breadcrumbs.join(separator)
     end
 
     #
@@ -434,24 +479,8 @@ class PageContext < Radius::Context
       end
     end
     
-    #
-    # <r:breadcrumbs [separator="separator_string"] />
-    #
-    # Renders a trail of breadcrumbs to the current page. The separator attribute
-    # specifies the HTML fragment that is inserted between each of the breadcrumbs. By
-    # default it is set to ' &gt; '.
-    #
-    define_tag 'breadcrumbs' do |tag|
-      page = tag.locals.page
-      breadcrumbs = [page.breadcrumb]
-      page.ancestors.each do |ancestor|
-        breadcrumbs.unshift %{<a href="#{ancestor.url}">#{ancestor.breadcrumb}</a>}
-      end
-      separator = tag.attr['separator'] || ' &gt; '
-      breadcrumbs.join(separator)
-    end
   end
-  
+ 
   def render_tag(name, attributes = {}, &block)
     super
   rescue Exception => e
@@ -484,5 +513,14 @@ class PageContext < Radius::Context
     
     def postgres?
       ActiveRecord::Base.connection.adapter_name =~ /postgres/i
+    end
+    def build_regexp_for(tag,attribute_name)
+      ignore_case = tag.attr.has_key?('ignore_case') && tag.attr['ignore_case']=='false' ? nil : true
+      begin
+        regexp = Regexp.new(tag.attr['matches'],ignore_case)
+      rescue RegexpError => e
+        raise TagError.new("Malformed regular expression in `#{attribute_name}' argument of `#{tag.name}' tag: #{e.message}")
+      end
+      return regexp
     end
 end
