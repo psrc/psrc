@@ -73,6 +73,13 @@ class Admin::AbstractModelControllerTest < Test::Unit::TestCase
       assert_nil get_test_layout
     end
   end
+  def test_new__save_and_continue_editing
+    custom_routes do
+      post :new, :layout => layout_params, :continue => 'Save and Continue Editing'
+      @layout = get_test_layout
+      assert_redirected_to layout_edit_url(:id => @layout.id)
+    end
+  end
 
   def test_edit
     custom_routes do

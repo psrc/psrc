@@ -41,7 +41,7 @@
 	</table>
   <%= updated_stamp @user %>
 	<p class="buttons">
-		<%= save_model_button(@user) %> or <%= link_to "Cancel", user_index_url %>
+		<%= save_model_button(@user) %> <%= save_model_and_continue_editing_button(@user) %> or <%= link_to "Cancel", user_index_url %>
 	</p>
 </form>
 

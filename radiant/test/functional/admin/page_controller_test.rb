@@ -94,6 +94,11 @@ class Admin::PageControllerTest < Test::Unit::TestCase
     assert_nil get_test_page
     assert_nil get_test_part
   end
+  def test_new__save_and_continue_editing
+    post :new, :parent_id => '1', :page => page_params, :continue => 'Save and Continue Editing'
+    @page = get_test_page
+    assert_redirected_to page_edit_url(:id => @page.id)
+  end
   
   def test_edit
     get :edit, :id => '1', :page => page_params

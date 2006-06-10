@@ -104,7 +104,11 @@ class Admin::PageController < ApplicationController
           parts_to_update.each { |part| part.save }
           @cache.expire_response(@page.url)
           announce_page_saved
-          redirect_to page_index_url
+          if params[:continue]
+            redirect_to page_edit_url(:id => @page.id)
+          else
+            redirect_to page_index_url
+          end
           return false
         else
           announce_validation_errors

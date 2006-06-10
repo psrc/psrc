@@ -30,7 +30,7 @@
     <%= updated_stamp @layout %>
 	</div>
 	<p class="buttons">
-		<%= save_model_button(@layout) %> or <%= link_to "Cancel", layout_index_url %>
+		<%= save_model_button(@layout) %> <%= save_model_and_continue_editing_button(@layout) %> or <%= link_to "Cancel", layout_index_url %>
 	</p>
 </form>
 

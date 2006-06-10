@@ -29,6 +29,10 @@ module ApplicationHelper
     end
     submit_tag label, :class => 'button'
   end
+  
+  def save_model_and_continue_editing_button(model)
+    submit_tag 'Save and Continue Editing', :name => 'continue', :class => 'button'
+  end
 
   # Redefine pluralize() so that it doesn't put the count at the beginning of
   # the string.

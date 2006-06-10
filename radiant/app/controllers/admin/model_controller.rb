@@ -73,8 +73,16 @@ class Admin::AbstractModelController < ApplicationController
       model_name.underscore.humanize
     end
     
-    def model_index_url
-      send("#{ model_symbol }_index_url")
+    def model_index_url(params = {})
+      send("#{ model_symbol }_index_url", params)
+    end
+    
+    def model_edit_url(params = {})
+      send("#{ model_symbol }_edit_url", params)
+    end
+    
+    def continue_url(options)
+      options[:redirect_to] || (params[:continue] ? model_edit_url(:id => model.id) : model_index_url)
     end
 
     def save
@@ -100,7 +108,7 @@ class Admin::AbstractModelController < ApplicationController
         if save
           cache.clear
           announce_saved(options[:saved_message])
-          redirect_to options[:redirect_to] || model_index_url
+          redirect_to continue_url(options)
           return false
         else
           announce_validation_errors

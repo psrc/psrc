@@ -21,7 +21,7 @@
     <%= updated_stamp @snippet %>
   </div>
 	<p class="buttons">
-		<%= save_model_button(@snippet) %> or <%= link_to "Cancel", snippet_index_url %>
+		<%= save_model_button(@snippet) %> <%= save_model_and_continue_editing_button(@snippet) %> or <%= link_to "Cancel", snippet_index_url %>
 	</p>
 </form>
 

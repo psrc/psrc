@@ -250,7 +250,7 @@ class PageContext < Radius::Context
     #
     define_tag 'if_url' do |tag|
       raise TagError.new("`if_url' tag must contain a `matches' attribute.") unless tag.attr.has_key?('matches')
-      regexp = build_regexp_for(tag,'matches')
+      regexp = build_regexp_for(tag, 'matches')
       unless tag.locals.page.url.match(regexp).nil?
          tag.expand
       end
@@ -263,7 +263,7 @@ class PageContext < Radius::Context
     #  
     define_tag 'unless_url' do |tag|
       raise TagError.new("`unless_url' tag must contain a `matches' attribute.") unless tag.attr.has_key?('matches')
-      regexp = build_regexp_for(tag,'matches')
+      regexp = build_regexp_for(tag, 'matches')
       if tag.locals.page.url.match(regexp).nil?
           tag.expand
       end
