@@ -43,7 +43,7 @@ like to install Radiant:
 
 3. Run the database setup script:
 
-   % ruby db/setup.rb production
+   % ruby db/setup.rb -e production
 
 4. Start it like a normal Rails application. To test execute:
 
