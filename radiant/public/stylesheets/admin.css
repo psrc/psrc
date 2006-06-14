@@ -26,8 +26,8 @@ h3 {
 #header {
 	background-color: #c00;
 	color: white;
-	float: left;
 	width: 100%;
+	padding-top: 1px;
 }
 #header a, #header a:visited {
 	color: white;
@@ -39,7 +39,7 @@ h3 {
 #site-title {
 	font-size: 150%;
 	font-weight: bold;
-	margin-top: 20px;
+	margin-top: 19px;
 	margin-left: 20px;
 }
 #site-subtitle {
@@ -50,20 +50,22 @@ h3 {
 	margin-bottom: 20px;
 }
 #navigation {
-	float: right;
 	font-size: 90%;
 	margin-top: -20px;
-	padding-right: 17px;
+	line-height: 100%;
+	padding: .5em;
+	padding-right: 20px;
+	border-bottom: 2px solid #c00;
+	_border-bottom: 0; /* IE only */
+	text-align: right;
 }
 #navigation a, #navigation a:visited {
 	background-color: #eae3c5;
 	color: black;
-	display: inline-block;
-	margin: -3px;
-	margin-right: 3px;
-	padding: 6px;
-	padding-left: 13px;
-	padding-right: 13px;
+	display: inline;
+	padding: .5em;
+	padding-left: .9em;
+	padding-right: .9em;
 	text-decoration: none;
 }
 #navigation a:hover, #navigation a:visited:hover {
@@ -388,9 +390,9 @@ h1 {
 	background-color: #eae3c5;
 	border-bottom: 1px solid #cdc295;
 	color: black;
-	display: block;
+	display: inline-block;
 	font-size: 100%;
-	float: left;
+	text-align: left;
 	margin-right: 3px;
 	padding: 15px;
 	padding-top: 7px;
