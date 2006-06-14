@@ -91,10 +91,10 @@
       // ]]>
       </script>
     </div>
-    <p>
+    <p class="more-or-less">
       <small>
-        <a id="more-extended-metadata" href="<%= toggle_javascript_for('extended-metadata') %>"<%= meta_visible(:meta_more) %>>More</a>
-        <a id="less-extended-metadata" href="<%= toggle_javascript_for('extended-metadata') %>"<%= meta_visible(:meta_less) %>>Less</a>
+        <a href="<%= toggle_javascript_for('extended-metadata') %>"<%= meta_visible(:meta_more) %> id="more-extended-metadata">More</a>
+        <a href="<%= toggle_javascript_for('extended-metadata') %>"<%= meta_visible(:meta_less) %> id="less-extended-metadata">Less</a>
       </small>
     </p>
     <div id="tab-control">

@@ -317,6 +317,12 @@ h1 {
 	margin-right: 2em;
 	margin-bottom: 1em;
 }
+#content .form-area .more-or-less {
+  float: left;
+  margin-top: 0;
+  margin-bottom: 1em;
+  width: 100%;
+}
 #content .form-area .fieldset {
 	margin-right: .5em;
 }
@@ -385,6 +391,7 @@ h1 {
 	background-repeat: repeat-x;
 	float: left;
 	width: 100%;
+	margin-right: -4px;
 }
 #content #tabs .tab {
 	background-color: #eae3c5;
@@ -415,12 +422,13 @@ h1 {
 }
 #content #pages {
 	background: white;
-	border: 1px solid #cdc295;
-	border-top-width: 0;
+	width: 100%;
 	clear: both;
 }
 #content #pages .page {
 	padding: 20px;
+	border: 1px solid #cdc295;
+	border-top-width: 0;
 }
 #content textarea {
 	height: 280px;
