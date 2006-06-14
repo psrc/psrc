@@ -12,6 +12,9 @@
 		<%= javascript_include_tag 'controls' %>
 		<%= javascript_include_tag 'tabcontrol' %>
 		<%= javascript_include_tag 'ruledtable' %>
+		<!--[if lt IE 7]>
+		<script defer type="text/javascript" src="/javascripts/pngfix.js"></script>
+		<![endif]-->
 <% if @content_for_page_scripts -%>
 		<script type="text/javascript">
 		// <![CDATA[
@@ -65,7 +68,7 @@
 				<%= nav_link_to 'Log Out', logout_url %>
 				<span class="separator"> | </span>
 <% end -%>
-				<%= link_to image_tag('view-site', :alt => 'View Site', :title => '', :align => 'center'), homepage_url %></a>
+				<%= link_to image_tag('view-site.gif', :alt => 'View Site', :title => '', :align => 'center'), homepage_url %>
 			</p>
 		</div>
 	</body>
