@@ -2,6 +2,10 @@ require_dependency 'advanced_delegation'
 
 class Page < ActiveRecord::Base
   
+  class MissingRootPageError < StandardError
+    def initialize(message = 'Database missing root page'); super end
+  end
+  
   # Callbacks
   before_save :update_published_at, :update_virtual
   
@@ -64,6 +68,7 @@ class Page < ActiveRecord::Base
   
   def self.find_by_url(url, live = true)
     root = find_by_parent_id(nil)
+    raise MissingRootPageError unless root
     root.find_by_url(url, live)
   end
   

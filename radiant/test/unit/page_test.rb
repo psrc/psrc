@@ -130,6 +130,17 @@ class PageTest < Test::Unit::TestCase
     @page = pages(:homepage)
     assert_equal pages(:article), @page.find_by_url('/archive/2000/05/01/article/')
   end
+  def test_find_by_url__raises_exception_when_root_missing
+    @root = pages(:homepage)
+    @root.destroy
+
+    # This shouldn't raise an error when there's no root...
+    assert_nil Page.find_by_parent_id(nil)
+
+    # ...but this should
+    e = assert_raises(Page::MissingRootPageError) { Page.find_by_url "/" }
+    assert_equal 'Database missing root page', e.message
+  end
 
   def test_find_by_url_class_method
     @root = pages(:homepage)
