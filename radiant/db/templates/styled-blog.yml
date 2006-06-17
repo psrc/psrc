@@ -111,6 +111,7 @@ records:
       id: 5
       status_id: 100
       parent_id: 4
+      published_at: 06/09/2006
     6: 
       slug: second-post
       title: Second Post
@@ -118,6 +119,7 @@ records:
       id: 6
       status_id: 100
       parent_id: 4
+      published_at: 06/10/2006
     7: 
       slug: styles.css
       title: Styles
@@ -203,7 +205,7 @@ records:
             <ttl>40</ttl>
             <description>The main blog feed for my Web site.</description>
             <r:find url="/articles/">
-            <r:children:each limit="10">
+            <r:children:each limit="10" order="desc">
                 <item>
                   <title><r:title /></title>
                   <description><r:escape_html><r:content /></r:escape_html></description>
