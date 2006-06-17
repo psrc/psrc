@@ -13,6 +13,7 @@ class SiteController < ApplicationController
   end
 
   def show_page
+    @response.headers.delete('Cache-Control')
     url = params[:url].to_s
     if live? and (@cache.response_cached?(url))
       @cache.update_response(url, response)

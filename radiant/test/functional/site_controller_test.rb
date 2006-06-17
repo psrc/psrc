@@ -63,8 +63,6 @@ class SiteControllerTest < Test::Unit::TestCase
     get :show_page, :url => "/gallery/gallery_draft/"
     assert_response :missing
     assert_template nil
-    
-
   end
   
   def test_show_page__not_published__on_dev_site
@@ -73,7 +71,6 @@ class SiteControllerTest < Test::Unit::TestCase
       get :show_page, :url => url
       assert_response :success, "for URL: #{url}"
     end
-
   end
   
   def test_show_page__not_published__on_dev_site_in_conf
@@ -83,6 +80,11 @@ class SiteControllerTest < Test::Unit::TestCase
       get :show_page, :url => url
       assert_response :success, "for URL: #{url}"
     end
+  end
+  
+  def test_show_page__does_not_have_no_cache_header
+    get :show_page, :url => '/'
+    assert_equal false, @response.headers.keys.include?('Cache-Control')
   end
   
   class TestPage
