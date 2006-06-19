@@ -46,6 +46,12 @@ class SiteControllerTest < Test::Unit::TestCase
     assert_template 'site/not_found'
   end
   
+  def test_show_page__missing_root_redirects_to_admin
+    pages(:homepage).destroy
+    get :show_page, :url => '/'
+    assert_redirected_to :controller => 'admin/welcome'
+  end
+  
   def test_show_page__radius_integration
     get :show_page, :url => 'radius'
     assert_response :success
