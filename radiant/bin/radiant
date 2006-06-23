@@ -46,7 +46,7 @@ class RadiantCommandApplication
     @overwrite = false
     @dirname = args.pop unless args.last =~ /^-/
     @dirname = clean_path(@dirname) unless @dirname.nil?
-    @help = args.empty? && @dirname.nil?
+    @help = @dirname.nil?
     
     @opts = OptionParser.new do |opts|
       opts.banner =  "Usage: #{File.basename($0)} [options] path"
@@ -56,13 +56,16 @@ class RadiantCommandApplication
       opts.separator "Options:\n"
       
       opts.on(
-        "-t", "--type TYPE", [:instance, :application],
-        "The type of Radiant application to create. When set to 'instance' ",
-        "the command will extract the minimum files necessary to power a ",
-        "Radiant application. When set to 'application' the command will ",
-        "extract all of the Radiant source files. (Default: instance)\n"
+        "-u", "--unpack",
+        "Completely unpack Radiant in the current directory and cause it to ",
+        "run in 'application' mode. Without this flag Radiant is unpacked in ",
+        "'instance' mode, which basically means that the `radiant` command ",
+        "only unpacks the files necessary to run the application and all ",
+        "other files are 'linked' in at run time. Where the files are linked ",
+        "in from depends on whether you run the `radiant` command from a gem ",
+        "or another unpacked Radiant install.\n"
       ) do |type|
-        @type = type
+        @type = :application
       end
       
       opts.on("-f", "--force", "Overwrite files in path without prompting.\n") do |type|
@@ -90,7 +93,7 @@ class RadiantCommandApplication
   end
   
   def unpack_radiant_instance
-    %w( cache plugins config log public script ).each do |path|
+    %w( cache plugins config log public script vendor/plugins ).each do |path|
       make_path(File.join(@dirname, path))
     end
     %w(
@@ -103,22 +106,22 @@ class RadiantCommandApplication
       config/environments/development.rb
       config/environments/production.rb
       config/environments/test.rb
-      script/server
-      script/setup_database
       README
       CONTRIBUTORS
       LICENSE
     ).each do |file|
       copy_file File.join(@radiant_root, file), File.join(@dirname, file)
     end
-    copy_files File.join(@radiant_root, 'public'), File.join(@dirname, 'public')
+    %w( script public ).each do |path|
+      copy_files File.join(@radiant_root, path), File.join(@dirname, path)
+    end
     create_instance_config
     create_config_stub('routes')
   end
   
   def make_scripts_executable
     (
-      Dir[File.join(@dirname, 'script', '*')] +
+      Dir[File.join(@dirname, 'script', '**/*')] +
       Dir[File.join(@dirname, 'public', 'dispatch.*')]
     ).each do |filename|
       make_executable(filename)

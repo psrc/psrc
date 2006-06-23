@@ -44,7 +44,8 @@ Rails::Initializer.run do |config|
   config.active_record.default_timezone = :utc
   
   # Make sure plugins are loaded from lib and vendor
-  config.plugin_paths = ["#{RAILS_ROOT}/plugins", "#{RADIANT_ROOT}/lib/plugins", "#{RADIANT_ROOT}/vendor/plugins"]
+  config.plugin_paths = ["#{RAILS_ROOT}/plugins", "#{RAILS_ROOT}/vendor/plugins", 
+    "#{RADIANT_ROOT}/lib/plugins", "#{RADIANT_ROOT}/vendor/plugins"]
 
   # See Rails::Configuration for more options
 end
