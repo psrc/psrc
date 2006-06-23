@@ -7,10 +7,6 @@
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
-Dir["#{RAILS_ROOT}/vendor/*/lib"].each do |dir|
-  $:.unshift dir
-end
-
 require 'radius'
 
 Rails::Initializer.run do |config|
@@ -19,9 +15,18 @@ Rails::Initializer.run do |config|
   # Skip frameworks you're not going to use
   config.frameworks -= [ :action_web_service, :action_mailer ]
 
-  # Add additional load paths for your own custom dirs
-  # config.load_paths += %W( #{RAILS_ROOT}/extras )
-
+  # Add additional load paths for when Radiant is running in instance mode
+  config.load_paths += %w(
+    app/controllers
+    app/models
+    app/helpers
+    app/behaviors
+    app/filters
+    lib
+  ).map { |path| File.join(RADIANT_ROOT, path) }
+  config.controller_paths << File.join(RADIANT_ROOT, 'app', 'controllers')
+  config.view_path = File.join(RADIANT_ROOT, 'app', 'views')
+  
   # Force all environments to use the same logger level 
   # (by default production uses :info, the others :debug)
   # config.log_level = :debug
@@ -39,7 +44,7 @@ Rails::Initializer.run do |config|
   config.active_record.default_timezone = :utc
   
   # Make sure plugins are loaded from lib and vendor
-  config.plugin_paths = ["#{RAILS_ROOT}/lib/plugins", "#{RAILS_ROOT}/vendor/plugins"]
+  config.plugin_paths = ["#{RAILS_ROOT}/plugins", "#{RADIANT_ROOT}/lib/plugins", "#{RADIANT_ROOT}/vendor/plugins"]
 
   # See Rails::Configuration for more options
 end
@@ -50,12 +55,12 @@ Inflector.inflections do |inflect|
 end
 
 # Auto-require text filters
-Dir["#{RAILS_ROOT}/app/filters/*_filter.rb"].each do |filter|
+Dir["#{RADIANT_ROOT}/app/filters/*_filter.rb"].each do |filter|
   require_dependency filter
 end
 
 # Auto-require behaviors
-Dir["#{RAILS_ROOT}/app/behaviors/*_behavior.rb"].each do |behavior|
+Dir["#{RADIANT_ROOT}/app/behaviors/*_behavior.rb"].each do |behavior|
   require_dependency behavior
 end
 

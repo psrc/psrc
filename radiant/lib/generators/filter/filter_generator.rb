@@ -10,8 +10,8 @@ class FilterGenerator < Rails::Generator::NamedBase
       m.directory File.join('test/unit/filters', class_path)
 
       # Model class, unit test, and fixtures.
-      m.template 'model.rb',      File.join('app/filters', class_path, "#{file_name}_filter.rb")
-      m.template 'unit_test.rb',  File.join('test/unit/filters', class_path, "#{file_name}_filter_test.rb")
+      m.template 'model.rb.template',      File.join('app/filters', class_path, "#{file_name}_filter.rb")
+      m.template 'unit_test.rb.template',  File.join('test/unit/filters', class_path, "#{file_name}_filter_test.rb")
     end
   end
   

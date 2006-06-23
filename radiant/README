@@ -6,17 +6,17 @@ a general purpose content management system (not a blogging engine).
 
 Radiant features:
 
- * An elegant user interface
- * Flexible templating with layouts, snippets, page parts, and a 
-   custom tagging language (Radius: http://radius.rubyforge.org)
- * Extensible with special page-oriented plugins called behaviors
- * Support for Markdown and Textile as well as traditional HTML
-   (other filters are easy to write)
- * Simple user management/rights system
- * Operates in two modes: dev and production depending on the URL
- * A caching system which expires pages every 5 minutes
- * Built using Ruby on Rails
- * And much more...
+* An elegant user interface
+* Flexible templating with layouts, snippets, page parts, and a 
+  custom tagging language (Radius: http://radius.rubyforge.org)
+* Extensible with special page-oriented plugins called behaviors
+* Support for Markdown and Textile as well as traditional HTML
+  (other filters are easy to write)
+* Simple user management/rights system
+* Operates in two modes: dev and production depending on the URL
+* A caching system which expires pages every 5 minutes
+* Built using Ruby on Rails
+* And much more...
 
 This is a prerelease version of Radiant.
 
@@ -43,11 +43,11 @@ like to install Radiant:
 
 3. Run the database setup script:
 
-   % ruby db/setup.rb -e production
+     % ruby db/setup.rb -e production
 
 4. Start it like a normal Rails application. To test execute:
 
-   % script/server production
+     % script/server production
    
    And open your Web browser on port 3000 (http://localhost:3000).
    

@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 RAILS_ENV = 'development'
-TEMPLATES_DIR = File.join(File.dirname(__FILE__), 'templates')
 
 require 'optparse'
 
@@ -80,7 +79,8 @@ class DatabaseSetupApplication
   
   def load_environment
     announce "Loading #{env} environment" do
-      require File.dirname(__FILE__) + '/../config/environment'
+      require File.join(File.dirname(__FILE__), '..', 'config', 'environment')
+      @templates_dir = File.join(RADIANT_ROOT, 'db', 'templates')
     end
   end
 
@@ -190,7 +190,7 @@ class DatabaseSetupApplication
   end
   
   def select_template
-    templates = Dir[File.join(TEMPLATES_DIR, '*.yml')]
+    templates = Dir[File.join(@templates_dir, '*.yml')]
     templates.map! { |t| load_template(t) }
     templates = templates.sort_by { |t| t['name'] }
     loop do
@@ -287,4 +287,8 @@ class DatabaseSetupApplication
   end
 end
 
-DatabaseSetupApplication.run if __FILE__ == $0
+trap('INT') do
+  puts
+  exit
+end
+DatabaseSetupApplication.run
