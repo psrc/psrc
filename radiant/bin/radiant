@@ -1,0 +1,269 @@
+#!/usr/bin/env ruby
+
+autoload 'OptionParser', 'optparse'
+autoload 'FileUtils', 'fileutils'
+autoload 'Pathname', 'pathname'
+autoload 'Radiant', File.join(File.dirname(__FILE__), "..", "lib", "radiant")
+
+class RadiantCommandApplication
+  def self.run(args = ARGV)
+    new.run(args)
+  end
+  
+  def initialize
+    @indent = 0
+    @out = $stdout
+    @in = $stdin
+    @ignore = %w( . .. .svn )
+    @radiant_root = File.expand_path(clean_path(File.join(File.dirname(__FILE__), '..')))
+  end
+  
+  def run(args = [])
+    parse_args(args)
+    if @help
+      puts
+      puts @opts
+    else
+      announce "Unpacking Radiant #{@type}..." do
+        case @type
+        when :application
+          unpack_radiant_application
+        when :instance
+          unpack_radiant_instance
+        end
+        make_scripts_executable
+      end
+      puts "Done."
+    end
+  end
+  
+  private
+  
+  def parse_args(args)
+    args = args.dup
+    
+    @type = :instance
+    @overwrite = false
+    @dirname = args.pop unless args.last =~ /^-/
+    @dirname = clean_path(@dirname) unless @dirname.nil?
+    @help = args.empty? && @dirname.nil?
+    
+    @opts = OptionParser.new do |opts|
+      opts.banner =  "Usage: #{File.basename($0)} [options] path"
+      opts.separator "Create a Radiant application at path."
+      opts.separator ""
+      
+      opts.separator "Options:\n"
+      
+      opts.on(
+        "-t", "--type TYPE", [:instance, :application],
+        "The type of Radiant application to create. When set to 'instance' ",
+        "the command will extract the minimum files necessary to power a ",
+        "Radiant application. When set to 'application' the command will ",
+        "extract all of the Radiant source files. (Default: instance)\n"
+      ) do |type|
+        @type = type
+      end
+      
+      opts.on("-f", "--force", "Overwrite files in path without prompting.\n") do |type|
+        @overwrite = true
+      end
+      
+      opts.on("-?", "--help", "Display this message.\n") do
+        @help = true
+      end
+    end
+    
+    begin
+      @opts.parse(args)
+    rescue OptionParser::ParseError => e
+      puts e.message.capitalize
+      @help = true
+    end
+  end
+  
+  def unpack_radiant_application
+    make_path(@dirname)
+    remove_instance_config
+    remove_config_stub('routes')
+    copy_files @radiant_root, @dirname
+  end
+  
+  def unpack_radiant_instance
+    %w( cache plugins config log public script ).each do |path|
+      make_path(File.join(@dirname, path))
+    end
+    %w(
+      config/boot.rb
+      config/database.yml
+      config/database.mysql.yml
+      config/database.sqlite.yml
+      config/database.postgresql.yml
+      config/environment.rb
+      config/environments/development.rb
+      config/environments/production.rb
+      config/environments/test.rb
+      script/server
+      script/setup_database
+      README
+      CONTRIBUTORS
+      LICENSE
+    ).each do |file|
+      copy_file File.join(@radiant_root, file), File.join(@dirname, file)
+    end
+    copy_files File.join(@radiant_root, 'public'), File.join(@dirname, 'public')
+    create_instance_config
+    create_config_stub('routes')
+  end
+  
+  def make_scripts_executable
+    (
+      Dir[File.join(@dirname, 'script', '*')] +
+      Dir[File.join(@dirname, 'public', 'dispatch.*')]
+    ).each do |filename|
+      make_executable(filename)
+    end
+  end
+  
+  def instance_config_filename
+    File.join(@dirname, 'config', 'instance.yml')
+  end
+  
+  def create_instance_config
+    text = gem? ? "Gem Version: #{ Radiant::Version }" : "Radiant Root: #{@radiant_root}"
+    create_file instance_config_filename, text
+  end
+  
+  def remove_instance_config
+    remove_file instance_config_filename
+  end
+  
+  def config_stub_filename(filename)
+    File.join(@dirname, 'config', filename + '.rb')
+  end
+  
+  def create_config_stub(filename)
+    make_path File.join(@dirname, 'config', File.dirname(filename))
+    create_file config_stub_filename(filename), %{require File.join(RADIANT_ROOT, "config", "#{filename}") }
+  end
+  
+  def remove_config_stub(filename)
+    remove_file config_stub_filename(filename)
+  end
+  
+  def announce(text)
+    puts text
+    @indent += 1
+    yield
+    @indent -= 1
+  end
+  
+  def copy_files(from, to)
+    make_path(to)
+    Dir.foreach(from) do |file|
+      unless @ignore.include?(file)
+        full_name = File.join(from, file)
+        if File.directory?(full_name)
+          copy_files full_name, File.join(to, file)
+        else
+          copy_file full_name, File.join(to, file)
+        end
+      end
+    end
+  end
+  
+  def copy_file(from, to)
+    return if not @overwrite and (File.file?(to) and not ask_yes_or_no("overwrite #{to}"))
+    make_path(File.dirname(to))
+    FileUtils.cp from, to
+    puts "created #{to}"
+  end
+  
+  def make_dir(dir)
+    unless File.directory?(dir)
+      FileUtils.mkdir dir
+      puts "created #{dir}"
+    end
+  end
+  
+  def make_path(path)
+    unless File.directory?(path)
+      parts = path.split(%r{\\|/})
+      if parts.size > 1
+        parts.pop
+        make_path File.join(*parts)
+      end
+      make_dir path
+    end
+  end
+  
+  def create_file(filename, text)
+    open(filename, 'w+') do |file|
+      file.puts text
+    end
+    puts "created #{filename}"
+  end
+  
+  def remove_file(file)
+    if File.file?(file)
+      FileUtils.rm file
+      puts "removed #{file}"
+    end
+  end
+  
+  def make_executable(filename)
+    FileUtils.chmod(0775, filename)
+    puts "made #{filename} executable"
+  end
+  
+  def clean_path(path)
+    Pathname.new(path).cleanpath(true).to_s unless path.nil?
+  end
+  
+  def print(*args)
+    @out << args
+    @out.flush
+  end
+  
+  def puts(*args)
+    args << '' if args.size == 0
+    print *(args.map { |a| "#{'  ' * @indent}#{a}\n" })
+  end
+  
+  def gets
+    @in.gets
+  end
+  
+  def ask_yes_or_no(question, default = :yes)
+    prompt = (default == :yes) ? "[Yn]" : "[yN]"
+    loop do
+      print "#{question}? #{prompt} "
+      case gets.strip.downcase
+      when "yes", "y"
+        break true
+      when "no", "n"
+        break false
+      when ""
+        break default == :yes
+      else
+        invalid_option
+      end
+    end
+  end
+  
+  def invalid_option
+    puts "Invalid option."
+  end
+  
+  def gem?
+    parent_dir = File.expand_path(File.join(@radiant_root, '..'))
+    last_part = parent_dir.split(%r{\\|/}).pop
+    last_part.downcase == 'gems'
+  end
+end
+
+trap('INT') do
+  puts
+  exit
+end
+RadiantCommandApplication.run
