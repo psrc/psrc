@@ -106,13 +106,21 @@ class RadiantCommandApplication
       config/environments/development.rb
       config/environments/production.rb
       config/environments/test.rb
+      script/server
+      script/setup_database
+      script/about
+      script/plugin
+      script/process/reaper
+      script/process/spawner
+      script/process/spinner
+      script/runner
       README
       CONTRIBUTORS
       LICENSE
     ).each do |file|
       copy_file File.join(@radiant_root, file), File.join(@dirname, file)
     end
-    %w( script public ).each do |path|
+    %w( public ).each do |path|
       copy_files File.join(@radiant_root, path), File.join(@dirname, path)
     end
     create_instance_config
