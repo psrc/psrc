@@ -93,7 +93,7 @@ class RadiantCommandApplication
   end
   
   def unpack_radiant_instance
-    %w( cache config log public script vendor/plugins ).each do |path|
+    %w( cache config db log public script vendor/plugins ).each do |path|
       make_path(File.join(@dirname, path))
     end
     %w(
@@ -106,7 +106,6 @@ class RadiantCommandApplication
       config/environments/development.rb
       config/environments/production.rb
       config/environments/test.rb
-      db
       script/server
       script/setup_database
       script/about
