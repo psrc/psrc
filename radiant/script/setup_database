@@ -29,22 +29,18 @@ class DatabaseSetupApplication
   end
   
   def parse_args(args)
-    @env = 'development'
+    args = args.dup
+    @env = args.pop.downcase if args.last =~ /^(development|production|test)$/i
+    @env ||= 'development'
     @overwrite_warning = true
     @template_filename = nil
     
     opts = OptionParser.new do |opts|
-      opts.banner =  "Usage: #{File.basename($0)} [options]"
-      opts.separator "Setup Radiant database for the appropriate environment."
+      opts.banner =  "Usage: #{File.basename($0)} [options] [environment]"
+      opts.separator "Setup Radiant database for the appropriate environment. Environment may be 'development', 'production', or 'test'."
       opts.separator ""
       
       opts.separator "Options:"
-      
-      opts.on("-e", "--environment ENV", [:development, :production, :test], 
-        "Setup the database for environment. ENV may be set to development,",
-        "production, or test (default: development).") do |env|
-        @env = env.to_s.downcase
-      end
       
       opts.on("-o", "--overwrite", "Overwrite all data in tables. Do not display the overwrite warning.") do
         @overwrite_warning = false
