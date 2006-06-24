@@ -93,7 +93,7 @@ class RadiantCommandApplication
   end
   
   def unpack_radiant_instance
-    %w( cache plugins config log public script vendor/plugins ).each do |path|
+    %w( cache config log public script vendor/plugins ).each do |path|
       make_path(File.join(@dirname, path))
     end
     %w(
