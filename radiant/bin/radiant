@@ -106,6 +106,7 @@ class RadiantCommandApplication
       config/environments/development.rb
       config/environments/production.rb
       config/environments/test.rb
+      db
       script/server
       script/setup_database
       script/about
