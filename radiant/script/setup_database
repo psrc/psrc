@@ -99,12 +99,15 @@ class DatabaseSetupApplication
     announce "Creating tables" do
       puts
       ActiveRecord::Schema.define(:version => 9) do
+        
+        drop_table "config" rescue nil
         create_table "config", :force => true do |t|
           t.column "key", :string, :limit => 40, :default => "", :null => false
           t.column "value", :string, :default => ""
         end
         add_index "config", ["key"], :name => "key", :unique => true
 
+        drop_table "layouts" rescue nil
         create_table "layouts", :force => true do |t|
           t.column "name", :string, :limit => 100
           t.column "content", :text
@@ -115,6 +118,7 @@ class DatabaseSetupApplication
           t.column "updated_by", :integer
         end
 
+        drop_table "page_parts" rescue nil
         create_table "page_parts", :force => true do |t|
           t.column "name", :string, :limit => 100
           t.column "filter_id", :string, :limit => 25
@@ -122,6 +126,7 @@ class DatabaseSetupApplication
           t.column "page_id", :integer
         end
 
+        drop_table "pages" rescue nil
         create_table "pages", :force => true do |t|
           t.column "title", :string
           t.column "slug", :string, :limit => 100
@@ -138,6 +143,7 @@ class DatabaseSetupApplication
           t.column "virtual", :boolean, :default => false, :null => false
         end
 
+        drop_table "snippets" rescue nil
         create_table "snippets", :force => true do |t|
           t.column "name", :string, :limit => 100, :default => "", :null => false
           t.column "filter_id", :string, :limit => 25
@@ -149,6 +155,7 @@ class DatabaseSetupApplication
         end
         add_index "snippets", ["name"], :name => "name", :unique => true
 
+        drop_table "users" rescue nil
         create_table "users", :force => true do |t|
           t.column "name", :string, :limit => 100
           t.column "email", :string

@@ -34,6 +34,7 @@ class RadiantCommandApplication
         make_scripts_executable
       end
       puts "Done."
+      output_additional_instructions
     end
   end
   
@@ -86,7 +87,9 @@ class RadiantCommandApplication
   end
   
   def unpack_radiant_application
-    make_path(@dirname)
+    %w( cache log vendor/plugins ).each do |path|
+      make_path(File.join(@dirname, path))
+    end
     remove_instance_config
     remove_config_stub('routes')
     copy_files @radiant_root, @dirname
@@ -98,7 +101,6 @@ class RadiantCommandApplication
     end
     %w(
       config/boot.rb
-      config/database.yml
       config/database.mysql.yml
       config/database.sqlite.yml
       config/database.postgresql.yml
@@ -115,6 +117,7 @@ class RadiantCommandApplication
       script/process/spinner
       script/runner
       README
+      CHANGELOG
       CONTRIBUTORS
       LICENSE
     ).each do |file|
@@ -134,6 +137,28 @@ class RadiantCommandApplication
     ).each do |filename|
       make_executable(filename)
     end
+  end
+  
+  def output_additional_instructions
+    puts
+    puts "Now, if this is a new install:"
+    puts
+    puts " 1. Create a MySQL/PostgreSQL/SQLite database for your Web site."
+    puts
+    puts " 2. Create config/database.yml for your database setup. (There are"
+    puts "    several examples in the config directory.)"
+    puts
+    puts " 3. Run the database setup script:"
+    puts
+    puts "      % script/setup_database production"
+    puts
+    puts " 4. Start it like a normal Rails application. To test execute:"
+    puts
+    puts "      % script/server production"
+    puts
+    puts "    And open your Web browser on port 3000 (http://localhost:3000)."
+    puts
+    puts "See the README for more details."
   end
   
   def instance_config_filename

@@ -2,23 +2,24 @@
 
 Radiant is a no-fluff, open source content management system designed
 for small teams. It is similar to Textpattern or MovableType, but is
-a general purpose content management system (not a blogging engine).
+a general purpose content management system (not just a blogging
+engine).
 
 Radiant features:
 
 * An elegant user interface
-* Flexible templating with layouts, snippets, page parts, and a 
+* The ability to arrange pages in a hierarchy
+* Flexible templating with layouts, snippets, page parts, and a
   custom tagging language (Radius: http://radius.rubyforge.org)
-* Extensible with special page-oriented plugins called behaviors
+* Special page-oriented plugins called behaviors
+* A simple user management/permissions system
 * Support for Markdown and Textile as well as traditional HTML
-  (other filters are easy to write)
-* Simple user management/rights system
+  (it's easy to create other filters)
 * Operates in two modes: dev and production depending on the URL
 * A caching system which expires pages every 5 minutes
-* Built using Ruby on Rails
+* Built using Ruby on Rails (which means that extending Radiant is
+  as easy as any other Rails application)
 * And much more...
-
-This is a prerelease version of Radiant.
 
 
 == License
@@ -37,9 +38,10 @@ application.
 Once you have extracted the files into the directory where you would
 like to install Radiant:
 
-1. Create a MySQL/PostgreSQL/SQLite database for your Web site
+1. Create a MySQL/PostgreSQL/SQLite database for your Web site.
 
-2. Edit config/database.yml making changes for your database setup
+2. Create config/database.yml for your database setup. (There are
+   several examples in the config directory.)
 
 3. Run the database setup script:
 
@@ -64,7 +66,7 @@ http://dev.radiantcms.org/radiant/wiki/RadiantUsers
 == Radiant Admin Interface
 
 The administrative interface is available at /admin/. By default the
-setup_database script creates a user called "admin" with a password of
+`setup_database` script creates a user called "admin" with a password of
 "radiant".
 
 
@@ -78,5 +80,12 @@ There is also a Trac powered dev site available here:
 
 http://dev.radiantcms.org/
 
-Before filing a ticket please discuss proposed changes on the mailing
-list.
+Please Note: Before filing a ticket on the dev site discuss your question
+or problem on the mailing list. This makes it much easier to manage
+legitimate tickets.
+
+
+Enjoy!
+
+--
+John Long :: http://wiseheartdesign.com
