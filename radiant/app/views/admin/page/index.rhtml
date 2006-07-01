@@ -2,6 +2,8 @@
     var SiteMap = Class.create();
     SiteMap.prototype = Object.extend({}, RuledTable.prototype); // Inherit from RuledTable
     Object.extend(SiteMap.prototype, {
+    
+      expandedRows: <%= expanded_rows.to_json %>,
 
       onRowSetup: function(row) {
         Event.observe(row, 'click', this.onMouseClickRow.bindAsEventListener(this), false);
@@ -50,7 +52,11 @@
           expanders.push(image);
         }.bind(this));
         return expanders.first();
-      },      
+      },     
+      
+      saveExpandedCookie: function() {
+        document.cookie = "expanded_rows="+this.expandedRows.join(",")+"; path=/admin";
+      }, 
       
       hideBranch: function(row, img) {
         var level = this.extractLevel(row);
@@ -62,6 +68,13 @@
           }
           sibling = sibling.nextSibling;
         }
+        var pageId = this.extractPageId(row);
+        var newExpanded = [];
+        for(i=0; i < this.expandedRows.length; i++)
+            if(this.expandedRows[i] != pageId)
+                newExpanded.push(this.expandedRows[i]);
+        this.expandedRows = newExpanded;
+        this.saveExpandedCookie();
         if (img == null)
           img = this.getExpanderImageForRow(row);
         img.src = img.src.replace(/collapse/, 'expand');
@@ -69,17 +82,22 @@
         Element.addClassName(row, 'children-hidden');
       },
       
-      showBranch: function(row, img) {
+      showBranchInternal: function(row, img) {
         var level = this.extractLevel(row);
         var sibling = row.nextSibling;
         var children = false;
+        var childOwningSiblings = [];        
         while(sibling != null) {
           if (this.isRow(sibling)) {
             var siblingLevel = this.extractLevel(sibling);
             if (siblingLevel <= level) break;
             if (siblingLevel == level + 1) {
               Element.show(sibling);
-              this.hideBranch(sibling);
+              if(sibling.className.match(/children-visible/)) {
+                childOwningSiblings.push(sibling);
+              } else {
+                this.hideBranch(sibling);
+              }
             }
             children = true;
           }
@@ -88,10 +106,19 @@
         if (!children)
           this.getBranch(row);
         if (img == null)
-          img = this.getExpanderImageForRow(row);
+          img = this.getExpanderImageForRow(row);          
         img.src = img.src.replace(/expand/, 'collapse');
+        for(i=0; i < childOwningSiblings.length; i++) {
+            this.showBranch(childOwningSiblings[i], null);            
+        }        
         Element.removeClassName(row, 'children-hidden');
         Element.addClassName(row, 'children-visible');
+      },
+      
+      showBranch: function(row, img) {
+        this.showBranchInternal(row, img);
+        this.expandedRows.push(this.extractPageId(row));
+        this.saveExpandedCookie();
       },
       
       getBranch: function(row) {
@@ -140,22 +167,22 @@
 <h1>Pages</h1>
 
 <table id="site-map" class="index" cellpadding="0" cellspacing="0" border="0">
-	<thead>
-		<tr>
-			<th class="page">Page</th>
-			<th class="status">Status</th>
-			<th class="modify" colspan="2">Modify</th>
-		</tr>
-	</thead>
-	<tbody>
+  <thead>
+    <tr>
+      <th class="page">Page</th>
+      <th class="status">Status</th>
+      <th class="modify" colspan="2">Modify</th>
+    </tr>
+  </thead>
+  <tbody>
 <% if @homepage -%>
 <%= render_node @homepage -%>
 <% else -%>
-	<tr>
-		<td colspan="4" class="note">No Pages</td>
-	</tr>
+  <tr>
+    <td colspan="4" class="note">No Pages</td>
+  </tr>
 <% end -%>
-	</tbody>
+  </tbody>
 </table>
 <script type="text/javascript">
 // <![CDATA[

@@ -38,13 +38,13 @@
   <h1>Please Login</h1>
 
   <form method="post">
-  	<p><label for="user_login">Username</label>
-  		<%= text_field "user", "login", :class => 'textbox', :value => '', :maxlength => 40 %></p>
-  	<p><label for="user_password">Password</label>
-  		<%= password_field "user", "password", :class => 'textbox', :value => '', :maxlength => 40 %></p>
-  	<p class="buttons">
-  		<%= submit_tag 'Login', :class => 'button' %>
-  	</p>
+    <p><label for="user_login">Username</label>
+      <%= text_field "user", "login", :class => 'textbox', :value => '', :maxlength => 40 %></p>
+    <p><label for="user_password">Password</label>
+      <%= password_field "user", "password", :class => 'textbox', :value => '', :maxlength => 40 %></p>
+    <p class="buttons">
+      <%= submit_tag 'Login', :class => 'button' %>
+    </p>
   </form>
 </div>
 

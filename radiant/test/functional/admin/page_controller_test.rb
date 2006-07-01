@@ -29,6 +29,47 @@ class Admin::PageControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_kind_of Page, assigns(:homepage)
   end
+
+  def test_index_without_cookies
+    get :index
+    assert_response :success
+    #should contain only the homepage and direct children
+    wanted, unwanted = Page.find(:all).partition {|p| p.parent_id.nil? || p.parent.parent_id.nil? }
+    wanted.each { |page|
+        assert_tag :tag => 'tr', :attributes => {:id => "page-#{page.id}" }
+    }
+    unwanted.each { |page|
+        assert_no_tag :tag => 'tr', :attributes => {:id => "page-#{page.id}" }
+    }
+  end
+
+  def test_index_with_empty_cookie
+    @request.cookies['expanded_rows'] = [""]
+    get :index
+    assert_response :success
+    #should contain only the homepage
+    wanted, unwanted = Page.find(:all).partition {|p| p.parent_id.nil? }
+    wanted.each { |page|
+        assert_tag :tag => 'tr', :attributes => {:id => "page-#{page.id}" }
+    }
+    unwanted.each { |page|
+        assert_no_tag :tag => 'tr', :attributes => {:id => "page-#{page.id}" }
+    }
+  end
+
+  def test_index_with_cookie
+    @request.cookies['expanded_rows'] = ["1,5,9,10,11,12,52"]
+    get :index
+    assert_response :success
+    #should contain only the direct children of nodes 1,5,9,10,11,12 and 52 (assuming there's no missing parent nodes)
+    wanted, unwanted = Page.find(:all).partition {|p| [1,5,9,52,10,11,12].include?(p.parent_id) || p.parent_id.nil? }
+    wanted.each { |page|
+        assert_tag :tag => 'tr', :attributes => {:id => "page-#{page.id}" }
+    }
+    unwanted.each { |page|
+        assert_no_tag :tag => 'tr', :attributes => {:id => "page-#{page.id}" }
+    }
+  end
   
   def test_new
     @controller.config = { 'default.parts' => 'body, extended, summary' }

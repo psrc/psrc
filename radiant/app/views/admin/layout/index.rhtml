@@ -5,29 +5,29 @@
   edit it or click <code>Remove</code> to delete it.</p>
 
 <table id="layouts" class="index" cellpadding="0" cellspacing="0" border="0">
-	<thead>
-		<tr>
-			<th class="layout">Layout</th>
-			<th class="modify">Modify</th>
-		</tr>
-	</thead>
-	<tbody>
+  <thead>
+    <tr>
+      <th class="layout">Layout</th>
+      <th class="modify">Modify</th>
+    </tr>
+  </thead>
+  <tbody>
 <% unless @layouts.empty? -%>
 <% for layout in @layouts -%>
-	  <tr class="node level-1">
-	    <td class="layout">
-	      <%= image_tag 'page', :alt => 'layout-icon', :title => '', :align => 'center' %>
-	      <%= link_to layout.name, layout_edit_url(:id => layout) %>
-	    </td>
-	    <td class="remove"><%= link_to image_tag('remove', :alt => 'Remove Layout'), layout_remove_url(:id => layout) %></td>
-	  </tr>
+    <tr class="node level-1">
+      <td class="layout">
+        <%= image_tag 'page', :alt => 'layout-icon', :title => '', :align => 'center' %>
+        <%= link_to layout.name, layout_edit_url(:id => layout) %>
+      </td>
+      <td class="remove"><%= link_to image_tag('remove', :alt => 'Remove Layout'), layout_remove_url(:id => layout) %></td>
+    </tr>
 <% end -%>
 <% else -%>
     <tr>
       <td colspan="2" class="note">No Layouts</td>
     </tr>
 <% end -%>
-	</tbody>
+  </tbody>
 </table>
 <script type="text/javascript">
 // <![CDATA[
