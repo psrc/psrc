@@ -27,7 +27,7 @@ namespace 'radiant' do
     s.rubyforge_project = RUBY_FORGE_PROJECT
     s.platform = Gem::Platform::RUBY
     s.requirements << 'rails, redcloth, bluecloth, radius'
-    s.add_dependency 'rails',     '= 1.1.2'
+    s.add_dependency 'rails',     '= 1.1.4'
     s.add_dependency 'radius',    '>= 0.5.1', '< 0.6'
     s.add_dependency 'RedCloth',  '>= 3.0.3', '< 3.1'
     s.add_dependency 'BlueCloth', '>= 1.0.0', '< 1.1'
