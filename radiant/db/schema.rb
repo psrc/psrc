@@ -9,6 +9,8 @@ ActiveRecord::Schema.define(:version => 9) do
     t.column "value", :string, :default => ""
   end
 
+  add_index "config", ["key"], :name => "key", :unique => true
+
   create_table "layouts", :force => true do |t|
     t.column "name", :string, :limit => 100
     t.column "content", :text

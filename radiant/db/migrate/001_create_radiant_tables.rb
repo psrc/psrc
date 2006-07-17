@@ -4,6 +4,7 @@ class CreateRadiantTables < ActiveRecord::Migration
       t.column "key", :string, :limit => 40, :default => "", :null => false
       t.column "value", :string, :default => ""
     end
+    add_index "config", ["key"], :name => "key", :unique => true 
 
     create_table "pages" do |t|
       t.column "title", :string
