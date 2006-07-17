@@ -1,13 +1,20 @@
 class InsertInitialData < ActiveRecord::Migration
+  class Page < ActiveRecord::Base
+  end
+  class Layout < ActiveRecord::Base
+  end
+  class Snippet < ActiveRecord::Base
+  end
+  class PagePart < ActiveRecord::Base
+      belongs_to :page
+  end
   def self.up
     now = Time.now
     
     puts "Creating the user 'admin' with the password 'radiant'..."
-    admin = User.create :name => 'Administrator', :login => 'admin', :password => 'radiant', :password_confirmation => 'radiant', :admin => true, :created_at => now, :updated_at => now
-    admin.created_by = admin
-    admin.updated_by = admin
-    admin.save
-
+    admin = User.new :name => 'Administrator', :login => 'admin', :password => 'radiant', :password_confirmation => 'radiant', :admin => true, :created_at => now, :updated_at => now
+    admin.save!
+    
     puts "Initializing configuration..."
     Radiant::Config['admin.title'   ] = 'Radiant CMS'
     Radiant::Config['admin.subtitle'] = 'Publishing for Small Teams'

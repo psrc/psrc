@@ -69,5 +69,6 @@ class CreateRadiantTables < ActiveRecord::Migration
     drop_table "snippets"
     drop_table "layouts"
     drop_table "users"
+    drop_table "config"
   end
 end
