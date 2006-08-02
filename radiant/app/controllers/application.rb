@@ -1,3 +1,4 @@
+require_dependency 'radiant'
 require_dependency 'login_system'
 
 ActionView::Base.field_error_proc = Proc.new do |html, instance|

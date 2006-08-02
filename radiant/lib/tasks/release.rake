@@ -5,7 +5,7 @@ require 'rake/gempackagetask'
 require 'lib/radiant'
 
 PKG_NAME = 'radiant'
-PKG_VERSION = Radiant::Version
+PKG_VERSION = Radiant::Version.to_s
 PKG_FILE_NAME = "#{PKG_NAME}-#{PKG_VERSION}"
 RUBY_FORGE_PROJECT = PKG_NAME
 RUBY_FORGE_USER = 'jlong'
@@ -48,6 +48,7 @@ namespace 'radiant' do
     files.exclude 'pkg'
     files.exclude 'config/database.yml'
     files.exclude 'db/*.sql*.db'
+    files.include('public/.htaccess')
     s.files = files.to_a
   end
 
