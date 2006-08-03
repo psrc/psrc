@@ -127,6 +127,8 @@ class PageContextTest < Test::Unit::TestCase
     assert_parse_output '', '<r:content part="sidebar" inherit="false" />'
     assert_parse_output 'Radius Test Page sidebar.', '<r:content part="sidebar" inherit="true" />'
     assert_parse_output_match %{`inherit' attribute of `content' tag must be set to either "true" or "false"}, '<r:content part="sidebar" inherit="weird value" />'
+
+    assert_parse_output '', '<r:content part="part_that_doesnt_exist" inherit="true" />'
   end
   def test_tag_content_with_inherit_and_contextual_attributes
     assert_parse_output 'Radius Test Page sidebar.', '<r:content part="sidebar" inherit="true" contextual="true" />'

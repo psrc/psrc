@@ -208,7 +208,7 @@ class PageContext < Radius::Context
       contextual = boolean_attr['contextual', true]
       if inherit and contextual
         part = part_page.part(part_name)
-        page.behavior.render_snippet(part)
+        page.behavior.render_snippet(part) unless part.nil?
       else
         part_page.behavior.render_page_part(part_name)
       end
