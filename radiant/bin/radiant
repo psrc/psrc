@@ -6,12 +6,6 @@ autoload 'ConsoleUtils', File.join(File.dirname(__FILE__), "..", "lib", "console
 
 class RadiantCommandApplication
   include ConsoleUtils
-    
-  class OptionParseError < OptionParser::ParseError
-    def initialize(message = '')
-      @message = message
-    end
-  end
   
   def self.run(args = ARGV)
     new.run(args)
@@ -24,7 +18,8 @@ class RadiantCommandApplication
   
   def run(args = [])
     parse_args(args)
-    send("run_#{@mode}")
+    determine_application_type if [:normal, :upgrade].include?(@mode)
+    send "run_#{@mode}"
   end
   
   private
@@ -32,12 +27,11 @@ class RadiantCommandApplication
     def parse_args(args)
       args = args.dup
       
-      @application_type = :instance
       @overwrite = false
       @dirname = args.pop unless args.last =~ /^-/
       @dirname = clean_path(@dirname) unless @dirname.nil?
-      @mode = @dirname.nil? ? :help : :normal
-    
+      @mode = :normal
+      
       @opts = OptionParser.new do |opts|
         opts.banner =  "Usage: #{File.basename($0)} [options] PATH"
         opts.separator "Create a Radiant application at PATH."
@@ -45,7 +39,9 @@ class RadiantCommandApplication
       
         opts.separator "Options:\n"
       
-        opts.on("--upgrade", "Upgrade an existing install to the latest version.\n") do
+        opts.on("--upgrade",
+          "Upgrade an existing install to the latest version. It is highly",
+          "recommended that you back up your installation before upgrading.\n") do
           @mode = :upgrade
         end
       
@@ -60,8 +56,12 @@ class RadiantCommandApplication
           @application_type = :application
         end
       
-        opts.on("-f", "--force", "Overwrite files in PATH without prompting.\n") do |type|
+        opts.on("-f", "--force", "Overwrites and delete files in PATH without prompting.\n") do |type|
           @overwrite = true
+        end
+        
+        opts.on("--no-backups", "Turn file backups off during an upgrade.\n") do
+          @backups = false
         end
       
         opts.on("-v", "--version", "Display the Radiant version number for this command.\n") do
@@ -69,12 +69,7 @@ class RadiantCommandApplication
         end
         
         opts.on("--current-version", "Display the Radiant version number for the install at PATH.\n") do
-          unless @dirname.nil?
-            @mode = :current_version
-          else
-            @mode = :help
-            puts 'Invalid path.'
-          end
+          @mode = :current_version
         end
       
         opts.on("-?", "--help", "Display this message.\n") do
@@ -84,6 +79,10 @@ class RadiantCommandApplication
     
       begin
         @opts.parse(args)
+        if @dirname.nil? and [:normal, :upgrade, :current_version].include?(@mode)
+          puts 'Invalid path.'
+          @mode = :help
+        end
       rescue OptionParser::ParseError => e
         puts e.message.capitalize
         @mode = :help
@@ -92,12 +91,7 @@ class RadiantCommandApplication
   
     def run_normal
       announce "Unpacking Radiant #{ @application_type }..." do
-        case @application_type
-        when :application
-          unpack_radiant_application
-        when :instance
-          unpack_radiant_instance
-        end
+        send "unpack_radiant_#{ @application_type }"
         make_scripts_executable
       end
       puts "Done."
@@ -112,6 +106,7 @@ class RadiantCommandApplication
         announce_already_upgraded
       else
         announce "Upgrading Radiant to version #{ latest_version }..." do
+          @backups = @overwrite || ask_yes_or_no("Would you like to create backups of files that Radiant replaces", :no) if @backups.nil?
           send "upgrade_#{ @application_type }_to_0_5_1"
           change_radiant_gem_version_in_instance_config_to(latest_version) if @application_type == :instance 
         end
@@ -136,6 +131,18 @@ class RadiantCommandApplication
       puts @opts
     end
     
+    def determine_application_type
+      if @mode == :normal
+        @application_type ||= :instance
+      else
+        if File.exists? instance_config_filename
+          @application_type ||= :instance
+        else
+          @application_type ||= :application
+        end
+      end
+    end
+    
     def announce_not_installed
       puts 'Cannot detect that Radiant is installed in this directory!'
     end
@@ -158,14 +165,18 @@ class RadiantCommandApplication
         make_path(File.join(@dirname, path))
       end
       %w(
+        CHANGELOG
         config/boot.rb
         config/database.mysql.yml
-        config/database.sqlite.yml
         config/database.postgresql.yml
+        config/database.sqlite.yml
         config/environment.rb
         config/environments/development.rb
         config/environments/production.rb
         config/environments/test.rb
+        CONTRIBUTORS
+        LICENSE
+        README
         script/about
         script/console
         script/plugin
@@ -176,10 +187,6 @@ class RadiantCommandApplication
         script/server
         script/setup_database
         script/version
-        README
-        CHANGELOG
-        CONTRIBUTORS
-        LICENSE
       ).each do |file|
         copy_file File.join(@radiant_root, file), File.join(@dirname, file)
       end
@@ -192,8 +199,8 @@ class RadiantCommandApplication
   
     def make_scripts_executable
       (
-        Dir[File.join(@dirname, 'script', '**/*')] +
-        Dir[File.join(@dirname, 'public', 'dispatch.*')]
+        Dir[File.join(@dirname, 'public', 'dispatch.*')] +
+        Dir[File.join(@dirname, 'script', '**/*')]
       ).each do |filename|
         make_executable(filename)
       end
@@ -232,7 +239,7 @@ class RadiantCommandApplication
     end
   
     def remove_instance_config
-      remove_file instance_config_filename
+      remove_file instance_config_filename, :force => true
     end
   
     def config_stub_filename(filename)
@@ -245,7 +252,7 @@ class RadiantCommandApplication
     end
   
     def remove_config_stub(filename)
-      remove_file config_stub_filename(filename)
+      remove_file config_stub_filename(filename), :force => true
     end
     
     def invalid_option
@@ -306,15 +313,24 @@ class RadiantCommandApplication
       lines = lines.split("\n").map { |l| l.strip }.reject { |l| l.empty? }
       lines.each do |line|
         command, filename = line.split(/\s+/, 2)
-        prompt = !!(command !~ /!$/)
-        from = File.join(@radiant_root, filename)
+        prompt = !(command =~ /!$/)
         to = File.join(@dirname, filename)
-        backup_file(filename) if File.file?(to) and prompt and ask_yes_or_no("backup #{filename}")
         case command
-        when /^overwrite/
-          copy_file(from, to, :overwrite => true)
-        when /^create/
-          copy_file(from, to)
+        when /^(overwrite|create)/
+          command = $1
+          from = File.join(@radiant_root, filename)
+          backup_file(filename) if @backups and File.file?(to) and (@overwrite or ask_yes_or_no("backup #{filename}"))
+          if command == 'overwrite'
+            copy_file from, to, :overwrite => (@overwrite or !prompt)
+          else
+            copy_file from, to
+          end
+        when /^remove/
+          unless prompt
+            remove_file to, :force => true
+          else
+            remove_file to
+          end
         else
           raise 'unknown upgrade command'
         end
@@ -326,8 +342,8 @@ class RadiantCommandApplication
         overwrite! CHANGELOG
         overwrite! CONTRIBUTORS
         create     public/.htaccess
-        overwrite! public/images/new-layout.png
         create     public/images/layout.png
+        overwrite! public/images/new-layout.png
         create     script/console
         create     script/version
       }
@@ -336,39 +352,41 @@ class RadiantCommandApplication
     
     def upgrade_application_to_0_5_1
       upgrade_files %{
-        overwrite  db/schema.rb
-        overwrite  db/migrate/001_create_radiant_tables.rb
-        overwrite  db/migrate/002_insert_initial_data.rb
-        overwrite! CHANGELOG
-        overwrite! CONTRIBUTORS
-        overwrite  test/functional/admin/page_controller_test.rb
+        overwrite  app/controllers/application.rb
         overwrite  app/helpers/admin/page_helper.rb
-        overwrite  app/views/layouts/application.rhtml
-        overwrite  app/views/admin/snippet/remove.rhtml
-        overwrite  app/views/admin/snippet/index.rhtml
-        overwrite  app/views/admin/snippet/new.rhtml
-        overwrite  app/views/admin/welcome/login.rhtml
+        overwrite  app/views/admin/layout/index.rhtml
+        overwrite  app/views/admin/layout/new.rhtml
+        overwrite  app/views/admin/layout/remove.rhtml
+        overwrite  app/views/admin/page/index.rhtml
         overwrite  app/views/admin/page/remove.rhtml
         overwrite  app/views/admin/page/_node.rhtml
         overwrite  app/views/admin/page/_part.rhtml
-        overwrite  app/views/admin/page/index.rhtml
-        overwrite  app/views/admin/layout/remove.rhtml
-        overwrite  app/views/admin/layout/index.rhtml
-        overwrite  app/views/admin/layout/new.rhtml
-        overwrite  app/views/admin/user/remove.rhtml
-        overwrite  app/views/admin/user/preferences.rhtml
+        overwrite  app/views/admin/snippet/index.rhtml
+        overwrite  app/views/admin/snippet/new.rhtml
+        overwrite  app/views/admin/snippet/remove.rhtml
         overwrite  app/views/admin/user/index.rhtml
         overwrite  app/views/admin/user/new.rhtml
-        overwrite  app/controllers/application.rb
+        overwrite  app/views/admin/user/preferences.rhtml
+        overwrite  app/views/admin/user/remove.rhtml
+        overwrite  app/views/admin/welcome/login.rhtml
+        overwrite  app/views/layouts/application.rhtml
+        overwrite  bin/radiant
+        overwrite! CHANGELOG
+        overwrite! CONTRIBUTORS
+        overwrite  db/migrate/001_create_radiant_tables.rb
+        overwrite  db/migrate/002_insert_initial_data.rb
+        overwrite  db/schema.rb
         create     lib/console_utils.rb
         overwrite  lib/tasks/release.rake
         overwrite  lib/radiant.rb
-        overwrite  bin/radiant
         create     public/.htaccess
-        overwrite  public/images/new-layout.png
         create     public/images/layout.png
+        overwrite! public/images/new-layout.png
         create     script/console
         create     script/version
+        remove!    test/fixtures/pages.yml.rej
+        overwrite  test/functional/admin/page_controller_test.rb
+        remove!    test/unit/page_context_test.rb.rej
       }
       change_rails_gem_version_in_environment_to '1.1.4'
     end

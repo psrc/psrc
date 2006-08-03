@@ -147,11 +147,13 @@ module ConsoleUtils
     puts "created #{filename}"
   end
   
-  def remove_file(file)
-    if File.file?(file)
-      FileUtils.rm file
-      puts "removed #{file}"
-    end
+  def remove_file(filename, options = {})
+    force = options[:force] || @overwrite
+    exists = File.file?(filename)
+    force = (exists and ask_yes_or_no("remove #{filename}")) unless force
+    return unless exists and force
+    FileUtils.rm filename
+    puts "removed #{filename}"
   end
   
   def make_executable(filename)

@@ -39,16 +39,19 @@ namespace 'radiant' do
     s.rdoc_options << '--title' << RDOC_TITLE << '--line-numbers' << '--main' << 'README'
     s.extra_rdoc_files = RDOC_EXTRAS
     files = FileList['**/*']
+    files.include 'public/.htaccess'
     files.exclude '**/._*'
+    files.exclude '**/*.rej'
+    files.exclude 'cache/*'
+    files.exclude 'config/database.yml'
+    files.exclude 'config/locomotive.yml'
+    files.exclude 'config/lighttpd.conf'
+    files.exclude 'db/*.sql*.db'
     files.exclude 'doc'
     files.exclude 'log/*'
-    files.exclude 'tmp'
-    files.exclude 'cache/*'
-    files.exclude 'vendor'
     files.exclude 'pkg'
-    files.exclude 'config/database.yml'
-    files.exclude 'db/*.sql*.db'
-    files.include('public/.htaccess')
+    files.exclude 'tmp'
+    files.exclude 'vendor'
     s.files = files.to_a
   end
 
