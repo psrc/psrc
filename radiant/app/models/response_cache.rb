@@ -22,7 +22,7 @@ class ResponseCache
   # Options are as follows:
   # :directory         :: the path to the temporary cache directory
   # :expire_time       :: the number of seconds a cached response is considered valid (defaults to 5 min)
-  # :default_extension :: the extension cached files should use (defaults to '.html')
+  # :default_extension :: the extension cached files should use (defaults to '.yml')
   # :peform_caching    :: boolean value that turns caching on or off (defaults to true)
   # :logger            :: the application logging object (defaults to ActionController::Base.logger)
   #
