@@ -138,4 +138,8 @@ module ApplicationHelper
   def toggle_javascript_for(id)
     "javascript:Element.toggle('#{id}', 'more-#{id}', 'less-#{id}')"
   end
+  
+  def cookies
+    @cookies
+  end
 end

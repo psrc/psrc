@@ -29,46 +29,40 @@ class Admin::PageControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_kind_of Page, assigns(:homepage)
   end
-
-  def test_index_without_cookies
+  
+  def test_index__without_pages
+    Page.destroy_all
     get :index
     assert_response :success
-    #should contain only the homepage and direct children
-    wanted, unwanted = Page.find(:all).partition {|p| p.parent_id.nil? || p.parent.parent_id.nil? }
-    wanted.each { |page|
-        assert_tag :tag => 'tr', :attributes => {:id => "page-#{page.id}" }
-    }
-    unwanted.each { |page|
-        assert_no_tag :tag => 'tr', :attributes => {:id => "page-#{page.id}" }
-    }
+    assert_nil assigns(:homepage)
   end
 
-  def test_index_with_empty_cookie
+  def test_index__without_cookies
+    get :index
+    assert_response :success
+    assert_rendered_nodes_where { |page| page.parent_id.nil? || page.parent.parent_id.nil? }
+  end
+
+  def test_index__with_empty_cookie
     @request.cookies['expanded_rows'] = [""]
     get :index
     assert_response :success
-    #should contain only the homepage
-    wanted, unwanted = Page.find(:all).partition {|p| p.parent_id.nil? }
-    wanted.each { |page|
-        assert_tag :tag => 'tr', :attributes => {:id => "page-#{page.id}" }
-    }
-    unwanted.each { |page|
-        assert_no_tag :tag => 'tr', :attributes => {:id => "page-#{page.id}" }
-    }
+    assert_rendered_nodes_where { |page| page.parent_id.nil? }
   end
 
-  def test_index_with_cookie
+  def test_index__with_cookie
     @request.cookies['expanded_rows'] = ["1,5,9,10,11,12,52"]
     get :index
     assert_response :success
-    #should contain only the direct children of nodes 1,5,9,10,11,12 and 52 (assuming there's no missing parent nodes)
-    wanted, unwanted = Page.find(:all).partition {|p| [1,5,9,52,10,11,12].include?(p.parent_id) || p.parent_id.nil? }
-    wanted.each { |page|
-        assert_tag :tag => 'tr', :attributes => {:id => "page-#{page.id}" }
-    }
-    unwanted.each { |page|
-        assert_no_tag :tag => 'tr', :attributes => {:id => "page-#{page.id}" }
-    }
+    assert_rendered_nodes_where { |page| [nil, 1, 5, 9, 52, 10, 11, 12].include?(page.parent_id) }
+  end
+  
+  def test_index__with_mangled_cookie
+    @request.cookies['expanded_rows'] = ["1,5,:#*)&},9a,,,"]
+    get :index
+    assert_response :success
+    assert_rendered_nodes_where { |page| [nil, 1, 5].include?(page.parent_id) }
+    assert !assigns(:homepage).nil?
   end
   
   def test_new
@@ -217,4 +211,16 @@ class Admin::PageControllerTest < Test::Unit::TestCase
     assert ! %r{<head>}.match(@response.body)
     assert_equal 'text/html;charset=utf-8', @response.headers['Content-Type']
   end
+  
+  protected
+  
+    def assert_rendered_nodes_where(&block)
+      wanted, unwanted = Page.find(:all).partition(&block)
+      wanted.each do |page|
+        assert_tag :tag => 'tr', :attributes => {:id => "page-#{page.id}" }
+      end
+      unwanted.each do |page|
+        assert_no_tag :tag => 'tr', :attributes => {:id => "page-#{page.id}" }
+      end
+    end
 end

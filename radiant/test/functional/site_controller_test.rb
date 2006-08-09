@@ -156,6 +156,12 @@ class SiteControllerTest < Test::Unit::TestCase
     assert_equal 'This is the documentation section.', @response.body
   end
   
+  def test_show_page__no_pages
+    Page.destroy_all
+    get :show_page, :url => '/'
+    assert_redirected_to admin_url
+  end
+  
   private
   
     def cache_file(path)
