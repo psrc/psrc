@@ -1,7 +1,7 @@
 # Be sure to restart your web server when you modify this file.
 
 # Rails Gem Version
-RAILS_GEM_VERSION = '1.1.4'
+RAILS_GEM_VERSION = '1.1.5'
 
 # Uncomment below to force Rails into production mode when 
 # you don't control web/app server and can't set it the proper way

@@ -14,11 +14,11 @@ ActiveRecord::Schema.define(:version => 9) do
   create_table "layouts", :force => true do |t|
     t.column "name", :string, :limit => 100
     t.column "content", :text
+    t.column "content_type", :string, :limit => 40
     t.column "created_at", :datetime
     t.column "updated_at", :datetime
     t.column "created_by", :integer
     t.column "updated_by", :integer
-    t.column "content_type", :string, :limit => 40
   end
 
   create_table "page_parts", :force => true do |t|
@@ -32,10 +32,10 @@ ActiveRecord::Schema.define(:version => 9) do
     t.column "title", :string
     t.column "slug", :string, :limit => 100
     t.column "breadcrumb", :string, :limit => 160
-    t.column "behavior_id", :string, :limit => 25
-    t.column "status_id", :integer, :default => 1, :null => false
     t.column "parent_id", :integer
     t.column "layout_id", :integer
+    t.column "behavior_id", :string, :limit => 25
+    t.column "status_id", :integer, :default => 1, :null => false
     t.column "created_at", :datetime
     t.column "updated_at", :datetime
     t.column "published_at", :datetime

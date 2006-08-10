@@ -347,13 +347,17 @@ class RadiantCommandApplication
         create     script/console
         create     script/version
       }
-      change_rails_gem_version_in_environment_to '1.1.4'
+      make_executable(File.join(@dirname, 'script/version'))
+      change_rails_gem_version_in_environment_to '1.1.5'
     end
     
     def upgrade_application_to_0_5_1
       upgrade_files %{
         overwrite  app/controllers/application.rb
         overwrite  app/helpers/admin/page_helper.rb
+        overwrite  app/helpers/application_helper.rb
+        overwrite  app/models/page_context.rb
+        overwrite  app/models/response_cache.rb
         overwrite  app/views/admin/layout/index.rhtml
         overwrite  app/views/admin/layout/new.rhtml
         overwrite  app/views/admin/layout/remove.rhtml
@@ -384,11 +388,15 @@ class RadiantCommandApplication
         overwrite! public/images/new-layout.png
         create     script/console
         create     script/version
+        overwrite  test/fixtures/pages.yml
         remove!    test/fixtures/pages.yml.rej
         overwrite  test/functional/admin/page_controller_test.rb
+        overwrite  test/functional/site_controller_test.rb
+        overwrite  test/unit/page_context_test.rb
         remove!    test/unit/page_context_test.rb.rej
       }
-      change_rails_gem_version_in_environment_to '1.1.4'
+      make_executable(File.join(@dirname, 'script/version'))
+      change_rails_gem_version_in_environment_to '1.1.5'
     end
 end
 
