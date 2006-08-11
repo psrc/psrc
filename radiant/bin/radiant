@@ -105,10 +105,19 @@ class RadiantCommandApplication
       when current_version == latest_version
         announce_already_upgraded
       else
-        announce "Upgrading Radiant to version #{ latest_version }..." do
-          @backups = @overwrite || ask_yes_or_no("Would you like to create backups of files that Radiant replaces", :no) if @backups.nil?
-          send "upgrade_#{ @application_type }_to_0_5_1"
-          change_radiant_gem_version_in_instance_config_to(latest_version) if @application_type == :instance 
+        @backups = @overwrite || ask_yes_or_no("Would you like to create backups of files that Radiant replaces", :no) if @backups.nil?
+        versions = ['0.5.1', '0.5.2']
+        index_of_current_version = versions.index(current_version) || -1
+        versions.each do |version|
+          if versions.index(version) > index_of_current_version
+            announce "Upgrading Radiant to version #{version}..." do
+              send "upgrade_#{ @application_type }_to_#{ version.gsub('.', '_') }"
+              if version == latest_version
+                change_rails_gem_version_in_environment_to '1.1.6'
+                change_radiant_gem_version_in_instance_config_to(latest_version) if @application_type == :instance
+              end
+            end
+          end
         end
         puts "Done."
       end
@@ -348,7 +357,6 @@ class RadiantCommandApplication
         create     script/version
       }
       make_executable(File.join(@dirname, 'script/version'))
-      change_rails_gem_version_in_environment_to '1.1.5'
     end
     
     def upgrade_application_to_0_5_1
@@ -396,7 +404,21 @@ class RadiantCommandApplication
         remove!    test/unit/page_context_test.rb.rej
       }
       make_executable(File.join(@dirname, 'script/version'))
-      change_rails_gem_version_in_environment_to '1.1.5'
+    end
+    
+    def upgrade_instance_to_0_5_2
+      upgrade_files %{
+        overwrite! CHANGELOG
+      }
+    end
+    
+    def upgrade_application_to_0_5_2
+      upgrade_files %{
+        overwrite  bin/radiant
+        overwrite! CHANGELOG
+        overwrite  lib/tasks/release.rake
+        overwrite  lib/radiant.rb
+      }
     end
 end
 
