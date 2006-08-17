@@ -1,5 +1,5 @@
 class Admin::ExportController < ApplicationController
-  model :exporter, :user, :page, :page_part, :snippet, :layout
+  model 'radiant/exporter', :user, :page, :page_part, :snippet, :layout
   
   def yaml
     @response.headers['Content-Type'] = "text/yaml"
