@@ -150,7 +150,8 @@ class PageContext < Radius::Context
     end
 
     #
-    # <header [name="header_name"] [restart="name1[;name2;...]"]>...</r:header>
+    # <r:children:each><r:header [name="header_name"] [restart="name1[;name2;...]"]>...
+    #   </r:header></r:children:each>
     #
     # Renders the tag contents only if the contents do not match the previous header. This
     # is extremely useful for rendering date headers for a list of child pages.
