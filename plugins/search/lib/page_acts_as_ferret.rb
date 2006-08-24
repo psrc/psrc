@@ -2,21 +2,23 @@ require_dependency "models/page"
 
 class Page
 
-  DEFAULT_PARTS = Radiant::Config['default.parts'].split(',')
+  private
 
-  # Strip HTML tags before creating the index on default page parts.
-  # This method does not validate the HTML structure.
-  # Partial and/or broken tags may result in stripping more than expected.
+    DEFAULT_PARTS = Radiant::Config['default.parts'].split(',').collect { |part_name| part_name.strip }
 
-  DEFAULT_PARTS.each do |part|
+    # Strip HTML tags before creating the index on default page parts.
+    # This method does not validate the HTML structure.
+    # Partial and/or broken tags may result in stripping more than expected.
 
-    define_method(part) do
-      html = behavior.render_page_part(part)
-      html.gsub(/<\/?[^>]+>/,'')
+    DEFAULT_PARTS.each do |part|
+
+      define_method(part) do
+        html = behavior.render_page_part(part)
+        html.gsub(/<\/?[^>]+>/,'')
+      end
+
     end
 
-  end
-
-  acts_as_ferret :fields => [ 'title' ] + DEFAULT_PARTS
+    acts_as_ferret :fields => [ 'title' ] + DEFAULT_PARTS
 
 end
