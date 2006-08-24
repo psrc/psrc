@@ -137,7 +137,7 @@
     header snippet with the following lines:
     
     <r:find url="/search">
-      <r:content part="form"/>
+      <r:content part="body"/>
     </r:find>
  
 
@@ -157,6 +157,16 @@
   
      # Radiant application must be in production mode otherwise the Engines will not load correctly.
      ENV['RAILS_ENV'] ||= 'production'
+
+
+== FAQ
+
+  A: Why do I get an "uninitialized constant DEFAULT_PARTS" NameError?
+  Q: You are not running the application in production mode. Try:
+       script/server -e production
+  
+  A: After installing the search plugin, my server won't start. The server doesn't log an error message either?
+  Q: Install all the dependencies (i.e. acts_as_ferret).
 
 == Credits
 
