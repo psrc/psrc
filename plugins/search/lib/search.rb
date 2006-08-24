@@ -142,7 +142,7 @@ class Search < Behavior::Base
       header snippet with the following lines:
       
       <r:find url="/search">
-        <r:content part="form"/>
+        <r:content part="update"/>
       </r:find>
       
   }
@@ -253,10 +253,6 @@ class Search < Behavior::Base
 
   end
 
-  def update_element?
-    not page.parts.reject { |part| part.name != "update" }.empty?
-  end
-
   protected
 
     def render_page
@@ -279,6 +275,10 @@ class Search < Behavior::Base
 
   private
 
+    def update_element?
+      not page.parts.reject { |part| part.name != "update" }.empty?
+    end
+
     def query
       @query ||= Query.new
     end
@@ -288,13 +288,19 @@ class Search < Behavior::Base
       @query = Query.new(options)
     end
 
+    alias_method :set_default_query, :query
+
     def query_result
       @query_result ||= []
     end
 
+    alias_method :set_default_query_result, :query_result
+
     def set_query_result
       pages = Page.find_by_contents(query)
       @query_result = pages.delete_if { |p| !p.published? }
+    rescue Ferret::QueryParser::QueryParseException
+      set_default_query_result
     end
 
     def form_configuration 
