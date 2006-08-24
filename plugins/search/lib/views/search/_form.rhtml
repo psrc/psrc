@@ -1,0 +1,5 @@
+<%= form_tag(page.url, { :id => tag.attr['id'] } ) %>
+  <label for="query"><%= tag.attr['label'] %></label>
+  <%= text_field_tag('query') %>
+  <%= submit_tag "Search" if tag.attr['update'].empty? %>
+<%= end_form_tag %>

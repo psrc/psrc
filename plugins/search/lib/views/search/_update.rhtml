@@ -1,0 +1,10 @@
+<div id="<%= tag.attr['update'] %>">
+  <%= image_tag('spinner.gif', :style => 'display:none', :id => 'spinner') %>
+</div>
+<%= javascript_include_tag('prototype') if tag.attr['prototype'] == 'true' %>
+<%= observe_form(tag.attr['id'],
+                    :frequency => 0.5,
+                    :update    => tag.attr['update'],
+                    :loading   => "Element.show('spinner')",
+                    :complete  => "Element.hide('spinner')",
+                    :url       => page.url) %>
