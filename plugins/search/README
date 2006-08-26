@@ -143,7 +143,7 @@
 
 == Installation
 
-  1. Install Ferret
+  1. Install Ferret.
 
      gem install ferret
 
@@ -151,7 +151,8 @@
 
      script/plugin install svn://projects.jkraemer.net/acts_as_ferret/tags/plugin/stable/acts_as_ferret
 
-  3. Copy the Radiant Search Engine into Radiant's vendor/plugins directory
+  3. Copy the Search behavior into Radiant's vendor/plugins directory.
+     The name of the search plugin directory must be search_behavior.
 
   4. Edit the file config/environment.rb so it contains these following lines.
   
@@ -161,12 +162,12 @@
 
 == FAQ
 
-  A: Why do I get an "uninitialized constant DEFAULT_PARTS" NameError?
-  Q: You are not running the application in production mode. Try:
+  Q: Why do I get an "uninitialized constant DEFAULT_PARTS" NameError?
+  A: You are not running the application in production mode. Try:
        script/server -e production
   
-  A: After installing the search plugin, my server won't start. The server doesn't log an error message either?
-  Q: Install all the dependencies (i.e. acts_as_ferret).
+  Q: After installing the search plugin, my server won't start. The server doesn't log an error message either?
+  A: Install all the dependencies (i.e. acts_as_ferret).
 
 == Credits
 
