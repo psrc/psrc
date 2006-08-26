@@ -2,9 +2,9 @@ require_dependency "models/page"
 
 class Page
 
-  private
+  DEFAULT_PARTS = Radiant::Config['default.parts'].split(',').collect { |part_name| part_name.strip }
 
-    DEFAULT_PARTS = Radiant::Config['default.parts'].split(',').collect { |part_name| part_name.strip }
+  private
 
     # Strip HTML tags before creating the index on default page parts.
     # This method does not validate the HTML structure.
