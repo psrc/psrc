@@ -10,5 +10,11 @@ class MarkdownFilterTest < Test::Unit::TestCase
     markdown = MarkdownFilter.new
     assert_equal '<p><strong>strong</strong></p>', markdown.filter('**strong**')
   end
+  
+  def test_filter_with_quotes
+    markdown = MarkdownFilter.new
+    assert_equal("<h1>Radiant&#8217;s &#8220;filters&#8221; rock!</h1>", 
+      markdown.filter("# Radiant's \"filters\" rock!"))
+  end
 
 end
