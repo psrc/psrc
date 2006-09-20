@@ -1,0 +1,42 @@
+<% content_for(:page_css) do -%>
+    table.index h4 {
+      font-size: 110%;
+      margin-top: .5em;
+      margin-bottom: .25em;
+    }
+    table.index p {
+      margin-top: .25em;
+      margin-bottom: .5em;
+    }
+<% end -%>
+
+<h1>Plugins</h1>
+
+<table id="plugins" class="index" cellpadding="0" cellspacing="0" border="0">
+  <thead>
+    <tr>
+      <th class="plugin">Plugin</th>
+      <th class="version">Version</th>
+    </tr>
+  </thead>
+  <tbody>
+<% for plugin in @plugins -%>
+    <tr class="node level-1">
+      <td class="plugin">
+<% unless plugin.url.blank? -%>
+        <h4><a href="<%=h plugin.url %>"><%=h plugin.registered_id %></a></h4>
+<% else -%>
+        <h4><%=h plugin.registered_id %></h4>
+<% end -%>
+        <p><%=h plugin.description %></p>
+      </td>
+      <td class="version"><%= plugin.version %></td>
+    </tr>
+<% end -%>
+  </tbody>
+</table>
+<script type="text/javascript">
+// <![CDATA[
+  new RuledTable('plugins');
+// ]]>
+</script>

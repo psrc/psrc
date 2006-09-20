@@ -1,0 +1,2 @@
+require 'advanced_plugin_system'
+AdvancedPluginSystem.init
