@@ -16,7 +16,7 @@ class Plugin
         def initialize(name, url, options = {})
           @name, @url = name, url
           @visibility = [*options[:for]].compact
-          @visibility = [:all] if @visibility.empty? 
+          @visibility = [:all] if @visibility.empty?
         end
         
         def shown_for?(user)
@@ -30,8 +30,19 @@ class Plugin
         @tabs = []
       end
     
-      def add(*args)
-        @tabs << Tab.new(*args)
+      def add(name, url, options = {})
+        options.symbolize_keys!
+        before = options.delete(:before)
+        after = options.delete(:after)
+        tab_name = before || after
+        if tab_name
+          tab = @tabs.find { |t| t.name == tab_name }
+          index = @tabs.index(tab)
+          index += 1 if before.nil?
+          @tabs.insert(index, Tab.new(name, url, options))
+        else
+          @tabs << Tab.new(name, url, options)
+        end
       end
       
       def remove(name)
