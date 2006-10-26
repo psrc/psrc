@@ -30,7 +30,7 @@ class SiteControllerTest < Test::Unit::TestCase
   
   def test_show_page__one_level_deep
     get :show_page, :url => 'documentation/'
-    assert :success
+    assert_response :success
     assert_equal 'This is the documentation section.', @response.body
   end
 
