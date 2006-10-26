@@ -65,7 +65,7 @@ class PageContextTest < Test::Unit::TestCase
     message = "`by' attribute of `each' tag must be set to a valid field name"
     assert_parse_output_match message, page_children_each_tags(%{by="non-existant-field"})
   end
-  def test_tag_children_each_attributes_with_invalid_limit
+  def test_tag_children_each_attributes_with_invalid_order
     message = %{`order' attribute of `each' tag must be set to either "asc" or "desc"}
     assert_parse_output_match message, page_children_each_tags(%{order="asdf"})
   end
