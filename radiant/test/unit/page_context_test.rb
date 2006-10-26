@@ -115,6 +115,36 @@ class PageContextTest < Test::Unit::TestCase
     assert_parse_output '', '<r:children:last:title />'
   end
   
+  def test_tag_parent
+    expected = 'Radius Test Page Radius Test Page Radius Test Page '
+    input = '<r:children:each><r:parent><r:title /> </r:parent></r:children:each>'
+    assert_parse_output expected, input
+  end
+  def test_tag_parent_children
+    expected = 'Radius Test Child 1 Radius Test Child 2 Radius Test Child 3 Radius Test Child 1 Radius Test Child 2 Radius Test Child 3 Radius Test Child 1 Radius Test Child 2 Radius Test Child 3 '
+    input = '<r:children:each><r:parent><r:children:each><r:title /> </r:children:each></r:parent></r:children:each>'
+    assert_parse_output expected, input
+  end
+  def test_tag_if_parent
+    assert_parse_output 'true', '<r:if_parent>true</r:if_parent>'
+  end
+  def test_tag_if_parent_no_parent
+    setup_for_page(:homepage)
+    assert_parse_output '', '<r:if_parent>true</r:if_parent>'
+  end
+  def test_tag_unless_parent
+    setup_for_page(:homepage)
+    assert_parse_output 'true', '<r:unless_parent>true</r:unless_parent>'
+  end
+  def test_tag_unless_parent_with_parent
+    assert_parse_output '', '<r:unless_parent>true</r:unless_parent>'
+  end
+  def test_tag_parent_no_parent_nil
+    setup_for_page(:homepage)
+    input = '<r:parent><r:title /> </r:parent>'
+    assert_parse_output '', input
+  end
+  
   def test_tag_content
     expected = "<h1>Radius Test Page</h1>\n\n\n\t<ul>\n\t<li>Radius Test Child 1</li>\n\t\t<li>Radius Test Child 2</li>\n\t\t<li>Radius Test Child 3</li>\n\t</ul>"
     assert_parse_output expected, '<r:content />'

@@ -179,6 +179,35 @@ class PageContext < Radius::Context
         header
       end
     end
+    
+    #
+    # <r:parent>...</r:parent>
+    #
+    # Gives access to a page's parent.
+    #
+    define_tag 'parent' do |tag|
+      parent = tag.locals.page.parent
+      tag.locals.page = parent
+      tag.expand unless parent.nil?
+    end
+    
+    #
+    # <r:if_parent>...</r:if_parent>
+    #
+    # Renders the containing elements only if the the page has a parent
+    #
+    define_tag 'if_parent' do |tag|
+      tag.expand unless tag.locals.page.parent.nil?
+    end
+
+    #
+    # <r:unless_parent>...</r:unless_parent>
+    #
+    # The opposite of the 'if_parent' tag
+    #
+    define_tag 'unless_parent' do |tag|
+      tag.expand if tag.locals.page.parent.nil?
+    end
 
     #
     # <r:content [part="part_name"] [inherit="true|false"] [contextual="true|false"] />
