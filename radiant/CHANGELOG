@@ -1,13 +1,47 @@
-
 == Change Log
 
 === 0.6.0 Lapidary
+* Added support for extensions--an extremely flexible way to extend radiant
+* Merged Behaviors into the Page class; subclass page now instead
 * Improved database support for Postgres and Sqlite
 * Limited support for SQL Server
 * Exceptions from tags now bubble up during testing
 * Page parts are now sorted by ID so the order that you create them in is
   preserved [Josh Ferguson]
-* Implemented tag documentation DSL and UI. [Sean Cribbs]
+* Implemented tag documentation DSL and UI [Sean Cribbs]
+* Reworked the setup code
+* Renamed script/setup_database to rake db:bootstrap
+* Reworked the upgrade code to work around rake tasks
+* Added rake tasks for freezing and unfreezing radiant to the edge
+* r:children:each, r:children:first, and r:children:last now all accept the
+  same ordering and limit attributes and have the same defaults
+* Snippets are now responsive to global context via the r:page tag. This means 
+  that any tags inside r:page will refer to the page currently being rendered, 
+  i.e. the page requested, not the local contextual page via tags like 
+  r:children:each, etc. This is most relevant to recursive snippets like the 
+  sitemapper example [Sean Cribbs]
+* r:navigation now uses the pipe character ("|") to delimit URLs in the urls 
+  attribute rather than the semi-colon
+* :date now accepts a "for" attribute that specifies which attribute of the 
+  page to render. Valid values of the attribute are published_at, updated_at, 
+  created_at, and now.
+* Created the r:cycle tag to make alternating tables and lists possible
+* Added popups for filter and tag documentation inside the page editing 
+  interface
+* Added support for optimistic locking for all models [Daniel Shepherd]
+* Added support to Radiant::Config for boolean values [Sean Cribbs]
+* Caching no longer stores the headers and body in the same file [Daniel 
+  Shepherd]
+* Added support for the X-Sendfile header that works in conjunction with 
+  caching to speed it up (by default X-Sendfile support is off) [Daniel 
+  Shepherd]
+* Moved the images and stylesheets into images/admin and stylesheets/admin
+  respectively to make it easier for Radiant's assets to coexist easily with
+  the site's assets
+* Improved the Javascript that automatically updates the slug and breadcrumb
+  based off of the title so that it now response to all change events
+* For the full scoop on what's changed see Sean Cribbs' detailed blog post:
+  http://seancribbs.com/tech/2007/04/18/whats-new-in-radiant-0-6
 
 === 0.5.2 Raildust (August 10, 2006)
 * Upgraded Rails to 1.1.6 because of a security vulnerability in 1.1.5
