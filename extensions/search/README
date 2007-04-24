@@ -1,0 +1,7 @@
+= Search
+
+Ported by: Sean Cribbs
+  version: 0.1
+
+A port of Oliver Baltzer's search behavior, with removal of the
+live-preview options.

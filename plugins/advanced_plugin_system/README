@@ -1,5 +1,0 @@
-== Advanced Plugin System
-
-The advanced plugin system is a next generation plugin framework for Radiant. It allows plugins to create additional controllers, views, and models and provides hooks to make it easy to modify the administrative interface.
-
-It is licensed under the MIT license and is copyright (c) 2006, John W. Long. Portions contributed by Oliver Baltzer and Alexander Horn.
