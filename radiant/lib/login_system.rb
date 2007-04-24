@@ -14,7 +14,7 @@ module LoginSystem
   
     def authenticate
       action = params['action'].to_s.intern
-      user = session[:user]
+      user = session['user']
       if no_login_required? or (user and user_has_access_to_action?(action))
         true
       else
@@ -35,7 +35,7 @@ module LoginSystem
     end
   
     def user_has_role?(role)
-      session[:user].send("#{role}?")
+      session['user'].send("#{role}?")
     end
     
     def user_has_access_to_action?(action)

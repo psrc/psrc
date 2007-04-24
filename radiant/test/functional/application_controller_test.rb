@@ -7,6 +7,8 @@ class ApplicationController; def rescue_action(e) raise e end; end
 class ApplicationControllerTest < Test::Unit::TestCase
   fixtures :users
   
+  test_helper :routing
+  
   class TestController < ApplicationController
     def test
       render :text => 'test'
@@ -18,6 +20,11 @@ class ApplicationControllerTest < Test::Unit::TestCase
     @request = ActionController::TestRequest.new
     @response = ActionController::TestResponse.new
     @user = users(:existing)
+    setup_custom_routes
+  end
+  
+  def teardown
+    teardown_custom_routes
   end
   
   def test_ancestors
@@ -28,17 +35,10 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_equal Radiant::Config, @controller.config
   end
   
-  def test_default_parts
-    assert_equal ['body', 'extended'], @controller.default_parts
-  end
-  
   def test_before_filter
-    with_routing do |routes|
-      routes.map ':controller/:action'
-      UserActionObserver.current_user = nil
-      get :test, {}, { :user => @user }
-      assert_response :success
-      assert_equal @user, UserActionObserver.current_user
-    end
+    UserActionObserver.current_user = nil
+    get :test, {}, { 'user' => @user }
+    assert_response :success
+    assert_equal @user, UserActionObserver.current_user
   end
 end

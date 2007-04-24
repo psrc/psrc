@@ -6,7 +6,7 @@ class SiteController; def rescue_action(e) raise e end; end
 
 class SiteControllerTest < Test::Unit::TestCase
   fixtures :pages, :page_parts
-  test_helper :behavior
+  test_helper :pages
   
   def setup
     @controller = SiteController.new
@@ -71,20 +71,27 @@ class SiteControllerTest < Test::Unit::TestCase
     assert_template nil
   end
   
-  def test_show_page__not_published__on_dev_site
-    @request.host = 'devsite.com'
+  def test_show_page__on_dev_site
+    @request.host = 'dev.site.com'
     ['draft', 'hidden'].each do |url|
       get :show_page, :url => url
-      assert_response :success, "for URL: #{url}"
+      assert_response :success, "url: #{url}"
     end
   end
   
-  def test_show_page__not_published__on_dev_site_in_conf
-    @controller.config = { 'dev.host' => 'mydevsite.com'  }
-    @request.host = 'mydevsite.com'
+  def test_show_page__on_dev_site_in_conf
+    @controller.config = { 'dev.host' => 'mysite.com'  }
+    
+    @request.host = 'mysite.com'
     ['draft', 'hidden'].each do |url|
       get :show_page, :url => url
-      assert_response :success, "for URL: #{url}"
+      assert_response :success, "url: #{url}"
+    end
+    
+    @request.host = 'dev.site.com' # should function like live site because of config
+    ['draft', 'hidden'].each do |url|
+      get :show_page, :url => url
+      assert_response :missing, "url: #{url}"
     end
   end
   
@@ -140,7 +147,7 @@ class SiteControllerTest < Test::Unit::TestCase
   
   def test_show_page__no_cache_on_dev_site
     @controller.cache.perform_caching = true
-    @request.host = 'devsite.com'
+    @request.host = 'dev.site.com'
     @cache.clear
     get :show_page, :url => 'documentation'
     assert_response :success
@@ -149,7 +156,7 @@ class SiteControllerTest < Test::Unit::TestCase
   
   def test_show_page__no_cache_on_dev_site__cached
     @controller.cache.perform_caching = true
-    @request.host = 'devsite.com'
+    @request.host = 'dev.site.com'
     @cache.cache_response('documentation', response(:body => 'expired body'))
     get :show_page, :url => 'documentation'
     assert_response :success
@@ -159,7 +166,7 @@ class SiteControllerTest < Test::Unit::TestCase
   def test_show_page__no_pages
     Page.destroy_all
     get :show_page, :url => '/'
-    assert_redirected_to admin_url
+    assert_redirected_to welcome_url
   end
   
   private

@@ -12,7 +12,7 @@ class Admin::PageControllerTest < Test::Unit::TestCase
     @controller = Admin::PageController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    @request.session[:user] = users(:existing)
+    @request.session['user'] = users(:existing)
     
     @page_title = 'Just a Test'
     
@@ -40,14 +40,14 @@ class Admin::PageControllerTest < Test::Unit::TestCase
   def test_index__without_cookies
     get :index
     assert_response :success
-    assert_rendered_nodes_where { |page| page.parent_id.nil? || page.parent.parent_id.nil? }
+    assert_rendered_nodes_where { |page| [nil, 1].include?(page.parent_id) }
   end
 
   def test_index__with_empty_cookie
     @request.cookies['expanded_rows'] = [""]
     get :index
     assert_response :success
-    assert_rendered_nodes_where { |page| page.parent_id.nil? }
+    assert_rendered_nodes_where { |page| [nil, 1].include?(page.parent_id) }
   end
 
   def test_index__with_cookie
@@ -66,10 +66,14 @@ class Admin::PageControllerTest < Test::Unit::TestCase
   end
   
   def test_new
-    @controller.config = { 'default.parts' => 'body, extended, summary' }
+    @controller.config = {
+      'defaults.page.parts' => 'body, extended, summary',
+      'defaults.page.status' => 'published'
+    }
     
     get :new, :parent_id => '1', :page => page_params
     assert_response :success
+    assert_template 'admin/page/edit'
     
     @page = assigns(:page)
     assert_kind_of Page, @page
@@ -79,6 +83,7 @@ class Admin::PageControllerTest < Test::Unit::TestCase
     assert_equal @expected_parent, @page.parent
     
     assert_equal 3, @page.parts.size
+    assert_equal Status[:published], @page.status
   end
   def test_new__with_slug_and_breadcrumb
     get :new, :parent_id => '1', :page => page_params, :slug => 'test', :breadcrumb => 'me'
@@ -134,11 +139,21 @@ class Admin::PageControllerTest < Test::Unit::TestCase
     @page = get_test_page
     assert_redirected_to page_edit_url(:id => @page.id)
   end
+  def test_new_edit__meta_and_buttons_partials_initialized
+    get :new, :parent_id => '1'
+    assert_response :success
+    assert_not_nil assigns(:meta)
+    assert_not_nil assigns(:buttons_partials)
+   
+    get :edit, :id => '1'
+    assert_response :success
+    assert_not_nil assigns(:meta)
+    assert_not_nil assigns(:buttons_partials)
+  end
   
   def test_edit
     get :edit, :id => '1', :page => page_params
     assert_response :success
-    assert_template 'admin/page/new'
     
     @page = assigns(:page)
     assert_kind_of Page, @page
@@ -166,6 +181,25 @@ class Admin::PageControllerTest < Test::Unit::TestCase
     assert_equal 1, @page.parts.size
     assert_equal 'changed', @page.parts.first.content
   end
+
+  def test_edit__post_with_optimistic_locking
+    @page = create_test_page
+    post :edit, :id => @page.id, :page => page_params(:status_id => '1', :lock_version => '12')
+    assert_response :success # not redirected
+    assert_match /has been modified/, flash[:error]
+  end
+  
+  def test_edit__post_with_parts_and_optimistic_locking
+    @page = create_test_page
+    @page.parts.create(part_params(:name => 'test-part-1', :content => 'original-1'))
+    post :edit, :id => @page.id, :page => page_params(:status_id => '1', :lock_version => '12'), :part => {'1' => part_params(:name => 'test-part-1', :content => 'changed-1')}
+    assert_response :success # not redirected
+    assert_match /has been modified/, flash[:error]
+    #changed value must not be saved
+    assert_equal 'original-1', @page.parts.find_by_name('test-part-1').content
+    #but must be rendered to page
+    assert_tag :tag => 'textarea', :content => 'changed-1' 
+  end  
   
   def test_remove
     @page = create_test_page
@@ -210,6 +244,20 @@ class Admin::PageControllerTest < Test::Unit::TestCase
     assert_equal 1, assigns(:level)
     assert ! %r{<head>}.match(@response.body)
     assert_equal 'text/html;charset=utf-8', @response.headers['Content-Type']
+  end
+  
+  def test_tag_reference
+    xml_http_request :get, :tag_reference, :class_name => "Page"
+    assert_response :success
+    assert_equal "Page", assigns(:class_name)
+    assert_template "tag_reference"
+  end
+
+  def test_filter_reference
+    xml_http_request :get, :filter_reference, :filter_name => "Textile"
+    assert_response :success
+    assert_equal "Textile", assigns(:filter_name)
+    assert_template "filter_reference"
   end
   
   protected

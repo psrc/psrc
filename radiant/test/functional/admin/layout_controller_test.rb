@@ -12,7 +12,7 @@ class Admin::LayoutControllerTest < Test::Unit::TestCase
     @controller = Admin::LayoutController.new
     @request = ActionController::TestRequest.new
     @response = ActionController::TestResponse.new
-    @request.session[:user] = users(:developer)
+    @request.session['user'] = users(:developer)
   end
 
   def test_ancestors
@@ -21,7 +21,7 @@ class Admin::LayoutControllerTest < Test::Unit::TestCase
   
   [:index, :new, :edit, :remove].each do |action|
     define_method "test_#{action}_action_allowed_if_admin" do
-      get action, { :id => 1 }, { :user => users(:admin) }
+      get action, { :id => 1 }, { 'user' => users(:admin) }
       assert_response :success, "action: #{action}"
     end
     
@@ -31,7 +31,7 @@ class Admin::LayoutControllerTest < Test::Unit::TestCase
     end
     
     define_method "test_#{action}_action__not_allowed_if_other" do
-      get action, { :id => 1 }, { :user => users(:existing) }, {}
+      get action, { :id => 1 }, { 'user' => users(:existing) }, {}
       assert_redirected_to page_index_url, "action: #{action}"
       assert_match /privileges/, flash[:error], "action: #{action}"
     end

@@ -1,5 +1,8 @@
 class Snippet < ActiveRecord::Base
-
+  
+  # Default Order
+  order_by 'name'
+  
   # Associations
   belongs_to :created_by, :class_name => 'User', :foreign_key => 'created_by'
   belongs_to :updated_by, :class_name => 'User', :foreign_key => 'updated_by'
@@ -11,6 +14,6 @@ class Snippet < ActiveRecord::Base
   validates_format_of :name, :with => %r{^\S*$}, :message => 'cannot contain spaces or tabs'
   validates_uniqueness_of :name, :message => 'name already in use'
   
-  registered_attr :filter, TextFilter
+  object_id_attr :filter, TextFilter
 
 end

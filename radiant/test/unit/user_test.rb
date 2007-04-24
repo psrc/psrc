@@ -3,8 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class UserTest < Test::Unit::TestCase
   
   fixtures :users
-  test_helper :users
-  test_helper :validations
+  test_helper :users, :validations
   
   def setup
     @model = @user = User.new(VALID_USER_PARAMS)

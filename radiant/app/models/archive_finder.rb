@@ -49,14 +49,17 @@ class ArchiveFinder
       def extract(part, field)
         case ActiveRecord::Base.connection.adapter_name
         when /sqlite/i
-          case part
+          format = case part
           when /year/i
-            "STRFTIME('%Y', #{field})"
+           '%Y'
           when /month/i
-            "STRFTIME('%m', #{field})"
+           '%m'
           when /day/i
-            "STRFTIME('%d', #{field})"
+           '%d'
           end
+          "CAST(STRFTIME('#{format}', #{field}) AS INTEGER)"
+        when /sqlserver/i
+          "DATEPART(#{part.upcase}, #{field})"
         else
           "EXTRACT(#{part.upcase} FROM #{field})"
         end

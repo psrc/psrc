@@ -23,6 +23,8 @@ ActionController::Routing::Routes.draw do |map|
     page.page_remove       'admin/pages/remove/:id',             :action => 'remove'
     page.page_add_part     'admin/ui/pages/part/add',            :action => 'add_part'
     page.page_children     'admin/ui/pages/children/:id/:level', :action => 'children',   :level => '1'
+    page.tag_reference     'admin/ui/pages/tag_reference',       :action => 'tag_reference'
+    page.filter_reference  'admin/ui/pages/filter_reference',    :action => 'filter_reference'
     page.clear_cache       'admin/pages/cache/clear',            :action => 'clear_cache'    
   end
 
@@ -49,6 +51,12 @@ ActionController::Routing::Routes.draw do |map|
     user.user_new          'admin/users/new',                    :action => 'new'
     user.user_remove       'admin/users/remove/:id',             :action => 'remove'
     user.user_preferences  'admin/preferences',                  :action => 'preferences'
+  end
+  
+  # Extension Routes
+  map.with_options(:controller => 'admin/extension') do |extension|
+    extension.extension_index  'admin/extensions',                :action => 'index'
+    extension.extension_update 'admin/extensions/update',         :action => 'update'
   end
   
   # Site URLs

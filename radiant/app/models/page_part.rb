@@ -1,5 +1,8 @@
 class PagePart < ActiveRecord::Base
   
+  # Default Order
+  order_by 'name'
+  
   # Associations
   belongs_to :page
   
@@ -9,5 +12,6 @@ class PagePart < ActiveRecord::Base
   validates_length_of :filter_id, :maximum => 25, :allow_nil => true, :message => '%d-character limit'
   validates_numericality_of :id, :page_id, :allow_nil => true, :only_integer => true, :message => 'must be a number'
   
-  registered_attr :filter, TextFilter
+  object_id_attr :filter, TextFilter
+  
 end

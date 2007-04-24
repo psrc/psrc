@@ -1,4 +1,7 @@
 class Layout < ActiveRecord::Base
+  
+  # Default Order
+  order_by 'name'
 
   # Associations
   has_many :pages

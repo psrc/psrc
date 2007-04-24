@@ -1,14 +1,12 @@
-require_dependency 'admin/model_controller'
-
 class Admin::UserController < Admin::AbstractModelController
-  model :user
+  model_class User
   
   only_allow_access_to :index, :new, :edit, :remove, :when => :admin,
     :denied_url => {:controller => 'page', :action => :index},
     :denied_message => 'You must have administrative privileges to perform this action.'
   
   def preferences
-    @user = User.find(session[:user].id)
+    @user = User.find(session['user'].id)
     if valid_params?
       handle_new_or_edit_post(
         :redirect_to => page_index_url,
@@ -20,7 +18,7 @@ class Admin::UserController < Admin::AbstractModelController
   end
   
   def remove
-    if session[:user].id.to_s == params[:id].to_s
+    if session['user'].id.to_s == params[:id].to_s
       announce_cannot_delete_self
       redirect_to user_index_url
     else

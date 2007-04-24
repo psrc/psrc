@@ -14,10 +14,10 @@
 <% for snippet in @snippets -%>
     <tr class="node level-1">
       <td class="snippet">
-        <%= image_tag "snippet", :class => "icon", :alt => 'snippet-icon', :title => '', :align => 'center' %>
+        <%= image "snippet", :class => "icon", :alt => 'snippet-icon', :title => '', :align => 'center' %>
         <%= link_to snippet.name, snippet_edit_url(:id => snippet) %></span>
       </td>
-      <td class="remove"><%= link_to image_tag('remove', :alt => 'Remove Snippet'), snippet_remove_url(:id => snippet) %></td>
+      <td class="remove"><%= link_to image('remove', :alt => 'Remove Snippet'), snippet_remove_url(:id => snippet) %></td>
     </tr>
 <% end -%>
 <% else -%>
@@ -33,4 +33,4 @@
 // ]]>
 </script>
 
-<p><%= link_to image_tag('new-snippet', :alt => 'New Snippet'), snippet_new_url %></p>
+<p><%= link_to image('new-snippet', :alt => 'New Snippet'), snippet_new_url %></p>

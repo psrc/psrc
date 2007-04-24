@@ -82,7 +82,7 @@ records:
     2: 
       virtual: true
       slug: file-not-found
-      behavior_id: Page Missing
+      class_name: FileNotFoundPage
       title: File Not Found
       breadcrumb: File Not Found
       id: 2
@@ -98,7 +98,7 @@ records:
       layout_id: 3
     4: 
       slug: articles
-      behavior_id: Archive
+      class_name: ArchivePage
       title: Articles
       breadcrumb: Articles
       id: 4
@@ -145,7 +145,7 @@ records:
     10: 
       virtual: true
       slug: monthly-archives
-      behavior_id: Archive Month Index
+      class_name: ArchiveMonthIndexPage
       title: "%B %Y Archives"
       breadcrumb: Monthly Archives
       id: 10

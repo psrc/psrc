@@ -1,5 +1,3 @@
-require_dependency 'response_cache'
-
 class SiteController < ApplicationController
   session :off
   
@@ -13,10 +11,10 @@ class SiteController < ApplicationController
   end
   
   def show_page
-    @response.headers.delete('Cache-Control')
+    response.headers.delete('Cache-Control')
     url = params[:url].to_s
     if live? and (@cache.response_cached?(url))
-      @cache.update_response(url, response)
+      @cache.update_response(url, response, request)
       @performed_render = true
     else
       show_uncached_page(url)
@@ -30,21 +28,29 @@ class SiteController < ApplicationController
       found if found and (found.published? or dev?)
     end
 
+    def process_page(page)
+      page.process(request, response)
+    end
+    
     def show_uncached_page(url)
       @page = find_page(url)
       unless @page.nil?
-        @page.process(request, response)
+        process_page(@page)
         @cache.cache_response(url, response) if live? and @page.cache?
         @performed_render = true
       else
         render :template => 'site/not_found', :status => 404
       end
     rescue Page::MissingRootPageError
-      redirect_to(:controller => 'admin/welcome')
+      redirect_to welcome_url
     end
 
     def dev?
-      (@request.host == @config['dev.host']) or (@request.host =~ /^dev/)
+      if dev_host = @config['dev.host']
+        request.host == dev_host
+      else
+        request.host =~ /^dev\./
+      end
     end
     
     def live?

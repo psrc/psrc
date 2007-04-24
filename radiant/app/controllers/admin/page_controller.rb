@@ -1,6 +1,6 @@
-class Admin::PageController < ApplicationController
-  model :page
-  
+class Admin::PageController < Admin::AbstractModelController
+  model_class Page
+  before_filter :initialize_meta_rows_and_buttons, :only => [:new, :edit]
   attr_accessor :cache
 
   def initialize
@@ -13,25 +13,20 @@ class Admin::PageController < ApplicationController
   end
   
   def new
-    @page = Page.new
+    @page = request.get? ? Page.new_with_defaults(config) : Page.new
     @page.slug = params[:slug]
     @page.breadcrumb = params[:breadcrumb]
     @page.parent = Page.find_by_id(params[:parent_id])
-    if request.get?
-      default_parts.each do |name|
-        @page.parts << PagePart.new(:name => name)
-      end
-    end
-    handle_new_or_edit_post
+    render :action => :edit if handle_new_or_edit_post
   end
 
   def edit
-    @page = Page.find_by_id(params[:id])
-    render :action => :new if handle_new_or_edit_post
+    @page = Page.find(params[:id])
+    handle_new_or_edit_post
   end
 
   def remove
-    @page = Page.find_by_id(params[:id])
+    @page = Page.find(params[:id])
     if request.post?
       announce_pages_removed(@page.children.count + 1)
       @page.destroy
@@ -61,13 +56,20 @@ class Admin::PageController < ApplicationController
     render(:layout => false)
   end
 
+  def tag_reference
+    @class_name = params[:class_name]
+    @display_name = @class_name.constantize.display_name
+  end
+  
+  def filter_reference
+    @filter_name = params[:filter_name]
+    @display_name = (@filter_name + "Filter").constantize.filter_name rescue "&lt;none&gt;"
+  end
+  
   private
-    def announce_page_saved
-      flash[:notice] = "Your page has been saved below."
-    end
-    
-    def announce_validation_errors
-      flash[:error] = "Validation errors occurred while processing this form. Please take a moment to review the form and correct any input errors before continuing."
+  
+    def announce_saved(message = nil)
+      flash[:notice] = message || "Your page has been saved below."
     end
     
     def announce_pages_removed(count)
@@ -77,43 +79,43 @@ class Admin::PageController < ApplicationController
         "The page was successfully removed from the site."
       end
     end
-    
+
+    def initialize_meta_rows_and_buttons
+      @buttons_partials ||= []
+      @meta ||= []
+      @meta << {:field => "slug", :type => "text_field", :args => [{:class => 'textbox', :maxlength => 100}]}
+      @meta << {:field => "breadcrumb", :type => "text_field", :args => [{:class => 'textbox', :maxlength => 160}]}
+    end
+     
     def announce_cache_cleared
       flash[:notice] = "The page cache was successfully cleared."
     end
     
-    def handle_new_or_edit_post
-      if request.post?
-        @page.attributes = params[:page]
-        
-        original_names = @page.parts.map { |part| part.name }
-        new_names = (params[:part] || {}).values.map { |part| part[:name] }
-        names_to_remove = (original_names - new_names)
-        
-        parts_to_update = []
-        (params[:part] || {}).values.each do |v|
-          if part = @page.parts.find_by_name(v[:name])
-            part.attributes = part.attributes.merge(v)
-            parts_to_update << part
-          else
-            @page.parts.build(v)
-          end
-        end
-        if @page.save
-          names_to_remove.each { |name| @page.parts.find_by_name(name).destroy }
-          parts_to_update.each { |part| part.save }
-          @cache.expire_response(@page.url)
-          announce_page_saved
-          if params[:continue]
-            redirect_to page_edit_url(:id => @page.id)
-          else
-            redirect_to page_index_url
-          end
-          return false
+    def save
+      parts = @page.parts
+      parts_to_update = {}
+      (params[:part]||{}).each {|k,v| parts_to_update[v[:name]] = v }
+      
+      parts_to_remove = []
+      @page.parts.each do |part|
+        if(attrs = parts_to_update.delete(part.name))
+          part.attributes = part.attributes.merge(attrs)
         else
-          announce_validation_errors
+          parts_to_remove << part
         end
       end
-      true
+      parts_to_update.values.each do |attrs|
+        @page.parts.build(attrs)
+      end
+      if result = @page.save
+        new_parts = @page.parts - parts_to_remove
+        new_parts.each {|x| x.save}
+        @page.parts = new_parts
+      end
+      result
+    end
+    
+    def clear_model_cache
+      @cache.expire_response(@page.url)      
     end
 end

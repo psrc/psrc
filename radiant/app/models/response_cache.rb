@@ -1,20 +1,20 @@
 class ResponseCache
   include ActionController::Benchmarking::ClassMethods
-  include ActionController::Caching::Pages::ClassMethods
   
   @@defaults = {
     :directory => ActionController::Base.page_cache_directory,
     :expire_time => 5.minutes,
     :default_extension => '.yml',
     :perform_caching => true,
-    :logger => ActionController::Base.logger
+    :logger => ActionController::Base.logger,
+    :use_x_sendfile => false
   }
   cattr_accessor :defaults
   
-  attr_accessor :directory, :expire_time, :default_extension, :perform_caching, :logger
+  attr_accessor :directory, :expire_time, :default_extension, :perform_caching, :logger, :use_x_sendfile
   alias :page_cache_directory :directory
   alias :page_cache_extension :default_extension
-  private :expire_page, :cache_page, :caches_page, :benchmark, :silence, :page_cache_directory,
+  private :benchmark, :silence, :page_cache_directory,
     :page_cache_extension 
     
   # Creates a ResponseCache object with the specified options.
@@ -23,9 +23,10 @@ class ResponseCache
   # :directory         :: the path to the temporary cache directory
   # :expire_time       :: the number of seconds a cached response is considered valid (defaults to 5 min)
   # :default_extension :: the extension cached files should use (defaults to '.yml')
-  # :peform_caching    :: boolean value that turns caching on or off (defaults to true)
+  # :perform_caching   :: boolean value that turns caching on or off (defaults to true)
   # :logger            :: the application logging object (defaults to ActionController::Base.logger)
-  #
+  # :use_x_sendfile    :: use X-Sendfile headers to speed up transfer of cached pages (not available on all web servers)
+  # 
   def initialize(options = {})
     options = options.symbolize_keys.reverse_merge(defaults)
     self.directory         = options[:directory]
@@ -33,6 +34,7 @@ class ResponseCache
     self.default_extension = options[:default_extension]
     self.perform_caching   = options[:perform_caching]
     self.logger            = options[:logger]
+    self.use_x_sendfile    = options[:use_x_sendfile]
   end
   
   # Caches a response object for path to disk.
@@ -42,21 +44,31 @@ class ResponseCache
     response
   end
   
-  # If peform_caching is set to true, updates a response object so that it mirrors the
-  # cached version.
-  def update_response(path, response)
+  # If perform_caching is set to true, updates a response object so that it mirrors the
+  # cached version. The request object is required to perform Last-Modified/If-Modified-Since
+  # checks--it is left optional to allow for backwards compatability.
+  def update_response(path, response, request=nil)
     if perform_caching
       path = clean(path)
-      read_response(path, response)
+      read_response(path, response, request)
     end
     response
   end
   
   # Returns true if a response is cached at the specified path.
-  def response_cached?(path)
+  def read_metadata(path)
     path = clean(path)
-    name = page_cache_path(path)
-    File.exists?(name) and not File.directory?(name) and not (File.stat(name).mtime < (Time.now - @expire_time))
+    name = "#{page_cache_path(path)}.yml"
+    if File.exists?(name) and not File.directory?(name)
+      content = File.open(name,"rb") { |f| f.read }
+      metadata = YAML::load(content)
+      if(metadata['expires'] && metadata['expires'] >= Time.now)
+        return metadata
+      end
+    end
+  end
+  def response_cached?(path)
+    !!read_metadata(path)
   end
     
   # Expires the cached response for the specified path.
@@ -78,35 +90,84 @@ class ResponseCache
   end
   
   private
-  
+    # Construct the filename for the file in the cache directory for path    
+    # This DOES NOT include the extension
+    def page_cache_file(path)
+      name = ((path.empty? || path == "/") ? "/index" : URI.unescape(path))
+    end
+    
     # Ensures that path begins with a slash and remove extra slashes.
     def clean(path)
-      path = path.gsub(%{/+}, '/')
+      path = path.gsub(%r{/+}, '/')
       %r{^/?(.*?)/?$}.match(path)
       "/#{$1}"
     end
-    
-    # Reads a cached string from disk.
-    def read_page(path)
-      File.open(page_cache_path(path), "rb") { |f| f.read } if response_cached?(path)
-    end
 
+    
     # Reads a cached response from disk and updates a response object.
-    def read_response(path, response)
-      if content = read_page(path)
-        updates = YAML::load(content)
-        response.headers.merge!(updates['headers'] || {})
-        response.body = updates['body']
+    def read_response(path, response, request)
+      file_path = page_cache_path(path)
+      if metadata = read_metadata(path)
+        response.headers.merge!(metadata['headers'] || {})
+	if client_has_cache?(metadata, request)
+          response.headers.merge!('Status' => '304 Not Modified')
+	elsif use_x_sendfile
+          response.headers.merge!('X-Sendfile' => "#{file_path}.data")
+        else
+          response.body = File.open("#{file_path}.data", "rb") {|f| f.read}
+        end
       end
       response
+    end
+
+    def client_has_cache?(metadata, request)
+        return false unless request
+        request_time = Time.rfc2822(request.env["HTTP_IF_MODIFIED_SINCE"]) rescue nil
+        response_time = Time.rfc2822(metadata['headers']['Last-Modified']) rescue nil
+        return request_time && response_time && response_time <= request_time
     end
     
     # Writes a response to disk.
     def write_response(path, response)
-      content = {
+      if response.cache_timeout
+        if Time === response.cache_timeout
+          expires = response.cache_timeout
+        else
+          expires = Time.now + response.cache_timeout
+        end
+      else
+        expires = Time.now + self.expire_time
+      end
+      response.headers['Last-Modified'] ||= Time.now.httpdate
+      metadata = {
         'headers' => response.headers,
-        'body' => response.body
+        'expires' => expires
       }.to_yaml
-      cache_page(content, path)
+      cache_page(metadata, response.body, path)
+    end
+
+    def page_cache_path(path)
+      page_cache_directory + page_cache_file(path)
+    end
+
+    def expire_page(path)
+      return unless perform_caching
+
+      path = page_cache_path(path)
+      benchmark "Expired page: #{path}" do
+        File.delete("#{path}.yml") if File.exists?("#{path}.yml")
+        File.delete("#{path}.data") if File.exists?("#{path}.data")
+      end
+    end
+
+    def cache_page(metadata, content, path)
+      return unless perform_caching
+
+      path = page_cache_path(path)
+      benchmark "Cached page: #{path}" do
+        FileUtils.makedirs(File.dirname(path))
+        File.open("#{path}.yml", "wb+") { |f| f.write(metadata) }
+        File.open("#{path}.data", "wb+") { |f| f.write(content) }
+      end
     end
 end

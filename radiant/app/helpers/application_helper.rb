@@ -1,5 +1,3 @@
-require 'radiant/config'
-
 module ApplicationHelper
   def config
     Radiant::Config
@@ -18,7 +16,7 @@ module ApplicationHelper
   end
   
   def logged_in?
-    session[:user] ? true : false
+    session['user'] ? true : false
   end
 
   def save_model_button(model)
@@ -49,11 +47,11 @@ module ApplicationHelper
   end
   
   def links_for_navigation
-    tabs = []
-    tabs << nav_link_to('Pages', page_index_url)
-    tabs << nav_link_to('Snippets', snippet_index_url)
-    tabs << nav_link_to('Layouts', layout_index_url) if developer? 
-	  tabs.join(separator)
+    tabs = admin.tabs
+    links = tabs.map do |tab|
+      nav_link_to(tab.name, tab.url) if tab.shown_for?(session['user'])
+    end.compact
+    links.join(separator)
   end
   
   def separator
@@ -85,12 +83,12 @@ module ApplicationHelper
   end
   
   def admin?
-    user = session[:user]
+    user = session['user']
     user and user.admin?
   end
   
   def developer?
-    user = session[:user]
+    user = session['user']
     user and (user.developer? or user.admin?)
   end
   
@@ -136,10 +134,29 @@ module ApplicationHelper
   end
   
   def toggle_javascript_for(id)
-    "javascript:Element.toggle('#{id}', 'more-#{id}', 'less-#{id}')"
+    "Element.toggle('#{id}'); Element.toggle('more-#{id}'); Element.toggle('less-#{id}');"
   end
   
-  def cookies
-    @cookies
+  def image(name, options = {})
+    image_tag(append_image_extension("admin/#{name}"), options)
   end
+  
+  def image_submit(name, options = {})
+    image_submit_tag(append_image_extension("admin/#{name}"), options)
+  end
+  
+  def admin
+    Radiant::AdminUI.instance
+  end
+  
+  private
+  
+    def append_image_extension(name)
+      unless name =~ /\.(.*?)$/
+        name + '.png'
+      else
+        name
+      end
+    end
+  
 end

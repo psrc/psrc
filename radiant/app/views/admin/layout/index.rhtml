@@ -16,10 +16,10 @@
 <% for layout in @layouts -%>
     <tr class="node level-1">
       <td class="layout">
-        <%= image_tag 'layout', :alt => 'layout-icon', :title => '', :align => 'center' %>
+        <%= image 'layout', :alt => 'layout-icon', :title => '', :align => 'center' %>
         <%= link_to layout.name, layout_edit_url(:id => layout) %>
       </td>
-      <td class="remove"><%= link_to image_tag('remove', :alt => 'Remove Layout'), layout_remove_url(:id => layout) %></td>
+      <td class="remove"><%= link_to image('remove', :alt => 'Remove Layout'), layout_remove_url(:id => layout) %></td>
     </tr>
 <% end -%>
 <% else -%>
@@ -35,4 +35,4 @@
 // ]]>
 </script>
 
-<p><%= link_to image_tag('new-layout', :alt => 'New Layout'), layout_new_url %></p>
+<p><%= link_to image('new-layout', :alt => 'New Layout'), layout_new_url %></p>

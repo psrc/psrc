@@ -24,24 +24,24 @@ class Admin::WelcomeControllerTest < Test::Unit::TestCase
     assert_response :success
   end
   def test_login__post
-    post :login, :user => { :login => 'existing', :password => 'password' }
+    post :login, 'user' => { :login => 'existing', :password => 'password' }
     assert_redirected_to welcome_url
     
-    user = session[:user]
+    user = session['user']
     assert_kind_of User, user
     assert_equal 'existing', user.login
   end
   def test_login__post_invalid_user
-    post :login, :user => { :login => 'invalid', :password => 'password' }
+    post :login, 'user' => { :login => 'invalid', :password => 'password' }
     assert_response :success
     assert_match /invalid/i, flash[:error]
-    assert_nil session[:user]
+    assert_nil session['user']
   end
   
   def test_logout
-    get :logout, nil, { :user => users(:existing) }
+    get :logout, nil, { 'user' => users(:existing) }
     assert_redirected_to login_url
-    assert_nil session[:user]
+    assert_nil session['user']
     assert_match /logged out/i, flash[:notice]
   end
   

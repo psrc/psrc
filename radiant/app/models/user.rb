@@ -2,6 +2,9 @@ require 'digest/sha1'
 
 class User < ActiveRecord::Base
   
+  # Default Order
+  order_by 'name'
+  
   # Associations
   belongs_to :created_by, :class_name => 'User', :foreign_key => 'created_by'
   belongs_to :updated_by, :class_name => 'User', :foreign_key => 'updated_by'

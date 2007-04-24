@@ -16,3 +16,11 @@ snippet_with_tag:
   id: 4
   name: snippet_with_tag
   content: <r:page:title />
+global_page_cascade:
+  id: 5
+  name: global_page_cascade
+  content: <r:children:each><r:page:title /> </r:children:each>
+recursive_snippet:
+  id: 6
+  name: recursive
+  content: <r:children:each><r:snippet name="recursive" /></r:children:each><r:page:title />

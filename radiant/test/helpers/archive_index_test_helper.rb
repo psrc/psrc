@@ -1,5 +1,6 @@
 module ArchiveIndexTestHelper
   module ArchiveIndexTests
+    
     def test_page_virtual?
       assert_equal true, @page.virtual?
     end
@@ -31,5 +32,6 @@ module ArchiveIndexTestHelper
     def test_day_of_week_tag
       assert_renders 'Friday', '<r:archive:day_of_week />', '/archive/2000/06/09/'
     end
+    
   end
 end

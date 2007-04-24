@@ -36,6 +36,17 @@ class Radiant::ConfigTest < Test::Unit::TestCase
     assert h.size > 1
   end
   
+  def test_boolean_values
+    set('bool?', true)
+    assert @conf["bool?"]
+    set('bool?', false)
+    assert !@conf["bool?"]
+    set('bool2', true)
+    assert_equal 'true', @conf['bool2']
+    set('bool2', :blahblahblah)
+    assert_equal 'blahblahblah', @conf['bool2']
+  end
+  
   private
     def set(key, value)
       setting = Radiant::Config.find_by_key(key)

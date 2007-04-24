@@ -8,15 +8,15 @@ class Admin::ExportControllerTest < Test::Unit::TestCase
   fixtures :users, :pages
   
   def setup
-    @controller = ExportController.new
+    @controller = Admin::ExportController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    @request.session[:user] = users(:developer)
+    @request.session['user'] = users(:developer)
   end
 
   def test_yaml
     get :yaml
     assert_kind_of Hash, YAML.load(@response.body)
-    assert_equal 'text/yaml', @response.headers['Content-Type']
+    assert_equal 'text/yaml; charset=utf-8', @response.headers['Content-Type']
   end
 end

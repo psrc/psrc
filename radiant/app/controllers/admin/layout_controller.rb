@@ -1,7 +1,5 @@
-require_dependency 'admin/model_controller'
-
 class Admin::LayoutController < Admin::AbstractModelController
-  model :layout
+  model_class Layout
   
   attr_accessor :cache
   

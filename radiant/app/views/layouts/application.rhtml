@@ -4,14 +4,12 @@
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title><%= @page_title || default_page_title %></title>
-    <%= stylesheet_link_tag 'admin' %>
-    <%= javascript_include_tag 'prototype' %>
-    <%= javascript_include_tag 'string' %>
-    <%= javascript_include_tag 'effects' %>
-    <%= javascript_include_tag 'dragdrop' %>
-    <%= javascript_include_tag 'controls' %>
-    <%= javascript_include_tag 'tabcontrol' %>
-    <%= javascript_include_tag 'ruledtable' %>
+<% @stylesheets.each do |stylesheet| -%>
+    <%= stylesheet_link_tag stylesheet %>
+<% end -%>
+<% @javascripts.each do |script| -%>
+    <%= javascript_include_tag script %>
+<% end -%>
     <!--[if lt IE 7]>
     <script defer type="text/javascript" src="/javascripts/pngfix.js"></script>
     <![endif]-->
@@ -29,47 +27,57 @@
 <% end -%>
   </head>
   <body>
-    <div id="header">
-      <div id="site-title"><%= link_to_unless_current title, admin_url %></div>
-      <div id="site-subtitle"><%= subtitle %></div>
+    <div id="page">
+      <div id="header">
+        <div id="site-title"><%= link_to_unless_current title, admin_url %></div>
+        <div id="site-subtitle"><%= subtitle %></div>
 <% if logged_in? -%>
-      <div id="navigation">
-        <%= links_for_navigation %>
-      </div>
+        <div id="navigation">
+          <%= links_for_navigation %>
+        </div>
 <% end -%>
-    </div>
-    <hr class="hidden" />
-    <div id="main">
-<% if flash[:notice] -%>
-      <div id="notice">
-        <p><%= flash[:notice] %></p>
       </div>
+      <hr class="hidden" />
+      <div id="main">
+<% if flash[:notice] -%>
+        <div id="notice">
+          <p><%= flash[:notice] %></p>
+        </div>
 <% end -%>
 <% if flash[:error] -%>
-      <div id="error">
-        <p><%= flash[:error] %></p>
-      </div>
+        <div id="error">
+          <p><%= flash[:error] %></p>
+        </div>
 <% end -%>
-      <div id="content">
-<%= yield%>
+        <div id="content">
+<%= yield %>
+        </div>
       </div>
-    </div>
-    <hr class="hidden" />
-    <div id="footer">
-      <p>This site was made with Ruby and is powered by <a href="http://radiantcms.org">Radiant CMS</a> version <%= Radiant::Version %>.</p>
-      <p id="site-links">
+      <hr class="hidden" />
+      <div id="footer">
+        <p>This site was made with Ruby and is powered by <a href="http://radiantcms.org">Radiant CMS</a>
+          version <%= Radiant::Version %><% if Radiant.loaded_via_gem? %> (gem)<% end %>.</p>
+        <p id="site-links">
 <% if logged_in? -%>
   <% if admin? -%>
-        <%= nav_link_to 'Users', user_index_url %>
+          <%= nav_link_to 'Users', user_index_url %>
+          <span class="separator"> | </span>
+          <%= nav_link_to 'Extensions', extension_index_url %>
   <% else -%>
-        <%= nav_link_to 'Preferences', user_preferences_url %>
+          <%= nav_link_to 'Preferences', user_preferences_url %>
   <% end -%>
-        <span class="separator"> | </span>
-        <%= nav_link_to 'Log Out', logout_url %>
-        <span class="separator"> | </span>
+          <span class="separator"> | </span>
+          <%= nav_link_to 'Log Out', logout_url %>
+          <span class="separator"> | </span>
 <% end -%>
-        <%= link_to image_tag('view-site.gif', :alt => 'View Site', :title => '', :align => 'center'), homepage_url %>
-      </p>
+          <%= link_to image('view-site.gif', :alt => 'View Site', :title => '', :align => 'center'), homepage_url %>
+        </p>
+      </div>
     </div>
+<% if @content_for_popups -%>
+    <div id="popups">
+<%= yield :popups %>
+    </div>
+<% end -%>
   </body>
 </html>
