@@ -318,7 +318,7 @@ module StandardTags
     current date/time, regardless of the  page.
    
     *Usage:*  
-    <pre><code><r:date [format="%A, %B %d, %Y"] [when="published_at"]/></code></pre>
+    <pre><code><r:date [format="%A, %B %d, %Y"] [for="published_at"]/></code></pre>
   }
   tag 'date' do |tag|
     page = tag.locals.page
