@@ -11,7 +11,7 @@ class MergeBehaviorsAndPages < ActiveRecord::Migration
   
   def self.up
     announce "converting behavior names to class names"
-    Page.find(:all).each do |page|
+    OldPage.find(:all).each do |page|
       unless page.behavior_id.blank?
         page.behavior_id = page_name(page.behavior_id)
         page.save!
