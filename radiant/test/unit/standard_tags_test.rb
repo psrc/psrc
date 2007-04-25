@@ -198,7 +198,7 @@ class StandardTagsTest < Test::Unit::TestCase
     assert_renders 'Monday, January 30, 2006', '<r:date for="created_at" />'
     assert_renders 'Tuesday, January 31, 2006', '<r:date for="updated_at" />'
     assert_renders 'Monday, January 30, 2006', '<r:date for="published_at" />'
-    assert_render_error "Invalid value for 'when' attribute.", '<r:date for="blah" />'
+    assert_render_error "Invalid value for 'for' attribute.", '<r:date for="blah" />'
   end
   
   def test_tag_link

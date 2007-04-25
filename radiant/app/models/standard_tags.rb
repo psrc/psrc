@@ -331,7 +331,7 @@ module StandardTags
       when ['published_at', 'created_at', 'updated_at'].include?(time_attr)
         page[time_attr]
       else
-        raise TagError, "Invalid value for 'when' attribute."
+        raise TagError, "Invalid value for 'for' attribute."
       end
     else
       page.published_at || page.created_at
