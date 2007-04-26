@@ -28,13 +28,13 @@
 * Created the r:cycle tag to make alternating tables and lists possible
 * Added popups for filter and tag documentation inside the page editing 
   interface
-* Added support for optimistic locking for all models [Daniel Shepherd]
+* Added support for optimistic locking for all models [Daniel Sheppard]
 * Added support to Radiant::Config for boolean values [Sean Cribbs]
 * Caching no longer stores the headers and body in the same file [Daniel 
-  Shepherd]
+  Sheppard]
 * Added support for the X-Sendfile header that works in conjunction with 
   caching to speed it up (by default X-Sendfile support is off) [Daniel 
-  Shepherd]
+  Sheppard]
 * Moved the images and stylesheets into images/admin and stylesheets/admin
   respectively to make it easier for Radiant's assets to coexist easily with
   the site's assets
@@ -53,11 +53,11 @@
 * Updated icons for layouts
 * Migrations are now repaired so that you can run `rake migrate` to create the
   initial database. (`script/setup_database` is still the recommended method.)
-  (closes ticket #46) [Daniel Shepherd]
+  (closes ticket #46) [Daniel Sheppard]
 * When you collapse a branch in the admin page tree view and move to another
   tab the collapsed status is now saved so that when you return, the collapsed
   status is preserved. Also the status of collapsed branches is preserved when
-  collapsing and expanding parent nodes. (closes ticket #29) [Daniel Shepherd]
+  collapsing and expanding parent nodes. (closes ticket #29) [Daniel Sheppard]
 * Fixed documentation problem in response_cache.rb (closes ticket #142) [Paul
   Smith]
 * Fixed problem with timezones on fixtures causing tests to fail in Japan
