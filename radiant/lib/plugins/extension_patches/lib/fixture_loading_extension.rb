@@ -19,7 +19,7 @@ module Radiant
           begin
             directory = paths.pop
             fixtures_map[table_name] = Fixtures.new(connection, File.split(table_name.to_s).last, class_names[table_name.to_sym], File.join(directory, table_name))
-          rescue e
+          rescue Exception => e
             retry unless paths.empty?
             raise e
           end
