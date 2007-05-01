@@ -122,8 +122,8 @@ class ResponseCache
 
     def client_has_cache?(metadata, request)
         return false unless request
-        request_time = Time.rfc2822(request.env["HTTP_IF_MODIFIED_SINCE"]) rescue nil
-        response_time = Time.rfc2822(metadata['headers']['Last-Modified']) rescue nil
+        request_time = Time.httpdate(request.env["HTTP_IF_MODIFIED_SINCE"]) rescue nil
+        response_time = Time.httpdate(metadata['headers']['Last-Modified']) rescue nil
         return request_time && response_time && response_time <= request_time
     end
     
