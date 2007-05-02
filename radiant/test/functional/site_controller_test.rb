@@ -163,6 +163,24 @@ class SiteControllerTest < Test::Unit::TestCase
     assert_equal 'This is the documentation section.', @response.body
   end
   
+  def test_show_page__no_cache_if_post 
+    @controller.cache.perform_caching = true 
+    @cache.clear 
+    post :show_page, :url => 'documentation' 
+    assert_response :success 
+    assert !File.exists?(cache_file('documentation')) 
+  end 
+
+  def test_show_page__no_cache_if_post__cached 
+    @controller.cache.perform_caching = true 
+    @request.host = 'dev.site.com' 
+    @cache.cache_response('documentation', response(:body => 'expired body')) 
+    post :show_page, :url => 'documentation' 
+    assert_response :success 
+    assert_equal 'This is the documentation section.', @response.body 
+  end 
+  
+  
   def test_show_page__no_pages
     Page.destroy_all
     get :show_page, :url => '/'

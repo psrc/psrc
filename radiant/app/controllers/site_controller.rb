@@ -13,7 +13,7 @@ class SiteController < ApplicationController
   def show_page
     response.headers.delete('Cache-Control')
     url = params[:url].to_s
-    if live? and (@cache.response_cached?(url))
+    if (request.get? || request.head?) and live? and (@cache.response_cached?(url))
       @cache.update_response(url, response, request)
       @performed_render = true
     else
@@ -36,7 +36,7 @@ class SiteController < ApplicationController
       @page = find_page(url)
       unless @page.nil?
         process_page(@page)
-        @cache.cache_response(url, response) if live? and @page.cache?
+        @cache.cache_response(url, response) if request.get? and live? and @page.cache?
         @performed_render = true
       else
         render :template => 'site/not_found', :status => 404

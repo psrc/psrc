@@ -4,6 +4,17 @@
 
 ActiveRecord::Schema.define(:version => 15) do
 
+  create_table "attachments", :force => true do |t|
+    t.column "title",        :string
+    t.column "content_type", :string
+    t.column "filename",     :string
+    t.column "created_at",   :datetime
+    t.column "created_by",   :integer
+    t.column "updated_at",   :datetime
+    t.column "updated_by",   :integer
+    t.column "page_id",      :integer
+  end
+
   create_table "config", :force => true do |t|
     t.column "key",   :string, :limit => 40, :default => "", :null => false
     t.column "value", :string,               :default => ""
@@ -15,6 +26,13 @@ ActiveRecord::Schema.define(:version => 15) do
     t.column "name",           :string
     t.column "schema_version", :integer, :default => 0
     t.column "enabled",        :boolean, :default => true
+  end
+
+  create_table "groggy_article_metadatas", :force => true do |t|
+    t.column "page_id",      :integer
+    t.column "article_type", :string
+    t.column "author",       :string
+    t.column "feature",      :boolean, :default => false
   end
 
   create_table "layouts", :force => true do |t|
