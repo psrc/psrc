@@ -12,7 +12,7 @@ class ExtensionInitializationTest < Test::Unit::TestCase
   
   def test_load_paths
     assert_nothing_raised { BasicExtension }
-    assert_equal File.join(File.expand_path(RADIANT_ROOT), 'test', 'fixtures', 'extensions', 'basic'), BasicExtension.root
+    assert_equal File.join(File.expand_path(RADIANT_ROOT), 'test', 'fixtures', 'extensions', '01_basic'), BasicExtension.root
     assert_equal 'Basic', BasicExtension.extension_name
     assert_nothing_raised { BasicExtensionController }
     assert_nothing_raised { BasicExtensionModel }

@@ -66,7 +66,7 @@ module Radiant
     def activate_extensions(enabled_extensions = nil)
       initializer.initialize_default_admin_tabs
       activated_extensions = @extension_roots.select do |root|
-        extension_file = "#{File.basename(root)}_extension"
+        extension_file = "#{File.basename(root).sub(/^\d+_/,'')}_extension"
         extension = extension_file.camelize.constantize
         extension.root = root
         extension.unloadable
