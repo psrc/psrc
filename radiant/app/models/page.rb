@@ -125,15 +125,20 @@ class Page < ActiveRecord::Base
   end
   
   def find_by_url(url, live = true, clean = true)
+    return nil if virtual?
     url = clean_url(url) if clean
-    if (self.url == url) && (not live or published?)
+    my_url = self.url
+    if (my_url == url) && (not live or published?)
       self
-    else
+    elsif (url =~ /^#{Regexp.quote(my_url)}([^\/]*)/)
+      slug_child = children.find_by_slug($1)
+      if (slug_child and (not slug_child.virtual?))
+        found = slug_child.find_by_url(url, live, clean)
+        return found if found
+      end
       children.each do |child|
-        if (url =~ Regexp.compile( '^' + Regexp.quote(child.url))) and (not child.virtual?)
-          found = child.find_by_url(url, live, clean)
-          return found if found
-        end
+        found = child.find_by_url(url, live, clean)
+        return found if found
       end
       children.find(:first, :conditions => "class_name = 'FileNotFoundPage'")
     end
