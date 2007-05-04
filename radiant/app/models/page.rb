@@ -132,7 +132,7 @@ class Page < ActiveRecord::Base
       self
     elsif (url =~ /^#{Regexp.quote(my_url)}([^\/]*)/)
       slug_child = children.find_by_slug($1)
-      if (slug_child and (not slug_child.virtual?))
+      if slug_child
         found = slug_child.find_by_url(url, live, clean)
         return found if found
       end
