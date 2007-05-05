@@ -11,8 +11,20 @@ module Admin::PageHelper
     else
       []
     end
-    (rows << homepage.id).uniq
+    (rows << homepage.id).uniq if homepage
+    rows
   end
+  
+  # def expanded_rows
+  #   case
+  #   when row_string = (cookies['expanded_rows'] || []).first
+  #     row_string.split(',').map { |x| Integer(x) rescue nil }.compact
+  #   when @homepage
+  #     [@homepage.id]
+  #   else
+  #     []
+  #   end     
+  # end
   
   def meta_errors?
     !!(@page.errors[:slug] or @page.errors[:breadcrumb])

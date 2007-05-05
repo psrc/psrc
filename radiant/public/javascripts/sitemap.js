@@ -5,16 +5,9 @@ Object.extend(SiteMap.prototype, {
 
   ruledTableInitialize: RuledTable.prototype.initialize,
   
-  initialize: function(id) {
+  initialize: function(id, expanded) {
     this.ruledTableInitialize(id);
-    this.expandedRows = this.parseCookieExpandedRows();
-  },
-  
-  parseCookieExpandedRows: function () {
-    var cookieExpandedRows = [];
-    if(document.cookie.length > 0 && document.cookie.match(/expanded_rows=(.*);/))
-       cookieExpandedRows = RegExp.$1.split(/,/).reject(function (value, index){ return value.length == 0; }).uniq();
-    return cookieExpandedRows;
+    this.expandedRows = expanded
   },
   
   onRowSetup: function(row) {
@@ -67,7 +60,7 @@ Object.extend(SiteMap.prototype, {
   },     
   
   saveExpandedCookie: function() {
-    document.cookie = "expanded_rows="+this.expandedRows.uniq().join(",")+"; path=/admin";
+    document.cookie = "expanded_rows=" + this.expandedRows.uniq().join(",") + "; path=/admin";
   }, 
   
   hideBranch: function(row, img) {
@@ -82,9 +75,9 @@ Object.extend(SiteMap.prototype, {
     }
     var pageId = this.extractPageId(row);
     var newExpanded = [];
-    for(i=0; i < this.expandedRows.length; i++)
-        if(this.expandedRows[i] != pageId)
-            newExpanded.push(this.expandedRows[i]);
+    for(i = 0; i < this.expandedRows.length; i++)
+      if(this.expandedRows[i] != pageId)
+        newExpanded.push(this.expandedRows[i]);
     this.expandedRows = newExpanded;
     this.saveExpandedCookie();
     if (img == null)

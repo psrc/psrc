@@ -79,16 +79,16 @@ class Admin::PageController < Admin::AbstractModelController
         "The page was successfully removed from the site."
       end
     end
-
+    
+    def announce_cache_cleared
+      flash[:notice] = "The page cache was successfully cleared."
+    end
+    
     def initialize_meta_rows_and_buttons
       @buttons_partials ||= []
       @meta ||= []
       @meta << {:field => "slug", :type => "text_field", :args => [{:class => 'textbox', :maxlength => 100}]}
       @meta << {:field => "breadcrumb", :type => "text_field", :args => [{:class => 'textbox', :maxlength => 160}]}
-    end
-     
-    def announce_cache_cleared
-      flash[:notice] = "The page cache was successfully cleared."
     end
     
     def save
@@ -109,7 +109,7 @@ class Admin::PageController < Admin::AbstractModelController
       end
       if result = @page.save
         new_parts = @page.parts - parts_to_remove
-        new_parts.each {|x| x.save}
+        new_parts.each { |part| part.save }
         @page.parts = new_parts
       end
       result

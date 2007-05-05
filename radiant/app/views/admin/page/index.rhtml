@@ -1,4 +1,5 @@
 <% include_javascript 'sitemap' -%>
+
 <h1>Pages</h1>
 
 <table id="site-map" class="index" cellpadding="0" cellspacing="0" border="0">
@@ -21,7 +22,7 @@
 </table>
 <script type="text/javascript">
 // <![CDATA[
-  new SiteMap('site-map');
+  new SiteMap('site-map', <%= expanded_rows.to_json %>);
 // ]]>
 </script>
 <form action="<%= clear_cache_url %>" method="post">
