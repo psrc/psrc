@@ -7,6 +7,8 @@ end
 class ApplicationController < ActionController::Base
   include LoginSystem
   
+  filter_parameter_logging :password, :password_confirmation
+  
   before_filter :set_current_user
   before_filter :set_javascripts_and_stylesheets
   

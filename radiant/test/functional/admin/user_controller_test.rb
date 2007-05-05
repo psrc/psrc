@@ -7,12 +7,17 @@ class Admin::UserController; def rescue_action(e) raise e end; end
 class Admin::UserControllerTest < Test::Unit::TestCase
   
   fixtures :users
+  test_helper :user, :logging
 
   def setup
     @controller = Admin::UserController.new
     @request = ActionController::TestRequest.new
     @response = ActionController::TestResponse.new
-    @user = @request.session['user'] = users(:existing)
+    @user = @request.session['user'] = create_test_user
+  end
+  
+  def teardown
+    destroy_test_user
   end
 
   def test_ancestors
@@ -46,11 +51,9 @@ class Admin::UserControllerTest < Test::Unit::TestCase
     assigned_user = assigns(:user)
     assert_equal @user, assigned_user
     assert @user.object_id != assigned_user.object_id
-    assert_equal 'existing.user@gmail.com', assigned_user.email
+    assert_equal 'jdoe@gmail.com', assigned_user.email
   end
   def test_preferences__post
-    @user = User.new(:name => 'Test', :login => 'pref_test', :password => 'whoa!', :password_confirmation => 'whoa!')
-    assert @user.save
     post(
       :preferences,
       { :user => { :password => '', :password_confirmation => '', :email => 'updated@gmail.com' } },
@@ -59,13 +62,26 @@ class Admin::UserControllerTest < Test::Unit::TestCase
     @user = User.find(@user.id)
     assert_redirected_to page_index_url
     assert_match /preferences.*?saved/i, flash[:notice] 
-    assert_equal('updated@gmail.com', @user.email)
-    @user.destroy
+    assert_equal 'updated@gmail.com', @user.email
   end
   def test_preferences__post_with_bad_data
     get :preferences, 'user' => { :login => 'superman' }
     assert_response :success
     assert_match /bad form data/i, flash[:error]
+  end
+  
+  def test_change_password
+    @user = User.create!(:name => 'Test', :login => 'pref_test', :password => 'whoa!', :password_confirmation => 'whoa!')
+    post(
+      :preferences,
+      { :user => { :password => 'funtimes', :password_confirmation => 'funtimes' } },
+      { 'user' => @user }
+    )
+    @user = User.find(@user.id)
+    assert_equal User.sha1('funtimes'), @user.password
+    
+    assert !log_matches(/"password"=>"funtimes"/)
+    assert !log_matches(/"password_confirmation"=>"funtimes"/)
   end
 
 end

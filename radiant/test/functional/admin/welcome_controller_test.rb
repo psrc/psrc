@@ -6,6 +6,7 @@ class Admin::WelcomeController; def rescue_action(e) raise e end; end
 
 class Admin::WelcomeControllerTest < Test::Unit::TestCase
   
+  test_helper :logging
   fixtures :users
   
   def setup
@@ -30,6 +31,8 @@ class Admin::WelcomeControllerTest < Test::Unit::TestCase
     user = session['user']
     assert_kind_of User, user
     assert_equal 'existing', user.login
+    
+    assert !log_matches(/"password"=>"password"/)
   end
   def test_login__post_invalid_user
     post :login, 'user' => { :login => 'invalid', :password => 'password' }
