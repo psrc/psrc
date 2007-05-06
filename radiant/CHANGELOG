@@ -1,6 +1,20 @@
 == Change Log
 
-=== 0.6.0 Lapidary
+=== 0.6.1 Stone Cutter (May 5, 2007)
+* Fixed a security vulnerability which caused passwords to appear in the logs
+* Fixed a bug in the site map code which caused it to forget which rows were
+  expanded
+* The find_by_url method has been optimized to improve performance [Daniel
+  Sheppard]
+* GET requests are now the only requests that are cached [Daniel Sheppard] 
+* Added rudimentary support for extension depencency specification through
+  directory prefixing [Daniel Sheppard]
+* Fixed syntax error in fixture loading extension [Sean Cribbs]
+* Minor documentation fix for date tag [Sean Cribbs]
+* Fixed a bug in the migrations that prevented 0.5.x users from upgrading
+  properly [Sean Cribbs]
+
+=== 0.6.0 Lapidary (April 24, 2007)
 * Added support for extensions--an extremely flexible way to extend radiant
 * Merged Behaviors into the Page class; subclass page now instead
 * Improved database support for Postgres and Sqlite
