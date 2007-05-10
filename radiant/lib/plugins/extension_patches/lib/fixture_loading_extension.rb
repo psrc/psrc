@@ -42,8 +42,35 @@ module Radiant
       end
     end  
   end
-  
 end
 
 require 'active_record/fixtures'
 Fixtures.class_eval { include Radiant::FixtureLoadingExtension }
+
+require 'action_controller/test_process'
+class ActionController::TestProcess
+  def fixture_file_upload(path, mime_type = nil)
+    if Test::Unit::TestCase.respond_to?(:fixture_path)
+      fixture_path = Test::Unit::TestCase.fixture_path
+      if(fixture_path.respond_to? :to_str)
+        ActionController::TestUploadedFile.new(
+          fixture_path.to_str + path, 
+          mime_type
+        )
+      else
+        best_path = fixture_path.find { |x| File.exist? (x + path) }
+        best_path ||= fixture_path.last
+        ActionController::TestUploadedFile.new(
+          best_path + path, 
+          mime_type
+        )        
+      end
+    else
+      ActionController::TestUploadedFile.new(
+        path, 
+        mime_type
+      )
+    end
+  end
+end
+
