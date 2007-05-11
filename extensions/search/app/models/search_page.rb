@@ -1,6 +1,6 @@
 class SearchPage < Page
   description "Provides tags and behavior to support searching Radiant.  Based on Oliver Baltzer's search_behavior."
-   
+  attr_accessor :query_result, :query
   #### Tags ####
   desc %{    The namespace for all search tags.}
   tag 'search' do |tag|
@@ -17,19 +17,19 @@ class SearchPage < Page
    
   desc %{    Renders the passed query.}
   tag 'search:query' do |tag|
-    @query
+    query
   end
   
   desc %{    Renders the contained block if no results were returned.}
   tag 'search:empty' do |tag|
-    if @query_result.empty?
+    if query_result.blank?
       tag.expand
     end
   end
   
   desc %{    Renders the contained block if results were returned.}
   tag 'search:results' do |tag|
-    if not @query_result.empty?
+    unless query_result.blank?
       tag.expand
     end
   end
@@ -37,12 +37,12 @@ class SearchPage < Page
   desc %{    Renders the contained block for each result page.  The context
     inside the tag refers to the found page.}
   tag 'search:results:each' do |tag|
-    content = ''
-    @query_result.each { |r|
-      tag.locals.page = r
-      content << tag.expand
-    }
-    content
+    returning String.new do |content|
+      query_result.each do |page|
+        tag.locals.page = page
+        content << tag.expand
+      end
+    end
   end
   
   desc %{    <r:truncate_and_strip [length="100"] />
@@ -63,9 +63,8 @@ class SearchPage < Page
   def render
     @query_result = []
     @query = ""
-    query = @request.parameters[:q]
-    if not query.to_s.strip.empty?
-      @query = query.to_s.strip
+    q = @request.parameters[:q]
+    unless (@query = q.to_s.strip).blank?
       tokens = query.split.collect { |c| "%#{c.downcase}%"}
       pages = Page.find(:all, :include => [ :parts ],
           :conditions => [(["((LOWER(content) LIKE ?) OR (LOWER(title) LIKE ?))"] * tokens.size).join(" AND "), 
