@@ -48,7 +48,7 @@ require 'active_record/fixtures'
 Fixtures.class_eval { include Radiant::FixtureLoadingExtension }
 
 require 'action_controller/test_process'
-class ActionController::TestProcess
+module ActionController::TestProcess
   def fixture_file_upload(path, mime_type = nil)
     if Test::Unit::TestCase.respond_to?(:fixture_path)
       fixture_path = Test::Unit::TestCase.fixture_path
