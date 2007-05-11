@@ -12,7 +12,7 @@ class ExtensionModelGenerator < ModelGenerator
   end
   
   def banner
-    "Usage: #{$0} generate ExtensionName ModelName [field:type, field:type]"
+    "Usage: #{$0} extension_model ExtensionName ModelName [field:type, field:type]"
   end
   
   def extension_path

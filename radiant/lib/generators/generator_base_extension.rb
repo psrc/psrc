@@ -1,5 +1,4 @@
 require 'rails_generator'
-
 module Radiant
   module GeneratorBaseExtension
     def self.included(base)
