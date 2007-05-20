@@ -7,7 +7,7 @@ module Forms
     tag "form" do |tag|
       in_form_context tag do
         form_tag action_path do
-          concat_model_field
+          concat_memento
           tag.expand.to_s
         end
       end
@@ -15,7 +15,7 @@ module Forms
     
     tag "model_form" do |tag|
       in_model_form_context tag do
-        concat_model_field
+        concat_memento
         tag.expand.to_s
       end
     end
@@ -83,17 +83,19 @@ module Forms
     include ActionView::Helpers::UrlHelper
     include ActionView::Helpers::CaptureHelper
     
-    attr_reader :_erbout, :action_path, :model
+    attr_reader :_erbout, :action_path, :controller, :page_url, :model
     
     def initialize(tag, controller)
-      @model = tag.attr["for"] || "__undefined__"
-      @action_path = tag.attr["action"] || tag.locals.page.url
+      @tag = tag
+      @model = tag.attr["for"] || ""
+      @action_path = tag.attr["action"] || "/forms/"
+      @page_url = tag.locals.page.url
       @controller = controller
       @_erbout = ""
     end
     
-    def concat_model_field
-      _erbout << hidden_field_tag("_form_model", model)
+    def concat_memento
+      _erbout << hidden_field_tag("form_memento", "#{model}:#{page_url}")
     end
   end
   
@@ -103,7 +105,7 @@ module Forms
     def do_form_for(&block)
       form_for model, :url => action_path do |f|
         @builder = f
-        instance_eval(&block) # can I pass args? doesn't look like it...
+        instance_eval(&block)
       end
     end
   end

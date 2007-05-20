@@ -7,7 +7,7 @@ class BasicFormTest < Test::Unit::TestCase
   def test_form
     assert_renders form_content do
       assert_select "form[action=/forms/]"
-      assert_select "form input[type=hidden][name=_form_model][value=__undefined__]"
+      assert_select "form input[type=hidden][name=form_memento][value=:/form-using-page/]"
       assert_select "form input[type=text][name=name]"
       assert_select "form input[type=text][name=email]"
       assert_select "form input[type=text][name=subject]"
@@ -19,14 +19,14 @@ class BasicFormTest < Test::Unit::TestCase
   def test_form_for
     assert_renders %{<r:form for="comments" />} do
       assert_select "form[action=/forms/]"
-      assert_select "form input[type=hidden][name=_form_model][value=comments]"
+      assert_select "form input[type=hidden][name=form_memento][value=comments:/form-using-page/]"
     end
   end
   
   def test_model_form_for
     assert_renders model_form_for_content do
       assert_select "form[action=/forms/]"
-      assert_select "form input[type=hidden][name=_form_model][value=signup]"
+      assert_select "form input[type=hidden][name=form_memento][value=signup:/form-using-page/]"
       assert_select("form input[type=text]") { assert_select "[name=?]", /signup\[first_name\]/ }
       assert_select "form input[type=submit]"
     end
@@ -57,7 +57,7 @@ class BasicFormTest < Test::Unit::TestCase
   protected
     def assert_renders_with_block(*args, &block)
       if block
-        rendered = get_render_output(args[0], '/forms')
+        rendered = get_render_output(args[0], '/form-using-page')
         @response.body = rendered
         begin
           block.call
@@ -74,7 +74,7 @@ class BasicFormTest < Test::Unit::TestCase
     def setup_page_with_content_control(url = nil)
       @page = create_test_page({
         :title => "Forms",
-        :slug => 'forms',
+        :slug => 'form-using-page',
         :status_id => 100
       })
       @page.controller = @controller = ActionController::Base.new
