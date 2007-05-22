@@ -1,0 +1,12 @@
+- form_tag sessions_path do
+  %p
+    %label{"for"=>"login"}
+      Login
+    = text_field_tag 'login'
+  %p
+    %label{"for"=>"password"}
+      Password
+    = password_field_tag 'password'
+  %p
+    %button{:type => "submit"}
+      Log in

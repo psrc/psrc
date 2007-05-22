@@ -1,0 +1,27 @@
+%div[@extension]
+  %h2
+    Extension:
+    = @extension.name
+  %dl.attributes
+    %dt#author
+      Author
+    %dd
+      = @extension.author.name
+      = mail_to @extension.author.email, nil, :encode => :hex
+    %dt#code_url
+      Code
+    %dd
+      = link_to @extension.code_url, @extension.code_url
+    - unless @extension.website_url.blank?
+      %dt#website_url
+        Website
+      %dd
+        = link_to @extension.website_url, @extension.website_url
+    %dt#description
+      Description
+    %dd
+      = textilize(@extension.description)
+  %p
+    = link_to "Edit", edit_extension_path(@extension)
+    = link_to "Delete", extension_path(@extension), :method => :delete
+      

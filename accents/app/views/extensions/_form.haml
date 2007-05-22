@@ -1,0 +1,25 @@
+= error_messages_for :extension
+%p
+  %label
+    Name
+    %span.hint
+      the directory name
+  = f.text_field :name
+%p
+  %label
+    Code URL
+    %span.hint
+      where to download (svn, http, etc)
+  = f.text_field :code_url, :size => "50"
+%p
+  %label
+    Description
+    %span.hint
+      what does it do? (textile allowed)
+  = f.text_area :description, :size => "50x5"
+%p
+  %label
+    Website URL
+  = f.text_field :website_url, :size => "50"
+    
+  

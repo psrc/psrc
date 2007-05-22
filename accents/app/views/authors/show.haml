@@ -1,0 +1,23 @@
+%h2 Author profile
+%dl.attributes
+  %dt#name
+    Name
+  %dd
+    = @author.name
+  %dt#notes
+    Personal notes
+  %dd
+    = textilize(@author.notes)
+  %dt#website
+    Website
+  %dd
+    = @author.website.blank? ? link_to(@author.website, @author.website) : "[unspecified]"
+  %dt#email
+    Email
+  %dd
+    = mail_to @author.email, nil, :encode => :hex
+  %dt#extensions
+    Extensions authored
+  %dd
+    = @author.extensions.map {|ext| link_to ext.name, extension_path(ext)}.join(", ")
+         
