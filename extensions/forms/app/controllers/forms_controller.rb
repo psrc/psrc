@@ -43,8 +43,34 @@ class FormsController < ApplicationController
   no_login_required
   
   def create
-    form = Forms::Simple.new(params)
-    form.save!
-    show_uncached_page(form.page_url)
+    memento, attributes = *extract_form
+    form = send("create_#{memento.form_type}", memento, attributes)
+    Forms::Action.perform(request.method, form)
+    show_uncached_page(memento.page_url)
   end
+    
+  private
+    def create_meta(memento, attributes)
+      meta_form = Forms::Meta::Form.find_by_name(memento.model_name)
+      Forms::Form.create!(attributes)
+    end
+    
+    def create_model(memento, attributes)
+      # It should be an ActiveRecord (or at least implement create!)
+      memento.model.create!(attributes[:parameters])
+    end
+  
+    def create_transient(memento, attributes)
+      Forms::Transient.new(memento, attributes)
+    end
+  
+    def extract_form
+      memento = Forms::Memento.new(params[:form_memento])
+      form_parameters = params[memento.model_name.to_sym] || {}
+      form_attributes = {
+        :model_name => memento.model_name, :page_url => memento.page_url,
+        :parameters => form_parameters
+      }
+      [memento, form_attributes]
+    end
 end

@@ -1,3 +1,21 @@
 = Forms
 
-Description goes here
+NOTICE: This extension is under development. It is practically unusable. There may be some good examples of how to build extensions here, though! - aiwilliams
+
+
+Forms is an extension to the Radiant CMS. It's goal is to help Radiant users collect data from Radiant content consumers and perform actions on that data.
+
+There are three types of forms that are supported:
+
+  * Meta Forms - defined by a Radiant administrator in the Admin tools
+    - These types of forms are defined by declaring a unique name for the form, then creating N fields to be collected. When declaring the fields that will be collected, the administrator can indicate what type the field is (text, textarea, etc.), whether it is required or not, and define a regular expression that must match. Each form has an optional Snippet that gives the form a default layout.
+    - When a form is defined this way, actions can be associated with the form which are invoked, in order, after the form has passed validation. There is a built-in action called "Save".
+    _ Designers may then utilize Radius tags that will allow them to place the forms wherever they like within their site. They may choose to simply dump the form on the screen; the presentation comes from the optionally attached Snippet defined the Administrator; or they may completely control how the fields are shown within other content. When required fields are not used within the <r:form /> body, a message will be placed above the form indicating that the form is not complete, and in what way this is true. That's handy.
+    
+  * Transient Forms - random uses of <r:form /> which don't appear to be associated with a Meta Form
+    - This primarily exists to allow for the creation of custom controllers in other extensions, thereby increasing the productivity of my fellow programmers.
+    - These types of forms usually look like this: <r:form action="/i/really/need/this"><r:text_field name="custom" /></r:form>. As you can see, you may now simply post this form to anything you like. That's handy.
+    
+  * Model Forms - forms that are built around ActiveRecord models, or anything else you'd like that has methods for each named form field.
+    - When you begin extending Radiant with custom models, you'll want this. It allows you to utilize the full power of Rails form stuff. For instance, you could create a Contact model, a ContactsController, and do CRUD.
+    - You will likely need to create a custom controller to process these types of forms. Don't worry; this extension also makes it easy to show pages without redirecting.

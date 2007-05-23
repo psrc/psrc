@@ -1,21 +1,20 @@
 module Forms
   
   module Tags
-    
     include Radiant::Taggable
     
     tag "form" do |tag|
-      in_form_context tag do
-        form_tag action_path do
-          concat_memento
-          tag.expand.to_s
-        end
+      unless tag.attr["for"] || tag.attr["type"]
+        return %{You must specify either of the "for='<model_name>'" or "type='transient'" attributes.}
+      end
+      
+      in_context FormContext, tag do
+        tag.expand.to_s
       end
     end
     
     tag "model_form" do |tag|
-      in_model_form_context tag do
-        concat_memento
+      in_context ModelFormContext, tag do
         tag.expand.to_s
       end
     end
@@ -57,15 +56,9 @@ module Forms
     end
     
     private
-      def in_form_context(tag, &block)
-        @form_context = FormContext.new(tag, controller)
-        @form_context.instance_eval(&block)
-        @form_context._erbout
-      end
-      
-      def in_model_form_context(tag, &block)
-        @form_context = ModelFormContext.new(tag, controller)
-        @form_context.do_form_for(&block)
+      def in_context(context_type, tag, &block)
+        @form_context = context_type.new(tag, controller)
+        @form_context.do_form_with(&block)
         @form_context._erbout
       end
       
@@ -87,7 +80,7 @@ module Forms
     
     def initialize(tag, controller)
       @tag = tag
-      @model = tag.attr["for"] || ""
+      @model, @type = tag.attr["for"], tag.attr["type"]
       @action_path = tag.attr["action"] || "/forms/"
       @page_url = tag.locals.page.url
       @controller = controller
@@ -95,19 +88,31 @@ module Forms
     end
     
     def concat_memento
-      _erbout << hidden_field_tag("form_memento", "#{model}:#{page_url}")
+      _erbout << hidden_field_tag("form_memento", "#{type}:#{model}:#{page_url}")
     end
+    
+    def do_form_with(&block)
+      form_tag(action_path) do
+        concat_memento
+        instance_eval(&block)
+      end
+    end
+    
+    def type; @type || "meta"; end
   end
   
   class ModelFormContext < FormContext
     attr_reader :builder
     
-    def do_form_for(&block)
+    def do_form_with(&block)
       form_for model, :url => action_path do |f|
         @builder = f
+        concat_memento
         instance_eval(&block)
       end
     end
+    
+    def type; @type || "model"; end
   end
   
 end

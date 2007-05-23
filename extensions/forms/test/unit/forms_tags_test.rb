@@ -7,7 +7,7 @@ class BasicFormTest < Test::Unit::TestCase
   def test_form
     assert_renders form_content do
       assert_select "form[action=/forms/]"
-      assert_select "form input[type=hidden][name=form_memento][value=:/form-using-page/]"
+      assert_select "form input[type=hidden][name=form_memento][value=meta:meta_form:/form-using-page/]"
       assert_select "form input[type=text][name=name]"
       assert_select "form input[type=text][name=email]"
       assert_select "form input[type=text][name=subject]"
@@ -16,17 +16,31 @@ class BasicFormTest < Test::Unit::TestCase
     end
   end
   
+  def test_form__requires_for_or_type
+    assert_renders "<r:form for='model' />" do
+      assert_select "form input[type=hidden][name=form_memento][value=meta:model:/form-using-page/]"
+    end
+
+    assert_renders "<r:form type='transient' />" do
+      assert_match %r(transient::/form-using-page/), @response.body
+    end
+
+    assert_renders "<r:form />" do
+      assert_match %r(for='<model_name>'), @response.body
+    end
+  end
+  
   def test_form_for
     assert_renders %{<r:form for="comments" />} do
       assert_select "form[action=/forms/]"
-      assert_select "form input[type=hidden][name=form_memento][value=comments:/form-using-page/]"
+      assert_select "form input[type=hidden][name=form_memento][value=meta:comments:/form-using-page/]"
     end
   end
   
   def test_model_form_for
     assert_renders model_form_for_content do
       assert_select "form[action=/forms/]"
-      assert_select "form input[type=hidden][name=form_memento][value=signup:/form-using-page/]"
+      assert_select "form input[type=hidden][name=form_memento][value=model:signup:/form-using-page/]"
       assert_select("form input[type=text]") { assert_select "[name=?]", /signup\[first_name\]/ }
       assert_select "form input[type=submit]"
     end
@@ -34,7 +48,7 @@ class BasicFormTest < Test::Unit::TestCase
   
   def form_content
     %{
-      <r:form>
+      <r:form for="meta_form">
         Name: <r:text_field name="name" /><br />
         E-mail: <r:text_field name="email" /><br />
         Subject: <r:text_field name="subject" /><br />
@@ -55,6 +69,7 @@ class BasicFormTest < Test::Unit::TestCase
   end
   
   protected
+    # None of this should not be here, but in render_test_helper
     def assert_renders_with_block(*args, &block)
       if block
         rendered = get_render_output(args[0], '/form-using-page')
@@ -72,7 +87,7 @@ class BasicFormTest < Test::Unit::TestCase
     alias_method_chain :assert_renders, :block
   
     def setup_page_with_content_control(url = nil)
-      @page = create_test_page({
+      @page ||= create_test_page({
         :title => "Forms",
         :slug => 'form-using-page',
         :status_id => 100
