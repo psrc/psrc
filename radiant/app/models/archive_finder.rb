@@ -10,23 +10,27 @@ class ArchiveFinder
   class << self
     def year_finder(finder, year)
       new do |method, options|
-        add_condition(options, "#{extract('year', 'published_at')} = ?", year.to_i)
+        start = Time.local(year)
+	finish = start.next_year
+        add_condition(options, "published_at >= ? and published_at < ?", start, finish)
         finder.find(method, options)
       end
     end
     
     def month_finder(finder, year, month)
-      finder = year_finder(finder, year)
       new do |method, options|
-        add_condition(options, "#{extract('month', 'published_at')} = ?", month.to_i)
+        start = Time.local(year, month)
+	finish = start.next_month
+        add_condition(options, "published_at >= ? and published_at < ?", start, finish)
         finder.find(method, options)
       end
     end
     
     def day_finder(finder, year, month, day)
-      finder = month_finder(finder, year, month)
       new do |method, options|
-        add_condition(options, "#{extract('day', 'published_at')} = ?", day.to_i)
+        start = Time.local(year, month, day)
+	finish = start.tomorrow
+        add_condition(options, "published_at >= ? and published_at < ?", start, finish)
         finder.find(method, options)
       end
     end
@@ -45,25 +49,5 @@ class ArchiveFinder
         options[:conditions] = conditions
         options
       end
-      
-      def extract(part, field)
-        case ActiveRecord::Base.connection.adapter_name
-        when /sqlite/i
-          format = case part
-          when /year/i
-           '%Y'
-          when /month/i
-           '%m'
-          when /day/i
-           '%d'
-          end
-          "CAST(STRFTIME('#{format}', #{field}) AS INTEGER)"
-        when /sqlserver/i
-          "DATEPART(#{part.upcase}, #{field})"
-        else
-          "EXTRACT(#{part.upcase} FROM #{field})"
-        end
-      end
-  
   end
 end
