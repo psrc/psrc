@@ -38,21 +38,21 @@ namespace 'radiant' do
     end
     s.extra_rdoc_files = RDOC_EXTRAS
     files = FileList['**/*']
-    files.include 'public/.htaccess'
     files.exclude '**/._*'
     files.exclude '**/*.rej'
-    files.exclude 'cache/*'
+    files.exclude 'cache/'
     files.exclude 'config/database.yml'
     files.exclude 'config/locomotive.yml'
     files.exclude 'config/lighttpd.conf'
     files.exclude 'config/mongrel_mimes.yml'
     files.exclude 'db/*.db'
-    files.exclude 'doc'
+    files.exclude /^doc/
     files.exclude 'log/*.log'
     files.exclude 'log/*.pid'
     files.include 'log/.keep'
-    files.exclude 'pkg'
-    files.exclude 'tmp'
+    files.exclude /^pkg/
+    files.include 'public/.htaccess'
+    files.exclude 'tmp/'
     s.files = files.to_a
   end
 
