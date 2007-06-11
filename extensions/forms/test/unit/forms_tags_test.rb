@@ -16,6 +16,12 @@ class BasicFormTest < Test::Unit::TestCase
     end
   end
   
+  def test_form_includes_static_content
+    assert_renders "<r:form for='model'>Ello, Mate!</r:form>" do
+      assert_match "Ello, Mate!", @response.body
+    end
+  end
+  
   def test_form__requires_for_or_type
     assert_renders "<r:form for='model' />" do
       assert_select "form input[type=hidden][name=form_memento][value=meta:model:/form-using-page/]"

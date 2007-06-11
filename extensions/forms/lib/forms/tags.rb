@@ -63,7 +63,7 @@ module Forms
       end
       
       def form_concat(&block)
-        @form_context._erbout << @form_context.instance_eval(&block)
+        @form_context.instance_eval(&block)
       end
   end
   
@@ -94,7 +94,7 @@ module Forms
     def do_form_with(&block)
       form_tag(action_path) do
         concat_memento
-        instance_eval(&block)
+        _erbout << instance_eval(&block)
       end
     end
     
@@ -108,7 +108,7 @@ module Forms
       form_for model, :url => action_path do |f|
         @builder = f
         concat_memento
-        instance_eval(&block)
+        _erbout << instance_eval(&block)
       end
     end
     
