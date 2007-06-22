@@ -1,8 +1,12 @@
 $:.unshift File.dirname(__FILE__) # for running in foreground in dev
 $KCODE = 'u'
-require 'rubygems'
-gem 'camping', '>=1.5'
-require 'camping/session'
+begin
+  require 'camping/session'
+rescue LoadError
+  require 'rubygems'
+  gem 'camping', '>=1.5'
+  require 'camping/sesion'
+end
 
 Camping.goes :Junebug
 
@@ -34,7 +38,7 @@ module Junebug
   end
 
   def self.config
-    @config ||= YAML.load(File.read('config.yml'))
+    @config ||= YAML.load(File.read(JUNEBUG_ROOT + '/config.yml'))
   end
   
   def self.startpage
