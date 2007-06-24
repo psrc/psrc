@@ -1,5 +1,14 @@
 == Change Log
 
+=== 0.6.2 Jewel Carver (June 23, 2007)
+* Removed some of the database specific code from the ArchiveFinder [Daniel
+  Sheppard]
+* Fixed typo in extension model generator documentation
+* Reworked the way the generator extension is loaded (closing #500) [Keita]
+* Fixed failing unit tests in instance mode [Daniel Shephard]
+* Modified the page edit form to use multipart/form-data (useful for an upload 
+  extension) [Sean Cribbs]
+
 === 0.6.1 Stone Cutter (May 5, 2007)
 * Fixed a security vulnerability which caused passwords to appear in the logs
 * Fixed a bug in the site map code which caused it to forget which rows were
