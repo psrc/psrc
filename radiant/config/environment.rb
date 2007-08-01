@@ -49,6 +49,9 @@ Radiant::Initializer.run do |config|
     "#{RADIANT_ROOT}/vendor/plugins"
   ]
 
+  # Use ActiveRecord sessions
+  config.action_controller.session_store = :active_record_store
+
   # See Rails::Configuration for more options
 end
 
