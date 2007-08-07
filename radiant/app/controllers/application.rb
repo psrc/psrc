@@ -28,6 +28,14 @@ class ApplicationController < ActionController::Base
     @javascripts << script
   end
   
+  def rescue_action_in_public(exception)
+    case exception
+      when ActiveRecord::RecordNotFound, ActionController::UnknownController, ActionController::UnknownAction, ActionController::Routing::RoutingError
+        render :template => "site/not_found", :status => 404
+      else
+        super
+    end
+  end
   private
   
     def set_current_user
