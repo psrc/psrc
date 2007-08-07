@@ -131,7 +131,7 @@ Object.extend(SiteMap.prototype, {
     var id = this.extractPageId(row).toString();
     new Ajax.Updater(
       row,
-      '/admin/ui/pages/children/' + id + '/' + level,
+      '../admin/ui/pages/children/' + id + '/' + level,
       {
         asynchronous: true,
         insertion: Insertion.After,
