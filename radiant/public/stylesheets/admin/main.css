@@ -4,7 +4,10 @@ body {
   margin: 0;
   padding: 0;
 }
-img { border: 0; }
+img { 
+	border: 0;
+	vertical-align: middle; 
+}
 h3 {
   font-size: 130%;
   margin-top: 1.25em;

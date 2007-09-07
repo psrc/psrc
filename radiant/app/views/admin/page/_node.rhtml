@@ -7,17 +7,17 @@ padding_left = (level * 22) + 4
 children_class = children ? (expanded ? ' children-visible' : ' children-hidden') : ' no-children'
 virtual_class = page.virtual? ? " virtual": ""
 
-expander = children ? image((expanded ? "collapse" : "expand"), :class => "expander", :alt => 'toggle children', :title => '', :align => 'center') : ""
+expander = children ? image((expanded ? "collapse" : "expand"), :class => "expander", :alt => 'toggle children', :title => '') : ""
 
 icon_name = page.virtual? ? "virtual-page" : "page"
-icon = image(icon_name, :class => "icon", :alt => 'page-icon', :title => '', :align => 'center')
+icon = image(icon_name, :class => "icon", :alt => 'page-icon', :title => '')
 
 title = %{<span class="title">#{ page.title }</span>}
 
 display_name = page.class.display_name
 page_type = display_name == 'Page' ? '' : %{<small class="info">(#{ display_name })</small>}
 
-spinner = image('spinner.gif', :class => 'busy', :id => "busy-#{page.id}", :alt => "", :title => "", :align => "center", :style => 'display: none;')
+spinner = image('spinner.gif', :class => 'busy', :id => "busy-#{page.id}", :alt => "", :title => "", :style => 'display: none;')
 -%>
     <tr id="page-<%= page.id %>" class="node level-<%= level %><%= children_class %><%= virtual_class %>">
       <td class="page" style="padding-left: <%= padding_left %>px">
