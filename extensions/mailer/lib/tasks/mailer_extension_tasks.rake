@@ -14,7 +14,7 @@ namespace :radiant do
     
       desc "Copies the Mailer extension assets to the public directory"
       task :update => :environment do
-        FileUtils.cp MailerExtension.root + "/public/email.js", RAILS_ROOT + "/public/javascripts"
+        FileUtils.cp MailerExtension.root + "/public/javascripts/email.js", RAILS_ROOT + "/public/javascripts"
       end
     end
   end
