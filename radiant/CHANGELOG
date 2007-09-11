@@ -1,5 +1,13 @@
 == Change Log
 
+=== SVN
+* Fix issues with misnesting of modules in fixture loading extension and 
+  test suites running randomly from dispatchers. [Sean Cribbs]
+* Remove invalid image alignment. [tolbrino]
+* Display not_found.rhtml on standard 'not found'-like exceptions. [Sean Cribbs]
+* Make sitemap.js use relative URLs. [Earl Chew]
+* Preliminary support for active_record sessions. [John Long]
+
 === 0.6.2 Jewel Carver (June 23, 2007)
 * Removed some of the database specific code from the ArchiveFinder [Daniel
   Sheppard]
