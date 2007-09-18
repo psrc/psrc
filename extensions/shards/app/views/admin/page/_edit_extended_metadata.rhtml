@@ -1,0 +1,44 @@
+<% content_for :page_css do %>
+      #content #extended-metadata .fieldset {
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: .5em;
+        padding: 0;
+      }
+      #content #extended-metadata .fieldset td.label {
+        text-align: left;
+        width: 15%;
+      }
+      #content #extended-metadata .fieldset td.field .textbox {
+        width: 90%;
+      }
+<% end %>
+
+<div id="extended-metadata" class="row"<%= meta_visible(:meta) %>>
+    <table class="fieldset" cellpadding="0" cellspacing="0" border="0">
+      <% for meta in @meta %>
+        <%= render :partial => "meta_row", :object => meta %>
+      <% end %>
+      <%= render_region :extended_metadata %>
+    </table>
+    <script type="text/javascript">
+    // <![CDATA[
+      $title = $('page_title');
+      $slug = $('page_slug');
+      $breadcrumb = $('page_breadcrumb');
+      $old_title = $title.value || '';
+      function title_updated() {
+        if ($old_title.toSlug() == $slug.value) $slug.value = $title.value.toSlug();
+        if ($old_title == $breadcrumb.value) $breadcrumb.value = $title.value;
+        $old_title = $title.value;
+      }
+      new Form.Element.Observer('page_title', 0.15, title_updated);
+    // ]]>
+    </script>
+</div>
+<p class="more-or-less">
+  <small>
+    <a href="#" onclick="<%= toggle_javascript_for('extended-metadata') %>"<%= meta_visible(:meta_more) %> id="more-extended-metadata">More</a>
+    <a href="#" onclick="<%= toggle_javascript_for('extended-metadata') %>"<%= meta_visible(:meta_less) %> id="less-extended-metadata">Less</a>
+  </small>
+</p>
