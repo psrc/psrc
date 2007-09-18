@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Fix navigation tag tests. [vitali]
 * Suppress errors about missing default helper by providing a blank helper. [Sean Cribbs]
 * Fix mis-alignment of "Clear cache" button when homepage not present. [Sean Cribbs]
 * Fix issues with misnesting of modules in fixture loading extension and 

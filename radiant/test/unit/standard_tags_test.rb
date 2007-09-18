@@ -273,9 +273,9 @@ class StandardTagsTest < Test::Unit::TestCase
     assert_renders expected, tags
   end
   def test_tag_navigation_without_urls
-    assert_renders '', %{<r:navigation></r:navigation>}
+    assert_renders '', %{<r:navigation><r:normal /></r:navigation>}
   end
-  def test_tag_navigation_without_urls
+  def test_tag_navigation_without_normal_tag
     assert_render_error  "`navigation' tag must include a `normal' tag", %{<r:navigation urls="something:here"></r:navigation>}
   end
   def test_tag_navigation_with_urls_without_slashes
