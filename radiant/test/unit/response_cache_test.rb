@@ -164,10 +164,31 @@ class ResponseCacheTest < Test::Unit::TestCase
     assert_equal 'content', second_call.body
     assert_kind_of TestResponse, result
   end
-
   
+  def test_not_cached_if_metadata_empty
+    FileUtils.makedirs(@dir)
+    File.open("#{@dir}/test_me.yml",'w') { }
+    assert !@cache.response_cached?('/test_me')
+  end
 
+  def test_not_cached_if_metadata_broken
+    FileUtils.makedirs(@dir)
+    File.open("#{@dir}/test_me.yml",'w') {|f| f.puts '::: bad yaml file:::' }
+    assert !@cache.response_cached?('/test_me')
+  end
   
+  def test_not_cached_if_metadata_not_hash
+    FileUtils.makedirs(@dir)
+    File.open("#{@dir}/test_me.yml",'w') {|f| f.puts ':symbol' }
+    assert !@cache.response_cached?('/test_me')
+  end
+  
+  def test_not_cached_if_metadata_has_no_expire
+    FileUtils.makedirs(@dir)
+    File.open("#{@dir}/test_me.yml",'w') {|f| f.puts "--- \nheaders: \n  Last-Modified: Tue, 27 Feb 2007 06:13:43 GMT\n"}
+    assert !@cache.response_cached?('/test_me')
+  end  
+
   # Class Methods
   
   def test_instance

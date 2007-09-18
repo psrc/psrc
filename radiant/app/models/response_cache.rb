@@ -62,10 +62,12 @@ class ResponseCache
     if File.exists?(name) and not File.directory?(name)
       content = File.open(name,"rb") { |f| f.read }
       metadata = YAML::load(content)
-      if(metadata['expires'] && metadata['expires'] >= Time.now)
+      if(metadata['expires']  >= Time.now)
         return metadata
       end
     end
+  rescue
+    nil
   end
   def response_cached?(path)
     !!read_metadata(path)
@@ -109,9 +111,9 @@ class ResponseCache
       file_path = page_cache_path(path)
       if metadata = read_metadata(path)
         response.headers.merge!(metadata['headers'] || {})
-	if client_has_cache?(metadata, request)
+        if client_has_cache?(metadata, request)
           response.headers.merge!('Status' => '304 Not Modified')
-	elsif use_x_sendfile
+        elsif use_x_sendfile
           response.headers.merge!('X-Sendfile' => "#{file_path}.data")
         else
           response.body = File.open("#{file_path}.data", "rb") {|f| f.read}
@@ -166,8 +168,9 @@ class ResponseCache
       path = page_cache_path(path)
       benchmark "Cached page: #{path}" do
         FileUtils.makedirs(File.dirname(path))
-        File.open("#{path}.yml", "wb+") { |f| f.write(metadata) }
+        #dont want yml without data
         File.open("#{path}.data", "wb+") { |f| f.write(content) }
+        File.open("#{path}.yml", "wb+") { |f| f.write(metadata) }
       end
     end
 end
