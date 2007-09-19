@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Update Prototype to 1.5.1.1. [Sean Cribbs]
 * Fix bugs in assert_global_tag_defined and assert_tag_defined of 
   ExtensionTagTestHelper. [Sean Cribbs]
 * Make sure included stylesheets and javascripts are only linked to once in 
