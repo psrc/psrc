@@ -1,6 +1,6 @@
 module ExtensionTagTestHelper
   def assert_global_tag_defined(name)
-    assert Page.methods.include?("tag:#{name}"), "Global tag #{name} does not exist."
+    assert Page.instance_methods.include?("tag:#{name}"), "Global tag #{name} does not exist."
   end
   
   def assert_global_tag_module(mod)
@@ -8,7 +8,7 @@ module ExtensionTagTestHelper
   end
   
   def assert_tag_defined(page_model, name)
-    assert page_model.methods.include?("tag:#{name}"), "Tag #{name} does not exist in #{page_model}."
+    assert page_model.instance_methods.include?("tag:#{name}"), "Tag #{name} does not exist in #{page_model}."
   end
   
   def assert_tag_module(page_model, mod)

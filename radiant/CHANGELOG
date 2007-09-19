@@ -1,10 +1,15 @@
 == Change Log
 
 === SVN
-* Make sure included stylesheets and javascripts are only linked to once. [Sean Cribbs]
+* Fix bugs in assert_global_tag_defined and assert_tag_defined of 
+  ExtensionTagTestHelper. [Sean Cribbs]
+* Make sure included stylesheets and javascripts are only linked to once in 
+  <head>. [Sean Cribbs]
 * Fix navigation tag tests. [vitali]
-* Suppress errors about missing default helper by providing a blank helper. [Sean Cribbs]
-* Fix mis-alignment of "Clear cache" button when homepage not present. [Sean Cribbs]
+* Suppress errors about missing default helper by providing a blank helper. 
+  [Sean Cribbs]
+* Fix mis-alignment of "Clear cache" button when homepage not present. 
+  [Sean Cribbs]
 * Fix issues with misnesting of modules in fixture loading extension and 
   test suites running randomly from dispatchers. [Sean Cribbs]
 * Remove invalid image alignment. [tolbrino]
