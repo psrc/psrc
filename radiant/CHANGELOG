@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Make sure included stylesheets and javascripts are only linked to once. [Sean Cribbs]
 * Fix navigation tag tests. [vitali]
 * Suppress errors about missing default helper by providing a blank helper. [Sean Cribbs]
 * Fix mis-alignment of "Clear cache" button when homepage not present. [Sean Cribbs]

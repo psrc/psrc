@@ -4,10 +4,10 @@
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title><%= @page_title || default_page_title %></title>
-<% @stylesheets.each do |stylesheet| -%>
+<% @stylesheets.uniq.each do |stylesheet| -%>
     <%= stylesheet_link_tag stylesheet %>
 <% end -%>
-<% @javascripts.each do |script| -%>
+<% @javascripts.uniq.each do |script| -%>
     <%= javascript_include_tag script %>
 <% end -%>
     <!--[if lt IE 7]>
