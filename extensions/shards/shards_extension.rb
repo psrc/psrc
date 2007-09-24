@@ -23,6 +23,7 @@ class ShardsExtension < Radiant::Extension
     end
     admin.page.index = Shards::RegionSet.new
     admin.page.remove = Shards::RegionSet.new
+    admin.page.children = Shards::RegionSet.new
   end
   
   def deactivate
