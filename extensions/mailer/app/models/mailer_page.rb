@@ -228,7 +228,8 @@ protected
     begin
       # Data defined in config part
       recipients = form_conf[:recipients]
-      from = form_conf[:from] || "no-reply@#{request.host}"
+      from = form_data[form_conf[:from_field]] || form_conf[:from] || "no-reply@#{request.host}"
+      reply_to = form_data[form_conf[:reply_to_field]] || form_conf[:reply_to] || from
       # Render the email templates from page parts
       plain_body = part( :email ) ? render_part( :email ) : render_part( :email_plain )
       html_body = render_part( :email_html ) || nil
@@ -267,7 +268,8 @@ The following information was posted:
         :subject => form_data[:subject] || form_conf[:subject] || "Form Mail from #{request.host}",
         :plain_body => plain_body,
         :html_body => html_body,
-        :cc => form_data[form_conf[:cc_field]] || form_conf[:cc] || ""
+        :cc => form_data[form_conf[:cc_field]] || form_conf[:cc] || "",
+        :headers => { 'Reply-To' => reply_to }
       )
     rescue
       @form_error = "Error encountered while trying to send email. #{$!}"
