@@ -6,10 +6,12 @@ module Radiant
   class Configuration < Rails::Configuration
     attr_accessor :view_paths
     attr_accessor :extension_paths
+    attr_accessor :extensions
     
     def initialize
       self.view_paths = default_view_paths
       self.extension_paths = default_extension_paths
+      self.extensions = nil
       super
     end
     

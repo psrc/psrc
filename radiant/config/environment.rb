@@ -23,6 +23,10 @@ Radiant::Initializer.run do |config|
   config.controller_paths << File.join(RADIANT_ROOT, 'app', 'controllers')
   config.view_path = File.join(RADIANT_ROOT, 'app', 'views')
   
+  # Only load the extensions named here, in the order given. By default all plugins in vendor/extensions are
+  # loaded, in alphabetical order. :all can be used as a placeholder for all extensions not explicitly named. 
+  # config.extensions = [ :textile_filter, :markdown_filter, :all ] 
+
   # Force all environments to use the same logger level 
   # (by default production uses :info, the others :debug)
   # config.log_level = :debug
