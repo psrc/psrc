@@ -2,9 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ShardsExtensionTest < Test::Unit::TestCase
   
-  
   def test_initialization
-    assert_equal File.join(File.expand_path(RAILS_ROOT), 'vendor', 'extensions', 'shards'), ShardsExtension.root
     assert_equal 'Shards', ShardsExtension.extension_name
   end
   
@@ -13,8 +11,10 @@ class ShardsExtensionTest < Test::Unit::TestCase
     assert_respond_to admin, :page
     assert_not_nil admin.page
     assert_instance_of OpenStruct, admin.page
-    assert_not_nil admin.page.edit
-    assert_instance_of Shards::RegionSet, admin.page.edit
+    %w{edit remove children index}.each do |action|
+      assert_not_nil admin.page.send(action)
+      assert_instance_of Shards::RegionSet, admin.page.send(action)
+    end
     assert_equal %w{edit_header edit_form edit_popups}, admin.page.edit.main
     assert_equal %w{edit_title edit_extended_metadata
                               edit_page_parts edit_layout_and_type 
