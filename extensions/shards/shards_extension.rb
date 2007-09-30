@@ -24,6 +24,11 @@ class ShardsExtension < Radiant::Extension
     admin.page.index = Shards::RegionSet.new
     admin.page.remove = Shards::RegionSet.new
     admin.page.children = Shards::RegionSet.new
+    Admin::PageController.class_eval {
+      before_filter :only => :add_part do |c|
+        c.send :instance_variable_set, '@template_name', 'edit'
+      end
+    }
   end
   
   def deactivate
