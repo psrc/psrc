@@ -19,7 +19,3 @@ are accessible when in 'dev' or 'preview' mode.
 3) (Re)start your server.
 4) If you want to run the extension tests, make sure to run 
    'rake db:test:prepare' before you begin.
-
-== TODO
-* Make finding/iterating of children respect publish and expiration dates on 
-  live site.

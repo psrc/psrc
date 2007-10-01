@@ -31,8 +31,8 @@ unexpired_with_blank_start:
   expires_on: <%= (Date.today+1).to_s(:db) %>
 all_blank:
   id: 4
-  title: All Blank
-  breadcrumb: All Blank
+  title: All blank
+  breadcrumb: All blank
   slug: all-blank
   status_id: 100
   parent_id: 1
