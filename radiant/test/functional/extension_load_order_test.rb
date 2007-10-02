@@ -1,14 +1,20 @@
 require File.dirname(__FILE__) + '/../test_helper'
+require 'ostruct'
 
 class ExtensionLoaderTest < Test::Unit::TestCase
-  
   def setup
+    Dependencies.mechanism = :load
     @config = Radiant::Configuration.new
     @config.extension_paths = [ "#{TEST_ROOT}/fixtures/extensions"]
-    @init = Radiant::Initializer.new(@config)
-    require 'radiant/extension_loader'
+    #can't use real initializer as that screws with load paths
+    @init = OpenStruct.new
+    @init.configuration = @config
   end
-  
+
+  def teardown
+    Dependencies.mechanism = :require
+  end
+
   def test_load_all_alphabetically_if_none_specified
     @config.extensions = nil
     assert_extension_load_order %w{basic overriding load_order_blue load_order_green load_order_red}
