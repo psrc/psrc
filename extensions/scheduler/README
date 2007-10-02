@@ -12,10 +12,13 @@ are accessible when in 'dev' or 'preview' mode.
 
 == Installation
 
-1) Use Subversion to checkout or export the extension into
+1) Install the "shards" extension and set it to load first using the
+   config.extensions property in config/environment.rb of your Radiant
+   project. (this is required until shards is folded into core)
+2) Use Subversion to checkout or export the extension into
    vendor/extensions of your Radiant project.
-2) Run 'rake production db:migrate:extensions radiant:extensions:scheduler:update' 
+3) Run 'rake production db:migrate:extensions radiant:extensions:scheduler:update' 
    (substitute development if you are using that env)
-3) (Re)start your server.
-4) If you want to run the extension tests, make sure to run 
+4) (Re)start your server.
+5) If you want to run the extension tests, make sure to run 
    'rake db:test:prepare' before you begin.
