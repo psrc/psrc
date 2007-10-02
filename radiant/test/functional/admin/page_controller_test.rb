@@ -160,10 +160,28 @@ class Admin::PageControllerTest < Test::Unit::TestCase
     assert_equal 'Ruby Home Page', @page.title
   end  
   def test_edit__post
+    @cache = @controller.cache = FakeResponseCache.new
     @page = create_test_page
     post :edit, :id => @page.id, :page => page_params(:status_id => '1')
     assert_response :redirect
     assert_equal 1, get_test_page.status.id
+
+    @page = get_test_page
+    assert_kind_of Page, @page
+    assert_equal '/page/', @cache.expired_path
+    
+    # To-Do: Test what happens when an invalid page is submitted 
+  end
+  def test_edit__post_with_slug_change
+    @cache = @controller.cache = FakeResponseCache.new
+    @page = create_test_page
+    post :edit, :id => @page.id, :page => page_params(:slug => 'monkey', :status_id => '1')
+    assert_response :redirect
+    assert_equal 1, get_test_page.status.id
+
+    @page = get_test_page
+    assert_kind_of Page, @page
+    assert_equal '/page/', @cache.expired_path
     
     # To-Do: Test what happens when an invalid page is submitted 
   end

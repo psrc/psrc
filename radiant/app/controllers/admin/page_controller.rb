@@ -22,6 +22,7 @@ class Admin::PageController < Admin::AbstractModelController
 
   def edit
     @page = Page.find(params[:id])
+    @old_page_url = @page.url
     handle_new_or_edit_post
   end
 
@@ -116,6 +117,6 @@ class Admin::PageController < Admin::AbstractModelController
     end
     
     def clear_model_cache
-      @cache.expire_response(@page.url)      
+      @cache.expire_response(@old_page_url || @page.url)      
     end
 end
