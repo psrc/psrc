@@ -47,7 +47,7 @@ class ExtensionInitializationTest < Test::Unit::TestCase
   def test_reactivate
     assert_admin_tabs "Basic Extension Tab"
     Radiant::ExtensionLoader.reactivate []
-    assert_admin_tabs
+    assert Radiant::AdminUI.tabs.all? {|tab| tab.name != "Basic Extension Tab" }
   ensure
     Radiant::ExtensionLoader.reactivate Radiant::Extension.descendants
     assert BasicExtension.active?
@@ -69,10 +69,14 @@ class ExtensionInitializationTest < Test::Unit::TestCase
   private
   
     def assert_admin_tabs(more_tabs = [])
-      default_tabs = %w(Pages Snippets Layouts)
-      all_tabs = default_tabs + [more_tabs].flatten
-      assert_equal all_tabs.size, Radiant::AdminUI.tabs.size
-      Radiant::AdminUI.tabs.each { |tab| assert all_tabs.include?(tab.name) }
+      tabnames = []
+      Radiant::AdminUI.tabs.each do |tab|
+        assert "Duplicate Tab", !tabnames.include?(tab.name)
+        tabnames << tab.name
+      end
+      more_tabs.each do |tabname|
+        assert Radiant::AdminUI.tabs.any? {|tab| tab.name == tabname }
+      end
     end
     
     def assert_basic_extension_annotations
