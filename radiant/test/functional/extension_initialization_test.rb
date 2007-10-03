@@ -32,10 +32,16 @@ class ExtensionInitializationTest < Test::Unit::TestCase
     end
     assert_view_paths :index => /should get changed/
     
+    #only want to clear the test extensions
+    old_list = Dependencies.explicitly_unloadable_constants
+    Dependencies.explicitly_unloadable_constants = Radiant::Extension.descendants.select {|ex| ex.root.index(TEST_ROOT) == 0}.map {|x| x.name }
     Dependencies.clear
+    Dependencies.explicitly_unloadable_constants = old_list
+
     assert_basic_extension_annotations
     assert_view_paths
     assert_admin_tabs "Basic Extension Tab"
+
   end
   
   def test_reactivate
