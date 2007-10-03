@@ -5,8 +5,15 @@
 # your test database is "scratch space" for the test suite and is wiped
 # and recreated between test runs.  Don't rely on the data there!
 config.cache_classes = true
-config.extension_paths << File.join(File.expand_path(RADIANT_ROOT), 'test', 'fixtures', 'extensions')
+
+# ensure test extensions are loaded
+test_extension_dir = File.join(File.expand_path(RADIANT_ROOT), 'test', 'fixtures', 'extensions')
+config.extension_paths << test_extension_dir
 config.extension_paths.uniq!
+if config.extensions && !config.extensions.include?(:all)
+  config.extensions.concat(Dir["#{test_extension_dir}/*"].sort.map {|x| File.basename(x).sub(/^\d+_/,'')})
+  config.extensions.uniq!
+end
 
 # Log error messages when you accidentally call methods on nil.
 config.whiny_nils    = true
