@@ -296,6 +296,9 @@ class StandardTagsTest < Test::Unit::TestCase
   def test_tag_find_with_nonexistant_url
     assert_renders '', %{<r:find url="/asdfsdf/"><r:title /></r:find>}
   end
+  def test_tag_find_with_nonexistant_url_and_file_not_found
+    assert_renders '', %{<r:find url="/gallery/asdfsdf/"><r:title /></r:find>}
+  end
   
   def test_tag_find_and_children
     assert_renders 'a-great-day-for-ruby another-great-day-for-ruby ', %{<r:find url="/news/"><r:children:each><r:slug /> </r:children:each></r:find>}

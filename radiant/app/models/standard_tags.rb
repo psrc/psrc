@@ -409,8 +409,10 @@ module StandardTags
   tag 'find' do |tag|
     if url = tag.attr['url']
       if found = Page.find_by_url(tag.attr['url'])
-        tag.locals.page = found
-        tag.expand
+        unless FileNotFoundPage === found
+          tag.locals.page = found
+          tag.expand
+	end
       end
     else
       raise TagError.new("`find' tag must contain `url' attribute")
