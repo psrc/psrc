@@ -484,7 +484,7 @@ module StandardTags
     * @selected@ specifies the state of the link when the current page matches
        is a child of the specified url
     
-    The @between@ tag specifies what sould be inserted in between each of the links.
+    The @between@ tag specifies what should be inserted in between each of the links.
     
     *Usage:*
     <pre><code><r:navigation urls="[Title: url | Title: url | ...]">
@@ -494,7 +494,7 @@ module StandardTags
       <r:between> | </r:between>
     </r:navigation>
     </code></pre>
-  }
+  }    
   tag 'navigation' do |tag|
     hash = tag.locals.navigation = {}
     tag.expand

@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Fix typo in StandardTags. [oli]
 * Added db:remigrate:extensions task. [Sean Cribbs]
 * Show all child pages on remove confirmation, regardless of sitemap expansion. [Sean Cribbs]
 * Make LoginSystem store user ids in session rather than whole user objects. [Sean Cribbs]
