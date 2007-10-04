@@ -8,6 +8,16 @@ namespace :db do
       Radiant::ExtensionMigrator.migrate_extensions
     end
   end
+  namespace :remigrate do
+    desc "Migrate down and back up all Radiant extension migrations"
+    task :extensions => :environment do
+      require 'highline/import'
+      if agree("This task will destroy any data stored by extensions in the database. Are you sure you want to \ncontinue? [yn] ")
+        Radiant::Extension.descendants.map(&:migrator).each {|m| m.migrate(0) }
+        Rake::Task['db:migrate:extensions'].invoke
+      end
+    end
+  end
 end
 
 namespace :test do
