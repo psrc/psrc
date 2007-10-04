@@ -50,7 +50,8 @@ class SearchPage < Page
     Useful for displaying a snippet of a found page.  The optional `length' attribute
     specifies how many characters to truncate to.}
   tag 'truncate_and_strip' do |tag|
-    length = tag.attr["length"].to_i || 100
+    tag.attr['length'] ||= 100
+    length = tag.attr['length'].to_i
     helper = ActionView::Base.new
     helper.truncate(helper.strip_tags(tag.expand).gsub(/\s+/," "), length)
   end
