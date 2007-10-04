@@ -6,6 +6,9 @@ class NoCachePage < Page
   end
 end
 
+class CustomFileNotFoundPage < FileNotFoundPage
+end
+
 class TestPage < Page
   description 'this is just a test page'
   

@@ -161,6 +161,11 @@ class PageTest < Test::Unit::TestCase
     found = @page.find_by_url('/gallery/asdf/')
     assert_instance_of FileNotFoundPage, found
   end
+  def test_find_by_url__when_not_found_and_custom_missing_page_defined
+    @page = pages(:homepage)
+    found = @page.find_by_url('/custom_404/asdf/')
+    assert_instance_of CustomFileNotFoundPage, found
+  end
   def test_find_by_url__when_not_found_on_live
     @page = pages(:homepage)
     found = @page.find_by_url('/gallery/gallery_draft/')

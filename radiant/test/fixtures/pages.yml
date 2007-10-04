@@ -359,3 +359,18 @@ gallery_draft:
   status_id: 1
   parent_id: 50
   published_at: 2006-02-05 08:44:07 
+custom_404_root:
+  id: 58
+  title: Custom 404 Root
+  slug: custom_404
+  status_id: 100
+  parent_id: 1
+  published_at: 2006-02-05 08:44:07 
+custom_404:
+  id: 59
+  title: Custom File Not Found
+  slug: missing
+  class_name: CustomFileNotFoundPage
+  status_id: 100
+  parent_id: 58
+  published_at: 2006-02-05 08:44:07 
