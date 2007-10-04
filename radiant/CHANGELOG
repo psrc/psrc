@@ -1,6 +1,18 @@
 == Change Log
 
 === SVN
+* Plugins included in an extension's vendor/plugins directory will automatically
+  be loaded before the extension is activated. Plugins included in more than one extension
+  will be loaded only once according to the extension load order. [Sean Cribbs]
+* Allow subclassing of FileNotFoundPage. [Daniel Sheppard]
+* <r:find/> should not return FileNotFoundPage. [Daniel Sheppard]
+* Change test for tabs to just check dupes and for the requested tab 
+  rather than a specific list (test was breaking if a real extension added 
+  a tab). [Daniel Sheppard]
+* Ensure test extensions are loaded in the test environment. [Daniel Sheppard]
+* Prevent ExtensionInitializationTest from unloading real extensions. [Daniel Sheppard]
+* Expire the old URL from the cache when the page slug changes. [Daniel Sheppard]
+* Fix failing tests in instance mode. [Daniel Sheppard]
 * Update Prototype to 1.5.0 final release. [Sean Cribbs]
 * Allow specification of extension loading order in environment.rb [Daniel Sheppard]
 * Fix bugs in assert_global_tag_defined and assert_tag_defined of 

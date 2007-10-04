@@ -35,6 +35,7 @@ module Radiant
 
       def activate_extension
         return if instance.active?
+        load_plugins
         instance.activate if instance.respond_to? :activate
         ActionController::Routing::Routes.reload
         instance.active = true
@@ -72,6 +73,19 @@ module Radiant
         @route_definitions ||= []
       end
       
+      def load_plugins
+        plugins = Dir[self.root + "/vendor/plugins/*"].select{|path| File.directory?(path)}
+        plugins.each do |plugin|
+          const_name = "PLUGIN_#{File.basename(plugin).upcase}"
+          begin
+            Radiant::Extension.const_get(const_name)
+          rescue
+            $LOAD_PATH << "#{plugin}/lib"
+            require "#{plugin}/init.rb"
+            Radiant::Extension.const_set const_name, plugin
+          end
+        end
+      end
     end
   end
 end
