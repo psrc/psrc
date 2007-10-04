@@ -6,13 +6,13 @@ class Admin::PageController; def rescue_action(e) raise e end; end
 
 class Admin::PageControllerTest < Test::Unit::TestCase
   fixtures :users, :pages
-  test_helper :pages, :page_parts, :caching
+  test_helper :pages, :page_parts, :caching, :login
   
   def setup
     @controller = Admin::PageController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    @request.session['user'] = users(:existing)
+    login_as(:existing)
     
     @page_title = 'Just a Test'
     

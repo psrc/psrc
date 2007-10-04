@@ -6,13 +6,13 @@ class Admin::LayoutController; def rescue_action(e) raise e end; end
 
 class Admin::LayoutControllerTest < Test::Unit::TestCase
   fixtures :users, :layouts
-  test_helper :users, :layouts
+  test_helper :users, :layouts, :login
   
   def setup
     @controller = Admin::LayoutController.new
     @request = ActionController::TestRequest.new
     @response = ActionController::TestResponse.new
-    @request.session['user'] = users(:developer)
+    login_as(:developer)
   end
 
   def test_ancestors
@@ -21,7 +21,8 @@ class Admin::LayoutControllerTest < Test::Unit::TestCase
   
   [:index, :new, :edit, :remove].each do |action|
     define_method "test_#{action}_action_allowed_if_admin" do
-      get action, { :id => 1 }, { 'user' => users(:admin) }
+      login_as(:admin)
+      get action, { :id => 1 }
       assert_response :success, "action: #{action}"
     end
     
@@ -31,7 +32,8 @@ class Admin::LayoutControllerTest < Test::Unit::TestCase
     end
     
     define_method "test_#{action}_action__not_allowed_if_other" do
-      get action, { :id => 1 }, { 'user' => users(:existing) }, {}
+      login_as(:existing)
+      get action, { :id => 1 }
       assert_redirected_to page_index_url, "action: #{action}"
       assert_match /privileges/, flash[:error], "action: #{action}"
     end

@@ -17,13 +17,13 @@ class Admin::AbstractModelControllerTest < Test::Unit::TestCase
   end
   
   fixtures :users, :layouts
-  test_helper :layouts, :caching, :routing
+  test_helper :layouts, :caching, :routing, :login
   
   def setup
     @controller = TestModelController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    @request.session['user'] = users(:existing)
+    login_as(:existing)
     @cache = @controller.cache = FakeResponseCache.new
     
     @layout_name = "Test Layout"

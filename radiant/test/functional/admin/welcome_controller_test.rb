@@ -6,7 +6,7 @@ class Admin::WelcomeController; def rescue_action(e) raise e end; end
 
 class Admin::WelcomeControllerTest < Test::Unit::TestCase
   
-  test_helper :logging
+  test_helper :logging, :login
   fixtures :users
   
   def setup
@@ -28,7 +28,7 @@ class Admin::WelcomeControllerTest < Test::Unit::TestCase
     post :login, 'user' => { :login => 'existing', :password => 'password' }
     assert_redirected_to welcome_url
     
-    user = session['user']
+    user = @controller.send :current_user
     assert_kind_of User, user
     assert_equal 'existing', user.login
     
@@ -38,13 +38,13 @@ class Admin::WelcomeControllerTest < Test::Unit::TestCase
     post :login, 'user' => { :login => 'invalid', :password => 'password' }
     assert_response :success
     assert_match /invalid/i, flash[:error]
-    assert_nil session['user']
+    assert_nil assigns[:current_user]
   end
   
   def test_logout
     get :logout, nil, { 'user' => users(:existing) }
     assert_redirected_to login_url
-    assert_nil session['user']
+    assert_nil assigns[:current_user]
     assert_match /logged out/i, flash[:notice]
   end
   

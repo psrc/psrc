@@ -24,7 +24,7 @@
         roles.join(', ')
         %>
       </td>
-      <td class="remove"><%=  user.id != session['user'].id ? link_to(image('remove', :alt => 'Remove User'), user_remove_url(:id => user)) : image('remove-disabled', :alt => 'Remove') %></td>
+      <td class="remove"><%=  user != current_user ? link_to(image('remove', :alt => 'Remove User'), user_remove_url(:id => user)) : image('remove-disabled', :alt => 'Remove') %></td>
     </tr>
 <% end -%>
 <% else -%>

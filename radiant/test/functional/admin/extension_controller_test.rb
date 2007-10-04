@@ -7,12 +7,13 @@ class Admin::ExtensionController; def rescue_action(e) raise e end; end
 class Admin::ExtensionControllerTest < Test::Unit::TestCase
   
   fixtures :users
+  test_helper :login
   
   def setup
     @controller = Admin::ExtensionController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    @request.session['user'] = users(:admin)
+    login_as(:admin)
   end
 
   def test_index

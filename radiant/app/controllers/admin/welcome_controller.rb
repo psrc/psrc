@@ -9,8 +9,8 @@ class Admin::WelcomeController < ApplicationController
     if request.post?
       login = params[:user][:login]
       password = params[:user][:password]
-      session['user'] = User.authenticate(login, password)
-      if session['user']
+      self.current_user = User.authenticate(login, password)
+      if current_user
         redirect_to welcome_url
       else
         announce_invalid_user
@@ -19,7 +19,7 @@ class Admin::WelcomeController < ApplicationController
   end
   
   def logout
-    session['user'] = nil
+    self.current_user = nil
     announce_logged_out
     redirect_to login_url
   end

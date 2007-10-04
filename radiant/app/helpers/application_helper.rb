@@ -16,7 +16,7 @@ module ApplicationHelper
   end
   
   def logged_in?
-    session['user'] ? true : false
+    !current_user.nil?
   end
 
   def save_model_button(model)
@@ -49,7 +49,7 @@ module ApplicationHelper
   def links_for_navigation
     tabs = admin.tabs
     links = tabs.map do |tab|
-      nav_link_to(tab.name, tab.url) if tab.shown_for?(session['user'])
+      nav_link_to(tab.name, tab.url) if tab.shown_for?(current_user)
     end.compact
     links.join(separator)
   end
@@ -83,13 +83,11 @@ module ApplicationHelper
   end
   
   def admin?
-    user = session['user']
-    user and user.admin?
+    current_user and current_user.admin?
   end
   
   def developer?
-    user = session['user']
-    user and (user.developer? or user.admin?)
+    current_user and (current_user.developer? or current_user.admin?)
   end
   
   def focus(field_name)

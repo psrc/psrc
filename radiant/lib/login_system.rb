@@ -5,6 +5,7 @@ module LoginSystem
       
       @@controllers_where_no_login_required = []
       @@controller_permissions = Hash.new { |h, k| h[k] = Hash.new { |h, k| h[k] = Hash.new } }
+      helper_method :current_user
     }
     base.extend ClassMethods
     super
@@ -12,13 +13,27 @@ module LoginSystem
   
   protected
   
+    def current_user
+      @current_user ||= User.find(session['user_id']) rescue nil
+    end
+    
+    def current_user=(value=nil)
+      if value && value.is_a?(User)
+        @current_user = value
+        session['user_id'] = value.id 
+      else
+        @current_user = nil
+        session['user_id'] = nil
+      end
+      @current_user
+    end
+    
     def authenticate
       action = params['action'].to_s.intern
-      user = session['user']
-      if no_login_required? or (user and user_has_access_to_action?(action))
+      if no_login_required? or (current_user and user_has_access_to_action?(action))
         true
       else
-        if user
+        if current_user
           permissions = self.class.controller_permissions[self.class][action]
           flash[:error] = permissions[:denied_message] || 'Access denied.'
           redirect_to permissions[:denied_url] || { :action => :index }
@@ -35,7 +50,7 @@ module LoginSystem
     end
   
     def user_has_role?(role)
-      session['user'].send("#{role}?")
+      current_user.send("#{role}?")
     end
     
     def user_has_access_to_action?(action)

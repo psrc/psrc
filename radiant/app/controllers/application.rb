@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
   private
   
     def set_current_user
-      UserActionObserver.current_user = session['user']
+      UserActionObserver.current_user = current_user
     end
   
     def set_javascripts_and_stylesheets

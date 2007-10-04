@@ -7,7 +7,7 @@ class ApplicationController; def rescue_action(e) raise e end; end
 class ApplicationControllerTest < Test::Unit::TestCase
   fixtures :users
   
-  test_helper :routing
+  test_helper :routing, :login
   
   class TestController < ApplicationController
     def test
@@ -37,7 +37,8 @@ class ApplicationControllerTest < Test::Unit::TestCase
   
   def test_before_filter
     UserActionObserver.current_user = nil
-    get :test, {}, { 'user' => @user }
+    login_as(@user)
+    get :test
     assert_response :success
     assert_equal @user, UserActionObserver.current_user
   end

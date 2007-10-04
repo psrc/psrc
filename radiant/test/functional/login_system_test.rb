@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class LoginSystemTest < Test::Unit::TestCase
   
   fixtures :users
-  test_helper :routing
+  test_helper :routing, :login
   
   class StubController < ActionController::Base
     def rescue_action(e)
@@ -57,7 +57,8 @@ class LoginSystemTest < Test::Unit::TestCase
   end
   
   def test_authenticate__with_user_in_session
-    get :index, {}, { 'user' => users(:existing) }
+    login_as(:existing)
+    get :index
     assert_response :success
   end
   def test_authenticate__without_user_in_session
@@ -75,39 +76,46 @@ class LoginSystemTest < Test::Unit::TestCase
   
   def test_only_allow_access_to__when_user_in_role
     @controller = OnlyAllowAccessToWhenController.new
-    get :edit, {}, { 'user' => users(:admin) }
+    login_as(:admin)
+    get :edit
     assert_response :success
   end
   def test_only_allow_access_to__when_user_in_role_2
     @controller = OnlyAllowAccessToWhenController.new
-    get :new, {}, { 'user' => users(:developer) }
+    login_as(:developer)
+    get :new
     assert_response :success
   end
   def test_only_allow_access_to__when_user_in_role_3
     @controller = OnlyAllowAccessToWhenController.new
-    get :another, {}, { 'user' => users(:admin) }
+    login_as(:admin)
+    get :another
     assert_response :success
   end
   def test_only_allow_access_to__when_user_not_in_role
     @controller = OnlyAllowAccessToWhenController.new
-    get :edit, {}, { 'user' => users(:non_admin) }
+    login_as(:non_admin)
+    get :edit
     assert_redirected_to :action => :test
     assert_equal 'Fun.', flash[:error]
   end
   def test_only_allow_access_to__when_user_not_in_role_2
     @controller = OnlyAllowAccessToWhenController.new
-    get :new, {}, { 'user' => users(:non_admin) }
+    login_as(:non_admin)
+    get :new
     assert_redirected_to :action => :test
     assert_equal 'Fun.', flash[:error]
   end
   def test_only_allow_access_to__when__user_not_in_role_3
     @controller = OnlyAllowAccessToWhenController.new
-    get :another, {}, { 'user' => users(:non_admin) }
+    login_as(:non_admin)
+    get :another
     assert_response :success
   end
   def test_only_allow_access_to__when__user_not_in_role__defaults
     @controller = OnlyAllowAccessToWhenDefaultsController.new
-    get :edit, {}, { 'user' => users(:non_admin) }
+    login_as(:non_admin)
+    get :edit
     assert_redirected_to :action => :index
     assert_equal 'Access denied.', flash[:error]
   end
@@ -115,13 +123,15 @@ class LoginSystemTest < Test::Unit::TestCase
   def test_only_allow_access_to__if__condition_true
     @controller = OnlyAllowAccessToIfController.new
     @controller.condition = true
-    get :edit, {}, { 'user' => users(:existing) }
+    login_as(:existing)
+    get :edit
     assert_response :success
   end
   def test_only_allow_access_to__if__condition_false
     @controller = OnlyAllowAccessToIfController.new
     @controller.condition = false
-    get :edit, {}, { 'user' => users(:existing) }
+    login_as(:existing)
+    get :edit
     assert_response :redirect
   end
 

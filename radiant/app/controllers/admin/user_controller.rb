@@ -6,7 +6,7 @@ class Admin::UserController < Admin::AbstractModelController
     :denied_message => 'You must have administrative privileges to perform this action.'
   
   def preferences
-    @user = User.find(session['user'].id)
+    @user = current_user
     if valid_params?
       handle_new_or_edit_post(
         :redirect_to => page_index_url,
@@ -18,7 +18,7 @@ class Admin::UserController < Admin::AbstractModelController
   end
   
   def remove
-    if session['user'].id.to_s == params[:id].to_s
+    if current_user.id.to_s == params[:id].to_s
       announce_cannot_delete_self
       redirect_to user_index_url
     else

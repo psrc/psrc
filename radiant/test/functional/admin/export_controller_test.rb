@@ -6,12 +6,13 @@ class Admin::ExportController; def rescue_action(e) raise e end; end
 
 class Admin::ExportControllerTest < Test::Unit::TestCase
   fixtures :users, :pages
+  test_helper :login
   
   def setup
     @controller = Admin::ExportController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    @request.session['user'] = users(:developer)
+    login_as(:developer)
   end
 
   def test_yaml
