@@ -17,7 +17,7 @@ class SearchPage < Page
    
   desc %{    Renders the passed query.}
   tag 'search:query' do |tag|
-    query
+    CGI.escapeHTML(query)
   end
   
   desc %{    Renders the contained block if no results were returned.}
