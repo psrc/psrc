@@ -4,6 +4,10 @@ module Admin::PageHelper
     render :partial => 'node', :locals =>  locals
   end
 
+  def show_all?
+    @controller.action_name == 'remove'
+  end
+
   def expanded_rows
     rows = case
     when row_string = (cookies['expanded_rows'] || []).first

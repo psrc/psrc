@@ -226,6 +226,14 @@ class Admin::PageControllerTest < Test::Unit::TestCase
     assert_equal @page, assigns(:page)
     assert_not_nil get_test_page
   end
+  def test_remove_should_show_all_children_regardless_of_sitemap_expansion
+    @page = pages(:homepage)
+    get :remove, :id => @page.id
+    assert_response :success
+    Page.find(:all).each do |page|
+      assert_tag "tr", :attributes => {:id => "page-#{page.id}"}
+    end
+  end
   def test_remove__post
     @page = create_test_page
     post :remove, :id => @page.id

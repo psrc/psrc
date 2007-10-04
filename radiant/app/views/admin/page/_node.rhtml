@@ -1,7 +1,7 @@
 <%
 count = page.children.count
 children = count > 0
-expanded = expanded_rows.include?(page.id)
+expanded = show_all? || expanded_rows.include?(page.id)
 padding_left = (level * 22) + 4
 
 children_class = children ? (expanded ? ' children-visible' : ' children-hidden') : ' no-children'

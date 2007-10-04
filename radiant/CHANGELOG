@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Show all child pages on remove confirmation, regardless of sitemap expansion. [Sean Cribbs]
 * Make LoginSystem store user ids in session rather than whole user objects. [Sean Cribbs]
 * Plugins included in an extension's vendor/plugins directory will automatically
   be loaded before the extension is activated. Plugins included in more than one extension
