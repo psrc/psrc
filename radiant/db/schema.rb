@@ -35,39 +35,22 @@ ActiveRecord::Schema.define(:version => 16) do
     t.column "page_id",   :integer
   end
 
-  create_table "page_relations", :force => true do |t|
-    t.column "from_id",    :integer
-    t.column "to_id",      :integer
-    t.column "created_at", :datetime
-    t.column "updated_at", :datetime
-  end
-
-  add_index "page_relations", ["from_id"], :name => "index_page_relations_on_from_id"
-
   create_table "pages", :force => true do |t|
-    t.column "title",             :string
-    t.column "slug",              :string,   :limit => 100
-    t.column "breadcrumb",        :string,   :limit => 160
-    t.column "class_name",        :string,   :limit => 25
-    t.column "status_id",         :integer,                 :default => 1,     :null => false
-    t.column "parent_id",         :integer
-    t.column "layout_id",         :integer
-    t.column "created_at",        :datetime
-    t.column "updated_at",        :datetime
-    t.column "published_at",      :datetime
-    t.column "created_by",        :integer
-    t.column "updated_by",        :integer
-    t.column "virtual",           :boolean,                 :default => false, :null => false
-    t.column "lock_version",      :integer,                 :default => 0
-    t.column "draft_of",          :integer
-    t.column "template_id",       :integer
-    t.column "short_description", :string
-    t.column "keywords",          :string
-    t.column "appears_on",        :date
-    t.column "expires_on",        :date
+    t.column "title",        :string
+    t.column "slug",         :string,   :limit => 100
+    t.column "breadcrumb",   :string,   :limit => 160
+    t.column "class_name",   :string,   :limit => 25
+    t.column "status_id",    :integer,                 :default => 1,     :null => false
+    t.column "parent_id",    :integer
+    t.column "layout_id",    :integer
+    t.column "created_at",   :datetime
+    t.column "updated_at",   :datetime
+    t.column "published_at", :datetime
+    t.column "created_by",   :integer
+    t.column "updated_by",   :integer
+    t.column "virtual",      :boolean,                 :default => false, :null => false
+    t.column "lock_version", :integer,                 :default => 0
   end
-
-  add_index "pages", ["draft_of"], :name => "index_pages_on_draft_of"
 
   create_table "sessions", :force => true do |t|
     t.column "session_id", :string
@@ -90,22 +73,6 @@ ActiveRecord::Schema.define(:version => 16) do
   end
 
   add_index "snippets", ["name"], :name => "name", :unique => true
-
-  create_table "template_parts", :force => true do |t|
-    t.column "template_id", :integer
-    t.column "name",        :string
-    t.column "filter_id",   :string
-  end
-
-  add_index "template_parts", ["template_id"], :name => "index_template_parts_on_template_id"
-
-  create_table "templates", :force => true do |t|
-    t.column "name",      :string
-    t.column "sublayout", :text
-    t.column "layout_id", :integer
-  end
-
-  add_index "templates", ["name"], :name => "index_templates_on_name"
 
   create_table "users", :force => true do |t|
     t.column "name",         :string,   :limit => 100
