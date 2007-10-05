@@ -25,7 +25,11 @@ namespace :test do
   task :extensions => "db:test:prepare" do
     Dir["#{RAILS_ROOT}/vendor/extensions/*"].sort.select { |f| File.directory?(f) }.each do |directory|
       chdir directory do
-        system "rake test"
+        if RUBY_PLATFORM =~ /win32/
+          system "rake.cmd test"
+        else
+          system "rake test"
+        end
       end
     end
   end
