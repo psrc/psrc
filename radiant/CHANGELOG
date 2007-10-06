@@ -1,6 +1,6 @@
 == Change Log
 
-=== SVN
+=== 0.6.3 Rock Grinder
 * Add generic public/ copy task to generated extensions. [Sean Cribbs]
 * Fix typo in StandardTags. [oli]
 * Added db:remigrate:extensions task. [Sean Cribbs]
