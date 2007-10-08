@@ -37,17 +37,6 @@ unless defined? TEST_ROOT
     # Make sure instance installs know where fixtures are
     self.fixture_path = ["#{TEST_ROOT}/fixtures"]
     
-    # Session key stringification fix for Rails 1.2.2
-    %w( get post put delete head ).each do |method|
-      class_eval <<-EOV, __FILE__, __LINE__
-        def #{method}(action, parameters = nil, session = nil, flash = nil)
-          @request.env['REQUEST_METHOD'] = "#{method.upcase}" if defined?(@request)
-          session = session.stringify_keys if session.kind_of? Hash
-          process(action, parameters, session, flash)
-        end
-      EOV
-    end
-    
     class << self
       # Class method for test helpers
       def test_helper(*names)
