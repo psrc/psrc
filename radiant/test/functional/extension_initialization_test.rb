@@ -88,6 +88,11 @@ class ExtensionInitializationTest < Test::Unit::TestCase
     assert !Dependencies.load_once_paths.include?(OverridingExtension.root + "/vendor/plugins/multiple/lib")    
   end
 
+  def test_should_add_extension_load_paths_to_requirable_load_path
+    assert_nothing_raised { require 'new_module' }
+    assert defined?(NewModule)
+  end
+  
   private
   
     def assert_admin_tabs(more_tabs = [])

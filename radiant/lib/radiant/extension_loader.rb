@@ -78,7 +78,7 @@ module Radiant
       extension_roots.each do |ext_path|
           load_paths = %w(lib app/models app/controllers app/helpers test/helpers).collect { |p| "#{ext_path}/#{p}" }
           load_paths << ext_path
-          load_paths.each { |p| configuration.load_paths << p }
+          load_paths.each { |p| configuration.load_paths << p; $LOAD_PATH << p; }
           configuration.controller_paths << "#{ext_path}/app/controllers"
           configuration.view_paths << "#{ext_path}/app/views"
           @extension_roots << ext_path
