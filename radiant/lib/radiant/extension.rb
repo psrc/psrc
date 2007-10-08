@@ -80,8 +80,14 @@ module Radiant
           begin
             Radiant::Extension.const_get(const_name)
           rescue
-            $LOAD_PATH << "#{plugin}/lib"
-            require "#{plugin}/init.rb"
+            lib = "#{plugin}/lib"
+            init ="#{plugin}/init.rb"
+            if File.directory?(lib)
+              $LOAD_PATH << lib
+              Dependencies.load_paths << lib
+              Dependencies.load_once_paths << lib
+            end
+            require init if File.exists?(init)
             Radiant::Extension.const_set const_name, plugin
           end
         end

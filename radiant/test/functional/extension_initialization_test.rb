@@ -70,6 +70,8 @@ class ExtensionInitializationTest < Test::Unit::TestCase
     assert_nothing_raised { Radiant::Extension.const_get(:PLUGIN_PLUGIN_NORMAL) }
     assert_equal BasicExtension.root + "/vendor/plugins/plugin_normal", Radiant::Extension::PLUGIN_PLUGIN_NORMAL
     assert $LOAD_PATH.include?(BasicExtension.root + "/vendor/plugins/plugin_normal/lib")
+    assert Dependencies.load_paths.include?(BasicExtension.root + "/vendor/plugins/plugin_normal/lib")
+    assert Dependencies.load_once_paths.include?(BasicExtension.root + "/vendor/plugins/plugin_normal/lib")    
     assert defined?(NormalPlugin)
   end
     
@@ -77,9 +79,13 @@ class ExtensionInitializationTest < Test::Unit::TestCase
     assert_nothing_raised { Radiant::Extension.const_get(:PLUGIN_MULTIPLE) }
     assert_equal BasicExtension.root + "/vendor/plugins/multiple", Radiant::Extension::PLUGIN_MULTIPLE
     assert $LOAD_PATH.include?(BasicExtension.root + "/vendor/plugins/multiple/lib")
+    assert Dependencies.load_paths.include?(BasicExtension.root + "/vendor/plugins/multiple/lib")
+    assert Dependencies.load_once_paths.include?(BasicExtension.root + "/vendor/plugins/multiple/lib")    
     assert defined?(Multiple)
     assert_not_equal OverridingExtension.root + "/vendor/plugins/multiple", Radiant::Extension::PLUGIN_MULTIPLE
     assert !$LOAD_PATH.include?(OverridingExtension.root + "/vendor/plugins/multiple/lib")
+    assert !Dependencies.load_paths.include?(OverridingExtension.root + "/vendor/plugins/multiple/lib")
+    assert !Dependencies.load_once_paths.include?(OverridingExtension.root + "/vendor/plugins/multiple/lib")    
   end
 
   private
