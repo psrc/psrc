@@ -97,3 +97,18 @@ inheritance_test_part:
   name: body
   content: <r:title /> inherited body.
   page_id: 47
+if_dev_test_part:
+  id: 20
+  name: if_dev
+  content: <r:if_dev>dev</r:if_dev>
+  page_id: 60
+unless_dev_test_part:
+  id: 21
+  name: unless_dev
+  content: <r:unless_dev>not dev</r:unless_dev>
+  page_id: 60
+another:
+  id: 22
+  name: body
+  content: another page
+  page_id: 61

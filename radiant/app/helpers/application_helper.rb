@@ -18,7 +18,7 @@ module ApplicationHelper
   def logged_in?
     !current_user.nil?
   end
-
+  
   def save_model_button(model)
     label = if model.new_record?
       "Create #{model.class.name}"
@@ -31,7 +31,7 @@ module ApplicationHelper
   def save_model_and_continue_editing_button(model)
     submit_tag 'Save and Continue Editing', :name => 'continue', :class => 'button'
   end
-
+  
   # Redefine pluralize() so that it doesn't put the count at the beginning of
   # the string.
   def pluralize(count, singular, plural = nil)
@@ -57,7 +57,7 @@ module ApplicationHelper
   def separator
     %{ <span class="separator"> | </span> }
   end
-    
+  
   def current_url?(options)
     url = case
     when Hash
@@ -76,10 +76,10 @@ module ApplicationHelper
   def nav_link_to(name, options)
     logger.debug 'options are: ' + options.to_s
     if current_url?(options)
-	    %{<strong>#{ link_to name, options }</strong>}
-	  else
-	    link_to name, options
-	  end
+      %{<strong>#{ link_to name, options }</strong>}
+    else
+      link_to name, options
+    end
   end
   
   def admin?
@@ -94,7 +94,7 @@ module ApplicationHelper
     %{
     <script type="text/javascript">
     // <![CDATA[
-  	  Field.activate('#{field_name}');
+      Field.activate('#{field_name}');
     // ]]>
     </script>
     }

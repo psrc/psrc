@@ -14,6 +14,9 @@ class PageContext < Radius::Context
   end
  
   def render_tag(name, attributes = {}, &block)
+    binding = @tag_binding_stack.last
+    locals = binding ? binding.locals : globals
+    set_process_variables(locals.page)
     super
   rescue Exception => e
     raise e if testing?
@@ -30,6 +33,11 @@ class PageContext < Radius::Context
   
     def render_error_message(message)
       "<div><strong>#{message}</strong></div>"
+    end
+    
+    def set_process_variables(page)
+      page.request ||= @page.request
+      page.response ||= @page.response
     end
     
     def testing?

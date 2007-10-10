@@ -1,6 +1,7 @@
 module RenderTestHelper
-  def assert_renders(expected, input, url = nil)
-    output = get_render_output(input, url)
+  
+  def assert_renders(expected, input, url = nil, host = nil)
+    output = get_render_output(input, url, host)
     message = "<#{expected.inspect}> expected but was <#{output.inspect}>"
     assert_block(message) { expected == output }
   end
@@ -44,14 +45,16 @@ module RenderTestHelper
   
   private
   
-    def get_render_output(input, url)
-      setup_page(url)
+    def get_render_output(input, url, host = nil)
+      setup_page(url, host)
       @page.render_text(input)
     end
-  
-    def setup_page(url = nil)
+    
+    def setup_page(url = nil, host = nil)
       @page.request = ActionController::TestRequest.new
       @page.request.request_uri = 'http://testhost.tld' + (url || @page.url)
+      @page.request.host = host unless host.nil?
       @page.response = ActionController::TestResponse.new
     end
+  
 end

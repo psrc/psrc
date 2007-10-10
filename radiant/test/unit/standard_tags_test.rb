@@ -141,7 +141,7 @@ class StandardTagsTest < Test::Unit::TestCase
     assert_renders '', '<r:content part="sidebar" inherit="false" />'
     assert_renders 'Radius Test Page sidebar.', '<r:content part="sidebar" inherit="true" />'
     assert_render_error %{`inherit' attribute of `content' tag must be set to either "true" or "false"}, '<r:content part="sidebar" inherit="weird value" />'
-
+    
     assert_renders '', '<r:content part="part_that_doesnt_exist" inherit="true" />'
   end
   def test_tag_content_with_inherit_and_contextual_attributes
@@ -403,6 +403,24 @@ class StandardTagsTest < Test::Unit::TestCase
     assert_renders 'true', '<r:unless_parent>true</r:unless_parent>'
   end
   
+  def test_if_dev
+    assert_renders '-dev-', '-<r:if_dev>dev</r:if_dev>-', nil , 'dev.site.com'
+    assert_renders '--', '-<r:if_dev>dev</r:if_dev>-'
+  end
+  def test_if_dev_on_included_page
+    assert_renders '-dev-', '-<r:find url="/devtags/"><r:content part="if_dev" /></r:find>-', nil, 'dev.site.com'
+    assert_renders '--', '-<r:find url="/devtags/"><r:content part="if_dev" /></r:find>-'
+  end
+  
+  def test_unless_dev
+    assert_renders '--', '-<r:unless_dev>not dev</r:unless_dev>-', nil, 'dev.site.com'
+    assert_renders '-not dev-', '-<r:unless_dev>not dev</r:unless_dev>-'
+  end
+  def test_unless_dev_on_included_page
+    assert_renders '--', '-<r:find url="/devtags/"><r:content part="unless_dev" /></r:find>-', nil, 'dev.site.com'
+    assert_renders '-not dev-', '-<r:find url="/devtags/"><r:content part="unless_dev" /></r:find>-'
+  end
+  
   private
   
     def page_children_first_tags(attr = nil)
@@ -415,13 +433,13 @@ class StandardTagsTest < Test::Unit::TestCase
       "<r:children:last#{attr}><r:slug /></r:children:last>"
     end
     
-    
     def page_children_each_tags(attr = nil)
       attr = ' ' + attr unless attr.nil?
       "<r:children:each#{attr}><r:slug /> </r:children:each>"
     end
-  
+    
     def page_eachable_children(page)
       page.children.select(&:published?).reject(&:virtual)
     end
+  
 end
