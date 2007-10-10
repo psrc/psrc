@@ -1,6 +1,9 @@
 == Change Log
 
 === 0.6.3 Rock Grinder
+* Ensured that the request and response are passed along to other pages that
+  are rendered within the same context. [John Long]
+* Added <r:if_dev /> and <r:unless_dev /> tags. [Peter Berkenbosch]
 * Add generic public/ copy task to generated extensions. [Sean Cribbs]
 * Fix typo in StandardTags. [oli]
 * Added db:remigrate:extensions task. [Sean Cribbs]
