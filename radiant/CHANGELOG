@@ -1,9 +1,16 @@
 == Change Log
 
 === SVN
+* Update Rails to 1.2.5. [John Long]
 * Ensured that the request and response are passed along to other pages that
   are rendered within the same context. [John Long]
 * Added <r:if_dev /> and <r:unless_dev /> tags. [Peter Berkenbosch]
+* Removed session stringification patch in test helper. [Sean Cribbs]
+* Update Rails to 1.2.4. [Sean Cribbs]
+* Add extensions paths to the standard $LOAD_PATH so requires work properly.
+  [Sean Cribbs]
+* Fixed some loading issues for plugins that are included in extensions. 
+  [Sean Cribbs]
 
 === 0.6.3 Rock Grinder
 * Add generic public/ copy task to generated extensions. [Sean Cribbs]
