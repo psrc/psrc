@@ -132,8 +132,9 @@ class MailerPage < Page
           :value => tag_attr.delete(:value) || tag_attr[:name],
           :name => tag.locals.parent_tag_name
         })
+        result << %Q|<label for="#{options[:id]}">|
         result << input_tag_html( 'radio', options )
-        result << %Q|<label for="#{options[:id]}">#{tag_attr[:name]}</label>|
+        result << %Q|<span>#{tag_attr[:name]}</span></label>|
       end
     end
 
