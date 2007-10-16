@@ -43,7 +43,7 @@ module Radiant
             next unless md = /^([^\.]+)\.([^\.]+\.[^\+]+)\.(rhtml|rxml)$/.match(basename)
             template_name = basename
             content_type = md.captures[1].gsub('.', '/')
-            @parts << Part.new(:content_type => content_type,
+            @parts << ActionMailer::Part.new(:content_type => content_type,
               :disposition => "inline", :charset => charset,
               :body => render_message(template_name, @body))
           end
@@ -65,7 +65,7 @@ module Radiant
         # we shift it onto the front of the parts and set the body to nil (so
         # that create_mail doesn't try to render it in addition to the parts).
         if !@parts.empty? && String === @body
-          @parts.unshift Part.new(:charset => charset, :body => @body)
+          @parts.unshift ActionMailer::Part.new(:charset => charset, :body => @body)
           @body = nil
         end
       end

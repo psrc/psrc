@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Disambiguate namespace of ActionMailer::Part. [Sean Cribbs]
 * Fix namespacing problem with ActionController::RoutingError. [Sean Cribbs]
 * Update Rails to 1.2.5. [John Long]
 * Ensured that the request and response are passed along to other pages that
