@@ -94,7 +94,19 @@ class PageTest < Test::Unit::TestCase
     part = pages(:radius).part(:body)
     assert_equal 'body', part.name
   end
-
+  def test_part__when_page_is_unsaved
+    part = PagePart.new(:content => "test", :name => "test")
+    @page.parts << part
+    assert_equal part, @page.part('test')
+    assert_equal part, @page.part(:test)
+  end
+  def test_part__when_parts_are_unsaved
+    @page = pages(:radius)
+    @page.parts.build(:content => "test", :name => "test")
+    assert_equal "test", @page.part('test').content
+    assert_equal "test", @page.part(:test).content
+  end
+  
   def test_published_at
     @page = create_test_page(:status_id => '1')
     assert_nil @page.published_at

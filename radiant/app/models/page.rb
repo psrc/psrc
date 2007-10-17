@@ -57,7 +57,11 @@ class Page < ActiveRecord::Base
   end
   
   def part(name)
-    parts.find_by_name name.to_s
+    if new_record? or parts.to_a.any?(&:new_record?)
+      parts.to_a.find {|p| p.name == name.to_s }
+    else
+      parts.find_by_name name.to_s
+    end
   end
     
   def published?
