@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Fixed <r:attempted_url /> tag to escape the uri [Daniel Sheppard]
 * Allow parts to be accessed by name from Page#part before they are saved.
   [Sean Cribbs]
 * Disambiguate namespace of ActionMailer::Part. [Sean Cribbs]
