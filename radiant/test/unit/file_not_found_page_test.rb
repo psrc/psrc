@@ -11,6 +11,10 @@ class FileNotFoundTest < Test::Unit::TestCase
   def test_url
     assert_renders 'http://testhost.tld/gallery/asdf?param=4', '<r:attempted_url />', '/gallery/asdf?param=4'
   end
+
+  def test_url__malicious_url
+    assert_renders 'http://testhost.tld/gallery/&lt;script&gt;alert(&quot;evil&quot;)&lt;/script&gt;', '<r:attempted_url />', '/gallery/<script>alert("evil")</script>'
+  end
   
   def test_virtual
     assert_equal true, @page.virtual?
