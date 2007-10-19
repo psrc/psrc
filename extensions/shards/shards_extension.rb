@@ -37,8 +37,9 @@ class ShardsExtension < Radiant::Extension
             edit.form_bottom.concat %w{edit_buttons}
             edit.parts_bottom.concat %w{edit_layout_and_type edit_timestamp}
         end
-        page.index = Shards::RegionSet.new
-        page.index.sitemap_head.concat %w{index_sitemap_column_headers}
+        page.index = Shards::RegionSet.new do |index|
+          index.sitemap_head.concat %w{index_sitemap_column_headers}
+        end
         page.remove = Shards::RegionSet.new
         page.children = Shards::RegionSet.new   
         page
