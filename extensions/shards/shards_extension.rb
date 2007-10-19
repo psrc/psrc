@@ -25,7 +25,6 @@ class ShardsExtension < Radiant::Extension
   end
   
   def deactivate
-    # Need to remove from load and view path! -- APPLY TO CORE
   end
   
   private
@@ -39,6 +38,7 @@ class ShardsExtension < Radiant::Extension
             edit.parts_bottom.concat %w{edit_layout_and_type edit_timestamp}
         end
         page.index = Shards::RegionSet.new
+        page.index.sitemap_head.concat %w{index_sitemap_column_headers}
         page.remove = Shards::RegionSet.new
         page.children = Shards::RegionSet.new   
         page
