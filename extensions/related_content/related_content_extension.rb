@@ -4,7 +4,7 @@ require_dependency 'application'
 class RelatedContentExtension < Radiant::Extension
   version "0.1"
   description "Provides an interface and tags for relating pages to one another in a one-way fashion."
-  url "http://code.digitalpulp.com"
+  url "http://dev.radiantcms.org/"
   define_routes do |map|
     map.related_pages 'admin/ui/pages/related', :controller => "admin/page", :action => "related"
   end
