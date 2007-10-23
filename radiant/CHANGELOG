@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Add logout method to LoginTestHelper. [Sean Cribbs]
 * Run single extension tests with rake test:extensions EXT=<extension_name>
   [Brian Skahan]
 * Update Javascript libraries to Prototype 1.6.0_rc1 and script.aculo.us 

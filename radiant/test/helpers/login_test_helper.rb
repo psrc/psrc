@@ -9,4 +9,9 @@ module LoginTestHelper
     @request ||= ActionController::TestRequest.new
     @request.session['user_id'] = logged_in_user.id
   end
+  
+  def logout
+    @request ||= ActionController::TestRequest.new
+    @request.session['user_id'] = nil
+  end
 end
