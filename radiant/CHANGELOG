@@ -1,6 +1,8 @@
 == Change Log
 
 === SVN
+* Update Javascript libraries to Prototype 1.6.0_rc1 and script.aculo.us 
+  1.8.0_pre1. [Mislav Marohnic]
 * Fixed <r:attempted_url /> tag to escape the uri [Daniel Sheppard]
 * Allow parts to be accessed by name from Page#part before they are saved.
   [Sean Cribbs]

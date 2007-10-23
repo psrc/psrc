@@ -1,28 +1,19 @@
-var RuledTable = Class.create();
-RuledTable.prototype = {
-  
+var RuledTable = Class.create({
   initialize: function(element_id) {
-    var table = $(element_id);
-    var rows = table.getElementsByTagName('tr');
-    for (var i = 0; i < rows.length; i++) {
-      this.setupRow(rows[i]);
-    }
+    var table = $(element_id).select('tr').each(this.setupRow, this)
   },
   
   onMouseOverRow: function(event) {
-    // Element.addClassName(this, 'highlight');
-    this.className = this.className.replace(/\s*\bhighlight\b|$/, ' highlight'); // faster than the above
+    this.addClassName('highlight');
   },
   
   onMouseOutRow: function(event) {
-    // Element.removeClassName(this, 'highlight');
-    this.className = this.className.replace(/\s*\bhighlight\b\s*/, ' '); // faster than the above
+    this.removeClassName('highlight');
   },
   
   setupRow: function(row) {
-    Event.observe(row, 'mouseover', this.onMouseOverRow.bindAsEventListener(row));
-    Event.observe(row, 'mouseout', this.onMouseOutRow.bindAsEventListener(row));
+    row.observe('mouseover', this.onMouseOverRow);
+    row.observe('mouseout', this.onMouseOutRow);
     if (this.onRowSetup) this.onRowSetup(row);
   }
-  
-};
+});

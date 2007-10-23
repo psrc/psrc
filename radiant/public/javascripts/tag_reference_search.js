@@ -1,5 +1,5 @@
 function hasWordInElement(word, element) {
-  if(element.nodeType == Node.TEXT_NODE) {
+  if (element.nodeType == Node.TEXT_NODE) {
     return element.nodeValue.match(word) != null;
   } else {
     return $A(element.childNodes).any(function (child) { 
@@ -11,18 +11,13 @@ function hasWordInElement(word, element) {
 var searchingOn = ""
 
 function observeTagSearch(element, value) {
-  if(value.length < 3 && searchingOn != "") {
+  if (value.length < 3 && searchingOn != "") {
     searchingOn = "";
-    divs = $$("div.tag-description");
-    $A(divs).each(function(div){ Element.show(div); });
-  } else if(value.length >= 3 && searchingOn != value) {
+    $$("div.tag-description").invoke('show');
+  } else if (value.length >= 3 && searchingOn != value) {
     searchingOn = value
-    divs = $$("div.tag-description");
-    $A(divs).each(function (div){
-      if(hasWordInElement(value, div))
-        Element.show(div);
-      else
-        Element.hide(div);
+    $$("div.tag-description").each(function(div) {
+      div[hasWordInElement(value, div) ? 'show' : 'hide']();
     });
   }
 }

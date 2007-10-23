@@ -1,9 +1,4 @@
-var TabControl = Class.create();
-
-TabControl.controls = $H();
-TabControl.BadTabError = new Error('TabControl: Invalid tab.');
-
-TabControl.prototype = {
+TabControl = Class.create({
   /*
     Initializes a tab control. The variable +element_id+ must be the id of an HTML element
     containing one element with it's class name set to 'tabs' and another element with it's
@@ -13,7 +8,7 @@ TabControl.prototype = {
     TabControl.controls[element_id] = this;
     this.control_id = element_id;
     this.element = $(element_id);
-    this.tab_container = document.getElementsByClassName('tabs', this.element).first();
+    this.tab_container = this.element.down('.tabs');
     this.tabs = $H();
   },
   
@@ -24,17 +19,16 @@ TabControl.prototype = {
     itself. When a tab is initially added the page element is hidden.
   */
   addTab: function(tab_id, caption, page) {
-    new Insertion.Bottom(
-      this.tab_container,
-      '<a class="tab" href="javascript:TabControl.controls[\''
-      + this.control_id
-      + '\'].select(\'' + tab_id + '\');">' + caption + '</a>'
+    this.tab_container.insert(
+      '<a class="tab" href="javascript:TabControl.controls[\'#{id}\'].select(\'#{tab_id}\');">#{caption}</a>'.interpolate({
+        id: this.control_id, tab_id: tab_id, caption: caption
+      })
     );
     var tab = this.tab_container.lastChild;
     tab.tab_id = tab_id;
     tab.caption = caption;
     tab.page = $(page);
-    this.tabs[tab_id] = tab;
+    this.tabs.set(tab_id, tab);
     this._setNotHere(tab);
     return tab;
   },
@@ -47,11 +41,8 @@ TabControl.prototype = {
     var id = t.tab_id;
     Element.remove(t.page);
     Element.remove(t);
-    new_tabs = $H();
-    this.tabs.each(function(pair) {
-      if (pair.key != id) new_tabs[pair.key] = pair.value;
-    });
-    this.tabs = new_tabs;
+    this.tabs.unset(id);
+    
     if (this.selected.tab_id == id) {
       var first = this.firstTab();
       if (typeof first != 'undefined') this.select(first.tab_id);
@@ -73,22 +64,21 @@ TabControl.prototype = {
       } else {
         this._setNotHere(pair.key);
       }
-    }.bind(this));
-    false;
+    }, this);
   },
 
   /*
     Returns the first tab element that was added using #addTab().
   */
   firstTab: function() {
-    return this.tabs[this.tabs.keys().first()];
+    return this.tabs.get(this.tabs.keys().first());
   },
   
   /*
     Returns the the last tab element that was added using #addTab().
   */
   lastTab: function() {
-    return this.tabs[this.tabs.keys().last()];
+    return this.tabs.get(this.tabs.keys().last());
   },
   
   /*
@@ -127,7 +117,7 @@ TabControl.prototype = {
   */
   _tabify: function(something) {
     if (typeof something == 'string') {
-      var object = this.tabs[something];
+      var object = this.tabs.get(something);
     } else {
       var object = something;
     }
@@ -137,4 +127,7 @@ TabControl.prototype = {
       throw TabControl.BadTabError;
     }
   }
-};
+});
+
+TabControl.controls = $H();
+TabControl.BadTabError = new Error('TabControl: Invalid tab.');
