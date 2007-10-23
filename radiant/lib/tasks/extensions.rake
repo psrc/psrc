@@ -22,14 +22,29 @@ namespace :db do
 end
 
 namespace :test do
-  desc "Runs tests on all available Radiant extensions"
+  desc "Runs tests on all available Radiant extensions, pass EXT=extension_name to test a single extension"
   task :extensions => "db:test:prepare" do
-    Dir["#{RAILS_ROOT}/vendor/extensions/*"].sort.select { |f| File.directory?(f) }.each do |directory|
-      chdir directory do
-        if RUBY_PLATFORM =~ /win32/
-          system "rake.cmd test"
-        else
-          system "rake test"
+    if ENV["EXT"]
+      extension = RAILS_ROOT + "/vendor/extensions/" + ENV["EXT"]
+      if File.directory?(extension)
+        chdir extension do
+          if RUBY_PLATFORM =~ /win32/
+            system "rake.cmd test"
+          else
+            system "rake test"
+          end
+        end
+      else
+        puts "Sorry, that extension is not installed."
+      end
+    else
+      Dir["#{RAILS_ROOT}/vendor/extensions/*"].sort.select { |f| File.directory?(f) }.each do |directory|
+        chdir directory do
+          if RUBY_PLATFORM =~ /win32/
+            system "rake.cmd test"
+          else
+            system "rake test"
+          end
         end
       end
     end

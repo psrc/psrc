@@ -1,6 +1,8 @@
 == Change Log
 
 === SVN
+* Run single extension tests with rake test:extensions EXT=<extension_name>
+  [Brian Skahan]
 * Update Javascript libraries to Prototype 1.6.0_rc1 and script.aculo.us 
   1.8.0_pre1. [Mislav Marohnic]
 * Fixed <r:attempted_url /> tag to escape the uri [Daniel Sheppard]
@@ -23,23 +25,29 @@
 * Add generic public/ copy task to generated extensions. [Sean Cribbs]
 * Fix typo in StandardTags. [oli]
 * Added db:remigrate:extensions task. [Sean Cribbs]
-* Show all child pages on remove confirmation, regardless of sitemap expansion. [Sean Cribbs]
-* Make LoginSystem store user ids in session rather than whole user objects. [Sean Cribbs]
+* Show all child pages on remove confirmation, regardless of sitemap expansion.
+  [Sean Cribbs]
+* Make LoginSystem store user ids in session rather than whole user objects. 
+  [Sean Cribbs]
 * Plugins included in an extension's vendor/plugins directory will automatically
-  be loaded before the extension is activated. Plugins included in more than one extension
-  will be loaded only once according to the extension load order. [Sean Cribbs]
+  be loaded before the extension is activated. Plugins included in more than one
+  extension will be loaded only once according to the extension load order. 
+  [Sean Cribbs]
 * Allow subclassing of FileNotFoundPage. [Daniel Sheppard]
 * <r:find/> should not return FileNotFoundPage. [Daniel Sheppard]
 * Change test for tabs to just check dupes and for the requested tab 
   rather than a specific list (test was breaking if a real extension added 
   a tab). [Daniel Sheppard]
 * Ensure test extensions are loaded in the test environment. [Daniel Sheppard]
-* Prevent ExtensionInitializationTest from unloading real extensions. [Daniel Sheppard]
+* Prevent ExtensionInitializationTest from unloading real extensions. 
+  [Daniel Sheppard]
 * Expire the old URL from the cache when the page slug changes. [Daniel Sheppard]
 * Fix failing tests in instance mode. [Daniel Sheppard]
-* Move difference assertions upstream from forms extension into a test helper. [Sean Cribbs]
+* Move difference assertions upstream from forms extension into a test helper. 
+  [Sean Cribbs]
 * Update Prototype to 1.5.0 final release. [Sean Cribbs]
-* Allow specification of extension loading order in environment.rb [Daniel Sheppard]
+* Allow specification of extension loading order in environment.rb 
+  [Daniel Sheppard]
 * Fix bugs in assert_global_tag_defined and assert_tag_defined of 
   ExtensionTagTestHelper. [Sean Cribbs]
 * Make sure included stylesheets and javascripts are only linked to once in 
