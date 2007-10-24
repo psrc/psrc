@@ -1,6 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ControllerExtensionsTest < Test::Unit::TestCase
+  fixtures :pages
   
   def setup
     @controller = SiteController.new
