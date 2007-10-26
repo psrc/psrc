@@ -41,7 +41,15 @@ class PageContextTest < Test::Unit::TestCase
     assert_parse_output_match "tada!", '<r:if_response>tada!</r:if_response>'
     assert_parse_output_match "tada!", '<r:find url="/another/"><r:if_response>tada!</r:if_response></r:find>'
   end
-  
+
+  def test_exception_pops_stack
+    assert_equal '', @context.current_nesting
+    @context.define_tag("error") {|tag| raise "Broken!"}
+    def @context.testing?(); false; end
+    assert_parse_output_match /Broken\!/, "<r:error/>"
+    assert_equal '', @context.current_nesting
+  end
+
   private
     
     def assert_parse_output_match(regexp, input)

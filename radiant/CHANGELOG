@@ -1,6 +1,8 @@
 == Change Log
 
 === SVN
+* Make sure tag binding stack is popped when an exception occurs. [jay@jay.fm]
+* Clean up some apparent cruft in page.rb [Daniel Sheppard]
 * Add logout method to LoginTestHelper. [Sean Cribbs]
 * Run single extension tests with rake test:extensions EXT=<extension_name>
   [Brian Skahan]

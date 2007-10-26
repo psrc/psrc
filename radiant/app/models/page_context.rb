@@ -20,6 +20,7 @@ class PageContext < Radius::Context
     super
   rescue Exception => e
     raise e if testing?
+    @tag_binding_stack.pop unless @tag_binding_stack.last == binding
     render_error_message(e.message)
   end
   
