@@ -11,7 +11,7 @@ module StandardTags
     <pre><code><r:page>...</r:page></code></pre>
   }
   tag 'page' do |tag|
-    tag.locals.page = tag.globals.actual_page || tag.globals.page
+    tag.locals.page = tag.globals.page
     tag.expand
   end
   
@@ -388,9 +388,7 @@ module StandardTags
   tag 'snippet' do |tag|
     if name = tag.attr['name']
       if snippet = Snippet.find_by_name(name.strip)
-        page = tag.locals.page
-        global_page = tag.globals.page
-        page.render_snippet(snippet, global_page)
+        tag.globals.page.render_snippet(snippet)
       else
         raise TagError.new('snippet not found')
       end

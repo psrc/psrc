@@ -309,11 +309,6 @@ class PageTest < Test::Unit::TestCase
     assert_equal "Hello world! Another test.", @page.render_part(:body)
   end
 
-  def test_render_text
-    @page = pages(:homepage)
-    assert_equal "/", @page.render_text( "<r:slug />")
-  end
-  
   def test_display_name_class_method
     assert_equal "Page", Page.display_name
     

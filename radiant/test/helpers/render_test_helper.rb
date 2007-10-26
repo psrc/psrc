@@ -47,7 +47,7 @@ module RenderTestHelper
   
     def get_render_output(input, url, host = nil)
       setup_page(url, host)
-      @page.render_text(input)
+      @page.send(:parse, input)
     end
     
     def setup_page(url = nil, host = nil)

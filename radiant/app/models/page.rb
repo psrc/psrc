@@ -99,7 +99,6 @@ class Page < ActiveRecord::Base
   end
   
   def render
-    lazy_initialize_parser_and_context
     if layout
       parse_object(layout)
     else
@@ -108,7 +107,6 @@ class Page < ActiveRecord::Base
   end
   
   def render_part(part_name)
-    lazy_initialize_parser_and_context
     part = part(part_name)
     if part
       parse_object(part)
@@ -117,15 +115,8 @@ class Page < ActiveRecord::Base
     end
   end
   
-  def render_snippet(snippet, actual_page = nil)
-    lazy_initialize_parser_and_context
-    @context.globals.actual_page = actual_page if actual_page 
+  def render_snippet(snippet)
     parse_object(snippet)
-  end
-  
-  def render_text(text)
-    lazy_initialize_parser_and_context
-    parse(text)
   end
   
   def find_by_url(url, live = true, clean = true)
@@ -240,14 +231,15 @@ class Page < ActiveRecord::Base
     end
     
     def lazy_initialize_parser_and_context
-      unless @context and @parser
+      unless @parser and @context
         @context = PageContext.new(self)
         @parser = Radius::Parser.new(@context, :tag_prefix => 'r')
       end
+      @parser
     end
     
     def parse(text)
-      @parser.parse(text)
+      lazy_initialize_parser_and_context.parse(text)
     end
     
     def parse_object(object)
@@ -255,10 +247,6 @@ class Page < ActiveRecord::Base
       text = parse(text)
       text = object.filter.filter(text) if object.respond_to? :filter_id
       text
-    end
-    
-    def tag(*args, &block)
-      @context.define_tag(*args, &block)
     end
   
 end
