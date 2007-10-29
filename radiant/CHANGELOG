@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Add assert_requires_login to LoginTestHelper. [Sean Cribbs]
 * Make sure tag binding stack is popped when an exception occurs. [jay@jay.fm]
 * Clean up some apparent cruft in page.rb [Daniel Sheppard]
 * Add logout method to LoginTestHelper. [Sean Cribbs]

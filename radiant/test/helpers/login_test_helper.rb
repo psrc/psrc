@@ -14,4 +14,10 @@ module LoginTestHelper
     @request ||= ActionController::TestRequest.new
     @request.session['user_id'] = nil
   end
+  
+  def assert_requires_login
+    yield if block_given?
+    assert_response :redirect
+    assert_redirected_to :controller => "admin/welcome", :action => "login"
+  end
 end
