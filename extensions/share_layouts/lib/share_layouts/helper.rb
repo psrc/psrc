@@ -3,19 +3,10 @@ module ShareLayouts::Helper
   
   def radiant_layout(name = @radiant_layout)
     returning String.new do |output|
-      begin
-        ShareLayouts::RailsPage.transaction do 
-          page = ShareLayouts::RailsPage.new(:class_name => "ShareLayouts::RailsPage")
-          assign_attributes!(page, name)
-          page.build_parts_from_hash!(extract_captures)
-          page.save! 
-          output << page.render
-          raise TransactionBreak, "don't save!"
-        end
-      rescue TransactionBreak
-      rescue 
-        raise
-      end
+      page = ShareLayouts::RailsPage.new(:class_name => "ShareLayouts::RailsPage")
+      assign_attributes!(page, name)
+      page.build_parts_from_hash!(extract_captures) 
+      output << page.render
     end
   end
   
