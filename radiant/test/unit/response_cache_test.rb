@@ -13,7 +13,9 @@ class ResponseCacheTest < Test::Unit::TestCase
   end
   
   def setup
-    @dir = "#{RAILS_ROOT}/test/cache"
+    @dir = File.expand_path("#{RAILS_ROOT}/test/cache")
+    @baddir = File.expand_path("#{RAILS_ROOT}/test/badcache")
+    FileUtils.rm_rf @baddir
     @old_perform_caching = ResponseCache.defaults[:perform_caching]
     ResponseCache.defaults[:perform_caching] = true
     @cache = ResponseCache.new(
@@ -187,6 +189,29 @@ class ResponseCacheTest < Test::Unit::TestCase
     FileUtils.makedirs(@dir)
     File.open("#{@dir}/test_me.yml",'w') {|f| f.puts "--- \nheaders: \n  Last-Modified: Tue, 27 Feb 2007 06:13:43 GMT\n"}
     assert !@cache.response_cached?('/test_me')
+  end  
+  
+  def test_cache_cant_write_outside_dir
+    @cache.cache_response('../badcache/cache_cant_write_outside_dir', response('content'))
+    assert !File.exist?("#{RAILS_ROOT}/test/badcache/cache_cant_write_outside_dir.yml")
+  end
+  
+  def test_cache_cant_read_outside_dir
+    FileUtils.makedirs(@baddir)
+    @cache.cache_response('/test_me', response('content'))
+    File.rename "#{@dir}/test_me.yml","#{@baddir}/test_me.yml"
+    File.rename "#{@dir}/test_me.data","#{@baddir}/test_me.data"
+    assert !@cache.response_cached?('/../badcache/test_me')
+  end
+  
+  def test_cache_cant_expire_outside_dir
+    FileUtils.makedirs(@baddir)
+    @cache.cache_response('/test_me', response('content'))
+    File.rename "#{@dir}/test_me.yml","#{@baddir}/test_me.yml"
+    File.rename "#{@dir}/test_me.data","#{@baddir}/test_me.data"
+    @cache.expire_response('/../badcache/test_me')
+    assert File.exist?("#{@baddir}/test_me.yml")
+    assert File.exist?("#{@baddir}/test_me.data")
   end  
 
   # Class Methods

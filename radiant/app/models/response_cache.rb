@@ -149,28 +149,34 @@ class ResponseCache
     end
 
     def page_cache_path(path)
-      page_cache_directory + page_cache_file(path)
+      root_dir = File.expand_path(page_cache_directory)
+      cache_path = File.expand_path(File.join(root_dir,path), root_dir)
+      if(cache_path.index(root_dir) == 0)
+        cache_path
+      end
     end
 
     def expire_page(path)
       return unless perform_caching
 
-      path = page_cache_path(path)
-      benchmark "Expired page: #{path}" do
-        File.delete("#{path}.yml") if File.exists?("#{path}.yml")
-        File.delete("#{path}.data") if File.exists?("#{path}.data")
+      if path = page_cache_path(path)
+        benchmark "Expired page: #{path}" do
+          File.delete("#{path}.yml") if File.exists?("#{path}.yml")
+          File.delete("#{path}.data") if File.exists?("#{path}.data")
+        end
       end
     end
 
     def cache_page(metadata, content, path)
       return unless perform_caching
 
-      path = page_cache_path(path)
-      benchmark "Cached page: #{path}" do
-        FileUtils.makedirs(File.dirname(path))
-        #dont want yml without data
-        File.open("#{path}.data", "wb+") { |f| f.write(content) }
-        File.open("#{path}.yml", "wb+") { |f| f.write(metadata) }
+      if path = page_cache_path(path)
+        benchmark "Cached page: #{path}" do
+          FileUtils.makedirs(File.dirname(path))
+          #dont want yml without data
+          File.open("#{path}.data", "wb+") { |f| f.write(content) }
+          File.open("#{path}.yml", "wb+") { |f| f.write(metadata) }
+        end
       end
     end
 end
