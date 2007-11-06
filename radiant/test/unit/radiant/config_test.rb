@@ -47,6 +47,39 @@ class Radiant::ConfigTest < Test::Unit::TestCase
     assert_equal 'blahblahblah', @conf['bool2']
   end
   
+  def test_adjust_time_with_no_timezone 
+ 	  time = Time.gm 2004 
+    new_time = @conf.adjust_time(time)
+    assert_equal time, new_time 
+  end 
+
+  def test_adjust_time_with_garbage_timezone 
+    @conf["site.timezone"] = "Timezone that doesnt exist" 
+
+    time = Time.gm 2004 
+    new_time = @conf.adjust_time time 
+
+    assert_equal time, new_time 
+  end 
+
+  def test_adjust_time_with_numeric_timezone 
+    offset = -10.hours # Hawaii 
+    @conf["site.timezone"] = offset 
+
+    time = Time.gm 2004 
+    hawaii_time = @conf.adjust_time time 
+    assert_equal offset, hawaii_time - time 
+  end 
+
+  def test_adjust_time_with_string_timezone 
+    @conf["site.timezone"] = "Tokyo" 
+    time = Time.gm 2004 
+
+    tokyo_time = @conf.adjust_time time 
+    offset = 9.hours                   # Tokyo is at +9:00 
+    assert_equal offset, tokyo_time - time 
+  end 
+  
   private
     def set(key, value)
       setting = Radiant::Config.find_by_key(key)

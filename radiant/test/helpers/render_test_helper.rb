@@ -58,3 +58,18 @@ module RenderTestHelper
     end
   
 end
+
+# Adjust datetime to local for tests
+Radiant::Config.class_eval do
+  class << self
+    attr_accessor :mock_adjust_time 
+    def adjust_time_with_mock(time)
+      if @mock_adjust_time  
+        time.getlocal
+      else 
+        adjust_time_without_mock(time)
+      end 
+    end 
+    alias_method_chain :adjust_time, :mock
+  end 
+end

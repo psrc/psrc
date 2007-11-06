@@ -23,7 +23,9 @@ module Radiant
   # defaults.page.parts   :: a comma separated list of default page parts
   # defaults.page.status  :: a string representation of the default page status
   # dev.host              :: the hostname where draft pages are viewable
-  #
+  # site.timezone         :: the timezone offset (using a String or integer
+  #                          from http://api.rubyonrails.org/classes/TimeZone.html) 
+  #                          used to correct displayed times 
   class Config < ActiveRecord::Base
     set_table_name "config"
 
@@ -49,6 +51,16 @@ module Radiant
       def to_hash
         Hash[ *find(:all).map { |pair| [pair.key, pair.value] }.flatten ]
       end
+      
+      def adjust_time(time)
+        if (tz_string = self["site.timezone"]) and 
+            timezone = (TimeZone[tz_string] || TimeZone[tz_string.to_i]) 
+          # adjust time 
+          timezone.adjust time 
+	      else 
+          time 
+        end 
+      end 
     end
     
     def value=(param)

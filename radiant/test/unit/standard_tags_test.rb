@@ -7,6 +7,11 @@ class StandardTagsTest < Test::Unit::TestCase
   
   def setup
     @page = pages(:radius)
+    Radiant::Config.mock_adjust_time = true 
+  end
+  
+  def teardown
+    Radiant::Config.mock_adjust_time = false
   end
   
   def test_tag_page
@@ -80,6 +85,7 @@ class StandardTagsTest < Test::Unit::TestCase
     assert_renders '[2000] (May) article (Jun) article-2 article-3 (Aug) article-4 [2001] article-5 ', %{<r:children:each><r:header name="year">[<r:date format='%Y' />] </r:header><r:header name="month">(<r:date format="%b" />) </r:header><r:slug /> </r:children:each>}  
   end
   def test_tag_children_each_header_with_restart_attribute
+    Radiant::Config.mock_adjust_time = false
     @page = pages(:archive)
     assert_renders(
       '[2000] (May) article (Jun) article-2 article-3 (Aug) article-4 [2001] (Aug) article-5 ',
@@ -200,7 +206,13 @@ class StandardTagsTest < Test::Unit::TestCase
     assert_renders 'Monday, January 30, 2006', '<r:date for="published_at" />'
     assert_render_error "Invalid value for 'for' attribute.", '<r:date for="blah" />'
   end
-  
+  def test_tag_date_uses_local_timezone 
+    # Radiant::Config.adjust_time is mocked to adjust to local time 
+    format = "%H:%m"
+    expected = @page.published_at.getlocal.strftime format 
+	  assert_renders expected, %Q(<r:date format="#{format}" />) 
+  end
+
   def test_tag_link
     assert_renders '<a href="/radius/">Radius Test Page</a>', '<r:link />'
   end

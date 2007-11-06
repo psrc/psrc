@@ -335,7 +335,7 @@ module StandardTags
     else
       page.published_at || page.created_at
     end
-    date.strftime(format) 
+    Radiant::Config.adjust_time(date).strftime(format) 
   end
   
   desc %{ 

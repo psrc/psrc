@@ -108,7 +108,7 @@ module ApplicationHelper
       if login or time
         html = %{<p style="clear: left"><small>Last updated } 
         html << %{by #{login} } if login
-        html << %{at #{ time.strftime("%I:%M <small>%p</small> on %B %d, %Y") }} if time
+        html << %{at #{ timestamp(time) }} if time
         html << %{</small></p>}
         html
       end
@@ -116,6 +116,10 @@ module ApplicationHelper
       %{<p class="clear">&nbsp;</p>}
     end
   end
+
+  def timestamp time 
+ 	  Radiant::Config.adjust_time(time).strftime("%I:%M <small>%p</small> on %B %d, %Y")     
+  end 
   
   def meta_visible(symbol)
     v = case symbol

@@ -1,6 +1,8 @@
 == Change Log
 
 === SVN
+* Allow setting of local timezone in Radiant::Config and adjustment of times
+  in admin UI and <r:date /> tag. [Bodhi Philpot]
 * Update to latest Prototype and script.aculo.us and refactor and extract inline 
   Javascript into external files. [Mislav Marohnic]
 * Narrow scope of exception to only throw on missing fixture files, allowing 
