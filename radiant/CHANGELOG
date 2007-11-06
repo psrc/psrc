@@ -1,6 +1,12 @@
 == Change Log
 
 === SVN
+* Update to latest Prototype and script.aculo.us and refactor and extract inline 
+  Javascript into external files. [Mislav Marohnic]
+* Narrow scope of exception to only throw on missing fixture files, allowing 
+  invalid yaml errors through. [Daniel Sheppard]
+* Added tests to ensure that response_cache stays within the cache dir. 
+  [Daniel Sheppard]
 * Add assert_requires_login to LoginTestHelper. [Sean Cribbs]
 * Make sure tag binding stack is popped when an exception occurs. [jay@jay.fm]
 * Clean up some apparent cruft in page.rb [Daniel Sheppard]

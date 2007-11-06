@@ -1,13 +1,13 @@
-TabControl = Class.create({
+var TabControl = Class.create({
   /*
     Initializes a tab control. The variable +element_id+ must be the id of an HTML element
     containing one element with it's class name set to 'tabs' and another element with it's
     class name set to 'pages'.
   */
-  initialize: function(element_id) {
-    TabControl.controls[element_id] = this;
-    this.control_id = element_id;
-    this.element = $(element_id);
+  initialize: function(element) {
+    this.element = $(element);
+    this.control_id = this.element.identify();
+    TabControl.controls.set(this.control_id, this);
     this.tab_container = this.element.down('.tabs');
     this.tabs = $H();
   },
@@ -19,33 +19,24 @@ TabControl = Class.create({
     itself. When a tab is initially added the page element is hidden.
   */
   addTab: function(tab_id, caption, page) {
-    this.tab_container.insert(
-      '<a class="tab" href="javascript:TabControl.controls[\'#{id}\'].select(\'#{tab_id}\');">#{caption}</a>'.interpolate({
-        id: this.control_id, tab_id: tab_id, caption: caption
-      })
-    );
-    var tab = this.tab_container.lastChild;
-    tab.tab_id = tab_id;
-    tab.caption = caption;
-    tab.page = $(page);
-    this.tabs.set(tab_id, tab);
-    this._setNotHere(tab);
-    return tab;
+    var tab = new TabControl.Tab(this, tab_id, caption, page);
+    
+    this.tabs.set(tab.id, tab);
+    return this.tab_container.appendChild(tab.createElement());
   },
   
   /*
     Removes +tab+. The variable +tab+ may be either a tab ID or a tab element.
   */
   removeTab: function(tab) {
-    var t = this._tabify(tab);
-    var id = t.tab_id;
-    Element.remove(t.page);
-    Element.remove(t);
-    this.tabs.unset(id);
+    if (Object.isString(tab)) tab = this.tabs.get(tab);
+    tab.remove();
+    this.tabs.unset(tab);
     
-    if (this.selected.tab_id == id) {
+    if (this.selected == tab) {
       var first = this.firstTab();
-      if (typeof first != 'undefined') this.select(first.tab_id);
+      if (first) this.select(first);
+      else this.selected = null;
     }
   },
 
@@ -54,17 +45,12 @@ TabControl = Class.create({
     tab element.
   */
   select: function(tab) {
-    var t = this._tabify(tab);
-    this.tabs.each(function(pair) {
-      if (pair.key == t.tab_id) {
-        if (this.selected) this.selected.selected = false;
-        this.selected = t;
-        t.selected = true;
-        this._setHere(pair.key);
-      } else {
-        this._setNotHere(pair.key);
-      }
-    }, this);
+    if (Object.isString(tab)) tab = this.tabs.get(tab);
+    if (this.selected) this.selected.unselect();
+    tab.select();
+    this.selected = tab;
+    var persist = this.pageId() + ':' + this.selected.id;
+    document.cookie = "current_tab=" + persist + "; path=/admin";
   },
 
   /*
@@ -87,47 +73,53 @@ TabControl = Class.create({
   tabCount: function() {
     return this.tabs.keys().length;
   },
-  
-  /*
-    Private Methods
-  */
-  
-  /*
-    Shows the page for +tab+ and adds the class 'here' to tab. The variable +tab+ may
-    be either a tab ID or a tab element.
-  */
-  _setHere: function(tab) {
-    var t = this._tabify(tab);
-    Element.show(t.page);
-    Element.addClassName(t, 'here');
-  },
-  
-  /*
-    Hides the page for +tab+ and removes the class 'here' from tab. The variable +tab+
-    may be either a tab ID or a tab element.
-  */
-  _setNotHere: function(tab) {
-    var t = this._tabify(tab);
-    Element.hide(t.page);
-    Element.removeClassName(t, 'here');
+
+  autoSelect: function() {
+    var tab, matches = document.cookie.match(/current_tab=(.+?);/);
+    if (matches) {
+      matches = matches[1].split(':');
+      var page = matches[0], tabId = matches[1];
+      if (!page || page == this.pageId()) tab = this.tabs.get(tabId);
+    }
+    this.select(tab || this.firstTab());
   },
 
-  /*
-    Returns a tab when passed a string or tab element. Throws a BadTabError otherwise.
-  */
-  _tabify: function(something) {
-    if (typeof something == 'string') {
-      var object = this.tabs.get(something);
-    } else {
-      var object = something;
-    }
-    if ((typeof object != 'undefined') && (object.tab_id)) {
-      return object;
-    } else {
-      throw TabControl.BadTabError;
-    }
+  pageId: function() {
+    return /(\d+)/.test(window.location.pathname) ? RegExp.$1 : '';
   }
 });
 
 TabControl.controls = $H();
-TabControl.BadTabError = new Error('TabControl: Invalid tab.');
+
+TabControl.Tab = Class.create({
+  initialize: function(control, id, label, content) {
+    this.content = $(content).hide();
+    this.label   = label || id;
+    this.id      = id;
+    this.control = control;
+  },
+
+  createElement: function() {
+    return this.element = new Element('a', { className: 'tab', href: '#' }).
+      update(this.label).
+      observe('click', function(event){
+        this.control.select(this.id);
+        event.stop();
+      }.bindAsEventListener(this));
+  },
+
+  select: function() {
+    this.content.show();
+    this.element.addClassName('here');
+  },
+
+  unselect: function() {
+    this.content.hide();
+    this.element.removeClassName('here');
+  },
+
+  remove: function() {
+    this.content.remove();
+    this.element.stopObserving('click').remove();
+  }
+});

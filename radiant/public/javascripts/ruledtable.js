@@ -1,19 +1,13 @@
 var RuledTable = Class.create({
-  initialize: function(element_id) {
-    var table = $(element_id).select('tr').each(this.setupRow, this)
+  initialize: function(element) {
+    if (Prototype.Browser.IE)
+      $(element).
+        observe('mouseover', this.onMouseOverRow.bindAsEventListener(this, 'addClassName')).
+        observe('mouseout', this.onMouseOverRow.bindAsEventListener(this, 'removeClassName'));
   },
   
-  onMouseOverRow: function(event) {
-    this.addClassName('highlight');
-  },
-  
-  onMouseOutRow: function(event) {
-    this.removeClassName('highlight');
-  },
-  
-  setupRow: function(row) {
-    row.observe('mouseover', this.onMouseOverRow);
-    row.observe('mouseout', this.onMouseOutRow);
-    if (this.onRowSetup) this.onRowSetup(row);
+  onMouseOverRow: function(event, method) {
+    var row = event.findElement('tr');
+    if (row) row[method]('highlight');
   }
 });

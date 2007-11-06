@@ -47,6 +47,7 @@ class Admin::PageController < Admin::AbstractModelController
 
   def add_part
     part = PagePart.new(params[:part])
+    @index = params[:index].to_i if params[:index]
     render(:partial => 'part', :object => part, :layout => false)
   end
 

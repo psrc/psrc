@@ -1,9 +1,5 @@
 require_dependency 'radiant'
 
-ActionView::Base.field_error_proc = Proc.new do |html, instance|
-  %{<div class="error-with-field">#{html} <small class="error">&bull; #{[instance.error_message].flatten.first}</small></div>}
-end
-
 class ApplicationController < ActionController::Base
   include LoginSystem
   
@@ -19,7 +15,9 @@ class ApplicationController < ActionController::Base
     @config = Radiant::Config
   end
   
+  # helpers to include additional assets from actions or views
   helper_method :include_stylesheet, :include_javascript
+  
   def include_stylesheet(sheet)
     @stylesheets << sheet
   end
@@ -36,6 +34,7 @@ class ApplicationController < ActionController::Base
         super
     end
   end
+  
   private
   
     def set_current_user
@@ -43,7 +42,7 @@ class ApplicationController < ActionController::Base
     end
   
     def set_javascripts_and_stylesheets
-      @stylesheets = ['admin/main']
-      @javascripts = ['prototype', 'string', 'effects', 'dragdrop', 'controls', 'tabcontrol', 'ruledtable']
+      @stylesheets = %w(admin/main)
+      @javascripts = %w(prototype string effects tabcontrol ruledtable admin)
     end
 end

@@ -1,8 +1,8 @@
 function hasWordInElement(word, element) {
   if (element.nodeType == Node.TEXT_NODE) {
-    return element.nodeValue.match(word) != null;
+    return element.nodeValue.include(word) != null;
   } else {
-    return $A(element.childNodes).any(function (child) { 
+    return $A(element.childNodes).any(function(child) { 
       return hasWordInElement(word, child); 
     });
   }

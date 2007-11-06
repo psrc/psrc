@@ -24,6 +24,9 @@ h3 {
   color: red;
 }
 
+table {
+  border-collapse: collapse;
+}
 
 /* main layout */
 
@@ -252,7 +255,8 @@ h1 {
   font-style: italic;
   font-weight: normal;
 }
-#content table.index tr.highlight {
+#content table.index tr.highlight,
+#content table.index tr:hover {
   background-color: #ffffb3;
 }
 #content table.index .no-children .w1 {
@@ -464,7 +468,7 @@ h1 {
   height: 280px;
   border: 1px solid #cdc295;
   font-family: Monaco, "Courier New", Courier, monospace;
-  font-size: 85%;
+  font-size: 95%;
 }
 #content #pages label {
   font-size: 85%;
@@ -490,7 +494,9 @@ h1 {
 #popups .popup .close-link {
   font-size: 85%;
 }
-
+#add-part-popup {
+  width: 17em;
+}
 
 /* tag reference */
 

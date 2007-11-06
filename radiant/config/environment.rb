@@ -67,12 +67,13 @@ end
 
 # Auto-require text filters
 Dir["#{RADIANT_ROOT}/app/models/*_filter.rb"].each do |filter|
-  filter = $1 if filter =~ %r{/([^/]+)\.rb}
-  require_dependency filter
+  require_dependency File.basename(filter).sub(/\.rb$/, '')
 end
 
 # Response Caching Defaults
 ResponseCache.defaults[:directory] = ActionController::Base.page_cache_directory
 ResponseCache.defaults[:logger]    = ActionController::Base.logger
 
-require "status"
+ActionView::Base.field_error_proc = Proc.new do |html, instance|
+  %{<div class="error-with-field">#{html} <small class="error">&bull; #{[instance.error_message].flatten.first}</small></div>}
+end

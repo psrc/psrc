@@ -1,7 +1,8 @@
 class Admin::UserController < Admin::AbstractModelController
   model_class User
   
-  only_allow_access_to :index, :new, :edit, :remove, :when => :admin,
+  only_allow_access_to :index, :new, :edit, :remove,
+    :when => :admin,
     :denied_url => {:controller => 'page', :action => :index},
     :denied_message => 'You must have administrative privileges to perform this action.'
   
