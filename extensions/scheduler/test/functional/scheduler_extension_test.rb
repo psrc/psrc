@@ -21,4 +21,20 @@ class SchedulerExtensionTest < Test::Unit::TestCase
       assert_not_nil Page.find_by_url(pages(page).url, false)
     end
   end
+  
+  def test_boolean_accessors
+    [:homepage, :unexpired, :unexpired_with_blank_start, :all_blank].each do |page|
+      assert pages(page).appeared?
+      assert !pages(page).expired?
+      assert pages(page).visible?
+    end
+    assert pages(:expired_with_blank_start).appeared?
+    assert pages(:expired_with_blank_start).expired?
+    assert !pages(:expired_with_blank_start).visible?
+    [:unpublished, :unpublished_with_blank_end].each do |page|
+      assert !pages(page).appeared?
+      assert !pages(page).expired?
+      assert !pages(page).visible?
+    end
+  end
 end
