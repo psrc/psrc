@@ -7,11 +7,6 @@ class StandardTagsTest < Test::Unit::TestCase
   
   def setup
     @page = pages(:radius)
-    Radiant::Config.mock_adjust_time = true 
-  end
-  
-  def teardown
-    Radiant::Config.mock_adjust_time = false
   end
   
   def test_tag_page
@@ -85,7 +80,6 @@ class StandardTagsTest < Test::Unit::TestCase
     assert_renders '[2000] (May) article (Jun) article-2 article-3 (Aug) article-4 [2001] article-5 ', %{<r:children:each><r:header name="year">[<r:date format='%Y' />] </r:header><r:header name="month">(<r:date format="%b" />) </r:header><r:slug /> </r:children:each>}  
   end
   def test_tag_children_each_header_with_restart_attribute
-    Radiant::Config.mock_adjust_time = false
     @page = pages(:archive)
     assert_renders(
       '[2000] (May) article (Jun) article-2 article-3 (Aug) article-4 [2001] (Aug) article-5 ',
@@ -157,6 +151,14 @@ class StandardTagsTest < Test::Unit::TestCase
     @page = pages(:inheritance_test_page_grandchild)
     assert_renders 'Inheritance Test Page Grandchild inherited body.', '<r:content part="body" inherit="true" contextual="true" />'
   end
+  def test_tag_content_with_inherit_attribute_grandparent
+    @page = pages(:child)
+    assert_renders '', '<r:content part="sidebar" />'
+    assert_renders 'Child sidebar.', '<r:content part="sidebar" inherit="true" />'
+    @page = pages(:parent)
+    assert_renders '', '<r:content part="sidebar" />'
+    assert_renders 'Parent sidebar.', '<r:content part="sidebar" inherit="true" />'
+  end
   
   def test_tag_child_content
     expected = "Radius test child 1 body.\nRadius test child 2 body.\nRadius test child 3 body.\n"
@@ -207,10 +209,10 @@ class StandardTagsTest < Test::Unit::TestCase
     assert_render_error "Invalid value for 'for' attribute.", '<r:date for="blah" />'
   end
   def test_tag_date_uses_local_timezone 
-    # Radiant::Config.adjust_time is mocked to adjust to local time 
+    Radiant::Config["local.timezone"] = "Tokyo"
     format = "%H:%m"
-    expected = @page.published_at.getlocal.strftime format 
-	  assert_renders expected, %Q(<r:date format="#{format}" />) 
+    expected = TimeZone["Tokyo"].adjust(@page.published_at).strftime format 
+    assert_renders expected, %Q(<r:date format="#{format}" />) 
   end
 
   def test_tag_link

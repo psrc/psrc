@@ -63,6 +63,18 @@ class Page < ActiveRecord::Base
       parts.find_by_name name.to_s
     end
   end
+  
+  def has_part?(name)
+    !part(name).nil?
+  end
+  
+  def has_or_inherits_part?(name)
+    has_part?(name) || inherits_part?(name)
+  end
+  
+  def inherits_part?(name)
+    !has_part?(name) && self.ancestors.any? {|page| page.has_part?(name)}
+  end
     
   def published?
     status == Status[:published]

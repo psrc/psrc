@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include LocalTime
+  
   def config
     Radiant::Config
   end
@@ -117,8 +119,8 @@ module ApplicationHelper
     end
   end
 
-  def timestamp time 
- 	  Radiant::Config.adjust_time(time).strftime("%I:%M <small>%p</small> on %B %d, %Y")     
+  def timestamp(time)
+    adjust_time(time).strftime("%I:%M <small>%p</small> on %B %d, %Y")     
   end 
   
   def meta_visible(symbol)

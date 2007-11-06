@@ -1,6 +1,10 @@
 == Change Log
 
 === SVN
+* Factor TimeZone stuff out of Radiant::Config into a module, fix failing tests.
+  [Sean Cribbs]
+* Add has_part?, inherits_part?, and has_or_inherits_part? methods to Page.
+  [ana]
 * Allow setting of local timezone via Radiant::Config and auto-adjustment of times
   in admin UI and <r:date /> tag. [Bodhi Philpot]
 * Update to latest Prototype and script.aculo.us and refactor and extract inline 

@@ -419,4 +419,35 @@ class PageTest < Test::Unit::TestCase
     end
   end
   
+  def test_has_part
+    @page = pages(:homepage)
+    assert(@page.has_part?(:body))
+    assert(@page.has_part?('extended'))
+    assert(!@page.has_part?(:obviously_false_part_name))
+  end
+  def test_has_or_inherits_part
+    @page = pages(:child)
+    assert(!@page.has_part?(:sidebar))
+    assert(@page.has_or_inherits_part?(:sidebar))
+    assert(!@page.has_or_inherits_part?(:obviously_false_part_name))
+    
+    @page = pages(:homepage)
+    assert(@page.has_part?(:sidebar))
+    assert(@page.has_or_inherits_part?(:sidebar))
+    assert(!@page.has_or_inherits_part?(:obviously_false_part_name))
+  end
+  def test_inherits_part
+    @page = pages(:child)
+    assert(!@page.has_part?(:sidebar))
+    assert(@page.inherits_part?(:sidebar))
+    
+    @page = pages(:homepage)
+    assert(@page.has_part?(:sidebar))
+    assert(!@page.inherits_part?(:sidebar))
+    
+    @page = pages(:radius)
+    assert(@page.has_part?(:extended))
+    assert(!@page.inherits_part?(:extended))
+  end
+  
 end

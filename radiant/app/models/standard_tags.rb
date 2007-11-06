@@ -1,7 +1,8 @@
 module StandardTags
   
   include Radiant::Taggable
-  
+  include LocalTime
+    
   class TagError < StandardError; end
   
   desc %{
@@ -335,7 +336,7 @@ module StandardTags
     else
       page.published_at || page.created_at
     end
-    Radiant::Config.adjust_time(date).strftime(format) 
+    adjust_time(date).strftime(format) 
   end
   
   desc %{ 
