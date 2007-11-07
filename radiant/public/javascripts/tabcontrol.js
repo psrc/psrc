@@ -101,7 +101,7 @@ TabControl.Tab = Class.create({
 
   createElement: function() {
     return this.element = new Element('a', { className: 'tab', href: '#' }).
-      update(this.label).
+      update("<span>" + this.label + "</span>").
       observe('click', function(event){
         this.control.select(this.id);
         event.stop();
