@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Remove duplication in admin.js. [Sean Cribbs]
 * Factor TimeZone stuff out of Radiant::Config into a module, fix failing tests.
   [Sean Cribbs]
 * Add has_part?, inherits_part?, and has_or_inherits_part? methods to Page.
