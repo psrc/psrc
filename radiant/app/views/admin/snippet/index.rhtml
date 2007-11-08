@@ -15,7 +15,7 @@
     <tr class="node level-1">
       <td class="snippet">
         <%= image "snippet", :class => "icon", :alt => 'snippet-icon', :title => '' %>
-        <%= link_to snippet.name, snippet_edit_url(:id => snippet) %></span>
+        <span><%= link_to snippet.name, snippet_edit_url(:id => snippet) %></span>
       </td>
       <td class="remove"><%= link_to image('remove', :alt => 'Remove Snippet'), snippet_remove_url(:id => snippet) %></td>
     </tr>

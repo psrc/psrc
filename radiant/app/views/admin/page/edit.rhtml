@@ -16,7 +16,7 @@
   }
   var last_filter = "<%= default_filter_name %>";
   function load_filter_reference(part) {
-    filter_type = $F("part[" + part + "][filter_id]");
+    filter_type = $F("part_" + part + "_filter_id");
     popup = $('filter-reference-popup');
     if(last_filter != filter_type) {
       url = "<%= filter_reference_url %>";
@@ -54,7 +54,7 @@
 <h1 id="edit_page">Edit Page</h1>
 <% end -%>
 
-<form method="post" enctype="multipart/form-data">
+<form method="post" action="" enctype="multipart/form-data">
   <%= hidden_field "page", "lock_version" %>
   <div class="form-area">
     <p class="title">
@@ -66,7 +66,8 @@
         <% for meta in @meta %>
             <%= render :partial => "meta_row", :object => meta %>
         <% end %>
-      </table>    </div>
+      </table>
+    </div>
     <p class="more-or-less">
       <small>
         <a href="#" onclick="<%= toggle_javascript_for('extended-metadata') %>"<%= meta_visible(:meta_more) %> id="more-extended-metadata">More</a>
@@ -125,7 +126,7 @@
     <% end %>
   </div>
   <div class="popup" id="tag-reference-popup" style="display:none;">
-    <div style="float:right">Search Tags: <input type="text" id="search-tag-reference"></div>
+    <div style="float:right">Search Tags: <input type="text" id="search-tag-reference" /></div>
     <%= javascript_tag "new Form.Element.Observer('search-tag-reference', 0.5, observeTagSearch);" %>
     <h3>Available Tags for <span id="page-type"><%= @page.class.display_name %></span></h3>
     <div id="tag-reference"><%= tag_reference(@page.class.name) %></div>

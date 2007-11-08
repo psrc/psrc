@@ -4,7 +4,7 @@
 <h1>Edit Snippet</h1>
 <% end -%>
 
-<form method="post">
+<form method="post" action="">
   <%= hidden_field "snippet", "lock_version" %>
   <div class="form-area">
     <p class="title">
@@ -17,7 +17,7 @@
       <%= text_area "snippet", "content", :class => "textarea", :style => "width: 100%" %></p>
     <p>
       <label for="snippet_filter">Filter</label>
-      <%= select_tag "snippet[filter_id]", options_for_select([['none', '']] + TextFilter.descendants.map { |f| f.filter_name }.sort, @snippet.filter_id) %>
+      <%= select_tag "snippet[filter_id]", options_for_select([['none', '']] + TextFilter.descendants.map { |f| f.filter_name }.sort, @snippet.filter_id), :id => 'snippet_filter' %>
     </p>
     <%= updated_stamp @snippet %>
   </div>
