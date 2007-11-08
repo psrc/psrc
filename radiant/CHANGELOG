@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Update Prototype and script.aculo.us to 1.6 and 1.8 releases. [Sean Cribbs]
 * Fix edge case in tabcontrol.js where tab label is incorrect. [Sean Cribbs]
 * Remove duplication in admin.js. [Sean Cribbs]
 * Factor TimeZone stuff out of Radiant::Config into a module, fix failing tests.
