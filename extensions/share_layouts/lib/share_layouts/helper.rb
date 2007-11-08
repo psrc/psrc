@@ -15,6 +15,8 @@ module ShareLayouts::Helper
     page.title = @title || @content_for_title || ''
     page.breadcrumbs = @breadcrumbs || @content_for_breadcrumbs || ''
     page.request_uri = request.request_uri
+    page.request = request
+    page.response = response
   end
     
   def extract_captures

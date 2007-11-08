@@ -4,7 +4,7 @@ class ShareLayoutsHelperTest < Test::Unit::TestCase
   include ShareLayouts::Helper
   fixtures :layouts
   test_helper :page
-  attr_accessor :request
+  attr_accessor :request, :response
   
 MAIN_RESULT = <<-TEXT
 <html>

@@ -25,3 +25,5 @@ to the name of a Radiant layout in your controller or view.
 == Acknowledgments
 
 Thanks to John Long for clarifying and simplifying the process for me!
+Thanks to xtoddx for improving the tests and support for tags that use the 
+request and response.
