@@ -1,32 +1,11 @@
-<%
-count = page.children.count
-children = count > 0
-expanded = show_all? || expanded_rows.include?(page.id)
-padding_left = (level * 22) + 4
-
-children_class = children ? (expanded ? ' children-visible' : ' children-hidden') : ' no-children'
-virtual_class = page.virtual? ? " virtual": ""
-
-expander = children ? image((expanded ? "collapse" : "expand"), :class => "expander", :alt => 'toggle children', :title => '') : ""
-
-icon_name = page.virtual? ? "virtual-page" : "page"
-icon = image(icon_name, :class => "icon", :alt => 'page-icon', :title => '')
-
-title = %{<span class="title">#{ page.title }</span>}
-
-display_name = page.class.display_name
-page_type = display_name == 'Page' ? '' : %{<small class="info">(#{ display_name })</small>}
-
-spinner = image('spinner.gif', :class => 'busy', :id => "busy-#{page.id}", :alt => "", :title => "", :style => 'display: none;')
--%>
     <tr id="page-<%= page.id %>" class="node level-<%= level %><%= children_class %><%= virtual_class %>">
       <td class="page" style="padding-left: <%= padding_left %>px">
         <span class="w1">
 <% if simple -%>
           <%= icon %>
-          <%= title %>
+          <%= node_title %>
 <% else -%>
-          <%= expander %><a href="<%= page_edit_url(:id => page) %>" title="<%= page.url %>"><%= icon %> <%= title %></a> 
+          <%= expander %><a href="<%= page_edit_url(:id => page) %>" title="<%= page.url %>"><%= icon %> <%= node_title %></a> 
           <%= page_type %>
           <%= spinner %>
 <% end -%>
@@ -39,12 +18,11 @@ spinner = image('spinner.gif', :class => 'busy', :id => "busy-#{page.id}", :alt 
       <%= render_region :node_row, :locals => {:page => page, :level => level} %>
 <% end -%>
     </tr>
-<% level = level + 1 -%>
 <%
 if expanded
   page.children.each do |child|
 -%>
-<%= render_node child, :level => level, :simple => simple -%>
+<%= render_node child, :level => level + 1, :simple => simple -%>
 <%
   end
 end
