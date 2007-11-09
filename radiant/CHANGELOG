@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Refactor locals from _node.rhtml into Admin::NodeHelper. [Sean Cribbs]
 * Fix XHTML validation errors in view templates. [Bjorn Maeland]
 * Update Prototype and script.aculo.us to 1.6 and 1.8 releases. [Sean Cribbs]
 * Fix edge case in tabcontrol.js where tab label is incorrect. [Sean Cribbs]

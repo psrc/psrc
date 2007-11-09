@@ -1,23 +1,5 @@
 module Admin::PageHelper
-  def render_node(page, locals = {})
-    locals.reverse_merge!(:level => 0, :simple => false).merge!(:page => page)
-    render :partial => 'node', :locals =>  locals
-  end
-
-  def show_all?
-    @controller.action_name == 'remove'
-  end
-
-  def expanded_rows
-    rows = case
-    when row_string = (cookies['expanded_rows'] || []).first
-      row_string.split(',').map { |x| Integer(x) rescue nil }.compact
-    else
-      []
-    end
-    (rows << homepage.id).uniq if homepage
-    rows
-  end
+  include Admin::NodeHelper
   
   def meta_errors?
     !!(@page.errors[:slug] or @page.errors[:breadcrumb])
