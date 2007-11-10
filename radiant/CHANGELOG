@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Cleanup whitespace and line-endings in environment.rb. [Bjorn Maeland]
 * Fix various SQL Server issues via Rails ticket #8886. [Mark Gallop]
 * Refactor locals from _node.rhtml into Admin::NodeHelper. [Sean Cribbs]
 * Fix XHTML validation errors in view templates. [Bjorn Maeland]
