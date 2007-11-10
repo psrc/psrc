@@ -95,6 +95,89 @@ child:
   status_id: 100
   parent_id: 10
   published_at: 2006-01-30 08:41:07 
+archive:
+  id: 12
+  title: Archive
+  breadcrumb: Parent
+  slug: archive
+  class_name: ArchivePage
+  status_id: 100
+  parent_id: 1
+  published_at: 2006-01-30 08:41:07 
+year_index:
+  id: 41
+  title: %Y Archive
+  slug: year
+  class_name: ArchiveYearIndexPage
+  status_id: 101
+  parent_id: 12
+  virtual: true
+  published_at: 2006-02-05 08:44:07 
+month_index:
+  id: 42
+  title: %B %Y Archive
+  slug: month
+  class_name: ArchiveMonthIndexPage
+  status_id: 101
+  parent_id: 12
+  virtual: true
+  published_at: 2006-02-05 08:44:07 
+day_index:
+  id: 43
+  title: %B %d, %Y Archive
+  slug: day
+  class_name: ArchiveDayIndexPage
+  status_id: 101
+  parent_id: 12
+  virtual: true
+  published_at: 2006-02-05 08:44:07 
+article:
+  id: 13
+  title: Article
+  breadcrumb: Article
+  slug: article
+  status_id: 100
+  parent_id: 12
+  published_at: 2000-05-01 08:41:07 
+article2:
+  id: 14
+  title: Article Two
+  breadcrumb: Article Two
+  slug: article-2
+  status_id: 100
+  parent_id: 12
+  published_at: 2000-06-09 08:42:04 
+article3:
+  id: 44
+  title: Article Three
+  breadcrumb: Article Three
+  slug: article-3
+  status_id: 100
+  parent_id: 12
+  published_at: 2000-06-10 12:02:43 
+article4:
+  id: 45
+  title: Article Four
+  breadcrumb: Article Four
+  slug: article-4
+  status_id: 100
+  parent_id: 12
+  published_at: 2000-08-06 03:32:31 
+article5:
+  id: 46
+  title: Article Five
+  breadcrumb: Article Five
+  slug: article-5
+  status_id: 100
+  parent_id: 12
+  published_at: 2001-08-06 03:32:31 
+article_draft:
+  id: 53
+  title: Draft Article
+  breadcrumb: Draft Article
+  slug: draft
+  status_id: 1
+  parent_id: 12
 draft:
   id: 15
   title: Draft Page
@@ -164,23 +247,7 @@ news_child_published_2:
   slug: another-great-day-for-ruby
   status_id: 100
   parent_id: 30
-  published_at: 2006-02-05 08:44:07
-news_child_published_3:
-  id: 65
-  title: Later That Day
-  breadcrumb: news
-  slug: later-that-day
-  status_id: 100
-  parent_id: 30
-  published_at: 2006-02-06 09:44:07
-news_child_published_4:
-  id: 66
-  title: Next Year in Ruby
-  breadcrumb: news
-  slug: next-year-in-ruby
-  status_id: 100
-  parent_id: 30
-  published_at: 2007-01-30 08:44:07
+  published_at: 2006-02-05 08:44:07 
 grandchild:
   id: 33
   title: Grandchild
@@ -327,13 +394,4 @@ childless:
   slug: childless
   status_id: 100
   parent_id: 1
-  published_at: 2006-02-05 08:44:07
-virtual:
-  id: 63
-  title: Virtual Page
-  class_name: VirtualPage
-  slug: virtual
-  virtual: 1
-  status_id: 100
-  parent_id: 19
   published_at: 2006-02-05 08:44:07

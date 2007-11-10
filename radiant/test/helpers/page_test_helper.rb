@@ -30,6 +30,12 @@ class TestPage < Page
   
 end
 
+class VirtualPage < Page
+  def virtual?
+    true
+  end
+end
+
 module PageTestHelper
   
   VALID_PAGE_PARAMS = {

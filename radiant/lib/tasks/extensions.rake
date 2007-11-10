@@ -49,7 +49,24 @@ namespace :test do
       end
     end
   end
+  
+  namespace :extensions do
+    task :core => "db:test:prepare" do
+      Dir["#{RADIANT_ROOT}/vendor/extensions/*"].sort.select {|f| File.directory?(f) }.each do |directory|
+        chdir directory do
+          if RUBY_PLATFORM =~ /win32/
+            system "rake.cmd test"
+          else
+            system "rake test"
+          end
+        end
+      end
+    end
+  end
 end
+
+Rake::Task["test"].enhance(["test:extensions:core"])
+
 
 # Load any custom rakefiles from extensions
 [RAILS_ROOT, RADIANT_ROOT].uniq.each do |root|

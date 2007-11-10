@@ -1,6 +1,8 @@
 == Change Log
 
 === SVN
+* Extract Archive pages into a core extension. Add automatic testing of core 
+  extensions from default test task. [Sean Cribbs]
 * Add <r:if_children /> and <r:unless_children /> tags. [Andrew Neil]
 * Add HTML labels to role checkboxes in user edit template. [zilkey]
 * Cleanup whitespace and line-endings in environment.rb. [Bjorn Maeland]

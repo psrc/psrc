@@ -31,4 +31,10 @@ class ArchivePageTest < Test::Unit::TestCase
     assert_equal expected, day_index
   end
   
+  # Extracted from other unit tests
+  def test_find_by_url_with_archive
+    @page = pages(:homepage)
+    assert_equal pages(:article), @page.find_by_url('/archive/2000/05/01/article/')
+  end
+
 end

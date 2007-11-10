@@ -66,27 +66,27 @@ class StandardTagsTest < Test::Unit::TestCase
     assert_render_error message, page_children_each_tags(%{order="asdf"})
   end
   def test_tag_children_each_does_not_list_virtual_pages
-    @page = pages(:archive)
-    assert_renders 'article article-2 article-3 article-4 article-5 ', '<r:children:each><r:slug /> </r:children:each>'
-    assert_render_match /^(draft |)article article-2 article-3 article-4 article-5( draft|) $/, '<r:children:each status="all"><r:slug /> </r:children:each>'
+    @page = pages(:assorted)
+    assert_renders 'a b c d e f g h i j ', '<r:children:each><r:slug /> </r:children:each>'
+    assert_render_match /^(draft |)a b c d e f g h i j( draft|) $/, '<r:children:each status="all"><r:slug /> </r:children:each>'
   end
   
   def test_tag_children_each_header
-    @page = pages(:archive)
-    assert_renders '[May/00] article [Jun/00] article-2 article-3 [Aug/00] article-4 [Aug/01] article-5 ', '<r:children:each><r:header>[<r:date format="%b/%y" />] </r:header><r:slug /> </r:children:each>'
+    @page = pages(:news)
+    assert_renders '[Jan/06] a-great-day-for-ruby [Feb/06] another-great-day-for-ruby later-that-day [Jan/07] next-year-in-ruby ', '<r:children:each><r:header>[<r:date format="%b/%y" />] </r:header><r:slug /> </r:children:each>'
   end
   def test_tag_children_each_header_with_name_attribute
-    @page = pages(:archive)
-    assert_renders '[2000] (May) article (Jun) article-2 article-3 (Aug) article-4 [2001] article-5 ', %{<r:children:each><r:header name="year">[<r:date format='%Y' />] </r:header><r:header name="month">(<r:date format="%b" />) </r:header><r:slug /> </r:children:each>}  
+    @page = pages(:news)
+    assert_renders '[2006] (Jan) a-great-day-for-ruby (Feb) another-great-day-for-ruby later-that-day [2007] (Jan) next-year-in-ruby ', %{<r:children:each><r:header name="year">[<r:date format='%Y' />] </r:header><r:header name="month">(<r:date format="%b" />) </r:header><r:slug /> </r:children:each>}  
   end
   def test_tag_children_each_header_with_restart_attribute
-    @page = pages(:archive)
+    @page = pages(:news)
     assert_renders(
-      '[2000] (May) article (Jun) article-2 article-3 (Aug) article-4 [2001] (Aug) article-5 ',
+      '[2006] (Jan) a-great-day-for-ruby (Feb) another-great-day-for-ruby later-that-day [2007] (Jan) next-year-in-ruby ',
       %{<r:children:each><r:header name="year" restart="month">[<r:date format='%Y' />] </r:header><r:header name="month">(<r:date format="%b" />) </r:header><r:slug /> </r:children:each>}
     )
     assert_renders(
-      '[2000] (May) <01> article (Jun) <09> article-2 <10> article-3 (Aug) <06> article-4 [2001] (Aug) <06> article-5 ',
+      '[2006] (Jan) <30> a-great-day-for-ruby (Feb) <05> another-great-day-for-ruby <06> later-that-day [2007] (Jan) <30> next-year-in-ruby ',
       %{<r:children:each><r:header name="year" restart="month;day">[<r:date format='%Y' />] </r:header><r:header name="month" restart="day">(<r:date format="%b" />) </r:header><r:header name="day"><<r:date format='%d' />> </r:header><r:slug /> </r:children:each>}
     )
   end
@@ -315,7 +315,7 @@ class StandardTagsTest < Test::Unit::TestCase
   end
   
   def test_tag_find_and_children
-    assert_renders 'a-great-day-for-ruby another-great-day-for-ruby ', %{<r:find url="/news/"><r:children:each><r:slug /> </r:children:each></r:find>}
+    assert_renders 'a-great-day-for-ruby another-great-day-for-ruby later-that-day next-year-in-ruby ', %{<r:find url="/news/"><r:children:each><r:slug /> </r:children:each></r:find>}
   end
   
   def test_tag_escape_html

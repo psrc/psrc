@@ -159,13 +159,9 @@ class PageTest < Test::Unit::TestCase
     found = @page.find_by_url('/parent/child/grandchild/great-grandchild/')
     assert_equal expected, found 
   end
-  def test_find_by_url_3
-    @page = pages(:homepage)
-    assert_equal pages(:article), @page.find_by_url('/archive/2000/05/01/article/')
-  end
   def test_find_by_url__when_virtual
     @page = pages(:homepage)
-    found = @page.find_by_url('/archive/2006/02/05/month/')
+    found = @page.find_by_url('/assorted/virtual/')
     assert_equal nil, found
   end
   def test_find_by_url__when_not_found_and_missing_page_defined
