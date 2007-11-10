@@ -187,6 +187,34 @@ module StandardTags
   end
   
   desc %{
+    Renders the contained elements only if the current contextual page has one or
+    more child pages.  The @status@ attribute limits the status of found child pages
+    to the given status, the default is @"published"@. @status="all"@ includes all
+    non-virtual pages regardless of status.
+    
+    *Usage:*
+    <pre><code><r:if_children [status="published"]>...</r:if_children></code></pre>
+  }
+  tag "if_children" do |tag|
+    children = tag.locals.page.children.count(:conditions => children_find_options(tag)[:conditions])
+    tag.expand if children > 0
+  end
+  
+  desc %{
+    Renders the contained elements only if the current contextual page has no children.
+    The @status@ attribute limits the status of found child pages to the given status,
+    the default is @"published"@. @status="all"@ includes all non-virtual pages 
+    regardless of status.
+    
+    *Usage:*
+    <pre><code><r:unless_children [status="published"]>...</r:unless_children></code></pre>
+  }
+  tag "unless_children" do |tag|
+    children = tag.locals.page.children.count(:conditions => children_find_options(tag)[:conditions])
+    tag.expand unless children > 0
+  end
+  
+  desc %{
     Renders one of the passed values based on a global cycle counter.  Use the @reset@
     attribute to reset the cycle to the beginning.  Use the @name@ attribute to track 
     multiple cycles; the default is @cycle@.
@@ -632,6 +660,5 @@ module StandardTags
         raise TagError.new("Malformed regular expression in `#{attribute_name}' argument of `#{tag.name}' tag: #{e.message}")
       end
       regexp
-    end
-    
+    end   
 end

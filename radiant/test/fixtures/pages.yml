@@ -388,3 +388,10 @@ another:
   status_id: 100
   parent_id: 1
   published_at: 2006-02-05 08:44:07
+childless:
+  id: 62
+  title: Childless Page
+  slug: childless
+  status_id: 100
+  parent_id: 1
+  published_at: 2006-02-05 08:44:07

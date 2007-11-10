@@ -417,6 +417,19 @@ class StandardTagsTest < Test::Unit::TestCase
     assert_renders 'true', '<r:unless_parent>true</r:unless_parent>'
   end
   
+  def test_tag_if_children
+    @page = pages(:homepage)
+    assert_renders 'true', '<r:if_children>true</r:if_children>'
+    @page = pages(:childless)
+    assert_renders '', '<r:if_children>true</r:if_children>'
+  end
+  def test_tag_unless_children
+    @page = pages(:homepage)
+    assert_renders '', '<r:unless_children>true</r:unless_children>'
+    @page = pages(:childless)
+    assert_renders 'true', '<r:unless_children>true</r:unless_children>'
+  end
+  
   def test_if_dev
     assert_renders '-dev-', '-<r:if_dev>dev</r:if_dev>-', nil , 'dev.site.com'
     assert_renders '--', '-<r:if_dev>dev</r:if_dev>-'
