@@ -2,6 +2,8 @@ require 'abstract_unit'
 require 'fixtures/default'
 require 'fixtures/entrant'
 
+
+
 class DefaultTest < Test::Unit::TestCase
   def test_nil_defaults_for_not_null_columns
     column_defaults =
@@ -55,6 +57,19 @@ class DefaultTest < Test::Unit::TestCase
       assert_equal -1, default.negative_integer
       assert_instance_of BigDecimal, default.decimal_number
       assert_equal BigDecimal.new("2.78"), default.decimal_number
+    end
+  end
+  
+  if current_adapter?(:SQLServerAdapter)
+    class SQLServerDefault < ActiveRecord::Base; end;
+    
+    def test_sqlserver_default_strings
+      default = SQLServerDefault.new
+      assert_equal nil, default.string_with_null_default
+      assert_equal 'null', default.string_with_pretend_null_one
+      assert_equal '(null)', default.string_with_pretend_null_two 
+      assert_equal 'NULL', default.string_with_pretend_null_three
+      assert_equal '(NULL)', default.string_with_pretend_null_four
     end
   end
 end

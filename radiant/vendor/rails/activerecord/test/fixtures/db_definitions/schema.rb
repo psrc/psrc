@@ -8,6 +8,14 @@ ActiveRecord::Schema.define do
       ActiveRecord::Base.connection.create_table(*args, &block)
       ActiveRecord::Base.connection.execute "SET GENERATOR #{args.first}_seq TO 10000"
     end
+    
+    create_table :sql_server_defaults, :force => true do |t|
+      t.column :string_with_null_default, :string, :default => nil
+      t.column :string_with_pretend_null_one, :string, :default => 'null'
+      t.column :string_with_pretend_null_two, :string, :default => '(null)'
+      t.column :string_with_pretend_null_three, :string, :default => 'NULL'
+      t.column :string_with_pretend_null_four, :string, :default => '(NULL)'
+    end
   end
 
   create_table :taggings, :force => true do |t|
