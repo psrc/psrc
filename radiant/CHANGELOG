@@ -1,6 +1,6 @@
 == Change Log
 
-=== SVN
+=== 0.6.4 Gem Shaper
 * Extract Archive pages into a core extension. Add automatic testing of core 
   extensions from default test task. [Sean Cribbs]
 * Add <r:if_children /> and <r:unless_children /> tags. [Andrew Neil]
