@@ -1,5 +1,5 @@
     <tr id="page-<%= page.id %>" class="node level-<%= level %><%= children_class %><%= virtual_class %>">
-      <td class="page" style="padding-left: <%= padding_left %>px">
+      <td class="page" style="padding-left: <%= padding_left(level) %>px">
         <span class="w1">
 <% if simple -%>
           <%= icon %>
