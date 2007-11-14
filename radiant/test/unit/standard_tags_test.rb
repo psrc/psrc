@@ -159,6 +159,11 @@ class StandardTagsTest < Test::Unit::TestCase
     assert_renders '', '<r:content part="sidebar" />'
     assert_renders 'Parent sidebar.', '<r:content part="sidebar" inherit="true" />'
   end
+  def test_tag_content_with_global_page_propagation
+    @page = pages(:global_child)
+    assert_renders 'Global Child Global Child', '<r:content part="titles" inherit="true" contextual="true"/>'
+    assert_renders 'Global Global Child', '<r:content part="titles" inherit="true" contextual="false"/>'
+  end
   
   def test_tag_child_content
     expected = "Radius test child 1 body.\nRadius test child 2 body.\nRadius test child 3 body.\n"

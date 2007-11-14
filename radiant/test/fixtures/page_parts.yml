@@ -112,3 +112,8 @@ another:
   name: body
   content: another page
   page_id: 61
+global_titles:
+  id: 23
+  name: titles
+  page_id: 67
+  content: <r:title /> <r:page:title />

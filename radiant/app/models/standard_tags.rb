@@ -261,12 +261,9 @@ module StandardTags
       end
     end
     contextual = boolean_attr['contextual', true]
-    if inherit and contextual
-      part = part_page.part(part_name)
-      page.render_snippet(part) unless part.nil?
-    else
-      part_page.render_part(part_name)
-    end
+    part = part_page.part(part_name)
+    tag.locals.page = part_page unless contextual
+    tag.globals.page.render_snippet(part) unless part.nil?
   end
   
   desc %{ 

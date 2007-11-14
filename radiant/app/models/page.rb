@@ -259,8 +259,7 @@ class Page < ActiveRecord::Base
       text = parse(text)
       text = object.filter.filter(text) if object.respond_to? :filter_id
       text
-    end
-  
+    end  
 end
 
 Page.load_subclasses

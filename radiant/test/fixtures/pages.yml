@@ -165,22 +165,6 @@ news_child_published_2:
   status_id: 100
   parent_id: 30
   published_at: 2006-02-05 08:44:07
-news_child_published_3:
-  id: 65
-  title: Later That Day
-  breadcrumb: news
-  slug: later-that-day
-  status_id: 100
-  parent_id: 30
-  published_at: 2006-02-06 09:44:07
-news_child_published_4:
-  id: 66
-  title: Next Year in Ruby
-  breadcrumb: news
-  slug: next-year-in-ruby
-  status_id: 100
-  parent_id: 30
-  published_at: 2007-01-30 08:44:07
 grandchild:
   id: 33
   title: Grandchild
@@ -336,4 +320,34 @@ virtual:
   virtual: 1
   status_id: 100
   parent_id: 19
+  published_at: 2006-02-05 08:44:07
+news_child_published_3:
+  id: 65
+  title: Later That Day
+  breadcrumb: news
+  slug: later-that-day
+  status_id: 100
+  parent_id: 30
+  published_at: 2006-02-06 09:44:07
+news_child_published_4:
+  id: 66
+  title: Next Year in Ruby
+  breadcrumb: news
+  slug: next-year-in-ruby
+  status_id: 100
+  parent_id: 30
+  published_at: 2007-01-30 08:44:07
+global:
+  id: 67
+  title: Global
+  slug: global
+  status_id: 100
+  parent_id: 60
+  published_at: 2006-02-05 08:44:07
+global_child:
+  id: 68
+  title: Global Child
+  slug: global-child
+  status_id: 100
+  parent_id: 67
   published_at: 2006-02-05 08:44:07
