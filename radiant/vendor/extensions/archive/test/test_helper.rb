@@ -2,7 +2,11 @@ require 'test/unit'
 # # Load the environment
 unless defined? RADIANT_ROOT
   ENV["RAILS_ENV"] = "test"
-  require "#{File.expand_path(File.dirname(__FILE__) + "/../../../../")}/config/environment"
+  env_file = "#{File.expand_path(File.dirname(__FILE__) + "/" + "../" * 6)}/config/environment"
+  unless File.exist?(env_file)
+    env_file = "#{File.expand_path(File.dirname(__FILE__) + "/" + "../" * 4)}/config/environment"
+  end
+  require env_file
 end
 require "#{RADIANT_ROOT}/test/test_helper"
 
@@ -12,7 +16,7 @@ class Test::Unit::TestCase
   test_helper :extension_tags
   
   # Add the fixture directory to the fixture path
-  self.fixture_path << File.dirname(__FILE__) + "/fixtures"
+  self.fixture_path << File.expand_path(File.dirname(__FILE__)) + '/fixtures'
   
   # Add more helper methods to be used by all extension tests here...
   

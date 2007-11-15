@@ -21,7 +21,7 @@ module Radiant
 
     include Simpleton
     
-    attr_accessor :initializer
+    attr_accessor :initializer, :extension_roots
     
     def initialize
       @extension_roots = []

@@ -5,10 +5,12 @@ unless defined? TEST_ROOT
   
   TEST_ROOT = File.expand_path(File.dirname(__FILE__))
   
-  if env_file = ENV["RADIANT_ENV_FILE"]
-    require env_file
-  else
-    require TEST_ROOT + "/../config/environment"
+  unless defined? RADIANT_ROOT
+    if env_file = ENV["RADIANT_ENV_FILE"]
+      require env_file
+    else
+      require File.expand_path(TEST_ROOT + "/../config/environment")
+    end
   end
   require 'test_help'
   
@@ -60,3 +62,4 @@ unless defined? TEST_ROOT
     end
   end
 end
+p TEST_ROOT
