@@ -22,9 +22,13 @@ class ShardsExtensionTest < Test::Unit::TestCase
     assert_equal %w{edit_header edit_form edit_popups}, page.edit.main
     assert_equal %w{edit_title edit_extended_metadata
                               edit_page_parts}, page.edit.form
-    assert_equal %w{ edit_layout_and_type edit_timestamp}, page.edit.parts_bottom
+    assert_equal %w{edit_layout_and_type edit_timestamp}, page.edit.parts_bottom
     assert_equal %w{edit_buttons}, page.edit.form_bottom
-    assert_equal %w{index_sitemap_column_headers}, page.index.sitemap_head
+    assert_equal %w{title_column_header status_column_header
+                                modify_column_header}, page.index.sitemap_head
+    assert_equal %w{title_column status_column add_child_column remove_column},
+                  page.index.node
+    assert_same page.index, page.remove
   end
   
   def test_should_add_render_region_helper

@@ -3,8 +3,8 @@ require_dependency 'application'
 require 'ostruct'
 
 class ShardsExtension < Radiant::Extension
-  version "0.1"
-  description "Enables facets-like manipulation of the administration user-interface."
+  version "0.2"
+  description "Enables flexible manipulation of the administration user-interface."
   url "http://seancribbs.com"
     
   def activate
@@ -17,11 +17,11 @@ class ShardsExtension < Radiant::Extension
       attr_accessor :page #, :snippet, :layout
     end
     admin.page = load_default_page_regions
-    Admin::PageController.class_eval {
+    Admin::PageController.class_eval do
       before_filter :only => :add_part do |c|
         c.send :instance_variable_set, '@template_name', 'edit'
       end
-    }
+    end
   end
   
   def deactivate
@@ -38,9 +38,11 @@ class ShardsExtension < Radiant::Extension
             edit.parts_bottom.concat %w{edit_layout_and_type edit_timestamp}
         end
         page.index = Shards::RegionSet.new do |index|
-          index.sitemap_head.concat %w{index_sitemap_column_headers}
+          index.sitemap_head.concat %w{title_column_header status_column_header
+                                      modify_column_header}
+          index.node.concat %w{title_column status_column add_child_column remove_column}
         end
-        page.remove = Shards::RegionSet.new
+        page.remove = page.index
         page.children = Shards::RegionSet.new   
         page
     end
