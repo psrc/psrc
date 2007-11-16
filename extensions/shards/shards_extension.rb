@@ -42,8 +42,7 @@ class ShardsExtension < Radiant::Extension
                                       modify_column_header}
           index.node.concat %w{title_column status_column add_child_column remove_column}
         end
-        page.remove = page.index
-        page.children = Shards::RegionSet.new   
+        page.remove = page.children = page.index
         page
     end
   

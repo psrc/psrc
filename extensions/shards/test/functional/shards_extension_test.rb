@@ -29,6 +29,7 @@ class ShardsExtensionTest < Test::Unit::TestCase
     assert_equal %w{title_column status_column add_child_column remove_column},
                   page.index.node
     assert_same page.index, page.remove
+    assert_same page.index, page.children
   end
   
   def test_should_add_render_region_helper
