@@ -275,3 +275,10 @@ end
 
 # The scenarios namespace module.
 Scenarios = Scenario
+
+# Patch to add insert_fixture to Rails 1.2
+module ActiveRecord::ConnectionAdapters::DatabaseStatements
+  def insert_fixture(fixture, table_name)
+    execute "INSERT INTO #{quote_column_name(table_name)} (#{fixture.key_list}) VALUES (#{fixture.value_list})", 'Fixture Insert'
+  end
+end
