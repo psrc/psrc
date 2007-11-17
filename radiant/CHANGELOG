@@ -1,6 +1,8 @@
 == Change Log
 
 === SVN
+* Add specs for Annotatable, InheritableClassAttributes, LocalTime, 
+  MethodObserver, and Simpleton. [Sean Cribbs]
 * Add spec for Radiant::AdminUI and Users scenario. [Sean Cribbs]
 * Import and create boilerplate for RSpec and Scenarios. [Sean Cribbs]
 * Honor config.extensions when running rake test:extensions and also include
