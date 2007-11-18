@@ -62,4 +62,3 @@ unless defined? TEST_ROOT
     end
   end
 end
-p TEST_ROOT
