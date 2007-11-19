@@ -7,13 +7,13 @@ class SearchPage < Page
     tag.expand
   end
 
-#  desc %{    <r:search:form [label="Search:"] />
-#    Renders a search form, with the optional label.}
-#  tag 'search:form' do |tag|
-#    label = tag.attr['label'].nil? ? "Search:" : tag.attr['label']
-#    content = %{<form action="#{self.url.chop}" method="get" id="search_form"><p><label for="q">#{label}</label> <input type="text" id="q" name="q" value="" size="15" /></p></form>}
-#    content << "\n"
-#  end
+  desc %{    <r:search:form [label="Search:"] />
+    Renders a search form, with the optional label.}
+  tag 'search:form' do |tag|
+    label = tag.attr['label'].nil? ? "Search:" : tag.attr['label']
+    content = %{<form action="#{self.url.chop}" method="get" id="search_form"><p><label for="q">#{label}</label> <input type="text" id="q" name="q" value="" size="15" /></p></form>}
+    content << "\n"
+  end
    
   desc %{    Renders the passed query.}
   tag 'search:query' do |tag|
@@ -65,24 +65,18 @@ class SearchPage < Page
     @query_result = []
     @query = ""
     q = @request.parameters[:q]
-    exclude_pages = (@request.parameters[:exclude_pages] || '').split(",")
     unless (@query = q.to_s.strip).blank?
       tokens = query.split.collect { |c| "%#{c.downcase}%"}
       pages = Page.find(:all, :include => [ :parts ],
           :conditions => [(["((LOWER(content) LIKE ?) OR (LOWER(title) LIKE ?))"] * tokens.size).join(" AND "), 
                          *tokens.collect { |token| [token] * 2 }.flatten])
-      @query_result = pages.delete_if { |p| !p.published? || 
-        exclude_pages.include?(p.url) }
+      @query_result = pages.delete_if { |p| !p.published? }
     end
-    
-    if @request.xhr?
-      if part :ajax_body
-        render_part :ajax_body  
-      else
-        render_part :body
-      end
+    lazy_initialize_parser_and_context
+    if layout
+      parse_object(layout)
     else
-      super
+      render_page_part(:body)
     end
   end
   

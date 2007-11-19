@@ -5,7 +5,6 @@ class SearchExtension < Radiant::Extension
   url "http://dev.radiantcms.org/"
  
   def activate
-    Page.send :include, SearchTags
     SearchPage
   end
   
