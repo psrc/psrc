@@ -1,9 +1,9 @@
 == Change Log
 
 === SVN
-* Fix typo in pngfix.js. [Mislav Marohnic]
+* Fix typo in pngfix.js. [Mislav Marohnić]
 * Turn off auto-loading RSpec stuff, even in test environment.
-  [Mislav Marohnic]
+  [Mislav Marohnić]
 * Add specs for Annotatable, InheritableClassAttributes, LocalTime, 
   MethodObserver, and Simpleton. [Sean Cribbs]
 * Add spec for Radiant::AdminUI and Users scenario. [Sean Cribbs]
@@ -32,7 +32,7 @@
 * Allow setting of local timezone via Radiant::Config and auto-adjustment of times
   in admin UI and <r:date /> tag. [Bodhi Philpot]
 * Update to latest Prototype and script.aculo.us and refactor and extract inline 
-  Javascript into external files. [Mislav Marohnic]
+  Javascript into external files. [Mislav Marohnić]
 * Narrow scope of exception to only throw on missing fixture files, allowing 
   invalid yaml errors through. [Daniel Sheppard]
 * Added tests to ensure that response_cache stays within the cache dir. 
@@ -44,7 +44,7 @@
 * Run single extension tests with rake test:extensions EXT=<extension_name>
   [Brian Skahan]
 * Update Javascript libraries to Prototype 1.6.0_rc1 and script.aculo.us 
-  1.8.0_pre1. [Mislav Marohnic]
+  1.8.0_pre1. [Mislav Marohnić]
 * Fixed <r:attempted_url /> tag to escape the uri [Daniel Sheppard]
 * Allow parts to be accessed by name from Page#part before they are saved.
   [Sean Cribbs]
