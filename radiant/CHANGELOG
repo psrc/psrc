@@ -1,6 +1,9 @@
 == Change Log
 
 === SVN
+* Fix typo in pngfix.js. [Mislav Marohnic]
+* Turn off auto-loading RSpec stuff, even in test environment.
+  [Mislav Marohnic]
 * Add specs for Annotatable, InheritableClassAttributes, LocalTime, 
   MethodObserver, and Simpleton. [Sean Cribbs]
 * Add spec for Radiant::AdminUI and Users scenario. [Sean Cribbs]
