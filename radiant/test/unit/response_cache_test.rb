@@ -30,7 +30,7 @@ class ResponseCacheTest < Test::Unit::TestCase
     FileUtils.rm_rf @dir if File.exists? @dir
   end
   
-  def test_initialize__defaults
+  def test_initialize_defaults
     @cache = ResponseCache.new
     assert_equal   "#{RAILS_ROOT}/cache", @cache.directory
     assert_equal   5.minutes,             @cache.expire_time
@@ -39,7 +39,7 @@ class ResponseCacheTest < Test::Unit::TestCase
     assert_kind_of Logger,                @cache.logger
   end
   
-  def test_initialize__with_options
+  def test_initialize_with_options
     @cache = ResponseCache.new(
       :directory         => "test",
       :expire_time       => 5,
@@ -85,9 +85,11 @@ class ResponseCacheTest < Test::Unit::TestCase
       assert_equal 'content', @cache.update_response(url, response, ActionController::TestRequest).body, "url: #{url}"
     end
   end
-  def test_update_response__nonexistant
+
+  def test_update_response_nonexistant
     assert_equal '', @cache.update_response('nothing/here', response, ActionController::TestRequest).body
   end
+  
   def test_update_response_without_caching
     @cache.cache_response('/test/me', response('content'))
     @cache.perform_caching = false
@@ -122,12 +124,14 @@ class ResponseCacheTest < Test::Unit::TestCase
     result = @cache.cache_response('test', response('content'))
     assert_equal true, @cache.response_cached?('test')
   end
+  
   def test_response_cached_timed_out
     @cache.expire_time = 1
     result = @cache.cache_response('test', response('content'))
     sleep 1.5
     assert_equal false, @cache.response_cached?('test')
   end
+  
   def test_response_cached_timed_out_with_response_setting
     @cache.expire_time = 1
     response = response('content')
@@ -138,6 +142,7 @@ class ResponseCacheTest < Test::Unit::TestCase
     sleep 2
     assert_equal false, @cache.response_cached?('test')
   end
+  
   def test_send_using_x_sendfile
     @cache.use_x_sendfile = true
     result = @cache.cache_response('test', response('content', 'Content-Type' => 'text/plain'))
@@ -147,6 +152,7 @@ class ResponseCacheTest < Test::Unit::TestCase
     assert_equal 'text/plain', cached.headers['Content-Type']
     assert_kind_of TestResponse, result
   end
+  
   def test_send_cached_page_with_last_modified
     last_modified = Time.now.httpdate
     result = @cache.cache_response('test', response('content', 'Last-Modified' => last_modified))
@@ -157,6 +163,7 @@ class ResponseCacheTest < Test::Unit::TestCase
     assert_equal '', second_call.body
     assert_kind_of TestResponse, result
   end
+  
   def test_send_cached_page_with_old_last_modified
     last_modified = Time.now.httpdate
     result = @cache.cache_response('test', response('content', 'Last-Modified' => last_modified))
@@ -169,25 +176,25 @@ class ResponseCacheTest < Test::Unit::TestCase
   
   def test_not_cached_if_metadata_empty
     FileUtils.makedirs(@dir)
-    File.open("#{@dir}/test_me.yml",'w') { }
+    File.open("#{@dir}/test_me.yml", 'w') { }
     assert !@cache.response_cached?('/test_me')
   end
 
   def test_not_cached_if_metadata_broken
     FileUtils.makedirs(@dir)
-    File.open("#{@dir}/test_me.yml",'w') {|f| f.puts '::: bad yaml file:::' }
+    File.open("#{@dir}/test_me.yml", 'w') {|f| f.puts '::: bad yaml file:::' }
     assert !@cache.response_cached?('/test_me')
   end
   
   def test_not_cached_if_metadata_not_hash
     FileUtils.makedirs(@dir)
-    File.open("#{@dir}/test_me.yml",'w') {|f| f.puts ':symbol' }
+    File.open("#{@dir}/test_me.yml", 'w') {|f| f.puts ':symbol' }
     assert !@cache.response_cached?('/test_me')
   end
   
   def test_not_cached_if_metadata_has_no_expire
     FileUtils.makedirs(@dir)
-    File.open("#{@dir}/test_me.yml",'w') {|f| f.puts "--- \nheaders: \n  Last-Modified: Tue, 27 Feb 2007 06:13:43 GMT\n"}
+    File.open("#{@dir}/test_me.yml", 'w') {|f| f.puts "--- \nheaders: \n  Last-Modified: Tue, 27 Feb 2007 06:13:43 GMT\n"}
     assert !@cache.response_cached?('/test_me')
   end  
   
@@ -199,20 +206,28 @@ class ResponseCacheTest < Test::Unit::TestCase
   def test_cache_cant_read_outside_dir
     FileUtils.makedirs(@baddir)
     @cache.cache_response('/test_me', response('content'))
-    File.rename "#{@dir}/test_me.yml","#{@baddir}/test_me.yml"
-    File.rename "#{@dir}/test_me.data","#{@baddir}/test_me.data"
+    File.rename "#{@dir}/test_me.yml", "#{@baddir}/test_me.yml"
+    File.rename "#{@dir}/test_me.data", "#{@baddir}/test_me.data"
     assert !@cache.response_cached?('/../badcache/test_me')
   end
   
   def test_cache_cant_expire_outside_dir
     FileUtils.makedirs(@baddir)
     @cache.cache_response('/test_me', response('content'))
-    File.rename "#{@dir}/test_me.yml","#{@baddir}/test_me.yml"
-    File.rename "#{@dir}/test_me.data","#{@baddir}/test_me.data"
+    File.rename "#{@dir}/test_me.yml", "#{@baddir}/test_me.yml"
+    File.rename "#{@dir}/test_me.data", "#{@baddir}/test_me.data"
     @cache.expire_response('/../badcache/test_me')
     assert File.exist?("#{@baddir}/test_me.yml")
     assert File.exist?("#{@baddir}/test_me.data")
   end  
+
+  def test_cache_file_gets_renamed_to_index 
+    @cache.cache_response('/', response('content')) 
+    assert @cache.response_cached?('_site-root') 
+    assert @cache.response_cached?('/') 
+    assert !File.exist?("#{@dir}/../cache.yml")
+    assert !File.exist?("#{@dir}/../cache.data")
+  end 
 
   # Class Methods
   

@@ -1,6 +1,8 @@
 == Change Log
 
 === SVN
+* Fixed that homepage is no longer cached outside of cache dir, but to
+  "_site-root.data". [Bjørn Arild Mæland]
 * Fix typo in pngfix.js. [Mislav Marohnić]
 * Turn off auto-loading RSpec stuff, even in test environment.
   [Mislav Marohnić]
@@ -18,10 +20,10 @@
   extensions from default test task. [Sean Cribbs]
 * Add <r:if_children /> and <r:unless_children /> tags. [Andrew Neil]
 * Add HTML labels to role checkboxes in user edit template. [zilkey]
-* Cleanup whitespace and line-endings in environment.rb. [Bjorn Maeland]
+* Cleanup whitespace and line-endings in environment.rb. [Bjørn Arild Mæland]
 * Fix various SQL Server issues via Rails ticket #8886. [Mark Gallop]
 * Refactor locals from _node.rhtml into Admin::NodeHelper. [Sean Cribbs]
-* Fix XHTML validation errors in view templates. [Bjorn Maeland]
+* Fix XHTML validation errors in view templates. [Bjørn Arild Mæland]
 * Update Prototype and script.aculo.us to 1.6 and 1.8 releases. [Sean Cribbs]
 * Fix edge case in tabcontrol.js where tab label is incorrect. [Sean Cribbs]
 * Remove duplication in admin.js. [Sean Cribbs]

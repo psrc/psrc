@@ -60,15 +60,14 @@ class ResponseCache
     path = clean(path)
     name = "#{page_cache_path(path)}.yml"
     if File.exists?(name) and not File.directory?(name)
-      content = File.open(name,"rb") { |f| f.read }
+      content = File.open(name, "rb") { |f| f.read }
       metadata = YAML::load(content)
-      if(metadata['expires']  >= Time.now)
-        return metadata
-      end
+      metadata if metadata['expires'] >= Time.now
     end
   rescue
     nil
   end
+  
   def response_cached?(path)
     !!read_metadata(path)
   end
@@ -92,12 +91,6 @@ class ResponseCache
   end
   
   private
-    # Construct the filename for the file in the cache directory for path    
-    # This DOES NOT include the extension
-    def page_cache_file(path)
-      name = ((path.empty? || path == "/") ? "/index" : URI.unescape(path))
-    end
-    
     # Ensures that path begins with a slash and remove extra slashes.
     def clean(path)
       path = path.gsub(%r{/+}, '/')
@@ -105,7 +98,6 @@ class ResponseCache
       "/#{$1}"
     end
 
-    
     # Reads a cached response from disk and updates a response object.
     def read_response(path, response, request)
       file_path = page_cache_path(path)
@@ -149,11 +141,10 @@ class ResponseCache
     end
 
     def page_cache_path(path)
+      path = (path.empty? || path == "/") ? "/_site-root" : URI.unescape(path)
       root_dir = File.expand_path(page_cache_directory)
-      cache_path = File.expand_path(File.join(root_dir,path), root_dir)
-      if(cache_path.index(root_dir) == 0)
-        cache_path
-      end
+      cache_path = File.expand_path(File.join(root_dir, path), root_dir)
+      cache_path if cache_path.index(root_dir) == 0
     end
 
     def expire_page(path)
