@@ -26,7 +26,7 @@ if (version >= 5.5 && filters) {
         display: 'inline-block',
         width: img.width + 'px',
         height: img.height + 'px',
-        filter: 'progid:DXImageTransform.Microsoft.AplhaImageLoader(src="' + img.src + '", sizingMethod="scale")'
+        filter: 'progid:DXImageTransform.Microsoft.AlphaImageLoader(src="' + img.src + '", sizingMethod="scale")'
       }).
       setStyle(img.style.cssText);
     
