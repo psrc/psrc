@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Fixed admin CSS for IE6 - ugly borders begone! [Bjørn Arild Mæland]
 * Fixed that homepage is no longer cached outside of cache dir, but to
   "_site-root.data". [Bjørn Arild Mæland]
 * Fix typo in pngfix.js. [Mislav Marohnić]
