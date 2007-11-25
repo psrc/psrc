@@ -11,33 +11,9 @@ module RelatedContent::PageExtensions
       before_save :create_relations
       
       attr_accessor :delete_relations, :add_relations
-      
-      # Needed to deal with drafts
-      alias_method_chain :publish_associations, :related_content
-      alias_method_chain :clone_associations, :related_content
-      alias_method_chain :destroy_associations, :related_content
     end
   end
-  
-  # called when cloning a page into a draft
-  def clone_associations_with_related_content(draft)
-    clone_associations_without_related_content(draft)
-    draft.add_relations = self.outgoing_relations.collect(&:to_id)
-  end
-  
-  # called when publishing a draft
-  def publish_associations_with_related_content
-    publish_associations_without_related_content
-    self.outgoing_relations.clear
-    self.add_relations = self.draft.outgoing_relations.collect(&:to_id)
-  end
-  
-  # called when destroying a draft
-  def destroy_associations_with_related_content
-    destroy_associations_without_related_content
-    self.outgoing_relations.destroy_all
-  end
-  
+    
   def create_relations
     if @delete_relations
       @delete_relations.each do |r|
