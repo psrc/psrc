@@ -1,4 +1,5 @@
 class UsersScenario < Scenario::Base
+  
   def load
     create_user "Existing"
     create_user "Another"
@@ -8,13 +9,20 @@ class UsersScenario < Scenario::Base
   end
   
   helpers do
-    def create_user(name, attrs={})
-      short_name = name.underscore.downcase
-      create_record(:user, short_name.to_sym, 
-                {:name => name, 
-                 :email => "#{short_name}@example.com", 
-                 :login => short_name,
-                 :password => User.sha1("password")}.merge(attrs))
+    
+    def create_user(name, attributes={})
+      create_record :user, name.symbolize, user_params(attributes.update(:name => name))
     end
+    def user_params(attributes)
+      name = attributes[:name] || "John Doe"
+      symbol = name.symbolize
+      { 
+        :name => name,
+        :email => "#{symbol}@example.com", 
+        :login => symbol,
+        :password => User.sha1("password")
+      }.merge(attributes)
+    end
+    
   end
 end
