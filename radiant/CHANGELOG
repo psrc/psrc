@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Add RSpec to load path in test environment. [Andrew O'Brien]
 * Add specs for Radiant::Extension and Radiant::Taggable. [Sean Cribbs]
 * Fixed admin CSS for IE6 - ugly borders begone! [Bjørn Arild Mæland]
 * Fixed that homepage is no longer cached outside of cache dir, but to

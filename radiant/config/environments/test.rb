@@ -14,7 +14,8 @@ if config.extensions && !config.extensions.include?(:all)
   config.extensions.concat(Dir["#{test_extension_dir}/*"].sort.map {|x| File.basename(x).sub(/^\d+_/,'')})
   config.extensions.uniq!
 end
-
+config.load_paths << "#{RADIANT_ROOT}/vendor/plugins/rspec/lib"
+config.load_paths << "#{RADIANT_ROOT}/vendor/plugins/rspec_on_rails/lib"
 # Log error messages when you accidentally call methods on nil.
 config.whiny_nils    = true
 
