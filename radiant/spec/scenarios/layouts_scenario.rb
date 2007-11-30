@@ -1,8 +1,7 @@
 class LayoutsScenario < Scenario::Base
   
   def load
-    create_layout "Home Page", {
-      :content => <<-CONTENT
+    create_layout "Main", :content => <<-CONTENT
 <html>
   <head>
     <title><r:title /></title>
@@ -11,11 +10,9 @@ class LayoutsScenario < Scenario::Base
     <r:content />
   </body>
 </html>
-      CONTENT
-    }
+    CONTENT
     
-    create_layout "UTF-8 Layout", {
-      :content => <<-CONTENT
+    create_layout "UTF8", :content_type => "text/html;charset=utf8", :content => <<-CONTENT
 <html>
   <head>
     <title><r:title /></title>
@@ -24,16 +21,15 @@ class LayoutsScenario < Scenario::Base
     <r:content />
   </body>
 </html>
-      CONTENT
-    }
+    CONTENT
   end
   
   helpers do
-    
     def create_layout(name, attributes={})
       create_record :layout, name.symbolize, layout_params(attributes.reverse_merge(:name => name))
     end
-    def layout_params(attributes)
+    
+    def layout_params(attributes={})
       name = attributes[:name] || unique_layout_name
       { 
         :name => name,
@@ -45,9 +41,8 @@ class LayoutsScenario < Scenario::Base
     
       @@unique_layout_name_call_count = 0
       def unique_layout_name
-        @@unique_page_title_call_count += 1
-        "Layout #{@@unique_page_title_call_count}"
+        @@unique_layout_name_call_count += 1
+        "Layout #{@@unique_layout_name_call_count}"
       end
-    
   end
 end

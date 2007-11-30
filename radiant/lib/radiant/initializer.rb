@@ -41,10 +41,11 @@ module Radiant
     
     def initialize_extensions
       ActiveRecord::Base.connection.execute("select count(*) from #{ExtensionMeta.table_name}")
+    rescue
+      $stderr.puts "Extensions cannot be used until Radiant migrations are up to date."
+    else
       require 'radiant/extension_loader'
       ExtensionLoader.instance { |l| l.initializer = self }.run
-    rescue ActiveRecord::StatementInvalid
-      $stderr.puts("Extensions cannot be used until Radiant migrations are up to date.")
     end
     
     def initialize_view_paths

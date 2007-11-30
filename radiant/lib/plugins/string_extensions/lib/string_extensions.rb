@@ -1,4 +1,8 @@
 module StringExtensions
+  def symbolize
+    self.gsub(/[^A-Za-z0-9]+/, "_").gsub(/(^_+|_+$)/, "").underscore.to_sym
+  end
+  
   def titlecase
     self.gsub(/((?:^|\s)[a-z])/) { $1.upcase }
   end

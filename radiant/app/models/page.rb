@@ -73,7 +73,7 @@ class Page < ActiveRecord::Base
   end
   
   def inherits_part?(name)
-    !has_part?(name) && self.ancestors.any? {|page| page.has_part?(name)}
+    !has_part?(name) && self.ancestors.any? { |page| page.has_part?(name) }
   end
     
   def published?

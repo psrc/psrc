@@ -4,10 +4,8 @@ class PageContext < Radius::Context
   
   def initialize(page)
     super()
-    
     @page = page
     globals.page = @page
-    
     page.tags.each do |name|
       define_tag(name) { |tag_binding| page.render_tag(name, tag_binding) }
     end
