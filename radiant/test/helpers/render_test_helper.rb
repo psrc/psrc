@@ -52,8 +52,8 @@ module RenderTestHelper
     
     def setup_page(url = nil, host = nil)
       @page.request = ActionController::TestRequest.new
-      @page.request.request_uri = 'http://testhost.tld' + (url || @page.url)
-      @page.request.host = host unless host.nil?
+      @page.request.request_uri = (url || @page.url)
+      @page.request.host = host || "testhost.tld"
       @page.response = ActionController::TestResponse.new
     end
   

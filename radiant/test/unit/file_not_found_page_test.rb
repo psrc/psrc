@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class FileNotFoundTest < Test::Unit::TestCase
+class FileNotFoundPageTest < Test::Unit::TestCase
   fixtures :pages
   test_helper :pages, :render
   
@@ -9,11 +9,11 @@ class FileNotFoundTest < Test::Unit::TestCase
   end
   
   def test_url
-    assert_renders 'http://testhost.tld/gallery/asdf?param=4', '<r:attempted_url />', '/gallery/asdf?param=4'
+    assert_renders '/gallery/asdf?param=4', '<r:attempted_url />', '/gallery/asdf?param=4'
   end
 
   def test_url__malicious_url
-    assert_renders 'http://testhost.tld/gallery/&lt;script&gt;alert(&quot;evil&quot;)&lt;/script&gt;', '<r:attempted_url />', '/gallery/<script>alert("evil")</script>'
+    assert_renders '/gallery/&lt;script&gt;alert(&quot;evil&quot;)&lt;/script&gt;', '<r:attempted_url />', '/gallery/<script>alert("evil")</script>'
   end
   
   def test_virtual

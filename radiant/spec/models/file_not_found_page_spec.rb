@@ -9,11 +9,11 @@ describe FileNotFoundPage do
   end
   
   it 'should have a working url tag' do
-    assert_renders 'http://testhost.tld/gallery/asdf?param=4', '<r:attempted_url />', '/gallery/asdf?param=4'
+    assert_renders '/gallery/asdf?param=4', '<r:attempted_url />', '/gallery/asdf?param=4'
   end
 
   it 'should correclty quote the url' do
-    assert_renders 'http://testhost.tld/gallery/&lt;script&gt;alert(&quot;evil&quot;)&lt;/script&gt;', '<r:attempted_url />', '/gallery/<script>alert("evil")</script>'
+    assert_renders '/gallery/&lt;script&gt;alert(&quot;evil&quot;)&lt;/script&gt;', '<r:attempted_url />', '/gallery/<script>alert("evil")</script>'
   end
   
   it 'should be a virtual page' do
