@@ -1,6 +1,8 @@
 == Change Log
 
 === SVN
+* Correct RenderTestHelper to better resemble expectations from Rails. [Sean Cribbs]
+* Add model specs and scenarios. [John Long]
 * Modify script/spec to work in instance mode. [Andrew O'Brien]
 * Add RSpec to load path in test environment. [Andrew O'Brien]
 * Add specs for Radiant::Extension and Radiant::Taggable. [Sean Cribbs]
