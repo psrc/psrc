@@ -27,7 +27,7 @@ class SnippetsScenario < Scenario::Base
       @@unique_snippet_name_call_count = 0
       def unique_snippet_name
         @@unique_snippet_name_call_count += 1
-        "Snippet #{@@unique_snippet_name_call_count}"
+        "snippet-#{@@unique_snippet_name_call_count}"
       end
   end
   
