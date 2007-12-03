@@ -30,5 +30,4 @@ config.action_mailer.delivery_method = :test
 
 # Make sure Rspec is in the load path
 config.load_paths << "#{RADIANT_ROOT}/vendor/plugins/rspec/lib"
-config.load_paths << "#{RADIANT_ROOT}/vendor/plugins/rspec_on_rails/
-lib"
+config.load_paths << "#{RADIANT_ROOT}/vendor/plugins/rspec_on_rails/lib"
