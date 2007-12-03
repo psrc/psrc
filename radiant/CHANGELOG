@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Upgrade Rails to 1.2.6. [Sean Cribbs]
 * Fix admin.js to initialize TabControl even if there are no tabs. [Benny Degezelle]
 * Correct RenderTestHelper to better resemble expectations from Rails. [Sean Cribbs]
 * Add model specs and scenarios. [John Long]
