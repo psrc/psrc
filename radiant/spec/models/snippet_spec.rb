@@ -8,7 +8,7 @@ describe Snippet do
     @snippet = @model = Snippet.new(snippet_params)
   end
   
-  it 'validates length of' do
+  it 'should validate length of' do
     {
       :name => 100,
       :filter_id => 25
@@ -18,23 +18,23 @@ describe Snippet do
     end
   end
   
-  it 'validates presence of' do
+  it 'should validate presence of' do
     [:name].each do |field|
       assert_invalid field, 'required', '', ' ', nil
     end
   end
   
-  it 'validates uniqueness of' do
+  it 'should validate uniqueness of' do
     assert_invalid :name, 'name already in use', 'first', 'another', 'markdown'
     assert_valid :name, 'just-a-test'
   end
   
-  it 'validates format of name' do
+  it 'should validate format of name' do
     assert_valid :name, 'abc', 'abcd-efg', 'abcd_efg', 'abc.html', '/', '123'
     assert_invalid :name, 'cannot contain spaces or tabs'
   end
   
-  it 'filter' do
+  it 'should allow the filter to be specified' do
     @snippet = snippets(:markdown)
     @snippet.filter.should be_kind_of(MarkdownFilter)
   end
