@@ -107,7 +107,7 @@ describe ResponseCache do
     cached = @cache.update_response('test', response, ActionController::TestRequest)
     cached.body.should == 'content'
     cached.headers['Content-Type'].should == 'text/plain'
-    assert_kind_of TestResponse, result
+    result.should be_kind_of(TestResponse)
   end
   
   it 'expire response' do
