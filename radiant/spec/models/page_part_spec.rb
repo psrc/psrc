@@ -37,11 +37,11 @@ describe PagePart, 'filter' do
   specify 'getting and setting' do
     @part = page_parts(:textile_body)
     original = @part.filter
-    assert_kind_of TextileFilter, original
+    original.should be_kind_of(TextileFilter)
     
-    assert_same original, @part.filter
+    @part.filter.should equal(original)
     
     @part.filter_id = 'Markdown'
-    assert_kind_of MarkdownFilter, @part.filter
+    @part.filter.should be_kind_of(MarkdownFilter)
   end
 end

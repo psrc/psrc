@@ -6,7 +6,6 @@ describe InheritableClassAttributes, "when included in a class" do
     cattr_inheritable_accessor :accessor
   end
   
-  
   it "should add inheritable attribute declaration methods to the class" do
     BasicInheritable.should respond_to(:cattr_inheritable_reader)
     BasicInheritable.should respond_to(:cattr_inheritable_writer)
@@ -20,7 +19,7 @@ describe InheritableClassAttributes, "when included in a class" do
     BasicInheritable.accessor.should == :unchanged
     AnotherAccessor.accessor.should == :changed
   end
-
+  
   it "should copy the attribute value to child classes when subclassed" do
     BasicInheritable.accessor = :unchanged
     Kernel.module_eval { class AccessorInherited < BasicInheritable; end}
