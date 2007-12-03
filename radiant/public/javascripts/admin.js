@@ -15,10 +15,10 @@ document.observe('dom:loaded', function() {
     });
   });
 
-  when($$('#pages div.part > input[type=hidden]:first-child'), function(parts) {
-    tabControl = new TabControl('tab-control');
+  when('tab-control', function(element) {
+    tabControl = new TabControl(element);
     
-    parts.each(function(part, index) {
+    $$('#pages div.part > input[type=hidden]:first-child').each(function(part, index) {
       var page = part.up('.page');
       tabControl.addTab('tab-' + (index + 1), part.value, page.id);
     });
@@ -37,7 +37,7 @@ function when(obj, fn) {
 function part_added() {
   var partNameField = $('part-name-field');
   var partIndexField = $('part-index-field');
-  var index = parseInt(partIndexField.value) + 1;
+  var index = parseInt(partIndexField.value || 0) + 1;
   var tab = 'tab-' + index;
   var caption = partNameField.value;
   var page = 'page-' + index;

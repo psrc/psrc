@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Fix admin.js to initialize TabControl even if there are no tabs. [Benny Degezelle]
 * Correct RenderTestHelper to better resemble expectations from Rails. [Sean Cribbs]
 * Add model specs and scenarios. [John Long]
 * Modify script/spec to work in instance mode. [Andrew O'Brien]

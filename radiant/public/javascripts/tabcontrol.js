@@ -75,6 +75,8 @@ var TabControl = Class.create({
   },
 
   autoSelect: function() {
+    if (!this.tabs.any()) return; // no tabs in control
+    
     var tab, matches = document.cookie.match(/current_tab=(.+?);/);
     if (matches) {
       matches = matches[1].split(':');
