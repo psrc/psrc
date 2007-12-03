@@ -27,7 +27,7 @@ describe Status, 'find' do
     Status.find('1').id.should == 1
   end
   
-  it 'should find nil when status does not exist' do
+  it 'should find nil when status with ID does not exist' do
     Status.find(0).should be_nil
   end
 end
