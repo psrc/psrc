@@ -9,20 +9,24 @@ class UsersScenario < Scenario::Base
   end
   
   helpers do
-    
     def create_user(name, attributes={})
-      create_record :user, name.symbolize, user_params(attributes.update(:name => name))
+      create_record :user, name.symbolize, user_attributes(attributes.update(:name => name))
     end
-    def user_params(attributes)
+    def user_attributes(attributes={})
       name = attributes[:name] || "John Doe"
       symbol = name.symbolize
-      { 
+      attributes = { 
         :name => name,
         :email => "#{symbol}@example.com", 
-        :login => symbol,
-        :password => User.sha1("password")
+        :login => symbol.to_s,
+        :password => "password"
       }.merge(attributes)
+      attributes[:password] = User.sha1(attributes[:password])
+      attributes
     end
-    
+    def user_params(attributes={})
+      password = attributes[:password] || "password"
+      user_attributes(attributes).update(:password => password, :password_confirmation => password)
+    end
   end
 end
