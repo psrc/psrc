@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Snippet do
   scenario :snippets
-  test_helper :snippets, :validations
+  test_helper :validations
   
   before :all do
     @snippet = @model = Snippet.new(snippet_params)
