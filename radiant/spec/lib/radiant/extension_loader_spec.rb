@@ -45,6 +45,7 @@ describe Radiant::ExtensionLoader do
     @instance.instance_variable_set("@all_extension_roots", nil)
     @configuration.should_receive(:extension_paths).and_return(["#{RADIANT_ROOT}/test/fixtures/extensions"])
     all_extension_roots = @instance.send(:all_extension_roots)
+    all_extension_roots.should == @extension_paths
   end
   
   it "should load all extensions by default" do
