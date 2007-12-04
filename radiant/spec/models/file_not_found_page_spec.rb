@@ -12,7 +12,7 @@ describe FileNotFoundPage do
     assert_renders '/gallery/asdf?param=4', '<r:attempted_url />', '/gallery/asdf?param=4'
   end
 
-  it 'should correclty quote the url' do
+  it 'should correctly quote the url' do
     assert_renders '/gallery/&lt;script&gt;alert(&quot;evil&quot;)&lt;/script&gt;', '<r:attempted_url />', '/gallery/<script>alert("evil")</script>'
   end
   

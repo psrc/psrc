@@ -31,10 +31,6 @@ module Radiant
       initializer.configuration
     end
     
-    def initializer=(initializer)
-      @initializer = initializer
-    end
-    
     def run
       DependenciesObserver.new(configuration).observe(Dependencies)
       
@@ -43,49 +39,16 @@ module Radiant
     end
     
     def discover_extensions
-      all_extension_roots = configuration.extension_paths.collect do |path|
-        Dir.glob("#{path}/*").sort.select { |f| File.directory?(f) }.collect do |ext_path|
-          ext_path = File.expand_path(ext_path)
-        end
-      end.flatten
-      if configuration.extensions
-        #put in the paths for extensions into the array
-        extension_roots = configuration.extensions.map do |ext_name|
-          if :all === ext_name
-            :all
-          else
-            ext_name = ext_name.to_s
-            ext_path = all_extension_roots.detect do |maybe_path|
-              File.basename(maybe_path).sub(/^\d+_/,'') == ext_name
-            end
-            raise(LoadError, "Cannot find the extension '#{ext_name}'!") if ext_path.nil?
-            all_extension_roots.delete(ext_path)
-            ext_path
-          end
-        end
-        #replace the :all symbol with any remaining paths
-        extension_roots.map! do |ext_path|
-          if :all === ext_path
-            all_extension_roots
-          else
-            ext_path
-          end
-        end
-        extension_roots.flatten!
-      else
-        extension_roots = all_extension_roots
-      end
-      extension_roots.each do |ext_path|
-          load_paths = %w(lib app/models app/controllers app/helpers test/helpers).collect { |p| "#{ext_path}/#{p}" }
-          load_paths << ext_path
-          load_paths.each { |p| configuration.load_paths << p; $LOAD_PATH << p; }
-          configuration.controller_paths << "#{ext_path}/app/controllers"
-          configuration.view_paths << "#{ext_path}/app/views"
-          @extension_roots << ext_path
+      load_extension_roots.each do |ext_path|
+        configuration.load_paths.concat load_paths_for(ext_path)        
+        $LOAD_PATH.concat load_paths_for(ext_path)
+        configuration.controller_paths << "#{ext_path}/app/controllers"
+        configuration.view_paths << "#{ext_path}/app/views"
+        @extension_roots << ext_path
       end
       initializer.set_autoload_paths
       initializer.initialize_view_paths
-      extension_roots
+      load_extension_roots
     end
     
     def deactivate_extensions
@@ -94,7 +57,7 @@ module Radiant
     
     def activate_extensions(enabled_extensions = nil)
       initializer.initialize_default_admin_tabs
-      activated_extensions = @extension_roots.select do |root|
+      activated_extensions = extension_roots.select do |root|
         extension_file = "#{File.basename(root).sub(/^\d+_/,'')}_extension"
         extension = extension_file.camelize.constantize
         extension.root = root
@@ -131,6 +94,39 @@ module Radiant
         extension.enable(enabled)
         extension if enabled
       end
+
+      def load_paths_for(ext_path)
+        load_paths = %w(lib app/models app/controllers app/helpers test/helpers).collect { |p| "#{ext_path}/#{p}" }
+        load_paths << ext_path          
+      end
+
+      def load_extension_roots
+        @load_extension_roots ||= configuration.extensions ? select_extension_roots : all_extension_roots
+      end
       
+      def select_extension_roots
+        #put in the paths for extensions into the array
+        roots = configuration.extensions.map do |ext_name|
+          if :all === ext_name
+            :all
+          else
+            ext_path = all_extension_roots.detect do |maybe_path|
+              File.basename(maybe_path) =~ /^(\d+_)?#{ext_name}/
+            end
+            raise(LoadError, "Cannot find the extension '#{ext_name}'!") if ext_path.nil?
+            all_extension_roots.delete(ext_path)
+          end
+        end
+        #replace the :all symbol with any remaining paths
+        roots.map do |ext_path|
+          :all === ext_path ? all_extension_roots : ext_path
+        end.flatten
+      end
+
+      def all_extension_roots
+        @all_extension_roots ||= configuration.extension_paths.map do |path|
+          Dir["#{path}/*"].map {|f| File.directory?(f) ? File.expand_path(f) : nil}.compact.sort
+        end.flatten
+      end   
   end
 end
