@@ -4,13 +4,13 @@ describe "StandardTags" do
   scenario :pages
   
   it 'should allow access to the current page through the page tag' do
-    page = pages(:home)
+    page(:home)
     page.should render('<r:page:title />').as('Home')
     page.should render(%{<r:find url="/radius"><r:title /> | <r:page:title /></r:find>}).as('Radius | Home')
   end
   
   it 'should provide tags for page attributes' do
-    page = pages(:home)
+    page(:home)
     [:breadcrumb, :slug, :title, :url].each do |attr|
       value = page.send(attr)
       page.should render("<r:#{attr} />").as(value.to_s)
@@ -18,13 +18,12 @@ describe "StandardTags" do
   end
   
   it 'should provide tags to iterate over children' do
-    page = pages(:parent)
+    page(:parent)
     page.should render('<r:children:each><r:title /> </r:children:each>').as('Child Child 2 Child 3 ')
     page.should render('<r:children:each><r:page><r:slug />/<r:child:slug /> </r:page></r:children:each>').as('parent/child parent/child-2 parent/child-3 ')    
   end
   
   it 'should provide order options for iterating over children' do
-    page = pages(:assorted)
     page.should render(page_children_each_tags).as('a b c d e f g h i j ')
     page.should render(page_children_each_tags(%{limit="5"})).as('a b c d e ')
     page.should render(page_children_each_tags(%{offset="3" limit="5"})).as('d e f g h ')
@@ -33,20 +32,25 @@ describe "StandardTags" do
     page.should render(page_children_each_tags(%{by="breadcrumb" order="desc"})).as('g h i j a b c d e f ')
   end
   
+  it 'should provide options for iterating over children that have a particular status' do
+    page.should render(page_children_each_tags(%{status="all"})).as("a b c d e f g h i j draft ")
+    page.should render(page_children_each_tags(%{status="draft"})).as('draft ')
+    page.should render(page_children_each_tags(%{status="published"})).as('a b c d e f g h i j ')
+    page.should render(page_children_each_tags(%{status="askdf"})).with_error("`status' attribute of `each' tag must be set to a valid status")
+  end
+
   it 'should error when iterating over children with invalid limit option' do
-    page = pages(:assorted)
     message = "`limit' attribute of `each' tag must be a positive number between 1 and 4 digits"
     page.should render(page_children_each_tags(%{limit="a"})).with_error(message)
     page.should render(page_children_each_tags(%{limit="-10"})).with_error(message)
     page.should render(page_children_each_tags(%{limit="50000"})).with_error(message)
   end
   
-  it 'should provide options for iterating over children that have a particular status' do
-    page = pages(:assorted)
-    page.should render(page_children_each_tags(%{status="all"})).as("a b c d e f g h i j draft ")
-    page.should render(page_children_each_tags(%{status="draft"})).as('draft ')
-    page.should render(page_children_each_tags(%{status="published"})).as('a b c d e f g h i j ')
-    page.should render(page_children_each_tags(%{status="askdf"})).with_error("`status' attribute of `each' tag must be set to a valid status")
+  it 'should error when iterating over children with invalid offset option' do
+    message = "`offset' attribute of `each' tag must be a positive number between 1 and 4 digits"
+    page.should render(%{offset="a"}).with_error(message)
+    page.should render(%{offset="-10"}).with_error(message)
+    page.should render(%{offset="50000"}).with_error(message)
   end
   
   private
@@ -54,20 +58,16 @@ describe "StandardTags" do
       attr = ' ' + attr unless attr.nil?
       "<r:children:each#{attr}><r:slug /> </r:children:each>"
     end
+    
+    def page(symbol = :assorted)
+      @page ||= pages(symbol)
+    end
 end
 
 # describe StandardTags do
 #   scenarios :pages_with_layouts, :snippets, :users
 #   test_helper :render
 #   
-
-
-#   specify 'tag children each attributes with invalid offset' do
-#     message = "`offset' attribute of `each' tag must be a positive number between 1 and 4 digits"
-#     assert_render_error message, page_children_each_tags(%{offset="a"})
-#     assert_render_error message, page_children_each_tags(%{offset="-10"})
-#     assert_render_error message, page_children_each_tags(%{offset="50000"})
-#   end
 #   specify 'tag children each attributes with invalid by field name' do
 #     message = "`by' attribute of `each' tag must be set to a valid field name"
 #     assert_render_error message, page_children_each_tags(%{by="non-existant-field"})
