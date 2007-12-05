@@ -53,6 +53,11 @@ describe "StandardTags" do
     page.should render(%{offset="50000"}).with_error(message)
   end
   
+  it 'should errror when iterating over children with invalid by option' do
+    message = "`by' attribute of `each' tag must be set to a valid field name"
+    page.should render(page_children_each_tags(%{by="non-existant-field"})).with_error(message)
+  end
+  
   private
     def page_children_each_tags(attr = nil)
       attr = ' ' + attr unless attr.nil?
@@ -68,10 +73,6 @@ end
 #   scenarios :pages_with_layouts, :snippets, :users
 #   test_helper :render
 #   
-#   specify 'tag children each attributes with invalid by field name' do
-#     message = "`by' attribute of `each' tag must be set to a valid field name"
-#     assert_render_error message, page_children_each_tags(%{by="non-existant-field"})
-#   end
 #   specify 'tag children each attributes with invalid limit' do
 #     message = %{`order' attribute of `each' tag must be set to either "asc" or "desc"}
 #     assert_render_error message, page_children_each_tags(%{order="asdf"})
