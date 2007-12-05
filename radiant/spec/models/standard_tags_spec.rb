@@ -3,73 +3,65 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe "StandardTags" do
   scenario :pages
   
-  before :each do
-    @page = pages(:radius)
+  it 'should allow access to the current page through the page tag' do
+    page = pages(:home)
+    page.should render('<r:page:title />').as('Home')
+    page.should render(%{<r:find url="/radius"><r:title /> | <r:page:title /></r:find>}).as('Radius | Home')
   end
   
-  specify 'page tag' do
-    @page.should render('<r:title />').as('Radius')
-    @page.should render(%{<r:find url="/"><r:title /> | <r:page:title /></r:find>}).as('Home | Radius')
-  end
-  
-  specify 'page attribute tags' do
+  it 'should provide tags for page attributes' do
+    page = pages(:home)
     [:breadcrumb, :slug, :title, :url].each do |attr|
-      value = @page.send(attr)
-      @page.should render("<r:#{attr} />").as(value.to_s)
+      value = page.send(attr)
+      page.should render("<r:#{attr} />").as(value.to_s)
     end
   end
+  
+  it 'should provide tags to iterate over children' do
+    page = pages(:parent)
+    page.should render('<r:children:each><r:title /> </r:children:each>').as('Child Child 2 Child 3 ')
+    page.should render('<r:children:each><r:page><r:slug />/<r:child:slug /> </r:page></r:children:each>').as('parent/child parent/child-2 parent/child-3 ')    
+  end
+  
+  it 'should provide order options for iterating over children' do
+    page = pages(:assorted)
+    page.should render(page_children_each_tags).as('a b c d e f g h i j ')
+    page.should render(page_children_each_tags(%{limit="5"})).as('a b c d e ')
+    page.should render(page_children_each_tags(%{offset="3" limit="5"})).as('d e f g h ')
+    page.should render(page_children_each_tags(%{order="desc"})).as('j i h g f e d c b a ')
+    page.should render(page_children_each_tags(%{by="breadcrumb"})).as('f e d c b a j i h g ')
+    page.should render(page_children_each_tags(%{by="breadcrumb" order="desc"})).as('g h i j a b c d e f ')
+  end
+  
+  it 'should error when iterating over children with invalid limit option' do
+    page = pages(:assorted)
+    message = "`limit' attribute of `each' tag must be a positive number between 1 and 4 digits"
+    page.should render(page_children_each_tags(%{limit="a"})).with_error(message)
+    page.should render(page_children_each_tags(%{limit="-10"})).with_error(message)
+    page.should render(page_children_each_tags(%{limit="50000"})).with_error(message)
+  end
+  
+  it 'should provide options for iterating over children that have a particular status' do
+    page = pages(:assorted)
+    page.should render(page_children_each_tags(%{status="all"})).as("a b c d e f g h i j draft ")
+    page.should render(page_children_each_tags(%{status="draft"})).as('draft ')
+    page.should render(page_children_each_tags(%{status="published"})).as('a b c d e f g h i j ')
+    page.should render(page_children_each_tags(%{status="askdf"})).with_error("`status' attribute of `each' tag must be set to a valid status")
+  end
+  
+  private
+    def page_children_each_tags(attr = nil)
+      attr = ' ' + attr unless attr.nil?
+      "<r:children:each#{attr}><r:slug /> </r:children:each>"
+    end
 end
 
 # describe StandardTags do
 #   scenarios :pages_with_layouts, :snippets, :users
 #   test_helper :render
 #   
-#   before(:all) do
-#     @page = pages(:radius)
-#   end
-#   
-#   specify 'page tag' do
-#     assert_renders 'Radius Test Page', '<r:title />'
-#     assert_renders 'Ruby Home Page | Radius Test Page', %{<r:find url="/"><r:title /> | <r:page:title /></r:find>}
-#   end
-#   
-#   specify 'page attribute tags' do
-#     [:breadcrumb, :slug, :title, :url].each do |attr|
-#       value = @page.send(attr)
-#       assert_renders value.to_s, "<r:#{attr} />"
-#     end
-#   end
-#   
-#   specify 'tag children' do
-#     expected = 'Radius Test Child 1 Radius Test Child 2 Radius Test Child 3 '
-#     input = '<r:children:each><r:title /> </r:children:each>'
-#     assert_renders expected, input
-#   end
-#   specify 'tag children each' do
-#     assert_renders 'radius/child-1 radius/child-2 radius/child-3 ' , '<r:children:each><r:page><r:slug />/<r:child:slug /> </r:page></r:children:each>'
-#   end
-#   specify 'tag children each attributes' do
-#     @page = pages(:assorted)
-#     assert_renders 'a b c d e f g h i j ', page_children_each_tags
-#     assert_renders 'a b c d e ',           page_children_each_tags(%{limit="5"})
-#     assert_renders 'd e f g h ',           page_children_each_tags(%{offset="3" limit="5"})
-#     assert_renders 'j i h g f e d c b a ', page_children_each_tags(%{order="desc"})
-#     assert_renders 'f e d c b a j i h g ', page_children_each_tags(%{by="breadcrumb"})
-#     assert_renders 'g h i j a b c d e f ', page_children_each_tags(%{by="breadcrumb" order="desc"})
-#   end
-#   specify 'tag children each with status attribute' do
-#     @page = pages(:assorted)
-#     assert_render_match /^(draft |)a b c d e f g h i j( draft|) $/, page_children_each_tags(%{status="all"})
-#     assert_renders 'draft ', page_children_each_tags(%{status="draft"})
-#     assert_renders 'a b c d e f g h i j ', page_children_each_tags(%{status="published"})
-#     assert_render_error "`status' attribute of `each' tag must be set to a valid status", page_children_each_tags(%{status="askdf"})
-#   end
-#   specify 'tag children each attributes with invalid limit' do
-#     message = "`limit' attribute of `each' tag must be a positive number between 1 and 4 digits"
-#     assert_render_error message, page_children_each_tags(%{limit="a"})
-#     assert_render_error message, page_children_each_tags(%{limit="-10"})
-#     assert_render_error message, page_children_each_tags(%{limit="50000"})
-#   end
+
+
 #   specify 'tag children each attributes with invalid offset' do
 #     message = "`offset' attribute of `each' tag must be a positive number between 1 and 4 digits"
 #     assert_render_error message, page_children_each_tags(%{offset="a"})
@@ -484,10 +476,7 @@ end
 #       "<r:children:last#{attr}><r:slug /></r:children:last>"
 #     end
 #     
-#     def page_children_each_tags(attr = nil)
-#       attr = ' ' + attr unless attr.nil?
-#       "<r:children:each#{attr}><r:slug /> </r:children:each>"
-#     end
+
 #     
 #     def page_eachable_children(page)
 #       page.children.select(&:published?).reject(&:virtual)

@@ -20,7 +20,7 @@ module StandardTags
     desc %{ 
       Renders the @#{method}@ attribute of the current page.
     }
-    tag(method.to_s) do |tag|
+    tag method.to_s do |tag|
       tag.locals.page.send(method)
     end
   end
@@ -100,8 +100,9 @@ module StandardTags
   end
   
   desc %{
-    Page attribute tags inside of this tag refer to the current child. Not needed in
-    most cases.
+    Page attribute tags inside of this tag refer to the current child. This is occasionally
+    useful if you are inside of another tag (like <r:find>) and need to refer back to the
+    current child.
     
     *Usage:*
     <pre><code><r:children:each>
