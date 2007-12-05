@@ -15,6 +15,7 @@ class PagesScenario < Scenario::Base
       create_page "Child 3"
     end
     create_page "Draft", :status_id => Status[:draft].id
+    create_page "Hidden", :status_id => Status[:hidden].id
   end
   
 end
