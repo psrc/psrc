@@ -4,7 +4,7 @@ describe PageContext do
   scenario :pages
   test_helper :pages
   
-  before :all do
+  before :each do
     @page = pages(:radius)
     @context = PageContext.new(@page)
     @parser = Radius::Parser.new(@context, :tag_prefix => 'r')

@@ -308,7 +308,7 @@ describe Page, "rendering" do
   scenario :pages, :markup_pages, :snippets, :layouts
   test_helper :render
   
-  before :all do
+  before :each do
     @page = pages(:home)
   end
   
