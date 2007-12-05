@@ -39,6 +39,10 @@ unless defined? SPEC_ROOT
     end
   end
   
+  Dir[RAILS_ROOT + '/spec/matchers/*_matcher.rb'].each do |matcher|
+    require matcher
+  end
+  
   Spec::Runner.configure do |config|
     config.use_transactional_fixtures = true
     config.use_instantiated_fixtures  = false
