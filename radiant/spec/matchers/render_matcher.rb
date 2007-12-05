@@ -19,9 +19,9 @@ module Spec
             when @matching: @actual =~ @matching
             else true
           end
-        rescue => @error
-          if @error_message
-            @error.message === @error_message
+        rescue => @actual_error
+          if @expected_error_message
+            @actual_error.message === @expected_error_message
           else
             @error_thrown = true
             false
@@ -31,17 +31,17 @@ module Spec
         def failure_message
           action = @expected.nil? ? "render and match #{@matching.inspect}" : "render as #{@expected.inspect}"
           unless @error_thrown
-            unless @error_message
+            unless @expected_error_message
               if @content
                 "expected #{@content.inspect} to #{action}, but got #{@actual.inspect}"
               else
                 "expected page to #{action}, but got #{@actual.inspect}"
               end
             else
-              "expected rendering #{@content.inspect} to throw exception with message #{@error_message.inspect}, but was #{@error.message.inspect}"
+              "expected rendering #{@content.inspect} to throw exception with message #{@expected_error_message.inspect}, but was #{@actual_error.message.inspect}"
             end
           else
-            "expected #{@content.inspect} to render, but an exception was thrown #{e.inspect}"
+            "expected #{@content.inspect} to render, but an exception was thrown #{@actual_error.message}"
           end
         end
         
@@ -60,7 +60,7 @@ module Spec
         end
         
         def with_error(message)
-          @error_message = message
+          @expected_error_message = message
           self
         end
         
