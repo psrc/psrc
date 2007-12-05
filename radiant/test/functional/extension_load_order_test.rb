@@ -7,8 +7,11 @@ class ExtensionLoaderTest < Test::Unit::TestCase
     @config = Radiant::Configuration.new
     @config.extension_paths = [ "#{TEST_ROOT}/fixtures/extensions"]
     #can't use real initializer as that screws with load paths
-    @init = OpenStruct.new
-    @init.configuration = @config
+    @initializer= OpenStruct.new
+    @initializer.configuration = @config
+    
+    @instance = Radiant::ExtensionLoader.send(:new)
+    @instance.initializer = @initializer    
   end
 
   def teardown
@@ -42,7 +45,7 @@ class ExtensionLoaderTest < Test::Unit::TestCase
 
   private
     def assert_extension_load_order(requested_extension_names)
-      extension_paths = Radiant::ExtensionLoader.instance { |l| l.initializer = @init }.discover_extensions
+      extension_paths = @instance.send(:load_extension_roots)
       extension_names = extension_paths.map {|p| File.basename(p).sub(/^\d+_/,'')}
       assert_equal requested_extension_names, extension_names
     end
