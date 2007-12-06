@@ -23,6 +23,9 @@ class PagesScenario < Scenario::Base
     end
     create_page "Draft", :status_id => Status[:draft].id
     create_page "Hidden", :status_id => Status[:hidden].id
+    date = Time.utc(2006, 1, 11)
+    create_page "Dated", :published_at => date, :created_at => (date - 1.day), :updated_at => (date + 1.day)
+    create_page "Childless"
   end
   
 end

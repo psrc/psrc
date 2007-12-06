@@ -10,5 +10,4 @@ class VirtualPageScenario < Scenario::Base
   def load
     create_page "Virtual", :class_name => "VirtualPage"
   end
-  
 end

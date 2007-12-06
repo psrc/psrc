@@ -21,7 +21,7 @@ class HomePageScenario < Scenario::Base
         @current_page_id = old_page_id
       end
       if pages(symbol).parts.empty?
-        create_page_part "#{name}_body".symbolize, :name => "body", :content => body, :page_id => page_id(symbol)
+        create_page_part "#{name}_body".symbolize, :name => "body", :content => body + ' body.', :page_id => page_id(symbol)
       end
     end
     def page_params(attributes={})
