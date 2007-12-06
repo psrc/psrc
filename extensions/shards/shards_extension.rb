@@ -14,14 +14,12 @@ class ShardsExtension < Radiant::Extension
       controller.send :helper, Shards::HelperExtensions
     end
     Radiant::AdminUI.class_eval do
-      attr_accessor :page #, :snippet, :layout
+      attr_accessor :page, :snippet, :layout
     end
+    # initialize regions for page, snippet and layout
     admin.page = load_default_page_regions
-    Admin::PageController.class_eval do
-      before_filter :only => :add_part do |c|
-        c.send :instance_variable_set, '@template_name', 'edit'
-      end
-    end
+    admin.snippet = load_default_snippet_regions
+    admin.layout = load_default_layout_regions
   end
   
   def deactivate
@@ -43,7 +41,24 @@ class ShardsExtension < Radiant::Extension
           index.node.concat %w{title_column status_column add_child_column remove_column}
         end
         page.remove = page.children = page.index
+        page.add_part = page.edit
         page
     end
-  
+
+    def load_default_snippet_regions
+      snippet = OpenStruct.new
+      snippet.edit = Shards::RegionSet.new do |edit|
+        edit.main.concat %w{edit_header edit_form}
+      end
+      snippet
+    end
+
+    def load_default_layout_regions
+      layout = OpenStruct.new
+      layout.edit = Shards::RegionSet.new do |edit|
+        edit.main.concat %w{edit_header edit_form}
+      end
+      layout
+    end
 end
+

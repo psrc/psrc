@@ -6,7 +6,7 @@ class ShardsExtensionTest < Test::Unit::TestCase
     assert_equal 'Shards', ShardsExtension.extension_name
   end
   
-  def test_should_create_page_edit_region_set
+  def test_should_create_page_region_sets
     admin = Radiant::AdminUI.instance
     assert_respond_to admin, :page
     assert_not_nil admin.page
@@ -14,7 +14,7 @@ class ShardsExtensionTest < Test::Unit::TestCase
   end
   
   def test_page_edit_region_set_default_settings
-    page = ShardsExtension.new.send(:load_default_page_regions)
+    page = ShardsExtension.instance.send(:load_default_page_regions)
     %w{edit remove children index}.each do |action|
       assert_not_nil page.send(action)
       assert_instance_of Shards::RegionSet, page.send(action)
@@ -30,6 +30,33 @@ class ShardsExtensionTest < Test::Unit::TestCase
                   page.index.node
     assert_same page.index, page.remove
     assert_same page.index, page.children
+    assert_same page.edit, page.add_part
+  end
+  
+  def test_should_create_snippet_region_sets
+    admin = Radiant::AdminUI.instance
+    assert_respond_to admin, :snippet
+    assert_not_nil admin.snippet
+    assert_kind_of OpenStruct, admin.snippet
+  end
+
+  def test_should_initialize_snippet_region_defaults
+    snippet = ShardsExtension.instance.send(:load_default_snippet_regions)
+    assert_not_nil snippet.edit
+    assert_equal %w{edit_header edit_form}, snippet.edit.main    
+  end
+
+  def test_should_create_layout_region_sets
+    admin = Radiant::AdminUI.instance
+    assert_respond_to admin, :layout
+    assert_not_nil admin.layout
+    assert_kind_of OpenStruct, admin.layout
+  end
+  
+  def test_should_initialize_layout_region_defaults
+    layout = ShardsExtension.instance.send(:load_default_layout_regions)
+    assert_not_nil layout.edit
+    assert_equal %w{edit_header edit_form}, layout.edit.main
   end
   
   def test_should_add_render_region_helper
