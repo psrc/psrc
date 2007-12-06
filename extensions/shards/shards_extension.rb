@@ -3,7 +3,7 @@ require_dependency 'application'
 require 'ostruct'
 
 class ShardsExtension < Radiant::Extension
-  version "0.2"
+  version "0.3"
   description "Enables flexible manipulation of the administration user-interface."
   url "http://seancribbs.com"
     
