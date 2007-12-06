@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe "Standard Tags" do
-  scenario :users_and_pages, :snippets
+  scenario :users_and_pages, :file_not_found, :snippets
   
   specify '<r:page> should allow access to the current page' do
     page(:home)
@@ -17,31 +17,32 @@ describe "Standard Tags" do
     end
   end
   
-  # specify '<r:parent>' do
-  #   page.should render('<r:parent><r:title /></r:parent>').as(pages(:home).title)
-  #   page.should render('<r:parent><r:children:each by="title"><r:title /></r:children:each></r:parent>').as(page_eachable_children(pages(:home)).collect(&:title).join(""))
-  #   page.should render('<r:children:each><r:parent:title /></r:children:each>').as(@page.title * page.children.count)
-  # end
-  # 
-  # specify '<r:if_parent>' do
-  #   page.should render('<r:if_parent>true</r:if_parent>').as('true')
-  #   page(:home).should render('<r:if_parent>true</r:if_parent>').as('')
-  # end
-  # 
-  # specify '<r:unless_parent>' do
-  #   page.should render('<r:unless_parent>true</r:unless_parent>').as('')
-  #   page(:home).should render('<r:unless_parent>true</r:unless_parent>').as('true')
-  # end
-  # 
-  # specify '<r:if_children>' do
-  #   page(:home).should render('<r:if_children>true</r:if_children>').as('true')
-  #   page(:childless).should render('<r:if_children>true</r:if_children>').as('')
-  # end
-  # 
-  # specify '<r:unless_children>' do
-  #   page(:home).should render('<r:unless_children>true</r:unless_children>').as('')
-  #   page(:childless).should render('<r:unless_children>true</r:unless_children>').as('true')
-  # end
+  specify '<r:parent>' do
+    page(:parent)
+    page.should render('<r:parent><r:title /></r:parent>').as(pages(:home).title)
+    page.should render('<r:parent><r:children:each by="title"><r:title /></r:children:each></r:parent>').as(page_eachable_children(pages(:home)).collect(&:title).join(""))
+    page.should render('<r:children:each><r:parent:title /></r:children:each>').as(@page.title * page.children.count)
+  end
+  
+  specify '<r:if_parent>' do
+    page.should render('<r:if_parent>true</r:if_parent>').as('true')
+    page(:home).should render('<r:if_parent>true</r:if_parent>').as('')
+  end
+  
+  specify '<r:unless_parent>' do
+    page.should render('<r:unless_parent>true</r:unless_parent>').as('')
+    page(:home).should render('<r:unless_parent>true</r:unless_parent>').as('true')
+  end
+  
+  specify '<r:if_children>' do
+    page(:home).should render('<r:if_children>true</r:if_children>').as('true')
+    page(:childless).should render('<r:if_children>true</r:if_children>').as('')
+  end
+  
+  specify '<r:unless_children>' do
+    page(:home).should render('<r:unless_children>true</r:unless_children>').as('')
+    page(:childless).should render('<r:unless_children>true</r:unless_children>').as('true')
+  end
   
   specify '<r:children:each>' do
     page(:parent)
@@ -62,10 +63,10 @@ describe "Standard Tags" do
     page.should render(page_children_each_tags(%{status="published"})).as('a b c d e f g h i j ')
     page.should render(page_children_each_tags(%{status="askdf"})).with_error("`status' attribute of `each' tag must be set to a valid status")
   end
-  specify '<r:children:each> should not list virtual pages' do
-    page.should render('<r:children:each><r:slug /> </r:children:each>').as('a b c d e f g h i j ') 
-    page.should render('<r:children:each status="all"><r:slug /> </r:children:each>').as('a b c d e f g h i j draft ')
-  end
+  # specify '<r:children:each> should not list virtual pages' do
+  #   page.should render('<r:children:each><r:slug /> </r:children:each>').as('a b c d e f g h i j ') 
+  #   page.should render('<r:children:each status="all"><r:slug /> </r:children:each>').as('a b c d e f g h i j draft ')
+  # end
   specify '<r:children:each> should error with invalid "limit" attribute' do
     message = "`limit' attribute of `each' tag must be a positive number between 1 and 4 digits"
     page.should render(page_children_each_tags(%{limit="a"})).with_error(message)
@@ -274,45 +275,45 @@ describe "Standard Tags" do
     page.should render('just a <r:comment>small </r:comment>test').as('just a test')
   end
   
-  # def test_tag_navigation_1
-  #   tags = %{<r:navigation urls="Home: Boy: / | Archives: /archive/ | Radius: /radius/ | Docs: /documentation/">
-  #              <r:normal><a href="<r:url />"><r:title /></a></r:normal>
-  #              <r:here><strong><r:title /></strong></r:here>
-  #              <r:selected><strong><a href="<r:url />"><r:title /></a></strong></r:selected>
-  #              <r:between> | </r:between>
-  #            </r:navigation>}
-  #   expected = %{<strong><a href="/">Home: Boy</a></strong> | <a href="/archive/">Archives</a> | <strong>Radius</strong> | <a href="/documentation/">Docs</a>}
-  #   page.should render(tags).as(expected)
-  # end
-  # def test_tag_navigation_2
-  #   tags = %{<r:navigation urls="Home: / | Archives: /archive/ | Radius: /radius/ | Docs: /documentation/">
-  #              <r:normal><r:title /></r:normal>
-  #            </r:navigation>}
-  #   expected = %{Home Archives Radius Docs}
-  #   page.should render(tags).as(expected)
-  # end
-  # def test_tag_navigation_3
-  #   tags = %{<r:navigation urls="Home: / | Archives: /archive/ | Radius: /radius/ | Docs: /documentation/">
-  #              <r:normal><r:title /></r:normal>
-  #              <r:selected><strong><r:title/></strong></r:selected>
-  #            </r:navigation>}
-  #   expected = %{<strong>Home</strong> Archives <strong>Radius</strong> Docs}
-  #   page.should render(tags).as(expected)
-  # end
-  # specify '<r:navigation> without urls' do
-  #   page.should render(%{<r:navigation><r:normal /></r:navigation>}).as('')
-  # end
-  # specify '<r:navigation> without normal tag' do
-  #   page.should render(%{<r:navigation urls="something:here"></r:navigation>}).with_error( "`navigation' tag must include a `normal' tag")
-  # end
-  # specify '<r:navigation> with urls without slashes' do
-  #   tags = %{<r:navigation urls="Home: | Archives: /archive | Radius: /radius | Docs: /documentation">
-  #              <r:normal><r:title /></r:normal>
-  #              <r:here><strong><r:title /></strong></r:here>
-  #            </r:navigation>}
-  #   expected = %{Home Archives <strong>Radius</strong> Docs}
-  #   page.should render(tags).as(expected)
-  # end
+  specify '<r:navigation> simple case' do
+    tags = %{<r:navigation urls="Home: / | Assorted: /assorted/ | Parent: /parent/">
+               <r:normal><r:title /></r:normal>
+             </r:navigation>}
+    expected = %{Home Assorted Parent}
+    page.should render(tags).as(expected)
+  end
+  specify '<r:navigation> more complex' do
+    tags = %{<r:navigation urls="Home: / | Assorted: /assorted/ | Parent: /parent/ | Radius: /radius/">
+               <r:normal><r:title /></r:normal>
+               <r:selected><strong><r:title/></strong></r:selected>
+             </r:navigation>}
+    expected = %{<strong>Home</strong> Assorted <strong>Parent</strong> Radius}
+    page(:parent).should render(tags).as(expected)
+  end
+  specify '<r:navigation> very complex' do
+    tags = %{<r:navigation urls="Home: Boy: / | Assorted: /assorted/ | Parent: /parent/">
+               <r:normal><a href="<r:url />"><r:title /></a></r:normal>
+               <r:here><strong><r:title /></strong></r:here>
+               <r:selected><strong><a href="<r:url />"><r:title /></a></strong></r:selected>
+               <r:between> | </r:between>
+             </r:navigation>}
+    expected = %{<strong><a href="/">Home: Boy</a></strong> | <strong>Assorted</strong> | <a href="/parent/">Parent</a>}
+    page.should render(tags).as(expected)
+  end
+  specify '<r:navigation> without urls' do
+    page.should render(%{<r:navigation><r:normal /></r:navigation>}).as('')
+  end
+  specify '<r:navigation> without normal tag' do
+    page.should render(%{<r:navigation urls="something:here"></r:navigation>}).with_error( "`navigation' tag must include a `normal' tag")
+  end
+  specify '<r:navigation> with urls without slashes' do
+    tags = %{<r:navigation urls="Home: / | Assorted: /assorted/ | Parent: /parent/ | Radius: /radius/">
+               <r:normal><r:title /></r:normal>
+               <r:here><strong><r:title /></strong></r:here>
+             </r:navigation>}
+    expected = %{Home <strong>Assorted</strong> Parent Radius}
+    page.should render(tags).as(expected)
+  end
   
   specify '<r:find>' do
     page.should render(%{<r:find url="/parent/child/"><r:title /></r:find>}).as('Child')
@@ -323,9 +324,9 @@ describe "Standard Tags" do
   specify '<r:find> with nonexistant url' do
     page.should render(%{<r:find url="/asdfsdf/"><r:title /></r:find>}).as('')
   end
-  # specify '<r:find> with nonexistant url and file not found' do
-  #   page.should render(%{<r:find url="/gallery/asdfsdf/"><r:title /></r:find>}).as('')
-  # end
+  specify '<r:find> with nonexistant url and file not found' do
+    page.should render(%{<r:find url="/gallery/asdfsdf/"><r:title /></r:find>}).as('')
+  end
   specify '<r:find> with children' do
     page.should render(%{<r:find url="/parent/"><r:children:each><r:slug /> </r:children:each></r:find>}).as('child child-2 child-3 ')
   end
@@ -404,7 +405,7 @@ describe "Standard Tags" do
     page.should render('<r:cycle values="first, second" /> <r:cycle values="one, two" name="numbers" /> <r:cycle values="first, second" /> <r:cycle values="one, two" name="numbers" />').as('first one second two')
   end
   specify '<r:cycle> resets counter' do
-    page.should render('<r:cycle values="first, second" /> <r:cycle values="first, second" reset="true"/>'    ).as('first first')
+    page.should render('<r:cycle values="first, second" /> <r:cycle values="first, second" reset="true"/>').as('first first')
   end
   specify '<r:cycle> names empty' do
     page.should render('<r:cycle />').with_error("`cycle' tag must contain a `values' attribute.")
@@ -430,8 +431,12 @@ describe "Standard Tags" do
   
   private
     
-    def page(symbol = :assorted)
-      @page ||= pages(symbol)
+    def page(symbol = nil)
+      if symbol.nil?
+        @page ||= pages(:assorted)
+      else
+        @page = pages(symbol)
+      end
     end
     
     def page_children_each_tags(attr = nil)
