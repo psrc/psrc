@@ -5,7 +5,7 @@ require 'ostruct'
 class ShardsExtension < Radiant::Extension
   version "0.3"
   description "Enables flexible manipulation of the administration user-interface."
-  url "http://seancribbs.com"
+  url "http://dev.radiantcms.org/svn/radiant/trunk/extensions/shards"
     
   def activate
     ApplicationController.send :helper, Shards::HelperExtensions
