@@ -4,6 +4,7 @@ class HomePageScenario < Scenario::Base
     create_page "Home", :slug => "/", :parent_id => nil do
       create_page_part "body", :content => "Hello world!"
       create_page_part "sidebar", :content => "Sidebar"
+      create_page_part "extended", :content => "Just a test."
     end
   end
   
