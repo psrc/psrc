@@ -26,6 +26,10 @@ class PagesScenario < Scenario::Base
     date = Time.utc(2006, 1, 11)
     create_page "Dated", :published_at => date, :created_at => (date - 1.day), :updated_at => (date + 1.day)
     create_page "Childless"
+    create_page "Devtags" do
+      create_page_part "if_dev", :content => "<r:if_dev>dev</r:if_dev>"
+      create_page_part "unless_dev", :content => "<r:unless_dev>not dev</r:unless_dev>"
+    end
   end
   
 end

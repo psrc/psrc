@@ -64,11 +64,20 @@ module Spec
           self
         end
         
+        def on(url)
+          url = test_host + "/" + url unless url =~ %r{^[^/]+\.[^/]+}
+          url = 'http://' + url unless url =~ %r{^http://}
+          uri = URI.parse(url)
+          @request_uri = uri.request_uri unless uri.request_uri == '/'
+          @host = uri.host
+          self
+        end
+        
         private
           def render_content_with_page(tag_content, page)
             page.request = ActionController::TestRequest.new
-            page.request.request_uri = page.url
-            page.request.host = "testhost.tld"
+            page.request.request_uri = @request_uri || page.url
+            page.request.host = @host || test_host
             page.response = ActionController::TestResponse.new
             if tag_content.nil?
               page.render
@@ -76,9 +85,14 @@ module Spec
               page.send(:parse, tag_content)
             end
           end
+          
+          def test_host
+            "testhost.tld"
+          end
       end
       
       # page.should render(input).as(output)
+      # page.should render(input).as(output).on(url)
       # page.should render(input).matching(/hello world/)
       # page.should render(input).with_error(message)
       def render(input)

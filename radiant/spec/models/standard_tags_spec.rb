@@ -411,23 +411,23 @@ describe "Standard Tags" do
     page.should render('<r:cycle />').with_error("`cycle' tag must contain a `values' attribute.")
   end
   
-  # specify '<r:if_dev>' do
-  #   assert_renders '-dev-', '-<r:if_dev>dev</r:if_dev>-', nil , 'dev.site.com'
-  #   assert_renders '--', '-<r:if_dev>dev</r:if_dev>-'
-  # end
-  # specify '<r:if_dev> on included page' do
-  #   assert_renders '-dev-', '-<r:find url="/devtags/"><r:content part="if_dev" /></r:find>-', nil, 'dev.site.com'
-  #   assert_renders '--', '-<r:find url="/devtags/"><r:content part="if_dev" /></r:find>-'
-  # end
-  # 
-  # specify '<r:unless_dev>' do
-  #   assert_renders '--', '-<r:unless_dev>not dev</r:unless_dev>-', nil, 'dev.site.com'
-  #   assert_renders '-not dev-', '-<r:unless_dev>not dev</r:unless_dev>-'
-  # end
-  # specify '<r:unless_dev> on included page' do
-  #   assert_renders '--', '-<r:find url="/devtags/"><r:content part="unless_dev" /></r:find>-', nil, 'dev.site.com'
-  #   assert_renders '-not dev-', '-<r:find url="/devtags/"><r:content part="unless_dev" /></r:find>-'
-  # end
+  specify '<r:if_dev>' do
+    page.should render('-<r:if_dev>dev</r:if_dev>-').as('-dev-').on('dev.site.com')
+    page.should render('-<r:if_dev>dev</r:if_dev>-').as('--')
+  end
+  specify '<r:if_dev> on included page' do
+    page.should render('-<r:find url="/devtags/"><r:content part="if_dev" /></r:find>-').as('-dev-').on('dev.site.com')
+    page.should render('-<r:find url="/devtags/"><r:content part="if_dev" /></r:find>-').as('--')
+  end
+  
+  specify '<r:unless_dev>' do
+    page.should render('-<r:unless_dev>not dev</r:unless_dev>-').as('--').on('dev.site.com')
+    page.should render('-<r:unless_dev>not dev</r:unless_dev>-').as('-not dev-')
+  end
+  specify '<r:unless_dev> on included page' do
+    page.should render('-<r:find url="/devtags/"><r:content part="unless_dev" /></r:find>-').as('--').on('dev.site.com')
+    page.should render('-<r:find url="/devtags/"><r:content part="unless_dev" /></r:find>-').as('-not dev-')
+  end
   
   private
     
