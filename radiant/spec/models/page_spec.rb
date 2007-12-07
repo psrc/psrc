@@ -352,7 +352,7 @@ describe Page, "rendering" do
 end
 
 describe Page, "#find_by_url" do
-  scenario :pages, :virtual_page, :file_not_found
+  scenario :pages, :file_not_found
   
   before :all do
     @page = pages(:home)

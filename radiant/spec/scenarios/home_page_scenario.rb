@@ -3,8 +3,9 @@ class HomePageScenario < Scenario::Base
   def load
     create_page "Home", :slug => "/", :parent_id => nil do
       create_page_part "body", :content => "Hello world!"
-      create_page_part "sidebar", :content => "Sidebar"
+      create_page_part "sidebar", :content => "<r:title /> sidebar."
       create_page_part "extended", :content => "Just a test."
+      create_page_part "titles", :content => "<r:title /> <r:page:title />"
     end
   end
   

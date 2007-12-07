@@ -63,10 +63,10 @@ describe "Standard Tags" do
     page.should render(page_children_each_tags(%{status="published"})).as('a b c d e f g h i j ')
     page.should render(page_children_each_tags(%{status="askdf"})).with_error("`status' attribute of `each' tag must be set to a valid status")
   end
-  # specify '<r:children:each> should not list virtual pages' do
-  #   page.should render('<r:children:each><r:slug /> </r:children:each>').as('a b c d e f g h i j ') 
-  #   page.should render('<r:children:each status="all"><r:slug /> </r:children:each>').as('a b c d e f g h i j draft ')
-  # end
+  specify '<r:children:each> should not list virtual pages' do
+    page.should render('<r:children:each><r:slug /> </r:children:each>').as('a b c d e f g h i j ') 
+    page.should render('<r:children:each status="all"><r:slug /> </r:children:each>').as('a b c d e f g h i j draft ')
+  end
   specify '<r:children:each> should error with invalid "limit" attribute' do
     message = "`limit' attribute of `each' tag must be a positive number between 1 and 4 digits"
     page.should render(page_children_each_tags(%{limit="a"})).with_error(message)
@@ -88,25 +88,26 @@ describe "Standard Tags" do
     page.should render(page_children_each_tags(%{order="asdf"})).with_error(message)
   end
   
-  # specify '<r:children:each:header>' do
-  #   page(:news)
-  #   page.should render('<r:children:each><r:header>[<r:date format="%b/%y" />] </r:header><r:slug /> </r:children:each>').as('[Jan/06] a-great-day-for-ruby [Feb/06] another-great-day-for-ruby later-that-day [Jan/07] next-year-in-ruby ')
-  # end
-  # specify '<r:children:each:header> with name attribute' do
-  #   page(:news)
-  #   page.should render(%{<r:children:each><r:header name="year">[<r:date format='%Y' />] </r:header><r:header name="month">(<r:date format="%b" />) </r:header><r:slug /> </r:children:each>}  ).as('[2006] (Jan) a-great-day-for-ruby (Feb) another-great-day-for-ruby later-that-day [2007] (Jan) next-year-in-ruby ')
-  # end
-  # specify '<r:children:each:header> with restart attribute' do
-  #   page(:news)
-  #   assert_renders(
-  #     '[2006] (Jan) a-great-day-for-ruby (Feb) another-great-day-for-ruby later-that-day [2007] (Jan) next-year-in-ruby ',
-  #     %{<r:children:each><r:header name="year" restart="month">[<r:date format='%Y' />] </r:header><r:header name="month">(<r:date format="%b" />) </r:header><r:slug /> </r:children:each>}
-  #   )
-  #   assert_renders(
-  #     '[2006] (Jan) <30> a-great-day-for-ruby (Feb) <05> another-great-day-for-ruby <06> later-that-day [2007] (Jan) <30> next-year-in-ruby ',
-  #     %{<r:children:each><r:header name="year" restart="month;day">[<r:date format='%Y' />] </r:header><r:header name="month" restart="day">(<r:date format="%b" />) </r:header><r:header name="day"><<r:date format='%d' />> </r:header><r:slug /> </r:children:each>}
-  #   )
-  # end
+  specify '<r:children:each:header>' do
+    tags = '<r:children:each><r:header>[<r:date format="%b/%y" />] </r:header><r:slug /> </r:children:each>'
+    expected = "[Dec/00] article [Feb/01] article-2 article-3 [Mar/01] article-4 "
+    page(:news).should render(tags).as(expected)
+  end
+  specify '<r:children:each:header> with "name" attribute' do
+    tags = %{<r:children:each><r:header name="year">[<r:date format='%Y' />] </r:header><r:header name="month">(<r:date format="%b" />) </r:header><r:slug /> </r:children:each>}
+    expected = "[2000] (Dec) article [2001] (Feb) article-2 article-3 (Mar) article-4 "
+    page(:news).should render(tags).as(expected)
+  end
+  specify '<r:children:each:header> with "restart" attribute set to one name' do
+    tags = %{<r:children:each><r:header name="year" restart="month">[<r:date format='%Y' />] </r:header><r:header name="month">(<r:date format="%b" />) </r:header><r:slug /> </r:children:each>}
+    expected = "[2000] (Dec) article [2001] (Feb) article-2 article-3 (Mar) article-4 "
+    page(:news).should render(tags).as(expected)
+  end
+  specify '<r:children:each:header> with "restart" attribute set to two names' do
+    tags = %{<r:children:each><r:header name="year" restart="month;day">[<r:date format='%Y' />] </r:header><r:header name="month" restart="day">(<r:date format="%b" />) </r:header><r:header name="day"><<r:date format='%d' />> </r:header><r:slug /> </r:children:each>}
+    expected = "[2000] (Dec) <01> article [2001] (Feb) <09> article-2 <24> article-3 (Mar) <06> article-4 "
+    page(:news).should render(tags).as(expected)
+  end
   
   specify '<r:children:count>' do
     page(:parent).should render('<r:children:count />').as('3')
@@ -148,32 +149,25 @@ describe "Standard Tags" do
   specify '<r:content> with "part" attribute' do
     page(:home).should render('<r:content part="extended" />').as("Just a test.")
   end
-  # specify '<r:content> with inherit attribute' do
-  #   page.should render('<r:content part="sidebar" />').as('')
-  #   page.should render('<r:content part="sidebar" inherit="false" />').as('')
-  #   page.should render('<r:content part="sidebar" inherit="true" />').as('Radius Test Page sidebar.')
-  #   page.should render('<r:content part="sidebar" inherit="weird value" />').with_error(%{`inherit' attribute of `content' tag must be set to either "true" or "false"})
-  #   page.should render('<r:content part="part_that_doesnt_exist" inherit="true" />').as('')
-  # end
-  # specify '<r:content> with inherit and contextual options' do
-  #   page.should render('<r:content part="sidebar" inherit="true" contextual="true" />').as('Radius Test Page sidebar.')
-  #   page.should render('<r:content part="sidebar" inherit="true" contextual="false" />').as('Ruby Home Page sidebar.')
-  #   page(:inheritance_test_page_grandchild)
-  #   page.should render('<r:content part="body" inherit="true" contextual="true" />').as('Inheritance Test Page Grandchild inherited body.')
-  # end
-  # specify '<r:content> with inherit attribute grandparent' do
-  #   page(:child)
-  #   page.should render('<r:content part="sidebar" />').as('')
-  #   page.should render('<r:content part="sidebar" inherit="true" />').as('Child sidebar.')
-  #   page(:parent)
-  #   page.should render('<r:content part="sidebar" />').as('')
-  #   page.should render('<r:content part="sidebar" inherit="true" />').as('Parent sidebar.')
-  # end
-  # specify '<r:content> with global page propagation' do
-  #   page(:global_child)
-  #   page.should render('<r:content part="titles" inherit="true" contextual="true"/>').as('Global Child Global Child')
-  #   page.should render('<r:content part="titles" inherit="true" contextual="false"/>').as('Global Global Child')
-  # end
+  specify '<r:content> with inherit attribute' do
+    page.should render('<r:content part="sidebar" />').as('')
+    page.should render('<r:content part="sidebar" inherit="false" />').as('')
+    page.should render('<r:content part="sidebar" inherit="true" />').as('Assorted sidebar.')
+    page.should render('<r:content part="sidebar" inherit="weird value" />').with_error(%{`inherit' attribute of `content' tag must be set to either "true" or "false"})
+    page.should render('<r:content part="part_that_doesnt_exist" inherit="true" />').as('')
+  end
+  specify '<r:content> with inherit and contextual attributes' do
+    page(:parent)
+    page.should render('<r:content part="sidebar" inherit="true" contextual="true" />').as('Parent sidebar.')
+    page.should render('<r:content part="sidebar" inherit="true" contextual="false" />').as('Home sidebar.')
+    page(:child).should render('<r:content part="sidebar" inherit="true" contextual="true" />').as('Child sidebar.')
+    page(:grandchild).should render('<r:content part="sidebar" inherit="true" contextual="true" />').as('Grandchild sidebar.')
+  end
+  specify '<r:content> with global page propagation' do
+    page(:first)
+    page.should render('<r:content part="titles" inherit="true" contextual="true"/>').as('First First')
+    page.should render('<r:content part="titles" inherit="true" contextual="false"/>').as('Home First')
+  end
   specify '<r:content /> for children' do
     expected = "Child body. Child 2 body. Child 3 body. "
     page(:parent).should render('<r:children:each><r:content /> </r:children:each>').as(expected)
