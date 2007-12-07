@@ -20,6 +20,12 @@ class ShardsExtension < Radiant::Extension
     admin.page = load_default_page_regions
     admin.snippet = load_default_snippet_regions
     admin.layout = load_default_layout_regions
+    
+    Admin::PageController.class_eval do
+      before_filter :only => :add_part do |c|
+        c.send :instance_variable_set, '@template_name', 'edit'
+      end
+    end
   end
   
   def deactivate
@@ -27,7 +33,7 @@ class ShardsExtension < Radiant::Extension
   
   private
     def load_default_page_regions
-        page = OpenStruct.new
+      returning OpenStruct.new do |page|
         page.edit = Shards::RegionSet.new do |edit|
             edit.main.concat %w{edit_header edit_form edit_popups}
             edit.form.concat %w{edit_title edit_extended_metadata
@@ -41,24 +47,23 @@ class ShardsExtension < Radiant::Extension
           index.node.concat %w{title_column status_column add_child_column remove_column}
         end
         page.remove = page.children = page.index
-        page.add_part = page.edit
-        page
+      end
     end
 
     def load_default_snippet_regions
-      snippet = OpenStruct.new
-      snippet.edit = Shards::RegionSet.new do |edit|
-        edit.main.concat %w{edit_header edit_form}
+      returning OpenStruct.new do |snippet|
+        snippet.edit = Shards::RegionSet.new do |edit|
+          edit.main.concat %w{edit_header edit_form}
+        end
       end
-      snippet
     end
 
     def load_default_layout_regions
-      layout = OpenStruct.new
-      layout.edit = Shards::RegionSet.new do |edit|
-        edit.main.concat %w{edit_header edit_form}
+      returning OpenStruct.new do |layout|
+        layout.edit = Shards::RegionSet.new do |edit|
+          edit.main.concat %w{edit_header edit_form}
+        end
       end
-      layout
     end
 end
 

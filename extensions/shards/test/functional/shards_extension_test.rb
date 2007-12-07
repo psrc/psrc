@@ -30,7 +30,6 @@ class ShardsExtensionTest < Test::Unit::TestCase
                   page.index.node
     assert_same page.index, page.remove
     assert_same page.index, page.children
-    assert_same page.edit, page.add_part
   end
   
   def test_should_create_snippet_region_sets
