@@ -16,13 +16,13 @@ describe SiteController, "routes page requests" do
   it "should find a page one level deep" do
     get :show_page, :url => 'first/'
     response.should be_success
-    response.body.should == 'First'
+    response.body.should == 'First body.'
   end
 
   it "should find a page two levels deep" do
     get :show_page, :url => 'parent/child/'
     response.should be_success
-    response.body.should == 'Child'
+    response.body.should == 'Child body.'
   end
 
   it "should show page not found" do
@@ -32,7 +32,7 @@ describe SiteController, "routes page requests" do
   end
 
   it "should redirect to admin if missing root" do
-    pages(:home).destroy
+    Page.should_receive(:find_by_url).and_raise(Page::MissingRootPageError)
     get :show_page, :url => '/'
     response.should redirect_to(:controller => 'admin/welcome')
   end
@@ -40,7 +40,7 @@ describe SiteController, "routes page requests" do
   it "should parse pages with Radius" do
     get :show_page, :url => 'radius'
     response.should be_success
-    response.body.should == 'Radius'
+    response.body.should == 'Radius body.'
   end
   
   it "should redirect to 404 if page is not published status" do

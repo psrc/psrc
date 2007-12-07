@@ -127,7 +127,7 @@ describe Page do
   
   it 'should have parts' do
     @page.parts.count.should == 1
-    pages(:home).parts.count.should == 2
+    pages(:home).parts.count.should == 4
   end
   
   it 'should destroy dependant parts' do
@@ -321,7 +321,7 @@ describe Page, "rendering" do
   end
   
   it 'should render with tags' do
-    pages(:radius).render.should == "Radius"
+    pages(:radius).render.should == "Radius body."
   end
   
   it 'should render with a layout' do
@@ -347,7 +347,7 @@ describe Page, "rendering" do
   
   it 'should render custom pages with tags' do
     create_page "Test Page", :body => "<r:test1 /> <r:test2 />", :class_name => "PageSpecTestPage"
-    assert_page_renders :test_page, 'Hello world! Another test.'
+    pages(:test_page).should render_as('Hello world! Another test. body.')
   end
 end
 
