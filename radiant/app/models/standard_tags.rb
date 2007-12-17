@@ -101,7 +101,7 @@ module StandardTags
   
   desc %{
     Page attribute tags inside of this tag refer to the current child. This is occasionally
-    useful if you are inside of another tag (like <r:find>) and need to refer back to the
+    useful if you are inside of another tag (like &lt;r:find&gt;) and need to refer back to the
     current child.
     
     *Usage:*
