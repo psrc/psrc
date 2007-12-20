@@ -4,8 +4,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe ApplicationController do
   scenario :users
   
-  before :each do
-    @user = users(:admin)    
+  before :all do
+    # @user = users(:admin)    
     @controller = ApplicationController.new
   end
   
@@ -17,7 +17,7 @@ describe ApplicationController do
     @controller.config.should == Radiant::Config
   end
   
-  it 'should capture current user'
+  # it 'should capture current user'
 
 end
 
