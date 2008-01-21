@@ -36,7 +36,10 @@ events for all calendars with a category of "master" by navigating to http://you
 * For add'l documentation please refer to the Radiant tag reference for the <r:calendar /> tag series.
   
 
+
 AN EXAMPLE EVENT-CALENDAR IMPLEMENTATION
+** The EventCalendar tag library has been refactored (they make more sense now) and a couple of the tags in this example are no longer valid. 
+** I'll update the example shortly but until then please refer to the tag documentation under "Available Tags" when creating/editing a page in Radiant.
 
 <r:calendar>
   <table>
