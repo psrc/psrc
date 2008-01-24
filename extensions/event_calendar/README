@@ -1,55 +1,52 @@
-= Event Calendar (iCal) Extension for Radiant
+= Event Calendar (iCal) Extension for Radiant =
 
 Created by: Loren Johnson - www.hellovenado.com
    Version: 0.6
    Contact: loren@hellovenado.com
 
 
-INSTALLATION 
+== INSTALLATION == 
+* Req'd Radiant Version: 0.6.4+ (not tested with earlier versions, may work with all 0.6+)
 
 1. Checkout extension to the vendor/extensions directory of your Radiant app using svn (you may have already done this): 
 
   svn co http://svn.fn-group.com/radiant_extensions/event_calendar
 
-2. Install VPIM iCal/vCal parsing gem: gem install vpim
+2. Install the VPIM iCal/vCal parsing gem: gem install vpim
 
-3. Copy extension public assets to Radiant public directory. Currently this will create the default public/icals directory which is required
+3. Migrate extensions: rake db:migrate:extensions
+
+4. Copy extension public assets to Radiant public directory. Currently this will create the default public/icals directory which is required
 as a home for the cached ical subscription files, this is configurable via Radiant::Config["event_calendar.icals_path"]:
 
   rake radiant:extensions:event_calendar:update
 
-4. Migrate extensions: rake db:migrate:extensions
-
-5. From Admin navigate to your new "Event Calendars" tab and click "Add a Calendar", enter your iCal subscription URL at this point and press Save.
+5. From Admin navigate to your new "Event Calendars" tab and click "Add a Calendar", enter your iCal subscription URL and name for the calendar and press Save.
 
 6. You can now manually refresh the calendar from the subscription once you've saved it by clicking on the Refresh link. 
-You may wish to setup a cron job to do this for you automatically: script/runner -e production "Calendar::refresh_all"
 
 
-NOTES
+== AN EXAMPLE EVENT-CALENDAR IMPLEMENTATION ==
 
-* The handling of all paths below the node where the Event Calendar Page type gets applied are overridden to capture the calendar "category" and "slug". 
-So, if you create a page under Root > Calendar and apply the EventCalendar page type to it, then through admin create a calendar with the category of 
-"master" and a name of "youth" you'll be able to access your calendar at http://yoursite.com/calendar/master/youth. Also, you'll also be able to see 
-events for all calendars with a category of "master" by navigating to http://yoursite.com/calendar/master/all. 
+1. Create a new Calendar under the EventCalendar tab in admin entering at minimum a Name and iCal URL
 
-* For add'l documentation please refer to the Radiant tag reference for the <r:calendar /> tag series.
-  
+2. Click on the "Refresh" link for the calendar after it's been successfuly created to download all the events from the iCal subscription
 
+3. Create a new page and select EventCalendar as the Page Type
 
-AN EXAMPLE EVENT-CALENDAR IMPLEMENTATION
-** The EventCalendar tag library has been refactored (they make more sense now) and a couple of the tags in this example are no longer valid. 
-** I'll update the example shortly but until then please refer to the tag documentation under "Available Tags" when creating/editing a page in Radiant.
+4. Paste the following code in the body page part then save the page
 
 <r:calendar>
   <table>
     <tr>
       <td>
         <ul>
-          <li><r:calendar:nav:week_link class="navLink" /></li> 
-          <li><r:calendar:nav:month_link class="navLink" /></li>
-          <li><r:calendar:nav:year_link class="navLink" /></li>
-         </ul>
+          <r:nav>
+            <li><r:week_link class="navLink" /></li> 
+            <li><r:month_link class="navLink" /></li>
+            <li><r:year_link class="navLink" /></li>
+          </r:nav>
+       </ul>
       </td>
     </tr>
     <tr>
@@ -77,7 +74,7 @@ AN EXAMPLE EVENT-CALENDAR IMPLEMENTATION
           </td>
           <td>
            <div id="detail<r:id />" class="detail">
-             <r:timeperiod format="%I:%M %p" /><br />
+             <r:daterange format="%I:%M %p" /><br />
              <r:location /><br />
              <r:description />
            </div>
@@ -89,9 +86,26 @@ AN EXAMPLE EVENT-CALENDAR IMPLEMENTATION
   </div>     
 </r:calendar>
 
+5. Navigate to the newly created page within the public site 
+           
+
+== NOTES ==
+
+* The handling of all paths below the node an EventCalendar Page are overridden to capture the calendar "category" and "slug". 
+So, if you create a page under Home > Calendar and apply the EventCalendar page type to it, and through admin create a calendar with the category of 
+"master" and a name of "youth" you'll be able to access your calendar at http://yoursite.com/calendar/master/youth. Also, you'll also be able to see 
+events for all calendars with a category of "master" by navigating to http://yoursite.com/calendar/master/all. 
+
+* For add'l documentation please refer to the Radiant tag reference (the "Available tags" link within Page edit) for the <r:calendar /> tag series, 
+you'll only see the Calendar tag documentation available when editing a page that has already been saved as the EventCalendar Page Type.
+
+* Please refer to the tag documentation under "Available Tags" when editing a page in Radiant (page must be already created and of EventCalendar type).
+
+* If you wish to setup a Cron job to automatically keep you Radiant calendar in-sync with the iCal feed have Cron run the following from within the root 
+of your Radiant application: script/runner -e production "Calendar::refresh_all"
 
 
-ROADMAP
+== DEVELOPMENT ROADMAP ==
 
 * Single page view for each Event, possibly adding ability to associate an Event with a particular Radiant page also.
 * Manual event entry screens. Allow manual events to be mixed in with events from subscriptions.

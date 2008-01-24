@@ -198,7 +198,7 @@ module EventCalendarTags
            
            Usage:
            <pre><code>
-           <r:calendar:event:each:timeperiod format="" separator="" />
+           <r:calendar:event:each:daterange format="" separator="" />
            </code></pre>}
    tag "calendar:event:each:daterange" do |tag|
      if tag.locals.event.start_date.strftime("%x") == tag.locals.event.end_date.strftime("%x") then
