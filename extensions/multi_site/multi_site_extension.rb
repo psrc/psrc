@@ -30,9 +30,11 @@ class MultiSiteExtension < Radiant::Extension
     Radiant::Config["dev.host"] = 'preview'
     # Add site navigation
     admin.page.index.add :top, "site_subnav"
+    admin.tabs.add "Sites", "/admin/sites", :visibility => [:admin]
   end
   
   def deactivate
+    admin.tabs.remove "Sites"
   end
   
 end

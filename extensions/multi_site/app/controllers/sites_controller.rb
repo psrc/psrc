@@ -4,6 +4,11 @@ class SitesController < ApplicationController
   write_inheritable_attribute :resourceful_responses, {}
   write_inheritable_attribute :parents,               []
   
+  only_allow_access_to :index, :new, :create, :edit, :update, :destroy, 
+                       :move_higher, :move_lower, :move_to_top, :move_to_bottom,
+                       :when => [:admin], :denied_url => { :controller => 'page', :action => 'index' },
+                       :denied_message => 'You must have admin privileges to perform this action.'
+  
   make_resourceful do
     actions :index, :new, :create, :edit, :update, :destroy
     
