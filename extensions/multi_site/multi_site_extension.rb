@@ -8,15 +8,13 @@ class MultiSiteExtension < Radiant::Extension
   url "http://dev.radiantcms.org/svn/radiant/trunk/extensions/multi_site"
   
   define_routes do |map|
-    map.with_options :conditions => { :site => "Consumer" } do |c|
-      c.resources :sites, :path_prefix => "/admin", 
+      map.resources :sites, :path_prefix => "/admin", 
                   :member => {
                     :move_higher => :post,
                     :move_lower => :post,
                     :move_to_top => :put,
                     :move_to_bottom => :put
                   }
-    end
   end
   
   def activate
