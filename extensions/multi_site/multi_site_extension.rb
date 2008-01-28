@@ -5,7 +5,7 @@ class MultiSiteExtension < Radiant::Extension
   description %{ Enables virtual sites to be created with associated domain names.
                  Also scopes the sitemap view to any given page (or the root of an
                  individual site). }
-  url "http://code.digitalpulp.com"
+  url "http://dev.radiantcms.org/svn/radiant/trunk/extensions/multi_site"
   
   define_routes do |map|
     map.with_options :conditions => { :site => "Consumer" } do |c|
