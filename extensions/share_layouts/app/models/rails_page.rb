@@ -23,7 +23,7 @@ class RailsPage < Page
   def build_parts_from_hash!(content)
     parts.clear
     content.each do |k,v|
-      parts << PagePart.new(:name => k.to_s, :content => v)
+      parts.build(:name => k.to_s, :content => v)
     end
   end 
   

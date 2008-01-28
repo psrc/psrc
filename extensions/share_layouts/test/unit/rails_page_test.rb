@@ -32,6 +32,8 @@ class RailsPageTest < Test::Unit::TestCase
     hash = {:body => "body", :sidebar => "sidebar"}
     @page.build_parts_from_hash!(hash)
     assert_equal hash.keys.size, @page.parts.size
+    # Make sure we don't save them to the DB
+    assert @page.parts.all?(&:new_record?)
   end
   
   def test_should_find_rails_page_for_all_sub_urls
