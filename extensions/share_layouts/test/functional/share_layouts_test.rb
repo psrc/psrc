@@ -103,7 +103,6 @@ class ShareLayoutsTest < Test::Unit::TestCase
   def test_normal_erb_with_different_erb_layout
     get :normal_erb_with_different_erb_layout
     assert_response :success
-    assert_match "Radiant CMS", @response.body
     assert_match "#{@erb_content}", @response.body
   end
 

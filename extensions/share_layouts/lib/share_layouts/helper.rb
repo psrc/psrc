@@ -1,9 +1,8 @@
 module ShareLayouts::Helper
-  class TransactionBreak < StandardError; end
   
   def radiant_layout(name = @radiant_layout)
     returning String.new do |output|
-      page = ShareLayouts::RailsPage.new(:class_name => "ShareLayouts::RailsPage")
+      page = find_page
       assign_attributes!(page, name)
       page.build_parts_from_hash!(extract_captures) 
       output << page.render
@@ -12,8 +11,8 @@ module ShareLayouts::Helper
   
   def assign_attributes!(page, name = @radiant_layout)
     page._layout = Layout.find_by_name(name)
-    page.title = @title || @content_for_title || ''
-    page.breadcrumbs = @breadcrumbs || @content_for_breadcrumbs || ''
+    page.title = @title || @content_for_title || page.title || ''
+    page.breadcrumbs = @breadcrumbs || @content_for_breadcrumbs || page.breadcrumbs || ''
     page.request_uri = request.request_uri
     page.request = request
     page.response = response
@@ -30,5 +29,10 @@ module ShareLayouts::Helper
       end
       h
     end
+  end
+  
+  def find_page
+    page = Page.find_by_url(request.request_uri) rescue nil
+    page.is_a?(RailsPage) ? page : RailsPage.new(:class_name => "RailsPage")
   end
 end

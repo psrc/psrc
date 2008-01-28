@@ -3,8 +3,9 @@ require 'ostruct'
 
 class RailsPageTest < Test::Unit::TestCase
   test_helper :render, :page
+  fixtures :pages
   def setup
-    @page = ShareLayouts::RailsPage.new(page_params(:class_name => "ShareLayouts::RailsPage", :request_uri => "http://example.com/some/page"))
+    @page = RailsPage.new(page_params(:class_name => "RailsPage", :request_uri => "http://example.com/some/page"))
   end
   
   def test_should_assign_url_and_slug_from_request_uri
@@ -31,5 +32,16 @@ class RailsPageTest < Test::Unit::TestCase
     hash = {:body => "body", :sidebar => "sidebar"}
     @page.build_parts_from_hash!(hash)
     assert_equal hash.keys.size, @page.parts.size
+  end
+  
+  def test_should_find_rails_page_for_all_sub_urls
+    assert_equal pages(:rails_page), Page.find_by_url('/app/')
+    assert_equal pages(:other), Page.find_by_url('/other/')
+    assert_equal pages(:rails_page), Page.find_by_url('/app/some-other-url/')
+    assert_equal pages(:rails_page), Page.find_by_url('/app/some-other-url/sub-url/')
+  end
+  
+  def test_should_defer_to_default_url_when_not_initialized
+    assert_equal '/app/', pages(:rails_page).url
   end
 end
