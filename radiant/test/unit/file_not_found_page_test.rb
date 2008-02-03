@@ -1,0 +1,31 @@
+require File.dirname(__FILE__) + '/../test_helper'
+
+class FileNotFoundPageTest < Test::Unit::TestCase
+  fixtures :pages
+  test_helper :pages, :render
+  
+  def setup
+    @page = pages(:file_not_found)
+  end
+  
+  def test_url
+    assert_renders '/gallery/asdf?param=4', '<r:attempted_url />', '/gallery/asdf?param=4'
+  end
+
+  def test_url__malicious_url
+    assert_renders '/gallery/&lt;script&gt;alert(&quot;evil&quot;)&lt;/script&gt;', '<r:attempted_url />', '/gallery/<script>alert("evil")</script>'
+  end
+  
+  def test_virtual
+    assert_equal true, @page.virtual?
+  end
+  
+  def test_cache
+    assert_equal false, @page.cache?
+  end
+  
+  def test_headers
+    assert_headers({'Status' => '404 Not Found'}, '/gallery/asdf')
+  end
+  
+end

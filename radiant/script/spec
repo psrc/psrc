@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+ENV['RAILS_ENV'] = 'test'
+require File.dirname(__FILE__) + "/../config/environment"
+# $LOAD_PATH.unshift(File.expand_path("#{RADIANT_ROOT}/vendor/plugins/rspec/lib"))
+require 'spec'
+exit ::Spec::Runner::CommandLine.run(::Spec::Runner::OptionParser.parse(ARGV, STDERR, STDOUT))
