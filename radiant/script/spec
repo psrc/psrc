@@ -1,6 +1,0 @@
-#!/usr/bin/env ruby
-ENV['RAILS_ENV'] = 'test'
-require File.dirname(__FILE__) + '/../config/boot'
-require "#{RAILS_ROOT}/config/environment"
-require 'spec'
-exit ::Spec::Runner::CommandLine.run(::Spec::Runner::OptionParser.parse(ARGV, STDERR, STDOUT))
