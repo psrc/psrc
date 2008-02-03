@@ -1,12 +1,8 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe SiteController, "routes page requests" do
-  # integrate_views
   scenario :pages
 
-  before :each do
-  end
-  
   it "should find and render home page" do
     get :show_page, :url => ''
     response.should be_success
@@ -36,55 +32,73 @@ describe SiteController, "routes page requests" do
     get :show_page, :url => '/'
     response.should redirect_to(welcome_url)
   end
-  
+
   it "should parse pages with Radius" do
     get :show_page, :url => 'radius'
     response.should be_success
     response.body.should == 'Radius body.'
   end
-  
-  it "should redirect to 404 if page is not published status" do
+
+  it "should render 404 if page is not published status" do
     ['draft', 'hidden'].each do |url|
       get :show_page, :url => url
       response.should be_missing
       response.should render_template('site/not_found')
-    end    
-    # # validates the custom 404 page is rendered
-    # get :show_page, :url => "/gallery/gallery_draft/"
-    # response.should be_missing
-    # response.should_not render_template('site/not_found')
+    end
   end
 
-  it "should display draft and hidden pages on dev site" 
-  # do
-  #   @request.host = 'dev.site.com'
-  #   ['draft', 'hidden'].each do |url|
-  #     get :show_page, :url => url
-  #     assert_response :success, "url: #{url}"
-  #   end
-  # end
-  # 
-  it "should be on dev site in config" 
-  # do
-  #   @controller.config = { 'dev.host' => 'mysite.com'  }
-  #   
-  #   @request.host = 'mysite.com'
-  #   ['draft', 'hidden'].each do |url|
-  #     get :show_page, :url => url
-  #     assert_response :success, "url: #{url}"
-  #   end
-  #   
-  #   @request.host = 'dev.site.com' # should function like live site because of config
-  #   ['draft', 'hidden'].each do |url|
-  #     get :show_page, :url => url
-  #     assert_response :missing, "url: #{url}"
-  #   end
-  # end
-  # 
-  it "should not have no cache header"
-  # do
-  #   get :show_page, :url => '/'
-  #   assert_equal false, @response.headers.keys.include?('Cache-Control')
-  # end
+  it "should display draft and hidden pages on default dev site" do
+    request.host = "dev.site.com"
+    ['draft', 'hidden'].each do |url|
+      get :show_page, :url => url
+      response.should be_success
+    end
+  end
+
+  it "should display draft and hidden pages on dev site in config" do
+    controller.config = { 'dev.host' => 'mysite.com' }
+    request.host = 'mysite.com'
+    ['draft', 'hidden'].each do |url|
+      get :show_page, :url => url
+      response.should be_success
+    end
+  end
+
+  it "should not display draft and hidden pages on default dev site when dev.host specified" do
+    controller.config = { 'dev.host' => 'mysite.com' }
+    request.host = 'dev.mysite.com'
+    ['draft', 'hidden'].each do |url|
+      get :show_page, :url => url
+      response.should be_missing
+    end
+  end
+
+  it "should not have cache control header" do
+    get :show_page, :url => '/'
+    response.headers.keys.should_not include("Cache-Control")
+  end
   
+  it "should not require login" do
+    lambda { get :show_page, :url => '/' }.should_not require_login
+  end
+end
+
+describe SiteController, "when custom 404 pages are defined" do
+  scenario :file_not_found
+  
+  it "should use the top-most 404 page by default" do
+    get :show_page, :url => "/foo"
+    response.should be_missing
+    assigns[:page].should == pages(:file_not_found)
+    
+    get :show_page, :url => "/foo/bar"
+    response.should be_missing
+    assigns[:page].should == pages(:file_not_found)
+  end
+  
+  it "should use a custom 404 page defined under a parent page" do
+    get :show_page, :url => "/gallery/draft"
+    response.should be_missing
+    assigns[:page].should == pages(:no_picture)
+  end
 end
