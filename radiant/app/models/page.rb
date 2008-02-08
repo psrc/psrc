@@ -145,9 +145,9 @@ class Page < ActiveRecord::Base
         return found if found
       end
       file_not_found_types = [FileNotFoundPage] + FileNotFoundPage.descendants
-      condition = (['class_name = ?']*file_not_found_types.length).join(' or ')
-      file_not_found_names = file_not_found_types.map {|x| x.name}.uniq
-      children.find(:first, :conditions => [condition]+file_not_found_names)
+      condition = (['class_name = ?'] * file_not_found_types.length).join(' or ')
+      file_not_found_names = file_not_found_types.map { |x| x.name }.uniq
+      children.find(:first, :conditions => [condition] + file_not_found_names)
     end
   end
   
