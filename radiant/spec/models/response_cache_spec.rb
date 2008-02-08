@@ -41,7 +41,6 @@ describe ResponseCache do
     @cache.directory.should == "#{RAILS_ROOT}/cache"
     @cache.expire_time.should == 5.minutes
     @cache.default_extension.should == '.yml'
-    @cache.perform_caching.should == true
     @cache.logger.should be_kind_of(ActiveSupport::BufferedLogger)
   end
   
@@ -125,20 +124,26 @@ describe ResponseCache do
     Dir["#{@dir}/*"].size.should == 0
   end
   
-  it 'response cached' do
+  it 'response_cached?' do
     @cache.response_cached?('test').should == false
     result = @cache.cache_response('test', response('content'))
     @cache.response_cached?('test').should == true
   end
   
-  it 'response cached timed out' do
+  it 'response_cached? should not answer true when response is cached but preform_caching option is false' do
+    @cache.cache_response('test', response('content'))
+    @cache.perform_caching = false
+    @cache.response_cached?('test').should == false
+  end
+  
+  it 'response_cached? with timeout' do
     @cache.expire_time = 1
     result = @cache.cache_response('test', response('content'))
     sleep 1.5
     @cache.response_cached?('test').should == false
   end
   
-  it 'response cached timed out with response setting' do
+  it 'response_cached? timeout with response setting' do
     @cache.expire_time = 1
     response = response('content')
     response.cache_timeout = 3.seconds
@@ -149,7 +154,7 @@ describe ResponseCache do
     @cache.response_cached?('test').should == false
   end
   
-  it 'send using x sendfile' do
+  it 'send using x_sendfile header' do
     @cache.use_x_sendfile = true
     result = @cache.cache_response('test', response('content', 'Content-Type' => 'text/plain'))
     cached = @cache.update_response('test', response, ActionController::TestRequest)
@@ -209,7 +214,7 @@ describe ResponseCache do
     File.exist?("#{RAILS_ROOT}/test/badcache/cache_cant_write_outside_dir.yml").should == false
   end
   
-  it 'cache cant read outside dir' do
+  it 'cache cannot read outside dir' do
     FileUtils.makedirs(@baddir)
     @cache.cache_response('/test_me', response('content'))
     File.rename "#{@dir}/test_me.yml", "#{@baddir}/test_me.yml"
@@ -217,7 +222,7 @@ describe ResponseCache do
     @cache.response_cached?('/../badcache/test_me').should == false
   end
   
-  it 'cache cant expire outside dir' do
+  it 'cache cannot expire outside dir' do
     FileUtils.makedirs(@baddir)
     @cache.cache_response('/test_me', response('content'))
     File.rename "#{@dir}/test_me.yml", "#{@baddir}/test_me.yml"
@@ -227,9 +232,9 @@ describe ResponseCache do
     File.exist?("#{@baddir}/test_me.data").should == true
   end  
 
-  def test_cache_file_gets_renamed_to_index 
+  it 'should store indexes correctly' do
     @cache.cache_response('/', response('content')) 
-    @cache.response_cached?('_site-root') .should == true
+    @cache.response_cached?('_site-root').should == true
     @cache.response_cached?('/') .should == true
     File.exist?("#{@dir}/../cache.yml").should == false
     File.exist?("#{@dir}/../cache.data").should == false
@@ -237,7 +242,7 @@ describe ResponseCache do
 
   # Class Methods
   
-  it 'instance' do
+  it 'should give access to a global instance' do
     ResponseCache.instance.should equal(ResponseCache.instance)
   end
   

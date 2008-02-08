@@ -55,7 +55,7 @@ class ResponseCache
     response
   end
   
-  # Returns true if a response is cached at the specified path.
+  # Returns metadata for path.
   def read_metadata(path)
     path = clean(path)
     name = "#{page_cache_path(path)}.yml"
@@ -68,8 +68,9 @@ class ResponseCache
     nil
   end
   
+  # Returns true if a response is cached at the specified path.
   def response_cached?(path)
-    !!read_metadata(path)
+    perform_caching && !!read_metadata(path)
   end
     
   # Expires the cached response for the specified path.

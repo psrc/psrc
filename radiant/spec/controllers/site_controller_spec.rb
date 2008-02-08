@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe SiteController, "routes page requests" do
   scenario :pages
-
+  
   it "should find and render home page" do
     get :show_page, :url => ''
     response.should be_success
