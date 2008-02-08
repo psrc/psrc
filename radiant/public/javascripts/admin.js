@@ -25,7 +25,43 @@ document.observe('dom:loaded', function() {
 
     tabControl.autoSelect();
   });
+
+  when('tag-reference-popup', function(popup) {
+    var tags, searchingOn = "";
+    
+    new Form.Element.Observer('search-tag-reference', 0.5, function(element, value) {
+      if (!tags) tags = popup.select('.tag-description')
+      
+      if (value.length < 3 && searchingOn != "") {
+        searchingOn = "";
+        tags.invoke('show');
+      } else if (value.length >= 3 && searchingOn != value) {
+        searchingOn = value
+        tags.each(function(div) {
+          div[div.hasWord(value) ? 'show' : 'hide']();
+        });
+      }
+    });
+
+    popup.down('p a.close').observe('click', function(e) {
+      e.findElement('.popup').hide();
+      e.stop();
+    });
+  });
 });
+
+Element.addMethods({
+  hasWord: function(element, word) {
+    element = $(element);
+    if (element.nodeType == Node.TEXT_NODE) {
+      return element.nodeValue.include(word);
+    } else {
+      return $A(element.childNodes).any(function(child) { 
+        return Element.hasWord(child, word); 
+      });
+    }
+  }
+})
 
 // When object is available, do function fn.
 function when(obj, fn) {

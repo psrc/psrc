@@ -47,7 +47,6 @@
       }
 <% end %>
 
-<% include_javascript "tag_reference_search" %>
 <% if @page.new_record? -%>
 <h1 id="new_page">New Page</h1>
 <% else -%>
@@ -127,10 +126,9 @@
   </div>
   <div class="popup" id="tag-reference-popup" style="display:none;">
     <div style="float:right">Search Tags: <input type="text" id="search-tag-reference" /></div>
-    <%= javascript_tag "new Form.Element.Observer('search-tag-reference', 0.5, observeTagSearch);" %>
     <h3>Available Tags for <span id="page-type"><%= @page.class.display_name %></span></h3>
     <div id="tag-reference"><%= tag_reference(@page.class.name) %></div>
-    <p><%= link_to_function 'Close', "Element.hide('tag-reference-popup')", :class => 'close-link' %></p>
+    <p><%= link_to 'Close', '#', :class => 'close' %></p>
   </div>
   <div class="popup" id="filter-reference-popup" style="display:none;">
     <h3><span id="filter-type"><%= default_filter_name %></span> Reference</h3>
