@@ -24,7 +24,7 @@ end
 namespace :test do
   desc "Runs tests on all available Radiant extensions, pass EXT=extension_name to test a single extension"
   task :extensions => "db:test:prepare" do
-    extension_roots = Radiant::ExtensionLoader.instance.extension_roots
+    extension_roots = Radiant::Extension.descendants.map(&:root)
     if ENV["EXT"]
       extension_roots = extension_roots.select {|x| /\/(\d+_)?#{ENV["EXT"]}$/ === x }
       if extension_roots.empty?
