@@ -28,11 +28,12 @@ class UsersScenario < Scenario::Base
       password = attributes[:password] || "password"
       user_attributes(attributes).update(:password => password, :password_confirmation => password)
     end
+    
     def login_as(user)
-      logged_in_user = user.is_a?(User) ? user : users(user)
-      flunk "Can't login as non-existing user #{user.to_s}." unless logged_in_user
-      request ||= ActionController::TestRequest.new
-      request.session['user_id'] = logged_in_user.id
+      login_user = user.is_a?(User) ? user : users(user)
+      flunk "Can't login as non-existing user #{user.to_s}." unless login_user
+      request.session['user_id'] = login_user.id
+      login_user
     end
   end
 end
