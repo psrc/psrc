@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + "/../../spec_helper"
 describe Radiant::ExtensionLoader do
 
   before :each do
+    $LOAD_PATH.stub!(:unshift)
     @observer = mock("observer")
     @configuration = mock("configuration")
     @initializer = mock("initializer")
@@ -65,9 +66,9 @@ describe Radiant::ExtensionLoader do
   
   it "should have load paths" do
     @instance.stub!(:load_extension_roots).and_return(@extension_paths)
-    @instance.should respond_to(:load_paths)
-    @instance.load_paths.should be_instance_of(Array)
-    @instance.load_paths.all? {|f| File.directory?(f) }.should be_true
+    @instance.should respond_to(:extension_load_paths)
+    @instance.extension_load_paths.should be_instance_of(Array)
+    @instance.extension_load_paths.all? {|f| File.directory?(f) }.should be_true
   end
   
   it "should have plugin paths" do
@@ -77,14 +78,19 @@ describe Radiant::ExtensionLoader do
     @instance.plugin_paths.all? {|f| File.directory?(f) }.should be_true
   end
   
-  it "should add load and plugin paths to the configuration" do
-    load_paths, plugin_paths = [], []
-    @instance.should_receive(:load_paths).and_return(@extension_paths)
-    @instance.should_receive(:plugin_paths).and_return([@extension_paths.first + "/vendor/plugins"])
+  it "should add extension paths to the configuration" do
+    load_paths = []
+    @instance.should_receive(:extension_load_paths).and_return(@extension_paths)
     @configuration.should_receive(:load_paths).at_least(:once).and_return(load_paths)
-    @configuration.should_receive(:plugin_paths).and_return(plugin_paths)
-    @instance.add_load_and_plugin_paths
+    @instance.add_extension_paths
     load_paths.should == @extension_paths
+  end
+  
+  it "should add plugin paths to the configuration" do
+    plugin_paths = []
+    @instance.should_receive(:plugin_paths).and_return([@extension_paths.first + "/vendor/plugins"])
+    @configuration.should_receive(:plugin_paths).and_return(plugin_paths)
+    @instance.add_plugin_paths
     plugin_paths.should == [@extension_paths.first + "/vendor/plugins"]
   end
   
@@ -110,7 +116,7 @@ describe Radiant::ExtensionLoader do
   
   it "should load and initialize extensions when discovering" do
     @instance.should_receive(:load_extension_roots).and_return(@extension_paths)
-    @instance.discover_extensions
+    @instance.load_extensions
     @extensions.each do |ext|
       ext_class = Object.const_get(ext.gsub(/^\d+_/, '').camelize + "Extension")
       ext_class.should_not be_nil
@@ -156,8 +162,8 @@ describe Radiant::ExtensionLoader::DependenciesObserver do
     @observer.before_clear
   end
   
-  it "should discover and activate extensions after clear" do
-    Radiant::ExtensionLoader.should_receive(:discover_extensions)
+  it "should load and activate extensions after clear" do
+    Radiant::ExtensionLoader.should_receive(:load_extensions)
     Radiant::ExtensionLoader.should_receive(:activate_extensions)
     @observer.after_clear
   end

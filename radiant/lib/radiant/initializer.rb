@@ -88,14 +88,20 @@ module Radiant
       super
     end
 
-    def set_load_path
-      extension_loader.add_load_and_plugin_paths
+    def set_autoload_paths
+      extension_loader.add_extension_paths
+      super
+    end
+
+    def add_plugin_load_paths
+      # checks for plugins within extensions:
+      extension_loader.add_plugin_paths
       super
     end
 
     def load_plugins
       super
-      extension_loader.discover_extensions
+      extension_loader.load_extensions
     end
 
     def after_initialize

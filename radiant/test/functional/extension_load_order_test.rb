@@ -6,11 +6,12 @@ class ExtensionLoaderTest < Test::Unit::TestCase
     Dependencies.mechanism = :load
     @config = Radiant::Configuration.new
     @config.extension_paths = [ "#{TEST_ROOT}/fixtures/extensions" ]
-    #can't use real initializer as that screws with load paths
-    @initializer= OpenStruct.new
+    @initializer = OpenStruct.new
     @initializer.configuration = @config
 
     @instance = Radiant::ExtensionLoader.instance {|l| l.initializer = @initializer }
+    @instance.instance_variable_set '@all_extension_roots', nil
+    @instance.instance_variable_set '@load_extension_roots', nil
   end
 
   def teardown
@@ -18,8 +19,13 @@ class ExtensionLoaderTest < Test::Unit::TestCase
   end
 
   def test_load_all_alphabetically_if_none_specified
-    @config.extensions = nil
+    @config.extensions = [:all]
     assert_extension_load_order %w{basic overriding load_order_blue load_order_green load_order_red}
+  end
+
+  def test_load_none_if_none_specified
+    @config.extensions = []
+    assert_extension_load_order []
   end
 
   def test_only_specified_extensions_loaded
@@ -40,6 +46,13 @@ class ExtensionLoaderTest < Test::Unit::TestCase
   def test_specified_extension_load_order_with_all_in_middle
     @config.extensions = [:load_order_green, :all, :basic]
     assert_extension_load_order %w{load_order_green overriding load_order_blue load_order_red basic}
+  end
+
+  def test_error_when_config_extensions_is_not_array
+    @config.extensions = nil
+    assert_raise NoMethodError do
+      @instance.extension_load_paths
+    end
   end
 
   private

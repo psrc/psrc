@@ -48,13 +48,14 @@ describe Radiant::Initializer do
     @initializer.send(:extension_loader).should == @loader
   end
 
-  it "should add extension paths before setting the load path" do
-    @loader.should_receive(:add_load_and_plugin_paths)
+  it "should not add extension paths before set_load_path" do
+    @loader.should_receive(:add_plugin_paths).never
+    @loader.should_receive(:add_extension_paths).never
     @initializer.set_load_path
   end
   
   it "should load and initialize extensions after plugins are loaded" do
-    @loader.should_receive(:discover_extensions)
+    @loader.should_receive(:load_extensions)
     @initializer.load_plugins
   end
   
