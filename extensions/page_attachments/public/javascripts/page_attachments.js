@@ -10,7 +10,7 @@ document.observe("dom:loaded", function() {
       if (target.match('img[alt=Add]')) {
         container.insert(upload)
       }
-      else if (target.match('a.cancel')) {
+      else if (target.match('img[alt=cancel]')) {
         e.findElement('.attachment-upload').remove()
         e.stop()
       }
