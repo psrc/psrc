@@ -94,6 +94,15 @@ describe Radiant::ExtensionLoader do
     plugin_paths.should == [@extension_paths.first + "/vendor/plugins"]
   end
   
+  it "should add plugin paths in the same order as the extension load order" do
+    plugin_paths = []
+    ext_plugin_paths = @extension_paths[0..1].map {|e| e + "/vendor/plugins" }
+    @instance.should_receive(:load_extension_roots).and_return(@extension_paths)
+    @configuration.should_receive(:plugin_paths).and_return(plugin_paths)
+    @instance.add_plugin_paths
+    plugin_paths.should == ext_plugin_paths
+  end
+  
   it "should have controller paths" do
     @instance.should respond_to(:controller_paths)
     @instance.controller_paths.should be_instance_of(Array)
