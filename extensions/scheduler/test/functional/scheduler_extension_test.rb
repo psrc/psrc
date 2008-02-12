@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SchedulerExtensionTest < Test::Unit::TestCase
   fixtures :pages
+  test_helper :render, :page
   
   def test_initialization
     assert_equal File.join(File.expand_path(RAILS_ROOT), 'vendor', 'extensions', 'scheduler'), SchedulerExtension.root
@@ -36,5 +37,10 @@ class SchedulerExtensionTest < Test::Unit::TestCase
       assert !pages(page).expired?
       assert !pages(page).visible?
     end
+  end
+  
+  def test_r_children_scoping
+    @page = pages(:homepage)
+    assert_renders "All blank Unexpired Unexpired with blank start ", '<r:children:each><r:title /> </r:children:each>'
   end
 end
