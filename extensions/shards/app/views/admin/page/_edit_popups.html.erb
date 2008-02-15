@@ -1,6 +1,4 @@
-<% include_javascript "tag_reference_search" %> 
-
-<% content_for :popups do %>
+<% content_for :popups do -%>
   <div class="popup" id="add-part-popup" style="display: none">
     <div id="busy" class="busy" style="display: none"><%= image 'spinner.gif' %></div>
     <h3>Add Part</h3>
@@ -21,16 +19,15 @@
     <% end %>
   </div>
   <div class="popup" id="tag-reference-popup" style="display:none;">
-    <div style="float:right">Search Tags: <input type="text" id="search-tag-reference"></div>
-    <%= javascript_tag "new Form.Element.Observer('search-tag-reference', 0.5, observeTagSearch);" %>
+    <div style="float:right">Search Tags: <input type="text" id="search-tag-reference" /></div>
     <h3>Available Tags for <span id="page-type"><%= @page.class.display_name %></span></h3>
     <div id="tag-reference"><%= tag_reference(@page.class.name) %></div>
-    <p><%= link_to_function 'Close', "$(this).up('.popup').hide()", :class => 'close-link' %></p>
+    <p><%= link_to 'Close', '#', :class => 'close' %></p>
   </div>
   <div class="popup" id="filter-reference-popup" style="display:none;">
     <h3><span id="filter-type"><%= default_filter_name %></span> Reference</h3>
     <div id="filter-reference"><%= filter_reference(default_filter_name) %></div>
-    <p><%= link_to_function 'Close', "$(this).up('.popup').hide()", :class => 'close-link' %></p>
+    <p><%= link_to_function 'Close', "Element.hide('filter-reference-popup')", :class => 'close-link' %></p>
   </div>
   <%= render_region :popups %>
 <% end -%>

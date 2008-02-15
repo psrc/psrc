@@ -1,7 +1,7 @@
 <% include_javascript 'sitemap' -%>
 <h1>Pages</h1>
 <%= render_region :top %>
-<table id="site-map" class="index">
+<table id="site-map" class="index" summary="Page hierarchy of the current site">
   <thead>
     <tr>
       <% render_region :sitemap_head do |sitemap_head| %>
@@ -12,7 +12,7 @@
           <th class="status">Status</th>
         <% end %>
         <% sitemap_head.modify_column_header do %>
-          <th class="modify" colspan="2">Modify</th>  
+          <th class="modify" colspan="2">Modify</th>
         <% end %>
       <% end %>
     </tr>
@@ -22,7 +22,7 @@
 <%= render_node @homepage -%>
 <% else -%>
   <tr>
-    <td colspan="<%= admin.page.index.node.size %>" class="note">No Pages</td>
+    <td colspan="4" class="note">No Pages</td>
   </tr>
 <% end -%>
   </tbody>
