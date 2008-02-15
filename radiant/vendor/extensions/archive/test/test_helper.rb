@@ -2,9 +2,9 @@ require 'test/unit'
 # # Load the environment
 unless defined? RADIANT_ROOT
   ENV["RAILS_ENV"] = "test"
-  env_file = "#{File.expand_path(File.dirname(__FILE__) + "/" + "../" * 6)}/config/environment"
+  env_file = "#{File.expand_path(File.dirname(__FILE__) + "/" + "../" * 6)}/config/environment.rb"
   unless File.exist?(env_file)
-    env_file = "#{File.expand_path(File.dirname(__FILE__) + "/" + "../" * 4)}/config/environment"
+    env_file = "#{File.expand_path(File.dirname(__FILE__) + "/" + "../" * 4)}/config/environment.rb"
   end
   require env_file
 end
