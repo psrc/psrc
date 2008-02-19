@@ -25,9 +25,10 @@ Examples:
         This will create an Account model:
         
         Model:      vendor/extensions/my_ext/app/models/account.rb
-        Test:       vendor/extensions/my_ext/test/unit/account_test.rb
-        Fixtures:   vendor/extensions/my_ext/test/fixtures/accounts.yml
         Migration:  vendor/extensions/my_ext/db/migrate/XXX_add_accounts.rb
+        Spec:       vendor/extensions/my_ext/spec/models/account_spec.rb
+        Test:       vendor/extensions/my_ext/test/unit/account_test.rb (if extension created with "--with-test-unit")
+        Fixtures:   vendor/extensions/my_ext/test/fixtures/accounts.yml (if extension created with "--with-test-unit")
 
     ./script/generate extension_model MyExt post title:string body:text
 

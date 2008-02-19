@@ -20,7 +20,8 @@ Example:
     Controller: vendor/my_ext/app/controllers/assets_controller.rb
     Views:      vendor/my_ext/app/views/assets/list.rhtml [...]
     Helper:     vendor/my_ext/app/helpers/assets_helper.rb
-    Test:       vendor/my_ext/test/functional/assets_test.rb
+    Spec:       vendor/my_ext/spec/controllers/assets_controller_spec.rb
+    Test:       vendor/my_ext/test/functional/assets_test.rb (if extension created with "--with-test-unit")
 
 Modules Example:
     ./script/generate extension_controller MyExt 'admin/assets' upload remove
@@ -28,7 +29,8 @@ Modules Example:
     Controller: vendor/my_ext/app/controllers/admin/assets_controller.rb
     Views:      vendor/my_ext/app/views/admin/assets/upload.rhtml [...]
     Helper:     vendor/my_ext/app/helpers/admin/assets_helper.rb
-    Test:       vendor/my_ext/test/functional/admin/assets_controller_test.rb
+    Spec:       vendor/my_ext/spec/controllers/admin/assets_controller_spec.rb
+    Test:       vendor/my_ext/test/functional/admin/assets_controller_test.rb (if extension created with "--with-test-unit")
     
 Note: Once you have created an extension controller you will still need to
 map routes to the controller in the extension file.

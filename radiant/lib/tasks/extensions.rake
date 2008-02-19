@@ -43,6 +43,28 @@ namespace :test do
   end
 end
 
+namespace :spec do
+  desc "Runs specs on all available Radiant extensions, pass EXT=extension_name to test a single extension"
+  task :extensions => "db:test:prepare" do
+    extension_roots = Radiant::Extension.descendants.map(&:root)
+    if ENV["EXT"]
+      extension_roots = extension_roots.select {|x| /\/(\d+_)?#{ENV["EXT"]}$/ === x }
+      if extension_roots.empty?
+        puts "Sorry, that extension is not installed."
+      end
+    end
+    extension_roots.each do |directory|
+      chdir directory do
+        if RUBY_PLATFORM =~ /win32/
+          system "rake.cmd spec"
+        else
+          system "rake spec"
+        end
+      end
+    end
+  end
+end
+
 # Load any custom rakefiles from extensions
 [RAILS_ROOT, RADIANT_ROOT].uniq.each do |root|
   Dir[root + '/vendor/extensions/**/tasks/**/*.rake'].sort.each { |ext| load ext }

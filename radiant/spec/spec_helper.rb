@@ -38,9 +38,11 @@ unless defined? SPEC_ROOT
     end
   end
   
-  Dir[RAILS_ROOT + '/spec/matchers/*_matcher.rb'].each do |matcher|
+  Dir[RADIANT_ROOT + '/spec/matchers/*_matcher.rb'].each do |matcher|
     require matcher
   end
+  
+  Scenario.load_paths.unshift "#{RADIANT_ROOT}/spec/scenarios"
   
   Spec::Runner.configure do |config|
     config.use_transactional_fixtures = true

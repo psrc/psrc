@@ -4,10 +4,10 @@ unless File.directory? "#{RAILS_ROOT}/app"
   
   ENV['RADIANT_ENV_FILE'] = File.join(RAILS_ROOT, 'config', 'environment')
   
-  Dir["#{RADIANT_ROOT}/vendor/rails/railties/lib/tasks/*.rake"].each do |rake|
+  Dir["#{RADIANT_ROOT}/vendor/rails/railties/lib/tasks/*.rake", "#{RADIANT_ROOT}/vendor/plugins/rspec_on_rails/tasks/*.rake"].each do |rake|
     lines = IO.readlines(rake)
     lines.map! do |line|
-      line.gsub!('RAILS_ROOT', 'RADIANT_ROOT') unless rake =~ /misc\.rake$/
+      line.gsub!('RAILS_ROOT', 'RADIANT_ROOT') unless rake =~ /(misc|rspec)\.rake$/
       case rake
       when /testing\.rake$/
         line.gsub!(/t.libs << (["'])/, 't.libs << \1' + RADIANT_ROOT + '/')
@@ -15,6 +15,9 @@ unless File.directory? "#{RAILS_ROOT}/app"
       when /databases\.rake$/
         line.gsub!(/migrate\((["'])/, 'migrate(\1' + RADIANT_ROOT + '/')
         line.sub!("db/schema.rb", "#{RAILS_ROOT}/db/schema.rb")
+      when /rspec\.rake$/
+        line.gsub!('RAILS_ROOT', 'RADIANT_ROOT') unless line =~ /:noop/
+        line.gsub!(/FileList\[(["'])/, "FileList[\\1#{RADIANT_ROOT}/")
       end
       line
     end
