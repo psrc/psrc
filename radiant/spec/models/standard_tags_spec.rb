@@ -341,6 +341,10 @@ describe "Standard Tags" do
     expected = %{<a href="/">Home</a> :: Parent}
     page(:parent).should render('<r:breadcrumbs separator=" :: " />').as(expected)
   end
+  specify '<r:breadcrumbs> with nolinks attribute' do
+    expected = %{Home &gt; Parent}
+    page(:parent).should render('<r:breadcrumbs nolinks="true" />').as(expected)
+  end
   
   specify '<r:if_url> with "matches" attribute' do
     page.should render('<r:if_url matches="a.sorted/$">true</r:if_url>').as('true')
