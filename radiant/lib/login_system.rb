@@ -72,6 +72,22 @@ module LoginSystem
   module ClassMethods
     def no_login_required
       controllers_where_no_login_required << self
+      class << self
+        def inherited(subclass)
+          super(subclass)
+          controllers_where_no_login_required << subclass
+        end
+      end
+    end
+    
+    def login_required
+      controllers_where_no_login_required.delete self
+      class << self
+        def inherited(subclass)
+          super(subclass)
+          controllers_where_no_login_required.delete subclass
+        end
+      end
     end
     
     def only_allow_access_to(*args)

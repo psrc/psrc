@@ -1,6 +1,8 @@
 == Change Log
 
 === SVN
+* Fix authorization system for controller inheritance [Josh French]
+* Upgrade Rails to 2.0.2
 * Upgrade Rails to 1.2.6. [Sean Cribbs]
 * Fix admin.js to initialize TabControl even if there are no tabs. [Benny Degezelle]
 * Correct RenderTestHelper to better resemble expectations from Rails. [Sean Cribbs]
