@@ -50,9 +50,17 @@
         %p This site was made with Ruby and is powered by <a href="http://radiantcms.org">Radiant CMS</a> version 0.6.5.
         %p#site-links
           - unless @logged_out
-            %a{:href=>"/admin/users/"} Users
+            - if @selected == :users
+              %strong
+                %a{:href=>"/admin/users/"} Users
+            - else
+              %a{:href=>"/admin/users/"} Users
             %span.separator=" | "
-            %a{:href=>"/admin/extensions/"} Extensions
+            - if @selected == :extensions
+              %strong
+                %a{:href=>"/admin/extensions/"} Extensions
+            - else
+              %a{:href=>"/admin/extensions/"} Extensions
             %span.separator=" | "
             %a{:href=>"/admin/logout/"} Log Out
             %span.separator=" | "
