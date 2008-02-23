@@ -602,6 +602,19 @@ module StandardTags
     end
   end
   
+  desc %{
+    Prints the page's status as a string.  Optional attribute 'downcase' 
+    will cause the status to be all lowercase.
+    
+    *Usage:*
+    <pre><code><r:status [downcase='true'] /></code></pre>
+  }
+  tag 'status' do |tag|
+    status = tag.globals.page.status.name
+    return status.downcase if tag.attr['downcase']
+    status
+  end
+  
   private
   
     def children_find_options(tag)

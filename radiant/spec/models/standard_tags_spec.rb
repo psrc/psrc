@@ -438,6 +438,17 @@ describe "Standard Tags" do
     page.should render('-<r:find url="/devtags/"><r:content part="unless_dev" /></r:find>-').as('-not dev-')
   end
   
+  specify '<r:status>' do
+    status_tag = "<r:status/>"
+    status_tag_lc = "<r:status downcase='true'/>"
+    page(:a).should render(status_tag).as("Published")
+    page(:a).should render(status_tag_lc).as("published")
+    page(:hidden).should render(status_tag).as("Hidden")
+    page(:hidden).should render(status_tag_lc).as("hidden")
+    page(:draft).should render(status_tag).as("Draft")
+    page(:draft).should render(status_tag_lc).as("draft")
+  end
+  
   private
     
     def page(symbol = nil)
