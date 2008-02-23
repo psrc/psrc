@@ -66,3 +66,6 @@
             %span.separator=" | "
           %a{:href=>"/"}
             %img{:src=>"/admin/images/view-site.gif", :alt=>"View Site", :title=>""}/
+      - if content_for? :popups
+        #popups
+          = yield :popups
