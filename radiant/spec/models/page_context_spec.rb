@@ -9,15 +9,13 @@ describe PageContext do
     @context = PageContext.new(@page)
     @parser = Radius::Parser.new(@context, :tag_prefix => 'r')
   end
-    
-  it 'should initialize correctly' do
-    @page.should equal(@context.page)
+  
+  it 'should raise an error when it encounters a missing tag' do
+    lambda { @parser.parse('<r:missing />') }.should raise_error(StandardTags::TagError)
   end
   
-  it 'should output an error when it encounters a missing tag' do
-    lambda { parse('<r:missing />') }.should raise_error(StandardTags::TagError)
-    def @context.testing?; false end
-    parse('<r:missing />').should include("undefined tag `missing'")
+  it 'should initialize correctly' do
+    @page.should equal(@context.page)
   end
   
   it 'should give tags access to the request' do
@@ -37,14 +35,6 @@ describe PageContext do
     parse('<r:if_response>tada!</r:if_response>').should include("tada!")
     parse('<r:find url="/another/"><r:if_response>tada!</r:if_response></r:find>').should include("tada!")
   end
-
-  it 'should pop the stack when an error occurs' do
-    @context.current_nesting.should be_empty
-    @context.define_tag("error") { |tag| raise "Broken!" }
-    def @context.testing?(); false; end
-    parse("<r:error/>").should match(/Broken\!/)
-    @context.current_nesting.should be_empty
-  end
   
   private
     
@@ -52,4 +42,27 @@ describe PageContext do
       @parser.parse(input)
     end
   
+end
+
+describe PageContext, "when errors are not being raised" do
+  scenario :pages
+  test_helper :pages
+  
+  before :each do
+    @page = pages(:radius)
+    @context = PageContext.new(@page)
+    @context.stub!(:raise_errors?).and_return(false)
+    @parser = Radius::Parser.new(@context, :tag_prefix => 'r')
+  end
+  
+  it 'should output an error when it encounters a missing tag' do
+    @parser.parse('<r:missing />').should include("undefined tag `missing'")
+  end
+  
+  it 'should pop the stack when an error occurs' do
+    @context.current_nesting.should be_empty
+    @context.define_tag("error") { |tag| raise "Broken!" }
+    @parser.parse("<r:error/>").should match(/Broken\!/)
+    @context.current_nesting.should be_empty
+  end
 end

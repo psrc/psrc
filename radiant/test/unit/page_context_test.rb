@@ -14,12 +14,6 @@ class PageContextTest < Test::Unit::TestCase
     assert_equal(@page, @context.page)
   end
   
-  def test_tag_missing
-    assert_raises(StandardTags::TagError) { @parser.parse '<r:missing />' }
-    def @context.testing?() false end
-    assert_parse_output_match "undefined tag `missing'", '<r:missing />'
-  end
-  
   def test_request_is_passed_around
     @context.define_tag "if_request" do |tag|
       tag.expand if tag.locals.page.request
@@ -40,14 +34,6 @@ class PageContextTest < Test::Unit::TestCase
     @page.response = ActionController::TestResponse.new
     assert_parse_output_match "tada!", '<r:if_response>tada!</r:if_response>'
     assert_parse_output_match "tada!", '<r:find url="/another/"><r:if_response>tada!</r:if_response></r:find>'
-  end
-
-  def test_exception_pops_stack
-    assert_equal '', @context.current_nesting
-    @context.define_tag("error") {|tag| raise "Broken!"}
-    def @context.testing?(); false; end
-    assert_parse_output_match /Broken\!/, "<r:error/>"
-    assert_equal '', @context.current_nesting
   end
 
   private

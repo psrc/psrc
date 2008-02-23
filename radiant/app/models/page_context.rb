@@ -17,7 +17,7 @@ class PageContext < Radius::Context
     set_process_variables(locals.page)
     super
   rescue Exception => e
-    raise e if testing?
+    raise e if raise_errors?
     @tag_binding_stack.pop unless @tag_binding_stack.last == binding
     render_error_message(e.message)
   end
@@ -39,8 +39,8 @@ class PageContext < Radius::Context
       page.response ||= @page.response
     end
     
-    def testing?
-      RAILS_ENV == 'test'
+    def raise_errors?
+      RAILS_ENV != 'production'
     end
     
 end
