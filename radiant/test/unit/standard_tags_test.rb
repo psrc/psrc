@@ -305,6 +305,16 @@ class StandardTagsTest < Test::Unit::TestCase
     expected = %{Home Archives <strong>Radius</strong> Docs}
     assert_renders expected, tags
   end
+  def test_tag_navigation_between_with_empty_nodes
+    tags = %{<r:navigation urls="Home: Boy: / | Archives: /archive/ | Radius: /radius/ | Docs: /documentation/">
+               <r:normal><a href="<r:url />"><r:title /></a></r:normal>
+               <r:here></r:here>
+               <r:selected><strong><a href="<r:url />"><r:title /></a></strong></r:selected>
+               <r:between> | </r:between>
+             </r:navigation>}
+    expected = %{<strong><a href="/">Home: Boy</a></strong> | <a href="/archive/">Archives</a> | <a href="/documentation/">Docs</a>}
+    assert_renders expected, tags
+  end
   
   def test_tag_find
     assert_renders 'Ruby Home Page', %{<r:find url="/"><r:title /></r:find>}

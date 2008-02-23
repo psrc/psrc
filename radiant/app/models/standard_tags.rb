@@ -551,7 +551,7 @@ module StandardTags
       end
     end
     between = hash.has_key?(:between) ? hash[:between].call : ' '
-    result.join(between)
+    result.reject { |i| i.blank? }.join(between)
   end
   [:normal, :here, :selected, :between].each do |symbol|
     tag "navigation:#{symbol}" do |tag|

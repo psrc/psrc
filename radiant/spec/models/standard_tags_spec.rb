@@ -308,6 +308,17 @@ describe "Standard Tags" do
     expected = %{Home <strong>Assorted</strong> Parent Radius}
     page.should render(tags).as(expected)
   end
+  specify '<r:navigation> with empty nodes' do
+    tags = %{<r:navigation urls="Home: Boy: / | Archives: /archive/ | Radius: /radius/ | Docs: /documentation/">
+               <r:normal><a href="<r:url />"><r:title /></a></r:normal>
+               <r:here></r:here>
+               <r:selected><strong><a href="<r:url />"><r:title /></a></strong></r:selected>
+               <r:between> | </r:between>
+             </r:navigation>}
+    expected = %{<strong><a href="/">Home: Boy</a></strong> | <a href="/archive/">Archives</a> | <a href="/documentation/">Docs</a>}
+    page(:radius).should render(tags).as(expected)
+  end
+  
   
   specify '<r:find>' do
     page.should render(%{<r:find url="/parent/child/"><r:title /></r:find>}).as('Child')
