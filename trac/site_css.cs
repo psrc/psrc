@@ -292,3 +292,16 @@ pre.wiki, pre.literal-block {
   margin-bottom: 2em;
   margin-top: 1em;
 }
+.tabs li li.active {
+  background-color: #ccc;
+  color: #333;
+}
+.plugin, .plugin h3 {
+  color: #333;
+}
+table.listing thead th {
+  color: #fff;
+}
+form.addnew {
+  margin: 0 0 4em;
+}
