@@ -91,7 +91,9 @@
       <p><label for="page_class_name">Page Type</label>
         <%= select "page", "class_name", [['<normal>', 'Page']] + Page.descendants.map { |p| [p.display_name, p.name] }.sort_by { |p| p.first } %></p>
       <p><label for="page_status_id">Status</label>
-        <%= select "page", "status_id", Status.find_all.map { |s| [s.name, s.id] } %></p>
+        <%= select "page", "status_id", Status.find_all.map { |s| [s.name, s.id] }, {} %></p>
+      <p id="publication-date" style="display: none;"><label for="page_published_at">Published At</label>
+        <%= datetime_select "page", "published_at", :disabled => true %></p>
     </div>
     <span class="clear">&nbsp;</span>
     <%= updated_stamp @page %>

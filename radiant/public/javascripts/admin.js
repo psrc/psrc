@@ -48,6 +48,18 @@ document.observe('dom:loaded', function() {
       e.stop();
     });
   });
+  
+  when('page_status_id', function(select){
+    if($F('page_status_id') == '100')
+      $('publication-date').show().select('select').invoke('enable');
+    
+    select.observe('change', function(){
+      if($F(this) == '100')
+        $('publication-date').show().select('select').invoke('enable');
+      else
+        $('publication-date').hide().select('select').invoke('disable');
+    })
+  });
 });
 
 Element.addMethods({
