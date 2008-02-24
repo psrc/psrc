@@ -5,7 +5,7 @@ describe ApplicationController do
   scenario :users
 
   it 'should include LoginSystem' do
-    ApplicationController.include?(LoginSystem)
+    ApplicationController.included_modules.should include(LoginSystem)
   end
 
   it 'should initialize config' do

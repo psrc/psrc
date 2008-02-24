@@ -35,5 +35,9 @@ class UsersScenario < Scenario::Base
       request.session['user_id'] = login_user.id
       login_user
     end
+    
+    def logout
+      request.session['user_id'] = nil
+    end
   end
 end

@@ -5,7 +5,7 @@ module Spec
         def initialize(example)
           @example = example
         end
-        
+
         def matches?(proc)
           proc.call
           @response = @example.response
@@ -13,7 +13,7 @@ module Spec
           @was_redirect_to_login = @response.redirect_url_match?("/admin/login")
           @was_redirect && @was_redirect_to_login
         end
-        
+
         def failure_message
           if @was_redirect
             "expected to redirect to /admin/login but redirected to #{@response.redirect_url}"
@@ -21,12 +21,12 @@ module Spec
             "expected to require login but did not redirect"
           end
         end
-        
+
         def negative_failure_message
           "expected not to require login"
         end
       end
-      
+
       class ActionRestriction
         def initialize(options, example)
           @allow = [options[:allow]].flatten.compact
@@ -34,14 +34,14 @@ module Spec
           @url = options[:url]
           @example = example
         end
-        
+
         def matches?(proc)
           @proc = proc
           @result = {}
           @urls = {}
           @allow.all? {|u| !denied?(u) } && @deny.all? {|u| denied?(u) }
         end
-        
+
         def failure_message
           message = []
           @allow.each do |user|
@@ -54,9 +54,9 @@ module Spec
               message << "expected to redirect user #{user.name} to #{@url} but redirected to #{@urls[user]}"
             end
           end
-          message.join
+          message.to_sentence
         end
-        
+
         private
           def denied?(user)
             @example.request.session['user_id'] = user.id
@@ -66,7 +66,7 @@ module Spec
             @result[user] = response.redirect? && (@url.nil? || response.redirect_url_match?(@url))
           end
       end
-      
+
       def require_login
         LoginRequirement.new(self)
       end
