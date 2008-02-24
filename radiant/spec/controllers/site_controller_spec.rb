@@ -2,6 +2,11 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe SiteController, "routes page requests" do
   scenario :pages
+                                   
+  before(:each) do     
+    # don't bork results with stale cache items
+    controller.cache.clear
+  end
   
   it "should find and render home page" do
     get :show_page, :url => ''
