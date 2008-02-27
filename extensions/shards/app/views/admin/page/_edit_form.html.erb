@@ -18,13 +18,13 @@
             <%= render_region :extended_metadata %>
           </table>
         </div>
+        <p class="more-or-less">
+          <small>
+            <a href="#" onclick="<%= toggle_javascript_for('extended-metadata') %> return false"<%= meta_visible(:meta_more) %> id="more-extended-metadata">More</a>
+            <a href="#" onclick="<%= toggle_javascript_for('extended-metadata') %> return false"<%= meta_visible(:meta_less) %> id="less-extended-metadata">Less</a>
+          </small>
+        </p>
       <% end %>
-      <p class="more-or-less">
-        <small>
-          <a href="#" onclick="<%= toggle_javascript_for('extended-metadata') %> return false"<%= meta_visible(:meta_more) %> id="more-extended-metadata">More</a>
-          <a href="#" onclick="<%= toggle_javascript_for('extended-metadata') %> return false"<%= meta_visible(:meta_less) %> id="less-extended-metadata">Less</a>
-        </small>
-      </p>
       <% form.edit_page_parts do %>
         <div id="tab-control">
           <div id="tabs" class="tabs">
@@ -46,6 +46,8 @@
                 <%= select "page", "class_name", [['<normal>', 'Page']] + Page.descendants.map { |p| [p.display_name, p.name] }.sort_by { |p| p.first } %></p>
               <p><label for="page_status_id">Status</label>
                 <%= select "page", "status_id", Status.find_all.map { |s| [s.name, s.id] } %></p>
+              <p id="publication-date" style="display: none;"><label for="page_published_at">Published At</label>
+                  <%= datetime_select "page", "published_at", :disabled => true %></p>
               <%= render_region :layout_row %>
             </div>
             <span class="clear">&nbsp;</span>
