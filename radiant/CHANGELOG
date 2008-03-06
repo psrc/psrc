@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Fix Ruby 1.8.5 compatibility issue with Dir[]. [Sean Cribbs]
 * Backup old environment.rb when copying new version. [Sean Cribbs]
 * Fill out more controller specs. [Sean Cribbs]
 * Fix Admin::PageController specs. [Sean Cribbs]

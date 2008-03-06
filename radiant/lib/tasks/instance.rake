@@ -4,7 +4,7 @@ unless File.directory? "#{RAILS_ROOT}/app"
   
   ENV['RADIANT_ENV_FILE'] = File.join(RAILS_ROOT, 'config', 'environment')
   
-  Dir["#{RADIANT_ROOT}/vendor/rails/railties/lib/tasks/*.rake", "#{RADIANT_ROOT}/vendor/plugins/rspec_on_rails/tasks/*.rake"].each do |rake|
+  [Dir["#{RADIANT_ROOT}/vendor/rails/railties/lib/tasks/*.rake"], Dir["#{RADIANT_ROOT}/vendor/plugins/rspec_on_rails/tasks/*.rake"]].flatten.each do |rake|
     lines = IO.readlines(rake)
     lines.map! do |line|
       line.gsub!('RAILS_ROOT', 'RADIANT_ROOT') unless rake =~ /(misc|rspec)\.rake$/
