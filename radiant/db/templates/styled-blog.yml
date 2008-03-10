@@ -405,9 +405,9 @@ records:
         h3. Favorite Sites
 
         * "Radiant CMS":http://radiantcms.org
-        * "Wiseheart Design":http://wiseheartdesign.com
-        * "Redhanded":http://redhanded.hobix.com
         * "Ruby-Lang":http://ruby-lang.org
+        * "Wiseheart Design":http://wiseheartdesign.com
+        * "AVLUX Hosting":http://avlux.net
 
         h3. Recent Entries
         <r:if_url matches="^/$">
