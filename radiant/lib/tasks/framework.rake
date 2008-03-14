@@ -39,7 +39,7 @@ unless File.directory? "#{RAILS_ROOT}/app"
         rm_rf   "vendor/radiant"
         mkdir_p "vendor/radiant"
 
-        svn_root = "http://dev.radiantcms.org/svn/radiant/"
+        svn_root = "http://svn.radiantcms.org/radiant/"
 
         case
         when ENV['TAG']
