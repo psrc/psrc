@@ -21,3 +21,8 @@ should exist inside the app/views/admin/page directory in the extension.
 More details can be found on the Radiant wiki:
 
 http://wiki.radiantcms.org/UsingShardsExtension
+
+== Acknowledgments
+
+Thanks to Digital Pulp, Inc. for funding the initial development of this
+extension as part of the Redken.com project.

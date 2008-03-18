@@ -22,3 +22,8 @@ are accessible when in 'dev' or 'preview' mode.
 4) (Re)start your server.
 5) If you want to run the extension tests, make sure to run 
    'rake db:test:prepare' before you begin.
+   
+== Acknowledgments
+
+Thanks to Digital Pulp, Inc. for funding the initial development of this
+extension as part of the Redken.com project.

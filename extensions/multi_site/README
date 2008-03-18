@@ -35,3 +35,8 @@ http://www.famfamfam.com/lab/icons/silk/
   $ rake radiant:extensions:multi_site:update
 
 4) Restart your server
+
+== Acknowledgments
+
+Thanks to Digital Pulp, Inc. for funding the initial development of this
+extension as part of the Redken.com project.
