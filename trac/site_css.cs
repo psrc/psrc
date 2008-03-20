@@ -257,7 +257,7 @@ pre.wiki, pre.literal-block {
 .diff .entries li :link, .diff .entries li :visited {
   color: #f93;
 }
-.browser #info {
+.browser #info, .attachment #info {
   background: none;
   border: 0;
 }
@@ -283,8 +283,15 @@ pre.wiki, pre.literal-block {
 #ticket h3.status {
   color: white;
 }
+#ticket table.properties {
+  border-top: 1px solid #CCCCCC;
+}
 #ticket table.properties th {
   color: white;
+}
+#ticket .description h3 {
+  color: #CCCCCC;
+  border-bottom: 1px solid #CCCCCC;
 }
 #changelog, #attachments {
   border: 0;
