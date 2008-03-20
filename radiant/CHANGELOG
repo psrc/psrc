@@ -1,6 +1,12 @@
 == Change Log
 
 === SVN
+* Fixed incompatibility with RubyGems >= 0.9.5 that broke radiant:freeze:gems
+rake task. [Michael Klett]
+* Fixed problem with the list of templates containing duplicates in the
+db:bootstrap rake task when not running in instance mode. [John Long]
+* Update Subversion URL so rake radiant:freeze:edge works. [John Long]
+* Add AVLUX to list of links in Styled Blog template. [John Long]
 * Fix Ruby 1.8.5 compatibility issue with Dir[]. [Sean Cribbs]
 * Backup old environment.rb when copying new version. [Sean Cribbs]
 * Fill out more controller specs. [Sean Cribbs]

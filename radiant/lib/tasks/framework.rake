@@ -5,6 +5,7 @@ unless File.directory? "#{RAILS_ROOT}/app"
       desc "Lock this application to the current gems (by unpacking them into vendor/radiant)"
       task :gems do
         require 'rubygems'
+        require 'rubygems/gem_runner'
         Gem.manage_gems
 
         radiant = (version = ENV['VERSION']) ?
@@ -22,7 +23,7 @@ unless File.directory? "#{RAILS_ROOT}/app"
         rm_rf   "vendor/radiant"
 
         chdir("vendor") do
-          Gem::GemRunner.new.run(["unpack", "-v", "=#{version}", "radiant"])
+          Gem::GemRunner.new.run(["unpack", "radiant", "--version", "=#{version}"])
           FileUtils.mv(Dir.glob("radiant*").first, "radiant")
         end
       end
