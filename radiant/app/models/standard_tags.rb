@@ -16,13 +16,22 @@ module StandardTags
     tag.expand
   end
   
-  [:breadcrumb, :slug, :title, :url].each do |method|
+  [:breadcrumb, :slug, :title].each do |method|
     desc %{ 
       Renders the @#{method}@ attribute of the current page.
     }
     tag method.to_s do |tag|
       tag.locals.page.send(method)
     end
+  end
+  
+  desc %{
+    Renders the @url@ attribute of the current page.
+  }
+  tag 'url' do |tag|
+    request = tag.globals.page.request
+    relative_root = request.relative_url_root
+    File.join(relative_root, tag.locals.page.url)
   end
   
   desc %{

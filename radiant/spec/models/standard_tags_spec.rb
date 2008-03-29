@@ -17,6 +17,10 @@ describe "Standard Tags" do
     end
   end
   
+  specify '<r:url> with a relative URL root should scope to the relative root' do
+    page(:home).should render("<r:url />").with_relative_root("/foo").as("/foo/")
+  end
+  
   specify '<r:parent>' do
     page(:parent)
     page.should render('<r:parent><r:title /></r:parent>').as(pages(:home).title)
@@ -240,6 +244,9 @@ describe "Standard Tags" do
   specify '<r:link> should work for children' do
     expected = %{<a href="/parent/child/">Child</a> <a href="/parent/child-2/">Child 2</a> <a href="/parent/child-3/">Child 3</a> }
     page(:parent).should render('<r:children:each><r:link /> </r:children:each>' ).as(expected)
+  end
+  specify '<r:link> with a relative URL root should scope to the relative root' do
+    page(:assorted).should render('<r:link />').with_relative_root('/foo').as('<a href="/foo/assorted/">Assorted</a>')
   end
   
   specify '<r:snippet>' do

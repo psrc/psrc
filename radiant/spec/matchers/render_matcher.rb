@@ -73,11 +73,17 @@ module Spec
           self
         end
         
+        def with_relative_root(url="/")
+          @relative_root = url
+          self
+        end
+        
         private
           def render_content_with_page(tag_content, page)
             page.request = ActionController::TestRequest.new
             page.request.request_uri = @request_uri || page.url
             page.request.host = @host || test_host
+            page.request.relative_url_root = @relative_root || "/"
             page.response = ActionController::TestResponse.new
             if tag_content.nil?
               page.render

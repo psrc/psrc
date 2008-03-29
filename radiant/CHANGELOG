@@ -1,6 +1,8 @@
 == Change Log
 
 === SVN
+* Adjust tags to deal with Rails site prefix (relative_url_root). [Sean Cribbs]
+* Resolve issue with undefined method :view_paths in ActionMailer. [Sean Cribbs]
 * Fixed incompatibility with RubyGems >= 0.9.5 that broke radiant:freeze:gems
 rake task. [Michael Klett]
 * Fixed problem with the list of templates containing duplicates in the
