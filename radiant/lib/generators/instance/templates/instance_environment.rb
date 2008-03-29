@@ -17,15 +17,16 @@ Radiant::Initializer.run do |config|
 
   # Skip frameworks you're not going to use (only works if using vendor/rails).
   # To use Rails without a database, you must remove the Active Record framework
-  config.frameworks -= [ :action_web_service, :action_mailer ]
+  config.frameworks -= [ :action_mailer ]
   
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
   
-  # Only load the extensions named here, in the order given. By default all extensions in vendor/extensions are
-  # loaded, in alphabetical order. :all can be used as a placeholder for all extensions not explicitly named. 
+  # Only load the extensions named here, in the order given. By default all 
+  # extensions in vendor/extensions are loaded, in alphabetical order. :all 
+  # can be used as a placeholder for all extensions not explicitly named. 
   # config.extensions = [ :all ] 
 
   # Force all environments to use the same logger level 

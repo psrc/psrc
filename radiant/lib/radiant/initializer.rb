@@ -128,7 +128,13 @@ module Radiant
         # Reverse the list so extensions come first
         arr.reverse!
       end
-      ActionMailer::Base.view_paths = view_paths if configuration.frameworks.include?(:action_mailer) || defined?(ActionMailer::Base)
+      if configuration.frameworks.include?(:action_mailer) || defined?(ActionMailer::Base)
+        # This happens before the plugins are loaded so we must load it manually
+        unless ActionMailer::Base.respond_to? :view_paths
+          require "#{RADIANT_ROOT}/lib/plugins/extension_patches/lib/mailer_view_paths_extension"
+        end
+        ActionMailer::Base.view_paths = view_paths
+      end
       ActionController::Base.view_paths = view_paths if configuration.frameworks.include?(:action_controller)
     end
 
