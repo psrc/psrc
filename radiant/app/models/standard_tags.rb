@@ -29,9 +29,7 @@ module StandardTags
     Renders the @url@ attribute of the current page.
   }
   tag 'url' do |tag|
-    request = tag.globals.page.request
-    relative_root = request.relative_url_root
-    File.join(relative_root, tag.locals.page.url)
+    relative_url_for(tag.locals.page.url, tag.globals.page.request)
   end
   
   desc %{
@@ -411,10 +409,11 @@ module StandardTags
     breadcrumbs = [page.breadcrumb]
     nolinks = (tag.attr['nolinks'] == 'true')
     page.ancestors.each do |ancestor|
+      tag.locals.page = ancestor
       if nolinks
-        breadcrumbs.unshift ancestor.breadcrumb
+        breadcrumbs.unshift tag.render('breadcrumb')
       else
-        breadcrumbs.unshift %{<a href="#{ancestor.url}">#{ancestor.breadcrumb}</a>}
+        breadcrumbs.unshift %{<a href="#{tag.render('url')}">#{tag.render('breadcrumb')}</a>}
       end
     end
     separator = tag.attr['separator'] || ' &gt; '
@@ -686,5 +685,9 @@ module StandardTags
         raise TagError.new("Malformed regular expression in `#{attribute_name}' argument of `#{tag.name}' tag: #{e.message}")
       end
       regexp
-    end   
+    end
+    
+    def relative_url_for(url, request)
+      File.join(request.relative_url_root, url)
+    end
 end

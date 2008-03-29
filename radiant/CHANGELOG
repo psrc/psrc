@@ -1,8 +1,12 @@
 == Change Log
 
 === SVN
-* Adjust tags to deal with Rails site prefix (relative_url_root). [Sean Cribbs]
-* Resolve issue with undefined method :view_paths in ActionMailer. [Sean Cribbs]
+* Adjust admin links and r:breadcrumbs tag to deal with Rails site prefix. 
+[Sean Cribbs] 
+* Adjust tags to deal with Rails site prefix (relative_url_root). 
+[Sean Cribbs]
+* Resolve issue with undefined method :view_paths in ActionMailer. 
+[Sean Cribbs]
 * Fixed incompatibility with RubyGems >= 0.9.5 that broke radiant:freeze:gems
 rake task. [Michael Klett]
 * Fixed problem with the list of templates containing duplicates in the
@@ -38,7 +42,8 @@ in instance mode. [Andrew O'Brien]
 edit. [Mislav Marohnić]
 * Fix extension loader and previously failing unit tests; update specs.
 [Mislav Marohnić]
-* Fixed problem with response_cached? returning true when perform caching was off; fixed failing spec. [John Long]
+* Fixed problem with response_cached? returning true when perform caching was 
+off; fixed failing spec. [John Long]
 * Fixed issues with whitespace in page.rb. [John Long]
 * Fix filtering in tag reference popup. [Mislav Marohnić]
 * Updated rspec and rspec_on_rails. [John Long]
@@ -46,15 +51,18 @@ edit. [Mislav Marohnić]
 [Sean Cribbs]
 * Make all extensions loaded by default. [Sean Cribbs]
 * Update extension loader spec. [Sean Cribbs]
-* Work around a nasty issue with extensions + Dependencies unloading in development mode. [Mislav Marohnić]
-* Fix the tree expansion issue in admin interface (cookie-related). minor cleanup server-side [Mislav Marohnić]
+* Work around a nasty issue with extensions + Dependencies unloading in 
+development mode. [Mislav Marohnić]
+* Fix the tree expansion issue in admin interface (cookie-related). minor 
+cleanup server-side [Mislav Marohnić]
 * Cleanup up the underscore layout hack by using method chain.
 [Mislav Marohnić]
 * Refactored initialization, extension loading, updated plugins. [Sean Cribbs]
 * Fix SiteController#show_page for Rails 2.0. [Mislav Marohnić]
 * Minor optimization for Page; remove the unneccessary 'virtual' accessor.
 [Mislav Marohnić]
-* Fix tests for PostgreSQL: comment out a test that breaks most of the specs somehow. [Mislav Marohnić]
+* Fix tests for PostgreSQL: comment out a test that breaks most of the specs 
+somehow. [Mislav Marohnić]
 * Failures in initializer_spec.rb fixed [John Long]
 * Failure in site_controller_spec.rb fixed. [John Long]
 * The last test/unit failure is now fixed. [John Long]
@@ -69,7 +77,8 @@ edit. [Mislav Marohnić]
 * Modify ApplicationController spec. [Loren Johnson]
 * Modify SiteController spec. [Loren Johnson]
 * Fix failing unit test for old type of logger. [Daniel Sheppard]
-* Fix problems preventing script/console from running: acts_as_tree is now a plugin, view_paths is now a core feature. [Daniel Sheppard]
+* Fix problems preventing script/console from running: acts_as_tree is now a 
+plugin, view_paths is now a core feature. [Daniel Sheppard]
 * Upgrade to Rails 2.0.2 [Daniel Sheppard]
 * Escape angle brackets to avoid assertion warnings in StandardTags.
 [Sean Cribbs]

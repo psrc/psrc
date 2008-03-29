@@ -363,6 +363,10 @@ describe "Standard Tags" do
     expected = %{Home &gt; Parent}
     page(:parent).should render('<r:breadcrumbs nolinks="true" />').as(expected)
   end
+  specify '<r:breadcrumbs> with a relative URL root should scope to the relative root' do
+    expected = '<a href="/foo/">Home</a> &gt; Assorted'
+    page(:assorted).should render('<r:breadcrumbs />').with_relative_root('/foo').as(expected)
+  end
   
   specify '<r:if_url> with "matches" attribute' do
     page.should render('<r:if_url matches="a.sorted/$">true</r:if_url>').as('true')
