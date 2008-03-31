@@ -6,7 +6,7 @@ describe Admin::WelcomeController do
   it "should redirect to page tree on get to /admin/welcome" do
     get :index
     response.should be_redirect
-    response.should redirect_to('/admin/pages')
+    response.should redirect_to(page_index_url)
   end
   
   it "should render the login screen on get to /admin/login" do
@@ -19,7 +19,7 @@ describe Admin::WelcomeController do
     post :login, :user => {:login => "admin", :password => "password"}
     controller.send(:current_user).should == users(:admin)
     response.should be_redirect
-    response.should redirect_to("/admin/welcome")
+    response.should redirect_to(welcome_url)
   end
   
   it "should render the login template when login failed" do
@@ -32,6 +32,6 @@ describe Admin::WelcomeController do
     controller.should_receive(:current_user=).with(nil)
     get :logout
     response.should be_redirect
-    response.should redirect_to("/admin/login")
+    response.should redirect_to(login_url)
   end
 end

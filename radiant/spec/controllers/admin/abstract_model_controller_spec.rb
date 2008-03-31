@@ -93,7 +93,7 @@ describe Admin::AbstractModelController, :type => :controller do
         
         it "should redirect to the index" do
           response.should be_redirect
-          response.should redirect_to("/admin/layouts")
+          response.should redirect_to(layout_index_url)
         end
         
         it "should create the model" do
@@ -133,7 +133,7 @@ describe Admin::AbstractModelController, :type => :controller do
         
         it "should redirect to the edit action" do
           response.should be_redirect
-          response.should redirect_to("/admin/layouts/edit/#{@layout.id}")
+          response.should redirect_to(layout_edit_url(:id => @layout))
         end
       end
     end
@@ -168,7 +168,7 @@ describe Admin::AbstractModelController, :type => :controller do
         
         it "should redirect to the index" do
           response.should be_redirect
-          response.should redirect_to("/admin/layouts")
+          response.should redirect_to(layout_index_url)
         end
         
         it "should save the model" do
@@ -215,7 +215,7 @@ describe Admin::AbstractModelController, :type => :controller do
         
         it "should redirect to the edit action" do
           response.should be_redirect
-          response.should redirect_to("/admin/layouts/edit/#{layout_id(:main)}")
+          response.should redirect_to(layout_edit_url(:id => layout_id(:main)))
         end
       end
     end
@@ -251,7 +251,7 @@ describe Admin::AbstractModelController, :type => :controller do
       
       it "should redirect to the index action" do
         response.should be_redirect
-        response.should redirect_to('/admin/layouts')
+        response.should redirect_to(layout_index_url)
       end
       
       it "should add a flash notice" do
