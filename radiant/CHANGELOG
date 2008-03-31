@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Correct some view and spec bugs. [Sean Cribbs]
 * Added specs for view helpers. [Sean Cribbs]
 * Use TH for fieldset tables and correct error in CSS. [skrat]
 * Adjust admin links and r:breadcrumbs tag to deal with Rails site prefix. 
