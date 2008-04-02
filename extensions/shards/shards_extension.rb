@@ -14,10 +14,11 @@ class ShardsExtension < Radiant::Extension
       controller.send :helper, Shards::HelperExtensions
     end
     Radiant::AdminUI.class_eval do
-      attr_accessor :page, :snippet, :layout
+      attr_accessor :page, :user, :snippet, :layout
     end
     # initialize regions for page, snippet and layout
     admin.page = load_default_page_regions
+    admin.user = load_default_user_regions
     admin.snippet = load_default_snippet_regions
     admin.layout = load_default_layout_regions
     
@@ -50,10 +51,24 @@ class ShardsExtension < Radiant::Extension
       end
     end
 
+    def load_default_user_regions
+      returning OpenStruct.new do |user|
+        user.edit = Shards::RegionSet.new do |edit|
+          edit.main.concat %w{edit_header edit_form}
+          edit.form.concat %w{edit_table_header edit_name edit_email edit_login edit_password 
+                              edit_password_confirmation edit_roles edit_notes edit_table_footer
+                              edit_timestamp}
+          edit.form_bottom.concat %w{edit_buttons}
+        end
+      end
+    end
+
     def load_default_snippet_regions
       returning OpenStruct.new do |snippet|
         snippet.edit = Shards::RegionSet.new do |edit|
           edit.main.concat %w{edit_header edit_form}
+          edit.form.concat %w{edit_title edit_content edit_filter edit_timestamp}
+          edit.form_bottom.concat %w{edit_buttons}
         end
       end
     end
@@ -62,6 +77,8 @@ class ShardsExtension < Radiant::Extension
       returning OpenStruct.new do |layout|
         layout.edit = Shards::RegionSet.new do |edit|
           edit.main.concat %w{edit_header edit_form}
+          edit.form.concat %w{edit_title edit_extended_metadata edit_content edit_timestamp}
+          edit.form_bottom.concat %w{edit_buttons}
         end
       end
     end

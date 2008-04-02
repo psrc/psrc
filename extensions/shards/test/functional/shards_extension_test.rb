@@ -57,6 +57,19 @@ class ShardsExtensionTest < Test::Unit::TestCase
     assert_not_nil layout.edit
     assert_equal %w{edit_header edit_form}, layout.edit.main
   end
+
+  def test_should_create_user_region_sets
+    admin = Radiant::AdminUI.instance
+    assert_respond_to admin, :user
+    assert_not_nil admin.layout
+    assert_kind_of OpenStruct, admin.user
+  end
+
+  def test_should_initialize_user_region_defaults
+    user = ShardsExtension.instance.send(:load_default_user_regions)
+    assert_not_nil user.edit
+    assert_equal %w{edit_header edit_form}, user.edit.main
+  end
   
   def test_should_add_render_region_helper
     assert ApplicationController.master_helper_module.included_modules.include?(Shards::HelperExtensions)
