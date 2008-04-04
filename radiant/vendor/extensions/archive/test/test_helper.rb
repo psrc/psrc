@@ -1,12 +1,15 @@
 require 'test/unit'
-# # Load the environment
+# Load the environment
 unless defined? RADIANT_ROOT
   ENV["RAILS_ENV"] = "test"
-  env_file = "#{File.expand_path(File.dirname(__FILE__) + "/" + "../" * 6)}/config/environment.rb"
-  unless File.exist?(env_file)
-    env_file = "#{File.expand_path(File.dirname(__FILE__) + "/" + "../" * 4)}/config/environment.rb"
+  case
+  when ENV["RADIANT_ENV_FILE"]
+    require ENV["RADIANT_ENV_FILE"]
+  when File.dirname(__FILE__) =~ %r{vendor/radiant/vendor/extensions}
+    require "#{File.expand_path(File.dirname(__FILE__) + "/../../../../../../")}/config/environment"
+  else
+    require "#{File.expand_path(File.dirname(__FILE__) + "/../../../../")}/config/environment"
   end
-  require env_file
 end
 require "#{RADIANT_ROOT}/test/test_helper"
 

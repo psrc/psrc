@@ -32,11 +32,13 @@ namespace :test do
       end
     end
     extension_roots.each do |directory|
-      chdir directory do
-        if RUBY_PLATFORM =~ /win32/
-          system "rake.cmd test"
-        else
-          system "rake test"
+      if File.directory?(File.join(directory, 'test'))
+        chdir directory do
+          if RUBY_PLATFORM =~ /win32/
+            system "rake.cmd test RADIANT_ENV_FILE=#{RAILS_ROOT}/config/environment"
+          else
+            system "rake test RADIANT_ENV_FILE=#{RAILS_ROOT}/config/environment"
+          end
         end
       end
     end
@@ -54,11 +56,13 @@ namespace :spec do
       end
     end
     extension_roots.each do |directory|
-      chdir directory do
-        if RUBY_PLATFORM =~ /win32/
-          system "rake.cmd spec"
-        else
-          system "rake spec"
+      if File.directory?(File.join(directory, 'spec'))
+        chdir directory do
+          if RUBY_PLATFORM =~ /win32/
+            system "rake.cmd spec RADIANT_ENV_FILE=#{RAILS_ROOT}/config/environment"
+          else
+            system "rake spec RADIANT_ENV_FILE=#{RAILS_ROOT}/config/environment"
+          end
         end
       end
     end
