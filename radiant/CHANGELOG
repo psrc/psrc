@@ -1,6 +1,8 @@
 == Change Log
 
 === SVN
+* Fix generated test and spec harnesses, convert core extensions to specs.
+[Sean Cribbs]
 * Cover edge case in Page spec. [Sean Cribbs]
 * Increase coverage of helper, controller, and model specs. [Sean Cribbs]
 * Correct some view and spec bugs. [Sean Cribbs]
