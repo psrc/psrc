@@ -28,4 +28,14 @@ describe ApplicationController do
     controller.send(:instance_variable_get, :@stylesheets).should_not be_nil
     controller.send(:instance_variable_get, :@stylesheets).should be_instance_of(Array)
   end
+
+  it "should include stylesheets" do
+    controller.send :set_javascripts_and_stylesheets
+    controller.include_stylesheet('test').should include('test')
+  end
+
+  it "should include javascripts" do
+    controller.send :set_javascripts_and_stylesheets
+    controller.include_javascript('test').should include('test')
+  end
 end

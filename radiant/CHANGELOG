@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Increase coverage of helper, controller, and model specs. [Sean Cribbs]
 * Correct some view and spec bugs. [Sean Cribbs]
 * Added specs for view helpers. [Sean Cribbs]
 * Use TH for fieldset tables and correct error in CSS. [skrat]

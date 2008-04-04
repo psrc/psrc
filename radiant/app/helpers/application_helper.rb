@@ -41,10 +41,8 @@ module ApplicationHelper
       singular
     elsif plural
       plural
-    elsif Object.const_defined?("Inflector")
-      Inflector.pluralize(singular)
     else
-      singular + "s"
+      Inflector.pluralize(singular)
     end
   end
   
@@ -61,7 +59,7 @@ module ApplicationHelper
   end
   
   def current_url?(options)
-    url = case
+    url = case options
     when Hash
       url_for options
     else
@@ -92,13 +90,7 @@ module ApplicationHelper
   end
   
   def focus(field_name)
-    %{
-    <script type="text/javascript">
-    // <![CDATA[
-      Field.activate('#{field_name}');
-    // ]]>
-    </script>
-    }
+    javascript_tag "Field.activate('#{field_name}');"
   end
   
   def updated_stamp(model)
