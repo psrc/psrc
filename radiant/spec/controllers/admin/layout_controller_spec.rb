@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + "/../../spec_helper"
 
 describe Admin::LayoutController do
-  scenario :users, :layouts
+  scenario :users, :pages_with_layouts
 
   before :each do
     login_as :developer
@@ -32,5 +32,11 @@ describe Admin::LayoutController do
     it "should deny non-developers and non-admins" do
       lambda { get action }.should restrict_access(:deny => [users(:non_admin), users(:existing)])
     end
+  end
+  
+  it "should clear the cache of associated pages when saved" do
+    ResponseCache.instance.should_receive(:expire_response).with(pages(:utf8).url)
+    post :edit, :id => layout_id(:utf8), :layout => {:content_type => "application/xhtml+xml;charset=utf8"}
+    response.should be_redirect
   end
 end

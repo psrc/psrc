@@ -56,6 +56,13 @@ describe Admin::NodeHelper do
     should_receive(:image).with("page", :class => "icon", :alt => 'page-icon', :title => '')
     icon
   end
+  
+  it "should display the virtual icon if the current node is virtual" do
+    @current_node = @page
+    @page.should_receive(:virtual?).and_return(true)
+    should_receive(:image).with("virtual-page", :class => "icon", :alt => 'page-icon', :title => '')
+    icon
+  end
 
   it "should render the title of the current node" do
     @current_node = @page
@@ -69,6 +76,12 @@ describe Admin::NodeHelper do
     @page.should_receive(:class).and_return(@class)
     @class.should_receive(:display_name).and_return("Special")
     page_type.should ==  %{<small class="info">(Special)</small>}
+  end
+
+  it "should not render the page type if it's Page" do
+    @current_node = @page
+    @page.should_receive(:class).and_return(Page)
+    page_type.should ==  %{}
   end
 
   it "should render the busy spinner" do

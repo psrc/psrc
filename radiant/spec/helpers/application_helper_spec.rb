@@ -75,6 +75,14 @@ describe ApplicationHelper do
     links_for_navigation.should =~ Regexp.new("/admin/layouts")
   end
   
+  it "should hide admin links that should not be visible to the current user" do
+    stub!(:current_user).and_return(users(:existing))
+    links_for_navigation.should =~ Regexp.new("/admin/pages")
+    links_for_navigation.should =~ Regexp.new(separator)
+    links_for_navigation.should =~ Regexp.new("/admin/snippets")
+    links_for_navigation.should_not =~ Regexp.new("/admin/layouts")
+  end
+  
   it "should render a separator" do
     separator.should == %{ <span class="separator"> | </span> }
   end
@@ -86,6 +94,7 @@ describe ApplicationHelper do
     current_url?("/foo/bar/").should_not be_false
     current_url?("/foo//bar").should_not be_false
     current_url?("/baz/bam").should_not be_true
+    current_url?(:controller => "admin/page", :action => "index").should_not be_true
   end
   
   it "should clean a url" do
