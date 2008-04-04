@@ -15,6 +15,10 @@ class Test::Unit::TestCase
   # in MySQL.  Turn off transactional fixtures in this case; however, if you
   # don't care one way or the other, switching from MyISAM to InnoDB tables
   # is recommended.
+  #
+  # The only drawback to using transactional fixtures is when you actually 
+  # need to test transactions.  Since your test is bracketed by a transaction,
+  # any transactions started in your code will be automatically rolled back.
   self.use_transactional_fixtures = true
 
   # Instantiated fixtures are slow, but give you @david where otherwise you
@@ -24,51 +28,11 @@ class Test::Unit::TestCase
   # then set this back to true.
   self.use_instantiated_fixtures  = false
 
-  # Add more helper methods to be used by all tests here...
-    # http://project.ioni.st/post/217#post-217
+  # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #
-  #  def test_new_publication
-  #    assert_difference(Publication, :count) do
-  #      post :create, :publication => {...}
-  #      # ...
-  #    end
-  #  end
-  # 
-  def assert_difference(object, method = nil, difference = 1)
-    initial_value = object.send(method)
-    yield
-    assert_equal initial_value + difference, object.send(method), "#{object}##{method}"
-  end
+  # Note: You'll currently still have to declare fixtures explicitly in integration tests
+  # -- they do not yet inherit this setting
+  fixtures :all
 
-  def assert_no_difference(object, method, &block)
-    assert_difference object, method, 0, &block
-  end
-  
-    def self.creator(options={})   
-    klass = self.name.chomp("Test")
-    define_method("create_#{klass.underscore}") {|*args| 
-    opts = args.first || {}
-    klass.constantize.create(options.merge(opts)) }
-  end
-
-  def self.default_creation_test
-    klass = self.name.chomp("Test")
-    define_method("test_should_create_#{klass.underscore}") {
-      assert_difference klass.constantize, :count do
-        object = send("create_#{klass.underscore}")
-        assert !object.new_record?, "#{object.errors.full_messages.to_sentence}"
-      end
-    } 
-  end
-
-  def self.erroneous_creation_test(field, value)
-    klass = self.name.chomp("Test")
-    define_method("test_should_not_create_on_erroneous_#{field.to_s}") {
-      assert_no_difference klass.constantize, :count do
-        object = send("create_#{klass.underscore}", {field => value})
-        assert_not_nil object.errors.on(field)
-      end
-    }
-  end
-  
+  # Add more helper methods to be used by all tests here...
 end
