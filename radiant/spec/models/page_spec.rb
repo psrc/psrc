@@ -333,6 +333,10 @@ describe Page, "rendering" do
     @page.render_part(:body).should == "Hello world!"
   end
   
+  it "should render blank when given a non-existent part" do
+    @page.render_part(:empty).should == ''
+  end
+  
   it 'should render a snippet' do
     assert_snippet_renders :first, 'test'
   end
