@@ -360,7 +360,7 @@ h1 {
   margin-bottom: .3em;
   width: 100%;
 }
-#content table.fieldset td {
+#content table.fieldset td, #content table.fieldset th {
   background-color: white;
   border-top: 1px solid #DFD3C3;
   padding: 6px;
