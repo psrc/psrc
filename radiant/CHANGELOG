@@ -1,6 +1,9 @@
 == Change Log
 
 === SVN
+* Add pkg/ ignore to git, correct CSS problems with fieldset tables. 
+[Sean Cribbs]
+* Ignore git files when building gem. [Sean Cribbs]
 * Fix generated test and spec harnesses, convert core extensions to specs.
 [Sean Cribbs]
 * Cover edge case in Page spec. [Sean Cribbs]
