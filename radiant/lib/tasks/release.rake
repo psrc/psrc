@@ -40,6 +40,7 @@ namespace 'radiant' do
     files = FileList['**/*']
     files.exclude '**/._*'
     files.exclude '**/*.rej'
+    files.exclude '.git*'
     files.exclude 'cache/'
     files.exclude 'config/database.yml'
     files.exclude 'config/locomotive.yml'
