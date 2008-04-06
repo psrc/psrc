@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Add autotest support for Radiant and extensions. [Josh French]
 * Add pkg/ ignore to git, correct CSS problems with fieldset tables. 
 [Sean Cribbs]
 * Ignore git files when building gem. [Sean Cribbs]
