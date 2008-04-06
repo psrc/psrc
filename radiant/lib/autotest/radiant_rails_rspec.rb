@@ -71,6 +71,35 @@ Autotest.add_hook :initialize do |at|
   at.add_mapping(%r%^lib/(.*)\.rb$%) { |_, m|
     ["spec/lib/#{m[1]}_spec.rb"]
   }
+  at.add_mapping(%r%^vendor/extensions/(.*)/app/models/(.*)\.rb$%) { |_, m|
+    ["vendor/extensions/#{m[1]}/spec/models/#{m[2]}_spec.rb"]
+  }
+  at.add_mapping(%r%^vendor/extensions/.*/spec/(models|controllers|views|helpers|lib)/.*rb$%) { |filename, _|
+    filename
+  }
+  at.add_mapping(%r%^vendor/extensions/(.*)/app/views/(.*)\..*$%) { |_, m|
+    at.files_matching %r%^vendor/extensions/#{m[1]}/spec/views/#{m[2]}_view_spec.rb$%
+  }
+  at.add_mapping(%r%^vendor/extensions/(.*)/app/controllers/(.*)\.rb%) { |_, m|
+    if m[2] == "#{m[1]}_controller"
+      at.files_matching %r%^vendor/extensions/#{m[1]}/spec/controllers/.*_spec\.rb$%
+    else
+      ["vendor/extensions/#{m[1]}/spec/controllers/#{m[2]}_spec.rb"]
+    end
+  }
+  at.add_mapping(%r%^vendor/extensions/(.*)/app/helpers/(.*)_helper\.rb$%) { |_, m|
+    if m[2] == m[1] then
+      at.files_matching(%r%^vendor/extensions/#{m[1]}/spec/(views|helpers)/.*_spec\.rb$%)
+    else
+      ["vendor/extensions/#{m[1]}/spec/helpers/#{m[2]}_helper_spec.rb"] + at.files_matching(%r%^vendor/extensions/#{m[1]}/spec\/views\/#{m[2]}/.*_spec\.rb$%)
+    end
+  }
+  at.add_mapping(%r%^vendor/extensions/(.*)/lib/(.*)\.rb$%) { |_, m|
+    ["vendor/extensions/#{m[1]}/spec/lib/#{m[2]}_spec.rb"]
+  }
+  at.add_mapping(%r%^vendor/extensions/(.*)/(.*)_extension\.rb%) { |_, m|
+    at.files_matching(%r%^vendor/extensions/#{m[1]}/spec/.*_spec\.rb$%) if m[1] == m[2]
+  }
 end
 
 class Autotest::RadiantRailsRspec < Autotest::Rspec
