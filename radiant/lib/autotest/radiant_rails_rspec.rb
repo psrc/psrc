@@ -77,8 +77,8 @@ Autotest.add_hook :initialize do |at|
   at.add_mapping(%r%^vendor/extensions/.*/spec/(models|controllers|views|helpers|lib)/.*rb$%) { |filename, _|
     filename
   }
-  at.add_mapping(%r%^vendor/extensions/(.*)/app/views/(.*)\..*$%) { |_, m|
-    at.files_matching %r%^vendor/extensions/#{m[1]}/spec/views/#{m[2]}_view_spec.rb$%
+  at.add_mapping(%r%^vendor/extensions/(.*)/app/views/(.*)$%) { |_, m|
+    at.files_matching %r%^vendor/extensions/#{m[1]}/spec/views/#{m[2]}_spec.rb$%
   }
   at.add_mapping(%r%^vendor/extensions/(.*)/app/controllers/(.*)\.rb%) { |_, m|
     if m[2] == "#{m[1]}_controller"
