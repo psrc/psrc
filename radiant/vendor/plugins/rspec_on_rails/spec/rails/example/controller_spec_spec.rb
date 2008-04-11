@@ -17,6 +17,12 @@ require 'controller_spec_controller'
       session.should equal(session_before)
     end
   
+    it "should keep the same data in the session before and after the action" do
+      session[:foo] = :bar
+      get 'action_with_template'
+      session[:foo].should == :bar
+    end
+  
     it "should ensure controller.session is NOT nil before the action" do
       controller.session.should_not be_nil
       get 'action_with_template'
@@ -61,7 +67,7 @@ require 'controller_spec_controller'
     end
     
     it "should provide access to flash" do
-      get 'action_with_template'
+      get 'action_which_sets_flash'
       flash[:flash_key].should == "flash value"
     end
     
@@ -76,8 +82,10 @@ require 'controller_spec_controller'
     end
 
     it "should provide access to session" do
-      get 'action_with_template'
-      session[:session_key].should == "session value"
+      session[:session_key] = "session value"
+      lambda do
+        get 'action_which_gets_session', :expected => "session value"
+      end.should_not raise_error
     end
 
     it "should support custom routes" do
