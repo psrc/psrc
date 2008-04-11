@@ -60,6 +60,10 @@ document.observe('dom:loaded', function() {
         $('publication-date').hide().select('select').invoke('disable');
     })
   });
+
+  when('notice', function(notice) {
+    new Effect.Fade(notice, {delay: 3})
+  });
 });
 
 Element.addMethods({

@@ -437,23 +437,22 @@ module StandardTags
       raise TagError.new("`snippet' tag must contain `name' attribute")
     end
   end
-  
+
   desc %{
-    Inside this tag all page related tags refer to the page found at the @url@ attribute.
+    Inside this tag all page related tags refer to the page found at the @url@ attribute.  
+    @url@s may be relative or absolute paths.
     
     *Usage:*
     <pre><code><r:find url="value_to_find">...</r:find></code></pre>
   }
   tag 'find' do |tag|
-    if url = tag.attr['url']
-      if found = Page.find_by_url(tag.attr['url'])
-        unless FileNotFoundPage === found
-          tag.locals.page = found
-          tag.expand
-        end
-      end
-    else
-      raise TagError.new("`find' tag must contain `url' attribute")
+    url = tag.attr['url']
+    raise TagError.new("`find' tag must contain `url' attribute") unless url
+    
+    found = Page.find_by_url(absolute_path_for(tag.locals.page.url, url))
+    if page_found?(found)
+      tag.locals.page = found
+      tag.expand
     end
   end
   
@@ -689,5 +688,17 @@ module StandardTags
     
     def relative_url_for(url, request)
       File.join(request.relative_url_root, url)
+    end
+    
+    def absolute_path_for(base_path, new_path)
+      if new_path.first == '/'
+        new_path
+      else
+        File.expand_path(File.join(base_path, new_path))
+      end
+    end
+    
+    def page_found?(page)
+      page && !(FileNotFoundPage === page)
     end
 end

@@ -342,6 +342,9 @@ describe "Standard Tags" do
   specify '<r:find> with children' do
     page.should render(%{<r:find url="/parent/"><r:children:each><r:slug /> </r:children:each></r:find>}).as('child child-2 child-3 ')
   end
+  specify '<r:find> with relative url' do
+    page(:great_grandchild).should render(%{<r:find url="../../../child-2"><r:title/></r:find>}).as("Child 2")
+  end
   
   specify '<r:escape_html>' do
     page.should render('<r:escape_html><strong>a bold move</strong></r:escape_html>').as('&lt;strong&gt;a bold move&lt;/strong&gt;')
