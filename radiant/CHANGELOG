@@ -1,6 +1,8 @@
 == Change Log
 
 === SVN
+* All flash messages now fade after 3 seconds. [Sean Cribbs]
+* Notice area now fades away after 3 seconds. [Andrew O'Brien]
 * Update RSpec and RSpec on Rails to r3333. [Josh French]
 * Add autotest support for Radiant and extensions. [Josh French]
 * Add pkg/ ignore to git, correct CSS problems with fieldset tables. 

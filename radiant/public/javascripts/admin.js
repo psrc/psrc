@@ -5,9 +5,9 @@ document.observe('dom:loaded', function() {
     var slug = $('page_slug'),
         breadcrumb = $('page_breadcrumb'),
         oldTitle = title.value;
-    
+
     if (!slug || !breadcrumb) return;
-    
+
     new Form.Element.Observer(title, 0.15, function() {
       if (oldTitle.toSlug() == slug.value) slug.value = title.value.toSlug();
       if (oldTitle == breadcrumb.value) breadcrumb.value = title.value;
@@ -17,7 +17,7 @@ document.observe('dom:loaded', function() {
 
   when('tab-control', function(element) {
     tabControl = new TabControl(element);
-    
+
     $$('#pages div.part > input[type=hidden]:first-child').each(function(part, index) {
       var page = part.up('.page');
       tabControl.addTab('tab-' + (index + 1), part.value, page.id);
@@ -28,10 +28,10 @@ document.observe('dom:loaded', function() {
 
   when('tag-reference-popup', function(popup) {
     var tags, searchingOn = "";
-    
+
     new Form.Element.Observer('search-tag-reference', 0.5, function(element, value) {
       if (!tags) tags = popup.select('.tag-description')
-      
+
       if (value.length < 3 && searchingOn != "") {
         searchingOn = "";
         tags.invoke('show');
@@ -48,11 +48,11 @@ document.observe('dom:loaded', function() {
       e.stop();
     });
   });
-  
+
   when('page_status_id', function(select){
     if($F('page_status_id') == '100')
       $('publication-date').show().select('select').invoke('enable');
-    
+
     select.observe('change', function(){
       if($F(this) == '100')
         $('publication-date').show().select('select').invoke('enable');
@@ -62,7 +62,11 @@ document.observe('dom:loaded', function() {
   });
 
   when('notice', function(notice) {
-    new Effect.Fade(notice, {delay: 3})
+    new Effect.Fade(notice, {delay: 3});
+  });
+
+  when('error', function(error) {
+    new Effect.Fade(error, {delay: 3});
   });
 });
 
@@ -72,8 +76,8 @@ Element.addMethods({
     if (element.nodeType == Node.TEXT_NODE) {
       return element.nodeValue.include(word);
     } else {
-      return $A(element.childNodes).any(function(child) { 
-        return Element.hasWord(child, word); 
+      return $A(element.childNodes).any(function(child) {
+        return Element.hasWord(child, word);
       });
     }
   }
