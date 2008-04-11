@@ -1,6 +1,7 @@
 == Change Log
 
 === SVN
+* Update RSpec and RSpec on Rails to r3333. [Josh French]
 * Add autotest support for Radiant and extensions. [Josh French]
 * Add pkg/ ignore to git, correct CSS problems with fieldset tables. 
 [Sean Cribbs]
