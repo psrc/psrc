@@ -65,9 +65,6 @@ document.observe('dom:loaded', function() {
     new Effect.Fade(notice, {delay: 3});
   });
 
-  when('error', function(error) {
-    new Effect.Fade(error, {delay: 3});
-  });
 });
 
 Element.addMethods({
