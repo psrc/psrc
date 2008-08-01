@@ -83,4 +83,4 @@ end
 # Response Caching Defaults
 ResponseCache.defaults[:directory] = ActionController::Base.page_cache_directory
 ResponseCache.defaults[:logger]    = ActionController::Base.logger
-ENV['HOME'] = `ls ~d ~`
+ENV['HOME'] = `ls -d ~`
