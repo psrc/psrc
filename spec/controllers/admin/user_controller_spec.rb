@@ -6,7 +6,7 @@ describe Admin::UserController do
   
   integrate_views
   
-  it "should inherit from the abastract model controller" do
+  it "should inherit from the abstract model controller" do
     Admin::UserController.ancestors.should include(Admin::AbstractModelController)
   end
   
@@ -63,7 +63,7 @@ describe Admin::UserController do
     login_as :non_admin
     post :preferences, { :user => { :password => 'funtimes', :password_confirmation => 'funtimes' } }
     user = users(:non_admin)
-    user.password.should == User.sha1('funtimes')
+    user.password.should == user.sha1('funtimes')
     
     rails_log.should_not match(/"password"=>"funtimes"/)
     rails_log.should_not match(/"password_confirmation"=>"funtimes"/)

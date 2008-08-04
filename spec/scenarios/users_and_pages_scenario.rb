@@ -3,7 +3,7 @@ class UsersAndPagesScenario < Scenario::Base
   
   def load
     UserActionObserver.current_user = users(:admin)
-    Page.update_all "created_by = #{user_id(:admin)}, updated_by = #{user_id(:admin)}"
+    Page.update_all "created_by_id = #{user_id(:admin)}, updated_by_id = #{user_id(:admin)}"
     create_page "No User"
   end
 end

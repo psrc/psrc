@@ -1,11 +1,85 @@
 == Change Log
 
-=== SVN
+=== 0.6.9 Etch
+* Make <r:random> accept dynamically generated options. [Jim Gay, Sean Cribbs]
+* Correctly set default 'inherit' to false on <r:unless_content> [Mark A. Yoon]
+* Correct authenticity token errors when using cookie session store [Sean 
+Cribbs]
+* Make script/extension executable. [Sean Cribbs]
+* Correct bugs in radiant:freeze:edge task. [Sean Cribbs]
+* Fix strange Page subclass loading errors in development mode. [Sean Cribbs]
+* Fix typo in if_content description. [Jim Gay]
+* Correct error in radiant:update:configs task. [Sean Cribbs]
+
+=== 0.6.8 Incise
+* Hide page publish date selector unless page.edit.published_date? config is 
+set. [Sean Cribbs]
+* Add <r:yield /> tag to support snippets that accept blocks. [Andrew Neil]
+* Fix bug with FileNotFoundPage subclasses and draft status. [Glenn Murray]
+* Update radiant:freeze:edge task to support BRANCH, TAG, and REVISION. [John 
+Muhl]
+* Update to Haml 2.0.1. [Jim Gay]
+* Fix radiant:update:configs task to properly evaluate environment.rb
+[Sean Cribbs]
+* Fix page subclass loading issues. [Sean Cribbs]
+* Add <r:unless_ancestor_or_self> and <r:unless_self> tags. [Tim Gossett]
+* Add specific installation modes for gzip and bzip2 compression. [Sean Cribbs]
+* Added extension installation scripts. [Sean Cribbs]
+* Added find attr to r:if_content and r:unless_content to expand based on
+finding 'any' or 'all' specified parts [Jim Gay]
+* Added inherit attr to r:if_content and r:unless_content to search for parts
+independently in the page tree. [Jim Gay]
+* Update radiant:freeze:edge task to use git and GitHub. [John Muhl]
+* Update login page layout from prototype. [Sean Cribbs]
+* Change order of extension paths to prefer project extensions over Radiant's.
+[John Muhl]
+* Switch default session store to cookies [Josh French]
+* Add remember-me function to login [Josh French]
+* Allow an inclusive list of parts in r:if_content and r:unless_content [Jim Gay]
+* Added a defaults.page.filter config setting for setting a default page
+filter. [Alex Wayne]
+* Fix Users fixtures for extensions that still use test/unit. [Nick Plante]
+* Don't search for missing Page subclasses before bootstrap. [Sean Cribbs]
+* Added tolerance for missing Page class definitions. [Loren Johnson]
+* Don't require an authenticity token check on the login action. [Sean Cribbs]
+* Make sure region sets are reloaded when activating extensions in development
+mode. [Sean Cribbs]
+* Fix Haml rendering errors. [Thomas Watson Steen]
+
+=== 0.6.7 Mordant
+* Integrate shards extension into core. [Sean Cribbs]
+* Convert all views to Haml. [Sean Cribbs, John Long]
+* Avoid authenticity check when listing page children. [Sean Cribbs]
+* Add radiant:extensions:update_all task. [Josh French]
+* Tweak LoginSystem to allow attempted URL redirection after login and
+auto-redirect from login URL if logged in. [Josh French]
+* Add per-user salting to password encryption. [Sean Cribbs]
+* Address CSRF vulnerabilities in forms. [Sean Cribbs]
+* Remove clear cache action, always clear cache after saving a page. [Sean
+Cribbs]
+
+=== 0.6.6 Chiseled
+* Make sure extension view paths override Radiant view paths. [Josh French]
+* Fix problem in framework.rake when public/javascripts/admin doesn't exist.
+[Sean Cribbs]
+
+=== 0.6.5 Chisel
+* Convert StandardTags specs to nested describe blocks. [Sean Cribbs]
+* Remove test/unit tests - all RSpec now. [Sean Cribbs]
+* Fix radiant:update:javascripts task. [Sean Cribbs]
+* Fix problem in test fixtures. [Adam Keyes]
+* Add <r:meta /> tag and appropriate fields to pages table. [Sean Cribbs]
+* Move admin-related javascripts to admin/. [Bjørn Arild Mæland]
+* Add if_self and if_ancestor_or_self tags. [Marty Haught, Sean Cribbs]
+* Rename created_by and updated_by columns on standard models. [Sean Cribbs]
+* Fix Dir glob for extension rake tasks. [Sean Cribbs]
+* Respect view_paths set by plugins in extensions. [xtoddx]
+* Move extra initialization into after_initialize block. [Sean Cribbs]
 * Notice area now fades away after 3 seconds. [Andrew O'Brien]
 * <r:find /> now accepts paths relative to the current page. [Andrew O'Brien]
 * Update RSpec and RSpec on Rails to r3333. [Josh French]
 * Add autotest support for Radiant and extensions. [Josh French]
-* Add pkg/ ignore to git, correct CSS problems with fieldset tables. 
+* Add pkg/ ignore to git, correct CSS problems with fieldset tables.
 [Sean Cribbs]
 * Ignore git files when building gem. [Sean Cribbs]
 * Fix generated test and spec harnesses, convert core extensions to specs.
@@ -15,11 +89,11 @@
 * Correct some view and spec bugs. [Sean Cribbs]
 * Added specs for view helpers. [Sean Cribbs]
 * Use TH for fieldset tables and correct error in CSS. [skrat]
-* Adjust admin links and r:breadcrumbs tag to deal with Rails site prefix. 
-[Sean Cribbs] 
-* Adjust tags to deal with Rails site prefix (relative_url_root). 
+* Adjust admin links and r:breadcrumbs tag to deal with Rails site prefix.
 [Sean Cribbs]
-* Resolve issue with undefined method :view_paths in ActionMailer. 
+* Adjust tags to deal with Rails site prefix (relative_url_root).
+[Sean Cribbs]
+* Resolve issue with undefined method :view_paths in ActionMailer.
 [Sean Cribbs]
 * Fixed incompatibility with RubyGems >= 0.9.5 that broke radiant:freeze:gems
 rake task. [Michael Klett]
@@ -56,7 +130,7 @@ in instance mode. [Andrew O'Brien]
 edit. [Mislav Marohnić]
 * Fix extension loader and previously failing unit tests; update specs.
 [Mislav Marohnić]
-* Fixed problem with response_cached? returning true when perform caching was 
+* Fixed problem with response_cached? returning true when perform caching was
 off; fixed failing spec. [John Long]
 * Fixed issues with whitespace in page.rb. [John Long]
 * Fix filtering in tag reference popup. [Mislav Marohnić]
@@ -65,9 +139,9 @@ off; fixed failing spec. [John Long]
 [Sean Cribbs]
 * Make all extensions loaded by default. [Sean Cribbs]
 * Update extension loader spec. [Sean Cribbs]
-* Work around a nasty issue with extensions + Dependencies unloading in 
+* Work around a nasty issue with extensions + Dependencies unloading in
 development mode. [Mislav Marohnić]
-* Fix the tree expansion issue in admin interface (cookie-related). minor 
+* Fix the tree expansion issue in admin interface (cookie-related). minor
 cleanup server-side [Mislav Marohnić]
 * Cleanup up the underscore layout hack by using method chain.
 [Mislav Marohnić]
@@ -75,7 +149,7 @@ cleanup server-side [Mislav Marohnić]
 * Fix SiteController#show_page for Rails 2.0. [Mislav Marohnić]
 * Minor optimization for Page; remove the unneccessary 'virtual' accessor.
 [Mislav Marohnić]
-* Fix tests for PostgreSQL: comment out a test that breaks most of the specs 
+* Fix tests for PostgreSQL: comment out a test that breaks most of the specs
 somehow. [Mislav Marohnić]
 * Failures in initializer_spec.rb fixed [John Long]
 * Failure in site_controller_spec.rb fixed. [John Long]
@@ -91,7 +165,7 @@ somehow. [Mislav Marohnić]
 * Modify ApplicationController spec. [Loren Johnson]
 * Modify SiteController spec. [Loren Johnson]
 * Fix failing unit test for old type of logger. [Daniel Sheppard]
-* Fix problems preventing script/console from running: acts_as_tree is now a 
+* Fix problems preventing script/console from running: acts_as_tree is now a
 plugin, view_paths is now a core feature. [Daniel Sheppard]
 * Upgrade to Rails 2.0.2 [Daniel Sheppard]
 * Escape angle brackets to avoid assertion warnings in StandardTags.
@@ -119,9 +193,9 @@ plugin, view_paths is now a core feature. [Daniel Sheppard]
 * Small improvements to page_part_spec.rb [John Long]
 * Remove duplicate specs and move Radiant::ExtensionMigrator? spec to proper
 location. [Sean Cribbs]
-* Fix admin.js to initialize TabControl even if there are no tabs. 
+* Fix admin.js to initialize TabControl even if there are no tabs.
 [Benny Degezelle]
-* Correct RenderTestHelper to better resemble expectations from Rails. 
+* Correct RenderTestHelper to better resemble expectations from Rails.
 [Sean Cribbs]
 * Add model specs and scenarios. [John Long]
 * Modify script/spec to work in instance mode. [Andrew O'Brien]

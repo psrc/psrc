@@ -30,6 +30,7 @@ module LoginSystem
     
     def authenticate
       action = params['action'].to_s.intern
+      login_from_cookie
       if no_login_required? or (current_user and user_has_access_to_action?(action))
         true
       else
@@ -38,6 +39,7 @@ module LoginSystem
           flash[:error] = permissions[:denied_message] || 'Access denied.'
           redirect_to permissions[:denied_url] || { :action => :index }
         else
+          session[:return_to] = request.request_uri
           redirect_to login_url
         end
         false
@@ -67,6 +69,18 @@ module LoginSystem
       else
         true
       end
+    end
+
+    def login_from_cookie
+      if !cookies[:session_token].blank? && user = User.find_by_session_token(cookies[:session_token]) # don't find by empty value
+        user.remember_me
+        self.current_user = user
+        set_session_cookie
+      end
+    end
+
+    def set_session_cookie
+      cookies[:session_token] = { :value => current_user.session_token , :expires => Radiant::Config['session_timeout'].to_i.from_now.utc }
     end
   
   module ClassMethods

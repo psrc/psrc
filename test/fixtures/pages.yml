@@ -38,7 +38,7 @@ radius:
   slug: radius
   status_id: 100
   parent_id: 1
-  created_by: 3
+  created_by_id: 3
   published_at: 2006-01-30 08:41:07
   created_at: 2006-01-30 08:40:00
   updated_at: 2006-01-31 08:40:00 
@@ -50,7 +50,7 @@ radius_child_<%= i %>:
   slug: child-<%= i %>
   status_id: 100
   parent_id: 5
-  created_by: 1
+  created_by_id: 1
   published_at: 2006-01-30 08:41:07 
 <% end %>
 page_with_layout:

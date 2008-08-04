@@ -35,16 +35,6 @@ class Admin::PageController < Admin::AbstractModelController
     end
   end
 
-  def clear_cache
-    if request.post?
-      @cache.clear
-      announce_cache_cleared
-      redirect_to page_index_url
-    else
-      render :text => 'Do not access this URL directly.'
-    end
-  end
-
   def add_part
     part = PagePart.new(params[:part])
     @index = params[:index].to_i if params[:index]
@@ -91,6 +81,8 @@ class Admin::PageController < Admin::AbstractModelController
       @meta ||= []
       @meta << {:field => "slug", :type => "text_field", :args => [{:class => 'textbox', :maxlength => 100}]}
       @meta << {:field => "breadcrumb", :type => "text_field", :args => [{:class => 'textbox', :maxlength => 160}]}
+      @meta << {:field => "description", :type => "text_field", :args => [{:class => 'textbox', :maxlength => 200}]}
+      @meta << {:field => "keywords", :type => "text_field", :args => [{:class => 'textbox', :maxlength => 200}]}
     end
     
     def save
@@ -118,6 +110,6 @@ class Admin::PageController < Admin::AbstractModelController
     end
     
     def clear_model_cache
-      @cache.expire_response(@old_page_url || @page.url)      
+      @cache.clear
     end
 end

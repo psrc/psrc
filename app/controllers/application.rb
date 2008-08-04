@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   
   filter_parameter_logging :password, :password_confirmation
   
+  protect_from_forgery
+  
   before_filter :set_current_user
   before_filter :set_javascripts_and_stylesheets
   
@@ -43,6 +45,6 @@ class ApplicationController < ActionController::Base
   
     def set_javascripts_and_stylesheets
       @stylesheets = %w(admin/main)
-      @javascripts = %w(prototype string effects tabcontrol ruledtable admin)
+      @javascripts = %w(prototype string effects admin/tabcontrol admin/ruledtable admin/admin)
     end
 end

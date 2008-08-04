@@ -21,7 +21,7 @@ class PagesScenario < Scenario::Base
       create_page "Child 3"
     end
     create_page "Childless"
-    create_page "Assorted" do
+    create_page "Assorted", :keywords => "sweet & harmonious biscuits", :description => "sweet & harmonious biscuits" do
       breadcrumbs = %w(f e d c b a j i h g)
       %w(a b c d e f g h i j).each_with_index do |name, i|
         create_page name, :breadcrumb => breadcrumbs[i], :published_at => Time.now - (10 - i).minutes
@@ -40,11 +40,17 @@ class PagesScenario < Scenario::Base
     create_page "Hidden", :status_id => Status[:hidden].id
     date = Time.utc(2006, 1, 11)
     create_page "Dated", :published_at => date, :created_at => (date - 1.day), :updated_at => (date + 1.day)
+
     create_page "Devtags" do
       create_page_part "if_dev", :content => "<r:if_dev>dev</r:if_dev>"
       create_page_part "unless_dev", :content => "<r:unless_dev>not dev</r:unless_dev>"
     end
     create_page "Virtual", :class_name => "VirtualPage", :virtual => true
+    create_page "Party" do
+      create_page_part "favors"
+      create_page_part "games"
+      create_page "Guests"
+    end
   end
   
 end

@@ -77,7 +77,8 @@ class InstanceGenerator < Rails::Generator::Base
       # Instance Configurations
       m.file "instance_routes.rb", "config/routes.rb"
       m.template "instance_environment.rb", "config/environment.rb", :assigns => {
-        :radiant_environment => File.join(File.dirname(__FILE__), 'templates', radiant_root("config/environment.rb"))
+        :radiant_environment => File.join(File.dirname(__FILE__), 'templates', radiant_root("config/environment.rb")),
+        :app_name => File.basename(File.expand_path(@destination_root))
       }
       m.template "instance_boot.rb", "config/boot.rb"
       

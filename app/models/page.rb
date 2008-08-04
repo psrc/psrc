@@ -11,8 +11,8 @@ class Page < ActiveRecord::Base
   acts_as_tree :order => 'virtual DESC, title ASC'
   has_many :parts, :class_name => 'PagePart', :order => 'id', :dependent => :destroy
   belongs_to :layout
-  belongs_to :created_by, :class_name => 'User', :foreign_key => 'created_by'
-  belongs_to :updated_by, :class_name => 'User', :foreign_key => 'updated_by'
+  belongs_to :created_by, :class_name => 'User'
+  belongs_to :updated_by, :class_name => 'User'
   
   # Validations
   validates_presence_of :title, :slug, :breadcrumb, :status_id, :message => 'required'
@@ -44,6 +44,14 @@ class Page < ActiveRecord::Base
     end
   end
   alias_method_chain :layout, :inheritance
+  
+  def description
+    self["description"]
+  end
+  
+  def description=(value)
+    self["description"] = value
+  end
   
   def cache?
     true
@@ -144,9 +152,10 @@ class Page < ActiveRecord::Base
         found = child.find_by_url(url, live, clean)
         return found if found
       end
-      file_not_found_types = [FileNotFoundPage] + FileNotFoundPage.descendants
-      condition = (['class_name = ?'] * file_not_found_types.length).join(' or ')
-      file_not_found_names = file_not_found_types.map { |x| x.name }.uniq
+      file_not_found_types = ([FileNotFoundPage] + FileNotFoundPage.descendants)
+      file_not_found_names = file_not_found_types.collect { |x| x.name }
+      condition = (['class_name = ?'] * file_not_found_names.length).join(' or ')
+      condition = "status_id = #{Status[:published].id} and (#{condition})" if live
       children.find(:first, :conditions => [condition] + file_not_found_names)
     end
   end
@@ -169,14 +178,27 @@ class Page < ActiveRecord::Base
           n.strip
         end
       end
+      @display_name = @display_name + " - not installed" if missing? && @display_name !~ /not installed/
+      @display_name
     end
     def display_name=(string)
       display_name(string)
     end
     
     def load_subclasses
-      Dir["#{RADIANT_ROOT}/app/models/*_page.rb"].each do |page|
-        $1.camelize.constantize if page =~ %r{/([^/]+)\.rb}
+      ([RADIANT_ROOT] + Radiant::Extension.descendants.map(&:root)).each do |path|
+        Dir["#{path}/app/models/*_page.rb"].each do |page|
+          $1.camelize.constantize if page =~ %r{/([^/]+)\.rb}
+        end
+      end
+      unless Page.connection.tables.empty? # Haven't bootstrapped yet
+        Page.connection.select_values("SELECT DISTINCT class_name FROM pages WHERE class_name <> '' AND class_name IS NOT NULL").each do |p|
+          begin
+            p.constantize
+          rescue NameError, LoadError
+            eval(%Q{class #{p} < Page; def self.missing?; true end end}, TOPLEVEL_BINDING)
+          end
+        end
       end
     end
     
@@ -184,7 +206,7 @@ class Page < ActiveRecord::Base
       default_parts = config['defaults.page.parts'].to_s.strip.split(/\s*,\s*/)
       page = new
       default_parts.each do |name|
-        page.parts << PagePart.new(:name => name)
+        page.parts << PagePart.new(:name => name, :filter_id => config['defaults.page.filter'])
       end
       default_status = config['defaults.page.status']
       page.status = Status[default_status] if default_status
@@ -202,6 +224,10 @@ class Page < ActiveRecord::Base
       else
         class_name.constantize
       end
+    end
+    
+    def missing?
+      false
     end
   end
   
@@ -258,5 +284,3 @@ class Page < ActiveRecord::Base
       text
     end  
 end
-
-Page.load_subclasses

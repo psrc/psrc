@@ -21,7 +21,7 @@ module Radiant
 
     def default_extension_paths
       env = ENV["RAILS_ENV"] || RAILS_ENV
-      paths = [RADIANT_ROOT + '/vendor/extensions', RAILS_ROOT + '/vendor/extensions'].uniq
+      paths = [RAILS_ROOT + '/vendor/extensions', RADIANT_ROOT + '/vendor/extensions'].uniq
       # There's no other way it will work, config/environments/test.rb loads too late
       # TODO: Should figure out how to include this extension path only for the tests that need it
       paths.unshift(RADIANT_ROOT + "/test/fixtures/extensions") if env == "test"
@@ -106,8 +106,8 @@ module Radiant
     end
 
     def after_initialize
-      extension_loader.activate_extensions
       super
+      extension_loader.activate_extensions
     end
 
     def initialize_default_admin_tabs
@@ -135,7 +135,13 @@ module Radiant
         end
         ActionMailer::Base.view_paths = view_paths
       end
-      ActionController::Base.view_paths = view_paths if configuration.frameworks.include?(:action_controller)
+      if configuration.frameworks.include?(:action_controller) || defined?(ActionController::Base)
+        view_paths.each do |vp|
+          unless ActionController::Base.view_paths.include?(vp)
+            ActionController::Base.prepend_view_path vp
+          end
+        end
+      end
     end
 
     def initialize_routing

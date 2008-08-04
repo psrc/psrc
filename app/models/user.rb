@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
   order_by 'name'
   
   # Associations
-  belongs_to :created_by, :class_name => 'User', :foreign_key => 'created_by'
-  belongs_to :updated_by, :class_name => 'User', :foreign_key => 'updated_by'
+  belongs_to :created_by, :class_name => 'User'
+  belongs_to :updated_by, :class_name => 'User'
   
   # Validations
   validates_uniqueness_of :login, :message => 'login already in use'
@@ -25,18 +25,16 @@ class User < ActiveRecord::Base
   validates_length_of :email, :maximum => 255, :allow_nil => true, :message => '%d-character limit'
   
   validates_numericality_of :id, :only_integer => true, :allow_nil => true, :message => 'must be a number'
-  
-  cattr_accessor :salt
-  @@salt = 'sweet harmonious biscuits' # historic value
-  
+    
   attr_writer :confirm_password
   
-  def self.sha1(phrase)
-    Digest::SHA1.hexdigest("--#{@@salt}--#{phrase}--")
+  def sha1(phrase)
+    Digest::SHA1.hexdigest("--#{salt}--#{phrase}--")
   end
   
   def self.authenticate(login, password)
-    find_by_login_and_password(login, sha1(password))
+    user = find_by_login(login)
+    user if user && user.password == user.sha1(password)
   end
   
   def after_initialize
@@ -46,7 +44,15 @@ class User < ActiveRecord::Base
   def confirm_password?
     @confirm_password
   end
-  
+
+  def remember_me
+    update_attribute(:session_token, sha1(Time.now + Radiant::Config['session_timeout'].to_i)) unless self.session_token?
+  end
+
+  def forget_me
+    update_attribute(:session_token, nil)
+  end
+
   private
   
     def validate_length_of_password?
@@ -55,7 +61,8 @@ class User < ActiveRecord::Base
   
     before_create :encrypt_password
     def encrypt_password
-      self.password = self.class.sha1(password)
+      self.salt = Digest::SHA1.hexdigest("--#{Time.now}--#{login}--sweet harmonious biscuits--")
+      self.password = sha1(password)
     end
   
     before_update :encrypt_password_unless_empty_or_unchanged

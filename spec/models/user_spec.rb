@@ -93,27 +93,62 @@ describe User do
     @user.confirm_password = true
     @user.password_confirmation = @user.password = 'test_password'
     @user.save!
-    @user.password.should == User.sha1('test_password')
+    @user.password.should == @user.sha1('test_password')
   end
   
   it 'should save existing but empty password' do
     @user.save!
     @user.password_confirmation = @user.password = ''
     @user.save!
-    @user.password.should == User.sha1('password')
+    @user.password.should == @user.sha1('password')
   end
   
   it 'should save existing but different password' do
     @user.save!
     @user.password_confirmation = @user.password = 'cool beans'
     @user.save!
-    @user.password.should == User.sha1('cool beans')
+    @user.password.should == @user.sha1('cool beans')
   end
   
   it 'should save existing but same password' do
     @user.save! && @user.save!
-    @user.password.should == User.sha1('password')
+    @user.password.should == @user.sha1('password')
   end
+  
+  it "should create a salt when encrypting the password" do
+    @user.salt.should be_nil
+    @user.send(:encrypt_password)
+    @user.salt.should_not be_nil
+    @user.password.should == @user.sha1('password')
+  end
+
+  describe ".remember_me" do
+    before do
+      Radiant::Config.stub!(:[]).with('session_timeout').and_return(2.weeks)
+      @user.save
+      @user.remember_me
+      @user.reload
+    end
+
+    it "should remember user" do
+      @user.session_token.should_not be_nil
+    end
+  end
+
+  describe ".forget_me" do
+
+    before do
+      Radiant::Config.stub!(:[]).with('session_timeout').and_return(2.weeks)
+      @user.save
+      @user.remember_me
+    end
+
+    it "should forget user" do
+      @user.forget_me
+      @user.session_token.should be_nil
+    end
+  end
+  
 end
 
 describe User, "class methods" do

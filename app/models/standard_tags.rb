@@ -275,32 +275,75 @@ module StandardTags
   end
   
   desc %{ 
-    Renders the containing elements only if the part exists on a page. By default the
-    @part@ attribute is set to @body@.
+    Renders the containing elements if all of the listed parts exist on a page.
+    By default the @part@ attribute is set to @body@, but you may list more than one
+    part by separating them with a comma. Setting the optional @inherit@ to true will 
+    search ancestors independently for each part. By default @inherit@ is set to @false@.
+    
+    When listing more than one part, you may optionally set the @find@ attribute to @any@
+    so that it will render the containing elements if any of the listed parts are found.
+    By default the @find@ attribute is set to @all@.
     
     *Usage:*
-    <pre><code><r:if_content [part="part_name"]>...</r:if_content></code></pre>
+    <pre><code><r:if_content [part="part_name, other_part"] [inherit="true"] [find="any"]>...</r:if_content></code></pre>
   }
   tag 'if_content' do |tag|
     page = tag.locals.page
     part_name = tag_part_name(tag)
-    unless page.part(part_name).nil?
-      tag.expand
+    parts_arr = part_name.split(',')
+    inherit = boolean_attr_or_error(tag, 'inherit', 'false')
+    find = attr_or_error(tag, :attribute_name => 'find', :default => 'all', :values => 'any, all')
+    expandable = true
+    one_found = false
+    part_page = page
+    parts_arr.each do |name|
+      name.strip!
+      if inherit
+        while (part_page.part(name).nil? and (not part_page.parent.nil?)) do
+          part_page = part_page.parent
+        end
+      end
+      expandable = false if part_page.part(name).nil?
+      one_found ||= true if !part_page.part(name).nil?
     end
+    expandable = true if (find == 'any' and one_found)
+    tag.expand if expandable
   end
   
   desc %{
-    The opposite of the @if_content@ tag.
+    The opposite of the @if_content@ tag. It renders the contained elements if all of the 
+    specified parts do not exist. Setting the optional @inherit@ to true will search 
+    ancestors independently for each part. By default @inherit@ is set to @false@.
+    
+    When listing more than one part, you may optionally set the @find@ attribute to @any@
+    so that it will not render the containing elements if any of the listed parts are found.
+    By default the @find@ attribute is set to @all@.
     
     *Usage:*
-    <pre><code><r:unless_content [part="part_name"]>...</r:unless_content></code></pre>
+    <pre><code><r:unless_content [part="part_name, other_part"] [inherit="false"] [find="any"]>...</r:unless_content></code></pre>
   }
   tag 'unless_content' do |tag|
     page = tag.locals.page
     part_name = tag_part_name(tag)
-    if page.part(part_name).nil?
-      tag.expand
+    parts_arr = part_name.split(',')
+    inherit = boolean_attr_or_error(tag, 'inherit', false)
+    find = attr_or_error(tag, :attribute_name => 'find', :default => 'all', :values => 'any, all')
+    expandable, all_found = true, true
+    part_page = page
+    parts_arr.each do |name|
+      name.strip!
+      if inherit
+        while (part_page.part(name).nil? and (not part_page.parent.nil?)) do
+          part_page = part_page.parent
+        end
+      end
+      expandable = false if !part_page.part(name).nil?
+      all_found = false if part_page.part(name).nil?
     end
+    if all_found == false and find == 'all'
+      expandable = true
+    end
+    tag.expand if expandable
   end
   
   desc %{  
@@ -331,6 +374,54 @@ module StandardTags
     if tag.locals.page.url.match(regexp).nil?
         tag.expand
     end
+  end
+
+  desc %{
+    Renders the contained elements if the current contextual page is either the actual page or one of its parents.
+    
+    This is typically used inside another tag (like &lt;r:children:each&gt;) to add conditional mark-up if the child element is or descends from the current page.
+    
+    *Usage:*
+    <pre><code><r:if_ancestor_or_self>...</if_ancestor_or_self></code></pre>
+  }  
+  tag "if_ancestor_or_self" do |tag|
+    tag.expand if (tag.globals.page.ancestors + [tag.globals.page]).include?(tag.locals.page)
+  end
+  
+  desc %{
+    Renders the contained elements unless the current contextual page is either the actual page or one of its parents.
+    
+    This is typically used inside another tag (like &lt;r:children:each&gt;) to add conditional mark-up unless the child element is or descends from the current page.
+    
+    *Usage:*
+    <pre><code><r:unless_ancestor_or_self>...</unless_ancestor_or_self></code></pre>
+  }  
+  tag "unless_ancestor_or_self" do |tag|
+    tag.expand unless (tag.globals.page.ancestors + [tag.globals.page]).include?(tag.locals.page)
+  end
+  
+  desc %{
+    Renders the contained elements if the current contextual page is also the actual page.
+    
+    This is typically used inside another tag (like &lt;r:children:each&gt;) to add conditional mark-up if the child element is the current page.
+    
+    *Usage:*
+    <pre><code><r:if_self>...</if_self></code></pre>
+  }
+  tag "if_self" do |tag|
+    tag.expand if tag.locals.page == tag.globals.page
+  end
+  
+  desc %{
+    Renders the contained elements unless the current contextual page is also the actual page.
+    
+    This is typically used inside another tag (like &lt;r:children:each&gt;) to add conditional mark-up unless the child element is the current page.
+    
+    *Usage:*
+    <pre><code><r:unless_self>...</unless_self></code></pre>
+  }
+  tag "unless_self" do |tag|
+    tag.expand unless tag.locals.page == tag.globals.page
   end
   
   desc %{
@@ -425,10 +516,17 @@ module StandardTags
     
     *Usage:*
     <pre><code><r:snippet name="snippet_name" /></code></pre>
+    
+    When used as a double tag, the part in between both tags may be used within the
+    snippet itself, being substituted in place of @<r:yield/>@. 
+    
+    *Usage:*
+    <pre><code><r:snippet name="snippet_name">Lorem ipsum dolor...</r:snippet></code></pre>
   }
   tag 'snippet' do |tag|
     if name = tag.attr['name']
       if snippet = Snippet.find_by_name(name.strip)
+        tag.locals.yield = tag.expand if tag.double?
         tag.globals.page.render_snippet(snippet)
       else
         raise TagError.new('snippet not found')
@@ -437,7 +535,41 @@ module StandardTags
       raise TagError.new("`snippet' tag must contain `name' attribute")
     end
   end
-
+  
+  desc %{ 
+    Used within a snippet as a placeholder for substitution of child content, when 
+    the snippet is called as a double tag.
+    
+    *Usage (within a snippet):*
+    <pre><code>
+    <div id="outer">
+      <p>before</p>
+      <r:yield/>
+      <p>after</p>
+    </div>
+    </code></pre>
+    
+    If the above snippet was named "yielding", you could call it from any Page, 
+    Layout or Snippet as follows:
+    
+    <pre><code><r:snippet name="yielding">Content within</r:snippet></code></pre>
+    
+    Which would output the following:
+    
+    <pre><code>
+    <div id="outer">
+      <p>before</p>
+      Content within
+      <p>after</p>
+    </div>
+    </code></pre>
+    
+    When called in the context of a Page or a Layout, @<r:yield/>@ outputs nothing.
+  }
+  tag 'yield' do |tag|
+    tag.locals.yield
+  end
+  
   desc %{
     Inside this tag all page related tags refer to the page found at the @url@ attribute.  
     @url@s may be relative or absolute paths.
@@ -472,11 +604,11 @@ module StandardTags
     tag.expand
     options = tag.locals.random
     option = options[rand(options.size)]
-    option.call if option
+    option if option
   end
   tag 'random:option' do |tag|
     items = tag.locals.random
-    items << tag.block
+    items << tag.expand
   end
   
   desc %{  
@@ -622,6 +754,64 @@ module StandardTags
     status
   end
   
+  desc %{
+    The namespace for 'meta' attributes.  If used as a singleton tag, both the description
+    and keywords fields will be output as &lt;meta /&gt; tags unless the attribute 'tag' is set to 'false'.
+    
+    *Usage*:
+    
+    <pre><code> <r:meta [tag="false"] /> 
+     <r:meta>
+       <r:description [tag="false"] />
+       <r:keywords [tag="false"] />
+     </r:meta>
+    </code></pre>
+  }
+  tag 'meta' do |tag|
+    if tag.double?
+      tag.expand
+    else
+      tag.render('description', tag.attr) +
+      tag.render('keywords', tag.attr)
+    end
+  end
+  
+  desc %{
+    Emits the page description field in a meta tag, unless attribute
+    'tag' is set to 'false'.
+    
+    *Usage*:
+    
+    <pre><code> <r:meta:description [tag="false"] /> </code></pre>
+  }
+  tag 'meta:description' do |tag|
+    show_tag = tag.attr['tag'] != 'false' || false
+    description = CGI.escapeHTML(tag.locals.page.description)
+    if show_tag
+      "<meta name=\"description\" content=\"#{description}\" />"
+    else
+      description
+    end
+  end
+
+  desc %{
+    Emits the page keywords field in a meta tag, unless attribute
+    'tag' is set to 'false'.
+    
+    *Usage*:
+    
+    <pre><code> <r:meta:keywords [tag="false"] /> </code></pre>
+  }  
+  tag 'meta:keywords' do |tag|
+    show_tag = tag.attr['tag'] != 'false' || false
+    keywords = CGI.escapeHTML(tag.locals.page.keywords)
+    if show_tag
+      "<meta name=\"keywords\" content=\"#{keywords}\" />"
+    else
+      keywords
+    end    
+  end
+  
   private
   
     def children_find_options(tag)
@@ -700,5 +890,20 @@ module StandardTags
     
     def page_found?(page)
       page && !(FileNotFoundPage === page)
+    end
+    
+    def boolean_attr_or_error(tag, attribute_name, default)
+      attribute = attr_or_error(tag, :attribute_name => attribute_name, :default => default.to_s, :values => 'true, false')
+      (attribute.to_s.downcase == 'true') ? true : false
+    end
+    
+    def attr_or_error(tag, options = {})
+      attribute_name = options[:attribute_name].to_s
+      default = options[:default]
+      values = options[:values].split(',').map!(&:strip)
+      
+      attribute = (tag.attr[attribute_name] || default).to_s
+      raise TagError.new(%{'#{attribute_name}' attribute of #{tag} tag must be one of: #{values.join(',')}}) unless values.include?(attribute)
+      return attribute
     end
 end
