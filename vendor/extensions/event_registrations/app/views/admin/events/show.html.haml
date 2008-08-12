@@ -1,5 +1,13 @@
 %h1= @event.name
 
-%strong fill me in
+%p
+  = link_to "Edit", edit_admin_event_path(@event)
+  = link_to "Add new Event Option", new_admin_event_option_path
+%ul 
+- for option in @event.event_options
+  %li== #{ option.description } costs #{ option.price }
+
+%p 
+  %strong== This event happens on #{ relative_date_span [@event.start_date, @event.end_date] }.
 
 = link_to "View event on website", event_path(@event)

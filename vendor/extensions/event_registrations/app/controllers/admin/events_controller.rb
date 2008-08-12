@@ -1,6 +1,6 @@
 class Admin::EventsController < ApplicationController
-  def index
-    @events = Event.find :all
+  def show
+    @event = Event.find params[:id]
   end
 
   def new
@@ -10,14 +10,28 @@ class Admin::EventsController < ApplicationController
   def create
     @event = Event.new params[:event]
     if @event.save
+      flash[:notice] = "Event saved"
       redirect_to admin_event_path(@event)
     else
-      flash.now[:error] = "Event could not be created"
+      flash[:error] = "Couldn't save event"
       render :action => 'new'
     end
   end
 
-  def show
+  def update
     @event = Event.find params[:id]
+    if @event.update_attributes params[:event]
+      redirect_to admin_event_path(@event)
+    else
+      render :action => 'edit'
+    end
+  end
+
+  def edit
+    @event = Event.find params[:id]
+  end
+
+  def index
+    @events = Event.find :all, :order => 'start_date'
   end
 end
