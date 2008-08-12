@@ -3,6 +3,12 @@ class Admin::EventOptionsController < ApplicationController
     @event_option = EventOption.find params[:id]
   end
 
+  def destroy
+    @event_option = EventOption.destroy params[:id]
+    flash[:notice] = "Option deleted"
+    redirect_to admin_event_path(@event_option.event)
+  end
+
   def new
     @event_option = EventOption.new :event_id => params[:event_id]
     @event = @event_option.event
@@ -11,10 +17,10 @@ class Admin::EventOptionsController < ApplicationController
   def create
     @event_option = EventOption.new params[:event_option]
     if @event_option.save
-      flash[:notice] = "EventOption saved"
+      flash[:notice] = "Option created"
       redirect_to admin_event_path(@event_option.event)
     else
-      flash[:error] = "Couldn't save event"
+      flash[:error] = "Couldn't save option"
       render :action => 'new'
     end
   end
@@ -22,6 +28,7 @@ class Admin::EventOptionsController < ApplicationController
   def update
     @event_option = EventOption.find params[:id]
     if @event_option.update_attributes params[:event_option]
+      flash[:notice] = "Option updated"
       redirect_to admin_event_path(@event_option.event)
     else
       render :action => 'edit'
@@ -31,10 +38,6 @@ class Admin::EventOptionsController < ApplicationController
   def edit
     @event_option = EventOption.find params[:id]
     @event = @event_option.event
-  end
-
-  def index
-    @event_options = EventOption.find :all, :order => 'start_date'
   end
 
 end

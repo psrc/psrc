@@ -1,7 +1,10 @@
 
 %h1== You are editing #{ @event.name }...
 
+= link_to "Delete This Option", admin_event_option_path(@event_option), :method => :delete, :confirm => "Are you Sure?"
+
 - form_for [:admin, @event_option] do |f|
   = render :partial => 'form', :object => f
   = submit_tag "Update!"
+  = link_to "Cancel", admin_event_path(@event)
 
