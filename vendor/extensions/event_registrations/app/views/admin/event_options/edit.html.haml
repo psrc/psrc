@@ -1,0 +1,7 @@
+
+%h1== You are editing #{ @event.name }...
+
+- form_for [:admin, @event_option] do |f|
+  = render :partial => 'form', :object => f
+  = submit_tag "Update!"
+

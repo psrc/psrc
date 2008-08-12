@@ -5,10 +5,7 @@
   = link_to "Add new Event Option", new_admin_event_option_path(:event_id => @event)
 %ul 
 - for option in @event.event_options
-  %li
-    = link_to "Edit", edit_admin_event_option_path(option)
-    == #{ option.description } costs #{ option.price } and is good for up to 
-    == #{ option.max_number_of_attendees } #{ pluralize(option.max_number_of_attendees, "person") }.
+  %li== #{ option.description } costs #{ option.price }
 
 %p 
   %strong== This event happens on #{ relative_date_span [@event.start_date, @event.end_date] }.
