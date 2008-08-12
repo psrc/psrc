@@ -7,7 +7,8 @@ class EventRegistrationsExtension < Radiant::Extension
   url "http://fixieconsulting.com"
   
    define_routes do |map|
-     map.connect 'admin/events/:action', :controller => 'admin/events'
+     map.resources :events, :name_prefix => 'admin_', :path_prefix => 'admin', :controller => 'admin/events'
+     map.resources :events 
    end
   
   def activate
