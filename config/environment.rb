@@ -69,6 +69,10 @@ Radiant::Initializer.run do |config|
   end
   
   config.after_initialize do
+    # Radiant Options
+    Radiant::Config['admin.title'] = "Puget Sound Regional Council" if Radiant::Config['admin.title'] =~ /Radiant CMS/
+    Radiant::Config['admin.subtitle'] = "Control Panel" if Radiant::Config['admin.subtitle'] =~ /Publishing for Small Teams/
+
     # Add new inflection rules using the following format:
     Inflector.inflections do |inflect|
       inflect.uncountable 'config'
