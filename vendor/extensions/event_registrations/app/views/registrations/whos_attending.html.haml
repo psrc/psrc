@@ -1,0 +1,18 @@
+%h1== Who's Attending #{ @event.name }?
+
+- form_tag registration_contact_path do
+  - @event_option.max_number_of_attendees.times do 
+    %p
+      = text_field_tag :first_name
+      First Name
+    %p
+      = text_field_tag :last_name
+      Last Name
+    %p
+      = text_field_tag :email
+      Email
+    %p
+      = check_box_tag :vegetarian
+      Veggies?
+
+  = submit_tag "Next!"

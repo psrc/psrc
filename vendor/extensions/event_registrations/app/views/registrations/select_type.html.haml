@@ -1,0 +1,8 @@
+%h1== Selecting type for #{ @event.name }
+
+%ul
+- for option in @event.event_options
+  %li
+    = link_to option.description, enter_people_path(@event, option) 
+    costs
+    = option.price
