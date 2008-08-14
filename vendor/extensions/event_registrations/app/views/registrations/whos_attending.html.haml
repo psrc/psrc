@@ -1,4 +1,4 @@
-%h1== Who's Attending #{ @event.name }?
+%h1= "Who's Attending #{ @event.name }?"
 
 - form_tag registration_contact_path do
   - @event_option.max_number_of_attendees.times do 
@@ -16,3 +16,8 @@
       Veggies?
 
   = submit_tag "Next!"
+
+
+- form_for :user, :url => registration_contact_path, :builder => ::WebSgFormBuilder do |f|
+  = f.text_field :name , :label=>"Your Name", :hint => "This is your name"
+  = f.submit 'Add Image'
