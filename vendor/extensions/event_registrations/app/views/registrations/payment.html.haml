@@ -1,6 +1,6 @@
 %h2 How would you like to pay?
 
-- form_for :contact, :url => payment_path, :builder => ::WebSgFormBuilder do |f|
+- form_for :contact, :url => confirmation_path, :builder => ::WebSgFormBuilder do |f|
   - f.fieldset do
     %p= f.radio_button :credit_card, "Credit Card"
     %p= f.radio_button :credit_card, "Check"
