@@ -101,6 +101,9 @@ input.title {
   font-size: 123.1%;
   font-weight: bold; }
 
+select {
+  margin-bottom: 0.2em; }
+
 form dt label {
   font-size: 93%;
   font-weight: bold; }
@@ -167,7 +170,7 @@ form hr {
   margin: 1em 0 2em 0; }
 
 .attendee {
-  padding: 1em; }
+  padding: 0.2em 1em; }
   .attendee.even {
     background: #EFF9F9; }
   .attendee h4 {
@@ -181,5 +184,31 @@ form hr {
       padding-top: 1.5em;
       font-size: 93%; }
 
+#progress {
+  height: 37px;
+  margin-bottom: 2em;
+  margin-top: 0.5em;
+  background: #EFF9F9 url(/images/event_steps.gif) no-repeat;
+  text-indent: -6000px;
+  position: relative; }
+  #progress.step-2 {
+    background-position: left -54px; }
+  #progress.step-3 {
+    background-position: left -108px; }
+  #progress.step-4 {
+    background-position: left -162px; }
+  #progress.step-5 {
+    background-position: left -216px; }
+  #progress h4 {
+    padding-top: 10px; }
+
 input#attendee_table_name {
   width: 27.5em; }
+
+#contact-info input.text {
+  width: 25em; }
+
+#ft {
+  margin-top: 3em;
+  border-top: 1px solid #FFE1B2;
+  padding: 0.5em 0; }

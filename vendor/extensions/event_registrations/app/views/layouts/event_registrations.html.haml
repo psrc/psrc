@@ -28,8 +28,11 @@
   %body
     #custom-doc
       #yui-main
-        %h1 Event Registration
+        - unless @progress_step.blank?
+          %h1.title== #{@event.name} Registration
+          #progress{:class => "step-#{@progress_step}"}
+            %h4== Step #{@progress_step} of 5
         = yield
       #ft
-        This is the footer.
+        Prosperity Partnership
     =# render :partial => "shared/analytics"

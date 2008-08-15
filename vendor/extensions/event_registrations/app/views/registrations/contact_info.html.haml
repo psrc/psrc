@@ -1,1 +1,21 @@
-%h1 Contact stuff here
+#contact-info
+  %h2.title Contact Information
+  %p Who should we contact (doesn't have to be attendee information)
+
+  - form_for :contact, :url => registration_contact_path, :builder => ::WebSgFormBuilder do |f|
+    - f.fieldset do
+      = f.text_field :first_name, :label => "First Name", :class => "focus"
+      = f.text_field :last_name, :label => "Last Name"
+      = f.text_field :title, :label => "Title"
+      = f.text_field :organization, :label => "Organization"
+      = f.text_field :address, :label => "Mailing Address"
+      = f.text_field :city, :label => "City"
+      = f.text_field :state, :label => "State/Province"
+      = f.select :state, ["United States", "Canada"], :label => "Country"
+      = f.text_field :zip, :label => "Zip/Postal Code"
+      = f.text_field :email, :label => "E-mail Address"
+      = f.text_field :phone, :label => "Phone Number"    
+    
+    %p
+      = f.submit "Continue"
+      == or #{ link_to "back to attendee information", enter_people_path(@event, @event_option) }
