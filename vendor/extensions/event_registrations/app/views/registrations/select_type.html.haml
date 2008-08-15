@@ -1,7 +1,7 @@
 %h2.title Registration Options
 
 - unless @event.table_options.blank?
-  %h3 Tables (up to 10 attendees per table)
+  %h3== Tables (up to #{ @event.max_table_seating} attendees per table)
   %ul= render :partial => "event_option", :collection => @event.table_options
 
 - unless @event.individual_options.blank?
