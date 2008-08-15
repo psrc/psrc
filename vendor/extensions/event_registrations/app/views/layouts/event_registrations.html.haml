@@ -1,5 +1,35 @@
-%h1 Event Registrations
+!!! XML
+!!! Strict
+%html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => "en" }
+  %head
+    %meta{ 'http-equiv' => "Content-Type", :content => "text/html; charset=utf-8" }
+    %meta{ 'http-equiv' => "Content-Language", :content => "en" }
+    %meta{ :name => "keywords", :content => "Prosperity Partnership, Events, Registration" }
+    %meta{ :name => "description", :content => "Prosperity Partnership Events Registration" }
+    %meta{ :name => "author", :content => "FixieConsulting.com" }
+    %meta{ :name => "robots", :content => "all, follow" }
+    %meta{ :name => "googlebot", :content => "index, follow, snippet, archive" }
 
-= yield
+    %link{ :rel => "shortcut icon", :href => "/favicon.ico" }
+    %link{ :rel => "icon", :href=> "/favicon.ico" }
 
-%p Footer
+    = javascript_include_tag 'prototype', 'effects', 'application', :cache => "cache/all"
+    = stylesheet_link_tag 'yui', 'base', 'screen', :cache => "cache/all"
+
+    = yield(:head)
+
+    /[if lte IE 7]
+      = stylesheet_link_tag 'ie'
+    /[if lt IE 7]
+      = stylesheet_link_tag 'ie6'
+
+    %title
+      = @page_title ||= "Puget Sound Regional Council"
+  %body
+    #custom-doc
+      #yui-main
+        %h1 Event Registration
+        = yield
+      #ft
+        This is the footer.
+    =# render :partial => "shared/analytics"

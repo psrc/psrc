@@ -1,23 +1,25 @@
-%h1= "Who's Attending #{ @event.name }?"
+%h2.title= "Who's Attending #{ @event.name }?"
+- form_for :attendee, :url => registration_contact_path, :builder => ::WebSgFormBuilder do |f|
+  
+  #table= f.text_field :table_name, :label => "Table Name", :class => "title", :hint => "Company Name/Organization"
 
-- form_tag registration_contact_path do
-  - @event_option.max_number_of_attendees.times do 
-    %p
-      = text_field_tag :first_name
-      First Name
-    %p
-      = text_field_tag :last_name
-      Last Name
-    %p
-      = text_field_tag :email
-      Email
-    %p
-      = check_box_tag :vegetarian
-      Veggies?
-
-  = submit_tag "Next!"
-
-
-- form_for :user, :url => registration_contact_path, :builder => ::WebSgFormBuilder do |f|
-  = f.text_field :name , :label=>"Your Name", :hint => "This is your name"
-  = f.submit 'Add Image'
+  - if @event_option.max_number_of_attendees.size > 1
+    %h3.title== Up to #{ @event_option.max_number_of_attendees } Attendees per Table
+  - else
+    %h3 Attendee Information
+  
+  - f.fieldset do
+    - counter = 0
+    - @event_option.max_number_of_attendees.times do 
+      .attendee.clear
+        %h4== Attendee #{ counter += 1 }
+        .field
+          = f.text_field :first_name, :label => "First Name"
+        .field
+          = f.text_field :last_name, :label => "Last Name"
+        .field
+          = f.text_field :email, :label => "E-Mail"
+        .field.vegetarian
+          = f.check_box :vegetarian, :label => "Vegetarian?"
+  
+  = f.submit "Continue"
