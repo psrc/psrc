@@ -1,5 +1,5 @@
-%h2.title= "Who is attending this event?"
-- form_for :attendee, :url => registration_contact_path, :builder => ::WebSgFormBuilder do |f|
+%h2.title= "Who will be attending this event?"
+- form_for :attendee, :url => contact_info_path, :builder => ::WebSgFormBuilder do |f|
   - unless @event_option.max_number_of_attendees == 1
     #table= f.text_field :table_name, :label => "Table Name", :class => "focus title", :hint => "e.g. Your Company Name/Organization"
     %h3.title== Who will sit at this table? (up to #{ @event_option.max_number_of_attendees })
@@ -21,4 +21,4 @@
   
   %p
     = f.submit "Continue"
-    == or #{ link_to "back to registration options", start_registration_path(@event) }
+    == or #{ link_to "back to registration options", options_path(@event) }

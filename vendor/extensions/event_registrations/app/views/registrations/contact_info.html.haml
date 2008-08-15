@@ -1,8 +1,8 @@
 #contact-info
-  %h2.title Who should we contact?
+  %h2.title Whom may we contact?
   %p Note: Doesn't have to be the same as attendee information.
 
-  - form_for :contact, :url => registration_contact_path, :builder => ::WebSgFormBuilder do |f|
+  - form_for :contact, :url => payment_path(@event,@event_option), :builder => ::WebSgFormBuilder do |f|
     - f.fieldset do
       = f.text_field :first_name, :label => "First Name", :class => "focus"
       = f.text_field :last_name, :label => "Last Name"
@@ -18,4 +18,4 @@
     
     %p
       = f.submit "Continue"
-      == or #{ link_to "back to attendee information", enter_people_path(@event, @event_option) }
+      == or #{ link_to "back to attendee information", attendee_info_path(@event, @event_option) }
