@@ -14,7 +14,7 @@ class RegistrationsController < ApplicationController
 
   def contact_info
     @event = Event.find params[:event_id]
-
+    @event_option = @event.event_options.find params[:event_option_id]
     @progress_step = 3
   end
   
