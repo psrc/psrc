@@ -1,4 +1,4 @@
-%h2.title= "Attendee Information"
+%h2.title= "Who is attending this event?"
 - form_for :attendee, :url => registration_contact_path, :builder => ::WebSgFormBuilder do |f|
   - unless @event_option.max_number_of_attendees == 1
     #table= f.text_field :table_name, :label => "Table Name", :class => "focus title", :hint => "e.g. Your Company Name/Organization"
