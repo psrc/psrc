@@ -1,17 +1,17 @@
 %h2.title= "Who's Attending #{ @event.name }?"
 - form_for :attendee, :url => registration_contact_path, :builder => ::WebSgFormBuilder do |f|
   
-  #table= f.text_field :table_name, :label => "Table Name", :class => "title", :hint => "Company Name/Organization"
+  #table= f.text_field :table_name, :label => "Table Name", :class => "title", :hint => "e.g. Your Company Name/Organization"
 
   - if @event_option.max_number_of_attendees.size > 1
-    %h3.title== Up to #{ @event_option.max_number_of_attendees } Attendees per Table
+    %h3.title== Who will sit at this table? (up to #{ @event_option.max_number_of_attendees })
   - else
     %h3 Attendee Information
   
   - f.fieldset do
     - counter = 0
     - @event_option.max_number_of_attendees.times do 
-      .attendee.clear
+      %div{:class => "attendee clear #{cycle(:odd,:even)}"}
         %h4== Attendee #{ counter += 1 }
         .field
           = f.text_field :first_name, :label => "First Name"

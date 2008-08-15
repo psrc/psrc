@@ -167,10 +167,11 @@ form hr {
   margin: 1em 0 2em 0; }
 
 .attendee {
-  padding: 1em 0;
-  border-bottom: 1px solid #D4EEF0; }
+  padding: 1em; }
+  .attendee.even {
+    background: #EFF9F9; }
   .attendee h4 {
-    color: #80A1A4; }
+    color: #B6986A; }
   .attendee .field {
     float: left;
     margin-right: 1em; }
@@ -181,4 +182,4 @@ form hr {
       font-size: 93%; }
 
 input#attendee_table_name {
-  width: 27em; }
+  width: 27.5em; }
