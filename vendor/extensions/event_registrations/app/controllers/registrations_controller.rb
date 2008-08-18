@@ -1,5 +1,6 @@
 class RegistrationsController < ApplicationController
   layout 'event_registrations'
+  no_login_required
   before_filter :get_event_and_option
   
   def options
