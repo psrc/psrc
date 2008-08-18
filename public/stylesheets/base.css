@@ -1,16 +1,10 @@
 
-html {
-  background: #FFF;
-  color: #464037;
-  border-top: 5px solid #756B5B;
-  padding-top: 2em; }
-
 h1 {
   font-size: 197%;
   letter-spacing: -2px; }
 
 h2 {
-  font-size: 153.9%;
+  font-size: 174%;
   letter-spacing: -1px; }
 
 h3 {
@@ -47,7 +41,7 @@ ul li {
   list-style: disc outside; }
 
 th, td {
-  border-bottom: 2px solid #D4EEF0;
+  border-bottom: 2px solid #ACF6F7;
   padding: .5em; }
 
 th {

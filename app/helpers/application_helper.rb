@@ -2,6 +2,123 @@ module ApplicationHelper
   include LocalTime
   include Admin::RegionsHelper
   
+  # Fixie Added Helpers - Not sure where to put these yet #
+
+  # YUI Grids
+  def grid style, options={}, &block
+    yui_grid = case style
+      when :thirds : 'yui-gb'
+      when :two_thirds : 'yui-gc'
+      when :one_third : 'yui-gd'
+      when :three_fourths : 'yui-ge'
+      when :one_fourth  : 'yui-gf'
+      when :halves : 'yui-g'
+    end
+
+    haml_tag :div, {:id => options[:id], :class => "#{yui_grid} #{"first" if options[:first]}"} do
+      block.call
+    end
+  end
+
+  def grid_unit options={}, &block
+    haml_tag :div, {:id => options[:id], :class => "yui-u#{ ' first' if options[:first] }"} do
+      block.call
+    end
+  end
+
+  def page_id
+    "#{controller.controller_name}_#{controller.action_name}"
+  end
+
+  def page_class
+    controller.controller_name
+  end
+
+  def section title, options={}, &block
+    haml_tag :div, {:id => options[:id], :class => "section"} do
+
+      haml_tag((options[:header_size] || :h3), title)
+      haml_tag :div, {:class => "section-content"} do
+        block.call
+      end
+    end
+  end
+
+  # Common code to display errors from flash/object errors
+  def flash_messages(object_name=nil, options = {})
+    if flash[:error].is_a?(Array)
+      style = 'error'
+      msgs = error_box(flash[:error])
+
+    elsif flash[:error]
+      style = 'error'
+      msgs = flash[:error]
+
+    elsif flash[:notice]
+      style = 'notice'
+      msgs = flash[:notice]
+
+    elsif flash[:success]
+      style = 'success'
+      msgs = flash[:success]
+
+    elsif object_name
+      style = 'error'
+      options = options.symbolize_keys
+      object = instance_variable_get("@#{object_name}")
+      if object && !object.errors.empty?
+        msgs = error_box(object.errors.full_messages)
+      end
+    end
+
+    %Q{<div id="message_box" class="#{style}">#{msgs}</div>} if msgs
+  end
+
+  def logo
+    "<div id='logo'>#{ link_to image_tag("gg_logo_small.gif", :alt => "GroupieGuide"), new_group_path }</div>"
+  end
+
+  def back_to_group_path(group)
+    "<div class='header-action'>#{ link_to "&laquo; Back to #{ group.name }" , group_host_path(group)}</div>"
+  end
+
+  # Message to display to user
+  def error_box(messages)
+    %{<img src="/images/icons/error.gif" alt="Error" class="vtop" />
+       <strong>The following problems were encountered:</strong>
+       <ol id="err_msgs">#{messages.collect {|msg| content_tag("li", msg) }}</ol>
+       <div id="err_fix">Please correct the above issues and try again.</div>}
+  end
+
+  # calculate range of current items in paginator
+  def pagination_range(collection)
+    first = (collection.current_page - 1) * collection.per_page + 1
+    last  = first + (collection.per_page - 1)
+    last  = last > collection.total_entries ? collection.total_entries : last
+
+    collection.total_entries > 0 ? "#{first} - #{last}" : "0"
+  end
+
+  # http://daniel.collectiveidea.com/blog/2007/7/10/a-prettier-truncate-helper
+  def word_truncate(text, length = 30, strip_html_tags = true, truncate_string = "...")
+    return if text.nil?
+    l = length - truncate_string.chars.length
+    if text.chars.length > length
+      something = text[/\A.{#{l}}\w*\;?/m][/.*[\w\;]/m]
+      something ||= "" # in case the above regex returns nil, can if input is all symbols or something, see my comment on that page
+      result = something + truncate_string
+    else
+      result = text
+    end
+    if strip_html_tags
+      strip_tags(result)
+    else
+      result
+    end
+  end
+
+  # End Fixie Helpers #
+
   def config
     Radiant::Config
   end

@@ -2,15 +2,11 @@ class RegistrationsController < ApplicationController
   layout 'event_registrations'
   no_login_required
 
-  STEPS = %w{ placeholder options attendee_info contact_info payment confirmation }
+  STEPS = %w{ placeholder attendee_info contact_info payment confirmation }
 
   before_filter :get_event_and_option
   before_filter :set_progress_step
   
-  def options
-    @event = Event.find params[:id]
-  end
-
   def attendee_info
     @number_of_attendees = @event_option.max_number_of_attendees
     @set = AttendeeSet.new @number_of_attendees

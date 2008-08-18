@@ -1,5 +1,23 @@
 
 
+html {
+  background: #F3F3F3;
+  color: #464037;
+  border-top: 5px solid #E99A17;
+  padding-top: 2em; }
+
+#custom-doc {
+  background: #FFF;
+  padding: 1em;
+  margin: auto;
+  text-align: left;
+  width: 63.46em;
+  *width: 61.93em;
+  min-width: 825px;
+  -moz-border-radius-topright: 15px;
+  -moz-border-radius-bottomleft: 15px; }
+
+
 a:link, a:active {
   color: #367CAF;
   text-decoration: none; }
@@ -11,6 +29,16 @@ a:hover {
 a:focus {
   outline: none; }
 
+.section {
+  margin-bottom: 2em; }
+  .section .section-content {
+    padding: 0.5em; }
+  .section h2, .section h3 {
+    margin: 0;
+    padding: 0;
+    background: #ACF6F7;
+    color: #055959;
+    padding: 0.1em 0.4em; }
 
 
 .align-center {
@@ -54,7 +82,7 @@ a:focus {
   display: none; }
 
 .quiet {
-  color: #756B5B; }
+  color: #afa699; }
 
 .small {
   font-size: 93%; }
@@ -118,47 +146,38 @@ form hr {
 
 .notice, .success, .error {
   margin-bottom: 1em;
-  border: 2px solid #ddd;
-  padding-top: 0.8em;
-  padding-left: 6em;
-  padding-right: 0.8em;
-  padding-bottom: 0.8em; }
+  text-align: center;
+  font-weight: bold;
+  padding: 0.8em; }
   .notice a,   .success a,   .error a {
     font-weight: bold; }
+  .notice h2,   .success h2,   .error h2 {
+    padding: 0;
+    margin: 0;
+    text-transform: capitalize; }
 
 .errorExplanation {
-  padding: 0.8em;
-  padding-top: 2.8em;
-  background: #FBE3E4 url(/images/error-label.gif) no-repeat 0.5em 0.8em;
+  background: #FBE3E4;
   color: #8a1f11;
-  border: 1px solid #FBC2C4; }
+  border: 1px solid #FBC2C4;
+  text-align: center;
+  font-weight: bold; }
   .errorExplanation h2 {
     margin: 0; }
-  .errorExplanation a {
-    color: #8a1f11; }
 
 .error {
-  background: #FBE3E4 url(/images/error-label.gif) no-repeat 0.5em 0.55em;
-  color: #8A1F11;
-  border-color: #FBC2C4; }
-  .error a {
-    color: #8A1F11; }
+  background: #CF001D;
+  color: #FFF; }
 
 .notice {
-  background: #FFF6BF url(/images/notice-label.gif) no-repeat 0.5em 0.9em;
+  background: #FFF6BF;
   color: #514721;
-  border-color: #FFD324;
-  padding-left: 6.5em; }
-  .notice a {
-    color: #514721; }
+  border-color: #FFD324; }
 
 .success {
-  background: #E6EFC2 url(/images/success-label.gif) no-repeat 0.5em 0.55em;
-  padding-left: 6.8em;
+  background: #E6EFC2;
   color: #264409;
   border-color: #C6D880; }
-  .success a {
-    color: #264409; }
 
 .fieldWithErrors {
   display: inline; }
@@ -166,31 +185,16 @@ form hr {
     background: #FFDFE1; }
 
 
-#table {
-  margin: 1em 0 2em 0; }
-
-.attendee {
-  padding: 0.2em 1em; }
-  .attendee.even {
-    background: #EFF9F9; }
-  .attendee h4 {
-    color: #B6986A;
-    font-size: 85%;
-    text-transform: uppercase; }
-  .attendee .field {
-    float: left;
-    margin-right: 1em; }
-    .attendee .field input.text {
-      width: 16em; }
-    .attendee .field.vegetarian {
-      padding-top: 1.5em;
-      font-size: 93%; }
+#event-registration {
+  padding: 0 5em; }
 
 #progress {
   height: 37px;
   margin-bottom: 2em;
   margin-top: 0.5em;
-  background: #EFF9F9 url(/images/event_steps.gif) no-repeat;
+  background: #ACF6F7 url(/images/event_steps.gif) no-repeat;
+  -moz-border-radius-topright: 3px;
+  -moz-border-radius-bottomright: 3px;
   text-indent: -6000px;
   position: relative; }
   #progress.step-2 {
@@ -204,19 +208,45 @@ form hr {
   #progress h4 {
     padding-top: 10px; }
 
+
+table.registration {
+  width: 99%; }
+  table.registration td.select {
+    text-align: center; }
+  table.registration th {
+    text-align: left;
+    vertical-align: bottom; }
+  table.registration th span, table.registration td span {
+    font-weight: normal;
+    font-size: 85%;
+    color: #afa699; }
+
+.attendee {
+  padding: 0.5em 0; }
+  .attendee.even {
+    border-top: 1px solid #ACF6F7;
+    border-bottom: 1px solid #ACF6F7; }
+  .attendee h4 {
+    color: #B6986A;
+    font-size: 85%;
+    text-transform: uppercase; }
+  .attendee .field {
+    float: left;
+    margin-right: 1em; }
+    .attendee .field input.text {
+      width: 12em; }
+    .attendee .field.vegetarian {
+      padding-top: 1.5em;
+      font-size: 93%; }
+
+
 input#attendee_table_name {
   width: 27.5em; }
 
 #contact-info input.text {
   width: 25em; }
 
-#registration_increases {
-  width: 98%;
-  text-align: center; }
-  #registration_increases .strong {
-    text-align: left; }
-
 #ft {
   margin-top: 3em;
-  border-top: 1px solid #FFE1B2;
+  border-top: 1px solid #F4CD8B;
   padding: 0.5em 0; }
