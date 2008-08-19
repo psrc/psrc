@@ -37,6 +37,10 @@ class RegistrationsController < ApplicationController
   def payment
   end
   
+  def processing
+    @progress_step = 4
+  end
+  
   def confirmation
   end
 
