@@ -12,7 +12,7 @@ class EventRegistrationsExtension < Radiant::Extension
        m.resources :event_options
      end
      map.event '/event/:id', :controller => 'events', :action => 'show'
-     map.with_options(:controller => 'registration') do |m|
+     map.with_options(:controller => 'registrations') do |m|
        m.attendee_info  'event/:event_id/registrations/:event_option_id/attendee-info', :action => 'attendee_info'
        m.contact_info   'event/:event_id/registrations/:event_option_id/contact-info',  :action => 'contact_info'
        m.payment_type   'event/:event_id/registrations/:event_option_id/payment-type',  :action => 'payment_type'
