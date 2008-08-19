@@ -2,7 +2,7 @@ class RegistrationsController < ApplicationController
   layout 'event_registrations'
   no_login_required
 
-  STEPS = %w{ placeholder attendee_info contact_info payment_type payment confirmation }
+  STEPS = %w{ placeholder attendee_info contact_info payment_type payment_by_credit_card confirmation }
 
   before_filter :get_event_and_option
   before_filter :set_progress_step
@@ -34,16 +34,25 @@ class RegistrationsController < ApplicationController
   def payment_type
     if request.post?
       if params[:payment][:type] =~ /credit/i
-        payment_by_credit_card
+        redirect_to payment_by_credit_card_path
       else
-        payment_by_check
+        redirect_to payment_by_check_path
       end
     end
   end
   
   def payment_by_credit_card
-    session[:payment] = Payment.new(params[:card], @event_option.price)
-    redirect_to :action => 'poll_for_credit_card_payment'
+    if request.post?
+      begin
+        session[:payment] = Payment.new(params[:card], @event_option.price)
+      rescue RuntimeError => e
+        flash[:error] = e
+        @card = ActiveMerchant::Billing::CreditCard.new(params[:card])
+        @card.valid?
+        return
+      end
+      redirect_to poll_for_credit_card_payment_path
+    end
   end
 
   def payment_by_check
@@ -55,7 +64,7 @@ class RegistrationsController < ApplicationController
     elsif session[:payment].error?
       redirect_to :action => 'payment'
     else
-      redirect_to :action => 'poll_for_payment'
+      redirect_to poll_for_credit_card_payment_path
     end
   end
   

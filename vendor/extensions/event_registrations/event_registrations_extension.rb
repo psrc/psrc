@@ -15,6 +15,9 @@ class EventRegistrationsExtension < Radiant::Extension
      map.with_options(:controller => 'registrations') do |m|
        m.attendee_info  'event/:event_id/registrations/:event_option_id/attendee-info',     :action => 'attendee_info'
        m.contact_info   'event/:event_id/registrations/:event_option_id/contact-info',      :action => 'contact_info'
+       m.payment_by_credit_card   'event/:event_id/registrations/:event_option_id/get-credit-card',      :action => 'payment_by_credit_card'
+       m.payment_by_check   'event/:event_id/registrations/:event_option_id/get-check',      :action => 'payment_by_check'
+       m.poll_for_credit_card_payment   'event/:event_id/registrations/:event_option_id/poll-for-payment',      :action => 'poll_for_credit_card_payment'
        m.payment_type   'event/:event_id/registrations/:event_option_id/payment-type',      :action => 'payment_type'
        m.payment        'event/:event_id/registrations/:event_option_id/payment',           :action => 'payment'
        m.processing     'event/:event_id/registrations/:event_option_id/payment/processing',:action => 'processing'
