@@ -1,4 +1,21 @@
-%h2 Payment
-- form_for :payment, :url => confirmation_path, :builder => ::WebSgFormBuilder do |f|
-  Yay a form
-  = f.submit "Continue"
+#payment
+  %h2 Credit Card Payment
+  - form_for :credit_card, :url => confirmation_path, :builder => ::WebSgFormBuilder do |f|
+    - f.fieldset do
+      = f.text_field :number, :label => "Credit Card Number", :hint => "(no dashes or spaces needed)", :class => "title focus", :maxlength => 16
+
+      %dt
+        %label Expiration Date
+      %dd
+        = select_month Date.today
+        = select_year Date.today
+
+      = f.text_field :name, :label => "Name", :hint => "Exactly as it appears on card"
+      = f.text_field :verification, :label => "Card Verification Number", :hint => "(found on back of card)"
+      = f.text_field :address, :label => "Billing Address", :hint => "(street number or P.O. Box)"
+      = f.text_field :city, :label => "City"
+      = f.select :state, state_province_options, :label => "State/Province"
+      = f.text_field :zip, :label => "Zip-Code", :hint => "Zip or Zip + 4"
+
+
+    = f.submit "Continue"
