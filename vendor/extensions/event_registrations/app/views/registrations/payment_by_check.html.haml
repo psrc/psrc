@@ -1,0 +1,7 @@
+#payment
+  %h2 Check Payment
+  - form_for :card, :url => payment_by_check_path, :builder => ::WebSgFormBuilder do |f|
+    %p stuff here
+    = f.submit "Purchase"
+    or 
+    = link_to "back to payment type", payment_type_path(@event, @event_option)

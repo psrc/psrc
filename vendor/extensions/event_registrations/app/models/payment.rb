@@ -1,6 +1,8 @@
 class Payment
   @@gateway = ActiveMerchant::Billing::ViaklixGateway.new :login => "LOGIN", :password => "PASSWORD"
 
+  attr_reader :card
+
   def initialize card_values, amount
     @card = ActiveMerchant::Billing::CreditCard.new card_values
     raise @card.errors.full_messages.join(" and ") unless @card.valid?
@@ -9,11 +11,11 @@ class Payment
   end
 
   def completed?
-    @job.finished? and @job.exit_status == 0
+    @job.finished? #and @job.exit_status == 0
   end
 
   def error?
-    @job.finished? and @job.exit_status != 0
+    #@job.finished? and @job.exit_status != 0
   end
 
   def error_message

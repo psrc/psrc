@@ -2,7 +2,8 @@ class RegistrationsController < ApplicationController
   layout 'event_registrations'
   no_login_required
 
-  STEPS = %w{ placeholder attendee_info contact_info payment_type payment_by_credit_card confirmation }
+  STEPS = { "attendee_info" => 1, "contact_info" => 2, "payment_type" => 3, 
+            "payment_by_check" => 4, "payment_by_credit_card" => 4, "poll_for_credit_card_payment" => 4, "confirmation" => 5 }
 
   before_filter :get_event_and_option
   before_filter :set_progress_step
@@ -42,11 +43,12 @@ class RegistrationsController < ApplicationController
   end
   
   def payment_by_credit_card
+    @card = session[:payment].card if session[:payment]
     if request.post?
       begin
         session[:payment] = Payment.new(params[:card], @event_option.price)
       rescue RuntimeError => e
-        flash[:error] = e
+        flash.now[:error] = e
         @card = ActiveMerchant::Billing::CreditCard.new(params[:card])
         @card.valid?
         return
@@ -56,6 +58,9 @@ class RegistrationsController < ApplicationController
   end
 
   def payment_by_check
+    if request.post?
+      redirect_to confirmation_path
+    end
   end
 
   def poll_for_credit_card_payment
@@ -63,8 +68,6 @@ class RegistrationsController < ApplicationController
       redirect_to confirmation_path
     elsif session[:payment].error?
       redirect_to payment_by_credit_card_path
-    else
-      redirect_to poll_for_credit_card_payment_path
     end
   end
   
@@ -83,11 +86,13 @@ class RegistrationsController < ApplicationController
   end
 
   def redirect_to_next_step
-    redirect_to :action => STEPS[@progress_step + 1] 
+    current_step = STEPS[self.action_name].to_i
+    next_step = STEPS.index(current_step + 1)
+    redirect_to :action => next_step
   end
 
   def set_progress_step
-    @progress_step = STEPS.index(self.action_name) 
+    @progress_step = STEPS[self.action_name]
   end
   
 end
