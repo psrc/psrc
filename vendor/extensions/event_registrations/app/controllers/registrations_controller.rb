@@ -32,9 +32,31 @@ class RegistrationsController < ApplicationController
   end
 
   def payment_type
+    if request.post?
+      if params[:payment][:type] =~ /credit/i
+        payment_by_credit_card
+      else
+        payment_by_check
+      end
+    end
   end
   
-  def payment
+  def payment_by_credit_card
+    session[:payment] = Payment.new(params[:card], @event_option.price)
+    redirect_to :action => 'poll_for_credit_card_payment'
+  end
+
+  def payment_by_check
+  end
+
+  def poll_for_credit_card_payment
+    if session[:payment].completed?
+      redirect_to confirmation_path
+    elsif session[:payment].error?
+      redirect_to :action => 'payment'
+    else
+      redirect_to :action => 'poll_for_payment'
+    end
   end
   
   def processing
