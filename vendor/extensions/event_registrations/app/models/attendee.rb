@@ -13,7 +13,7 @@ class Attendee
   end
 
   def to_s
-    "#{name} <#{email}>"
+    "#{name} (#{email})"
   end
 
   def blank?

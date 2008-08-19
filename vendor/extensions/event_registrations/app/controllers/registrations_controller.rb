@@ -2,7 +2,7 @@ class RegistrationsController < ApplicationController
   layout 'event_registrations'
   no_login_required
 
-  STEPS = %w{ options attendee_info contact_info payment confirmation }
+  STEPS = %w{ placeholder options attendee_info contact_info payment confirmation }
 
   before_filter :get_event_and_option
   before_filter :set_progress_step
@@ -15,12 +15,10 @@ class RegistrationsController < ApplicationController
     @number_of_attendees = @event_option.max_number_of_attendees
     @set = AttendeeSet.new @number_of_attendees
     if request.post?
-      @set.fill params[:person]
+      @set.update params[:person]
       if @set.valid?
         redirect_to_next_step
         session[:registration_set] = @set
-      else
-        flash.now[:error] = @set.errors.inspect
       end
     end
   end
@@ -42,11 +40,11 @@ class RegistrationsController < ApplicationController
   end
 
   def redirect_to_next_step
-    redirect_to :action => STEPS[STEPS.index(self.action_name)+1]
+    redirect_to :action => STEPS[@progress_step + 1] 
   end
 
   def set_progress_step
-    @progress_step = STEPS.find { self.action_name }
+    @progress_step = STEPS.index(self.action_name) 
   end
   
 end
