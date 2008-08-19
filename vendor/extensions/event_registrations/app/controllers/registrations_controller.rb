@@ -2,7 +2,7 @@ class RegistrationsController < ApplicationController
   layout 'event_registrations'
   no_login_required
 
-  STEPS = %w{ placeholder attendee_info contact_info payment confirmation }
+  STEPS = %w{ placeholder attendee_info contact_info payment_type payment confirmation }
 
   before_filter :get_event_and_option
   before_filter :set_progress_step
@@ -20,6 +20,9 @@ class RegistrationsController < ApplicationController
   end
 
   def contact_info
+  end
+
+  def payment_type
   end
   
   def payment

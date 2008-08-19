@@ -1,10 +1,1 @@
-%h2 How would you like to pay?
-
-- form_for :contact, :url => confirmation_path, :builder => ::WebSgFormBuilder do |f|
-  - f.fieldset do
-    %p= f.radio_button :credit_card, "Credit Card"
-    %p= f.radio_button :credit_card, "Check"
-    
-    %p
-      = f.submit "Continue"
-      == or #{ link_to "back to contact information", contact_info_path(@event, @event_option) }
+%h2 Payment

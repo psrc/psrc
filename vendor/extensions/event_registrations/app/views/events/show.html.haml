@@ -1,3 +1,18 @@
-%h1= @event.name
 %p= @event.description
-= link_to "Register!", options_path(@event)
+
+%h2 Registration Options
+
+- unless @event.table_options.blank?
+  - section "Tables" do
+    %p== Register an entire table for this event. Up to #{ @event.max_table_seating} attendees per table.
+    %table.registration
+      = render :partial => "event_table_head"
+      %tbody= render :partial => "event_option", :collection => @event.table_options
+
+- unless @event.individual_options.blank?
+  - section "Individuals" do
+    %table.registration
+      = render :partial => "event_table_head"
+      %tbody= render :partial => "event_option", :collection => @event.individual_options
+
+%p= link_to "View list of Partners"

@@ -31,8 +31,9 @@
         - unless @progress_step.blank?
           %h1.title== #{@event.name} Registration
           %p Date / Venue Location
-          #progress{:class => "step-#{@progress_step}"}
-            %h4== Step #{@progress_step} of 5
+          - unless @hide_step_nav
+            #progress{:class => "step-#{@progress_step}"}
+              %h4== Step #{@progress_step} of 5
           #event-registration
             = flash_messages
             = yield
