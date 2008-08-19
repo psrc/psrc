@@ -1,8 +1,6 @@
-%h1 PSRC Events
-
-%p= link_to "Create New Event", new_admin_event_path
-
-%h2 Events
+.add= link_to "Create New Event", new_admin_event_path
+%h1 Events
+%p Create and manage PSRC and Prosperity Partnership events.
 
 - for event in @events
   = link_to event.name, admin_event_path(event)
