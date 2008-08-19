@@ -32,6 +32,14 @@
           %h1.title== #{@event.name} Registration
           #progress{:class => "step-#{@progress_step}"}
             %h4== Step #{@progress_step} of 5
+        - unless flash[:notice].blank?
+          %p
+            NOTICE:
+            = flash[:notice]
+        - unless flash[:error].blank?
+          %p
+            ERROR:
+            = flash[:error]
         = yield
       #ft
         Prosperity Partnership

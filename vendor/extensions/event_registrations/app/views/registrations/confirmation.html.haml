@@ -1,6 +1,10 @@
 %h2 Payment Information Submitted
 %p Your payment was successfully submitted.
 
+%ul 
+- for person in session[:registration_set].attendees
+  - next if person.blank?
+  %li== You registered #{person.to_s}
 
 %h4.title Where would you like to go next?
 %ul

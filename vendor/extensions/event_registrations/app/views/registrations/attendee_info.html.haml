@@ -1,24 +1,20 @@
 %h2.title= "Who will be attending this event?"
-- form_for :attendee, :url => contact_info_path, :builder => ::WebSgFormBuilder do |f|
-  - unless @event_option.max_number_of_attendees == 1
-    #table= f.text_field :table_name, :label => "Table Name", :class => "focus title", :hint => "e.g. Your Company Name/Organization"
-    %h3.title== Who will sit at this table? (up to #{ @event_option.max_number_of_attendees })
-  
-  - f.fieldset do
+- form_tag attendee_info_path do
+  %fieldset
     - counter = 0
-    - @event_option.max_number_of_attendees.times do 
-      %div{:class => "attendee clear #{cycle(:odd,:even)}"}
-        - unless @event_option.max_number_of_attendees == 1
-          %h4== Attendee #{ counter += 1 }
-        .field
-          = f.text_field :first_name, :label => "First Name", :class => "focus"
-        .field
-          = f.text_field :last_name, :label => "Last Name"
-        .field
-          = f.text_field :email, :label => "E-Mail"
-        .field.vegetarian
-          = f.check_box :vegetarian, :label => "Vegetarian?"
+    - @set.each do |@person|
+      - fields_for :person do |a|
+        %div{:class => "attendee clear #{cycle(:odd,:even)}"}
+          - unless @number_of_attendees == 1
+            %h4== Attendee #{ counter + 1 }
+          .field
+            = a.text_field :name, :label => "Name", :class => "focus", :index => counter
+          .field
+            = a.text_field :email, :label => "E-Mail", :index => counter
+          .field.vegetarian
+            = a.check_box :vegetarian, :label => "Vegetarian?", :index => counter
+      - counter += 1
   
   %p
-    = f.submit "Continue"
+    = submit_tag "Continue"
     == or #{ link_to "back to registration options", options_path(@event) }
