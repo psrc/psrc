@@ -62,7 +62,7 @@ class RegistrationsController < ApplicationController
     if session[:payment].completed?
       redirect_to confirmation_path
     elsif session[:payment].error?
-      redirect_to :action => 'payment'
+      redirect_to payment_by_credit_card_path
     else
       redirect_to poll_for_credit_card_payment_path
     end
