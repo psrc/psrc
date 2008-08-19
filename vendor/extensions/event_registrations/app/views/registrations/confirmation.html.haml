@@ -1,10 +1,15 @@
 %h2 You're all done!
 %p Your payment was successfully submitted.
 
+
+%h3 Registration Contact Info:
+= debug session[:registration_contact]
+
 - unless session[:registration_set].table_name.blank?
-  %p
-    Table name is
-    %strong= session[:registration_set].table_name
+  %h3 Table Name
+  %strong= session[:registration_set].table_name
+
+%h3 Attendees
 
 %ul 
 - for person in session[:registration_set].attendees

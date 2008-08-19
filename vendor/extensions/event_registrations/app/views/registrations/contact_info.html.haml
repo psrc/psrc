@@ -2,10 +2,9 @@
   %h2.title Whom may we contact?
   %p Note: Doesn't have to be the same as attendee information.
 
-  - form_for :contact, :url => payment_type_path(@event,@event_option), :builder => ::WebSgFormBuilder do |f|
+  - form_for :registration_contact, :url => contact_info_path(@event,@event_option), :builder => ::WebSgFormBuilder do |f|
     - f.fieldset do
-      = f.text_field :first_name, :label => "First Name", :class => "focus"
-      = f.text_field :last_name, :label => "Last Name"
+      = f.text_field :name, :label => "Name", :class => "focus"
       = f.text_field :title, :label => "Title"
       = f.text_field :organization, :label => "Organization"
       = f.text_field :address, :label => "Mailing Address"

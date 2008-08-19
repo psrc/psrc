@@ -11,7 +11,8 @@ class RegistrationsController < ApplicationController
     @number_of_attendees = @event_option.max_number_of_attendees
     @set = AttendeeSet.new @number_of_attendees
     if request.post?
-      @set.update params[:person], params[:set][:table_name]
+      table_name = params[:set][:table_name] if params[:set]
+      @set.update params[:person], table_name
       if @set.valid?
         redirect_to_next_step
         session[:registration_set] = @set
@@ -20,6 +21,14 @@ class RegistrationsController < ApplicationController
   end
 
   def contact_info
+    if request.post?
+      @set = session[:setregistration_set]
+      @registration_contact = RegistrationContact.new params[:registration_contact]
+      if @registration_contact.valid?
+        redirect_to_next_step
+        session[:registration_contact] = @registration_contact
+      end
+    end
   end
 
   def payment_type
