@@ -56,7 +56,7 @@ class WebSgFormBuilder
     label = options.delete(:label) || tag_value.to_s.humanize
     @builder.radio_button(method, tag_value, options) +
     " " +
-    "<label for=\"#{CGI.escapeHTML([@builder.object_name, method, tag_value].join('_').downcase)}\"" + 
+    "<label for=\"#{CGI.escapeHTML([@builder.object_name, method, tag_value.split.join('_')].join('_').downcase)}\"" +
     ">#{label}</label>"
   end
     
