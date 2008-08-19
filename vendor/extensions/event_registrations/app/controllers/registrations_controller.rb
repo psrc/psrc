@@ -11,7 +11,7 @@ class RegistrationsController < ApplicationController
     @number_of_attendees = @event_option.max_number_of_attendees
     @set = AttendeeSet.new @number_of_attendees
     if request.post?
-      @set.update params[:person]
+      @set.update params[:person], params[:set][:table_name]
       if @set.valid?
         redirect_to_next_step
         session[:registration_set] = @set
