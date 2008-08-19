@@ -1,15 +1,5 @@
-%p 
-  = form.text_field :name
-  = form.label :name, "Name of Event"
-%p 
-  = form.date_select :start_date
-  = form.label :name, "Time Event Starts"
-%p 
-  = form.date_select :end_date
-  = form.label :name, "Time Event Ends"
-%p 
-  = form.text_field :description
-  = form.label :description, "Description"
-%p 
-  = form.text_field :location
-  = form.label :location, "Location"
+= form.text_field :name, :label => "Name of Event", :class => "title"
+= form.date_select :start_date, :label => "Start Date"
+= form.date_select :end_date, :label => "End Date"
+= form.text_field :location, :label => "Location", :hint => "(eg. PSRC Room 113)"
+= form.text_area :description, :label => "Description"
