@@ -7,4 +7,5 @@
 
     %p
       = f.submit "Continue"
-      == or #{ link_to "back to contact information", contact_info_path(@event, @event_option)
+      or 
+      = link_to "back to contact information", contact_info_path(@event, @event_option)
