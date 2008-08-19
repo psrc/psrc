@@ -10,7 +10,7 @@
           - unless @number_of_attendees == 1
             %h4== Attendee #{ counter + 1 }
           .field
-            = a.text_field :name, :label => "Name", :class => "focus", :index => counter
+            = a.text_field :name, :label => "Full Name", :class => "focus", :index => counter
           .field
             = a.text_field :email, :label => "E-Mail", :index => counter
           .field.vegetarian
