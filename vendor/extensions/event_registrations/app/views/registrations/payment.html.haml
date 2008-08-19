@@ -1,3 +1,4 @@
 %h2 Payment
-
-= link_to "Confirmation", confirmation_path
+- form_for :payment, :url => confirmation_path, :builder => ::WebSgFormBuilder do |f|
+  Yay a form
+  = f.submit "Continue"

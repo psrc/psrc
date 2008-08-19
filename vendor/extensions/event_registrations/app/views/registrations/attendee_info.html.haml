@@ -1,9 +1,10 @@
 %h2.title= "Who will be attending this event?"
-- form_tag attendee_info_path do
+- form_for :attendees, :url => attendee_info_path, :builder => ::WebSgFormBuilder do |f|
   %fieldset
+    = f.text_field :table_name, :class => "focus title", :label => "Table Name", :hint => "(eg. Your company or organization name)"
     - counter = 0
     - @set.each do |@person|
-      - fields_for :person do |a|
+      - fields_for :person, :builder => ::WebSgFormBuilder do |a|
         %div{:class => "attendee clear #{cycle(:odd,:even)}"}
           - unless @number_of_attendees == 1
             %h4== Attendee #{ counter + 1 }
