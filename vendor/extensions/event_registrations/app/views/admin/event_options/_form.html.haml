@@ -3,8 +3,14 @@
   = form.text_field :description
   = form.label :description, "Description"
 %p 
-  = form.text_field :price
-  = form.label :price, "Price"
+  = form.text_field :normal_price
+  = form.label :normal_price, "Normal Price"
+%p 
+  = form.date_select :early_price_date
+  = form.label :early_price_date, "Early Date"
+%p 
+  = form.text_field :early_price
+  = form.label :early_price, "Early Price"
 %p 
   = form.text_field :max_number_of_attendees
   = form.label :max_number_of_attendees, "Maximum Number of Attendees Per Table"

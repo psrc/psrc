@@ -7,7 +7,7 @@
 - for option in @event.event_options
   %li
     = link_to "Edit", edit_admin_event_option_path(option)
-    == #{ option.description } costs #{ option.price } and is good for up to 
+    == #{ option.description } costs #{ option.normal_price } and is good for up to 
     == #{ option.max_number_of_attendees } #{ pluralize(option.max_number_of_attendees, "person") }.
 
 %p 

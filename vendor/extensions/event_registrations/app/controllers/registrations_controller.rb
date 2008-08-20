@@ -22,8 +22,9 @@ class RegistrationsController < ApplicationController
   end
 
   def contact_info
+    @registration_contact = session[:registration_contact]
     if request.post?
-      @set = session[:setregistration_set]
+      @set = session[:registration_set]
       @registration_contact = RegistrationContact.new params[:registration_contact]
       if @registration_contact.valid?
         redirect_to_next_step
@@ -33,7 +34,7 @@ class RegistrationsController < ApplicationController
   end
 
   def payment_type
-    if request.post?
+    if request.post? and params[:payment]
       if params[:payment][:type] =~ /credit/i
         redirect_to payment_by_credit_card_path
       else
