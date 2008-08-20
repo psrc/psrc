@@ -1,6 +1,6 @@
 /* Added by Fixie */
 
-.add a{
+.add a {
   float:right;
   background: #F7F7F7 url(/images/admin/plus.png) no-repeat 0.3em 0.5em;
   padding: 0.3em;
@@ -9,9 +9,17 @@
   border: 1px solid #EAEAEA;
   -moz-border-radius: 5px;
 }
-.add a:hover{
-  background-color: #E7E7E7;
+.add a:hover {
+  background-color: #FFFFB3;
 }
+
+table#events td {
+  padding: 12px 4px !important;
+}
+  table#events td.event-name {
+    font-size: 116%;
+    font-weight: bold;
+  }
 
 
 /* End Fixie Additions */

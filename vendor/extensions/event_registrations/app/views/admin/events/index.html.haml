@@ -2,5 +2,23 @@
 %h1 Events
 %p Create and manage PSRC and Prosperity Partnership events.
 
-- for event in @events
-  = link_to event.name, admin_event_path(event)
+- if @events.blank?
+  %p.small== No events could be found. #{ link_to "Create an event", new_admin_event_path }.
+- else
+  %table#events.index{:cellpadding=>0, :cellspacing=>0, :border=>0}
+    %thead
+      %tr
+        %th Event Name
+        %th Dates
+        %th Registered
+        %th{:colspan => 2} Modify
+        %th Public
+    %tbody
+      - for event in @events
+        %tr
+          %td.event-name= link_to event.name, edit_admin_event_path(event)
+          %td.date= date_span(event)
+          %td.attendees 00
+          %td.child= link_to image_tag("admin/add-child.png"), new_admin_event_option_path(:event_id => event)
+          %td.remove= link_to image_tag("admin/remove.png"), event_path(event)
+          %td.public= link_to "View Page", event_path(event)

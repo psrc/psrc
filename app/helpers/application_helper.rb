@@ -1,6 +1,7 @@
 module ApplicationHelper
   include LocalTime
   include Admin::RegionsHelper
+  include EventsHelper
   
   # Fixie Added Helpers - Not sure where to put these yet #
 
