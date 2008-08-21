@@ -1,5 +1,5 @@
 #payment
-  %h2 Credit Card Payment
+  %h2 Payment by Credit Card
   - form_for :card, :url => payment_by_credit_card_path, :builder => ::WebSgFormBuilder do |f|
     - f.fieldset do
       = f.text_field :number, :label => "Credit Card Number", :hint => "(no dashes or spaces needed)", :class => "title focus", :maxlength => 16
@@ -10,7 +10,7 @@
       = f.text_field :last_name, :label => "Last name", :hint => "Exactly as it appears on card"
       = f.text_field :verification_value, :label => "Card Verification Number", :hint => "(found on back of card)"
 
-
+    %p== Your credit card will be charged <b>#{ number_to_currency @event_option.price }</b>
     = f.submit "Purchase"
     or 
     = link_to "back to payment type", payment_type_path(@event, @event_option)

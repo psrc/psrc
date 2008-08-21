@@ -17,6 +17,8 @@ class RegistrationsController < ApplicationController
       if @set.valid?
         redirect_to_next_step
         session[:registration_set] = @set
+      else
+        flash[:error] = "Please fix errors below"
       end
     end
   end
