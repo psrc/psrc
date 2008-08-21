@@ -18,7 +18,7 @@ class Admin::EventOptionsController < ApplicationController
     @event_option = EventOption.new params[:event_option]
     if @event_option.save
       flash[:notice] = "Option created"
-      redirect_to admin_event_path(@event_option.event)
+      redirect_to admin_events_path
     else
       flash[:error] = "Couldn't save option"
       render :action => 'new'
@@ -29,7 +29,7 @@ class Admin::EventOptionsController < ApplicationController
     @event_option = EventOption.find params[:id]
     if @event_option.update_attributes params[:event_option]
       flash[:notice] = "Option updated"
-      redirect_to admin_event_path(@event_option.event)
+      redirect_to admin_events_path
     else
       render :action => 'edit'
     end

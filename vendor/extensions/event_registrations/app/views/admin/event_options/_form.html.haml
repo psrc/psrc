@@ -1,16 +1,6 @@
 = form.hidden_field :event_id
-%p 
-  = form.text_field :description
-  = form.label :description, "Description"
-%p 
-  = form.text_field :normal_price
-  = form.label :normal_price, "Normal Price"
-%p 
-  = form.date_select :early_price_date
-  = form.label :early_price_date, "Early Date"
-%p 
-  = form.text_field :early_price
-  = form.label :early_price, "Early Price"
-%p 
-  = form.text_field :max_number_of_attendees
-  = form.label :max_number_of_attendees, "Maximum Number of Attendees Per Table"
+= form.text_field :description, :label => "Name", :hint => "(eg. Partner, General, etc.)", :class => "title"
+= form.text_field :early_price, :label => "Early Bird Price", :hint => "(eg. 70.00)"
+= form.text_field :normal_price, :label => "Normal Price", :hint => "(eg. 90.00)"
+= form.date_select :early_price_date, :label => "Early Bird End Date"
+= form.text_field :max_number_of_attendees, :label => "Maximum Number of Attendees Per Table", :hint => "Set this to '1' if option is for individuals.", :class => "short"

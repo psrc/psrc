@@ -21,7 +21,8 @@ class Admin::EventsController < ApplicationController
   def update
     @event = Event.find params[:id]
     if @event.update_attributes params[:event]
-      redirect_to admin_event_path(@event)
+      flash[:notice] = "Event updated"
+      redirect_to admin_events_path
     else
       render :action => 'edit'
     end
@@ -29,7 +30,7 @@ class Admin::EventsController < ApplicationController
 
   def destroy
     @event = Event.destroy params[:id]
-    flash[:notice] = "Event Deleted"
+    flash[:notice] = "Event deleted"
     redirect_to admin_events_path
   end
 

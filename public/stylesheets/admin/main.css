@@ -38,6 +38,8 @@ tbody.events td {
   tbody.events tr.event-option td.description {
     padding-left: 26px !important;
   }
+  
+input.text.short { width: 50px; }
 
 
 /* End Fixie Additions */

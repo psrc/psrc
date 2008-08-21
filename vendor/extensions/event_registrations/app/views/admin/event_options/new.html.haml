@@ -1,7 +1,9 @@
-%h1== You are adding an option to #{ @event.name }..." 
+%h1.title Create a Registration Option
+%p== These options are the various ways someone can register for the #{ @event.name }.  
 
-- form_for [:admin, @event_option] do |f|
+- form_for :admin, @event_option, :builder => ::WebSgFormBuilder do |f|
   = render :partial => 'form', :object => f
-  = submit_tag "Create!"
-
-
+  %br
+  = submit_tag "Create Registration Option"
+  or
+  = link_to "cancel", admin_events_path
