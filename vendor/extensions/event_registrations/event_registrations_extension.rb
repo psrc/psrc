@@ -10,6 +10,7 @@ class EventRegistrationsExtension < Radiant::Extension
      map.with_options(:name_prefix => 'admin_', :path_prefix => 'admin', :namespace => 'admin/') do |m|
        m.resources :events
        m.resources :event_options
+       m.resources :registrations
      end
      map.event '/event/:id', :controller => 'events', :action => 'show'
      map.with_options(:controller => 'registrations') do |m|

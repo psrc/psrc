@@ -1,0 +1,15 @@
+
+%h1== Registrations for #{ link_to @event.name, admin_events_path }
+
+- for option in @event.event_options
+  %h2= option.description
+
+  %ul
+    - for registration in option.registrations
+      - if table = registration.registration_set.table_name
+        %li
+          == Table Name: #{ table }
+      %ul
+        - registration.registration_set.each do |person|
+          - next if person.blank?
+          %li= person 
