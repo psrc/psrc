@@ -13,6 +13,6 @@
     
     %p Note, you will be sent a confirmation invoice by email once the registration is confirmed.  When paying by check, please include a copy of your confirmation and invoice emails.
 
-    = f.submit "Purchase"
+    = f.submit "Purchase", :onclick => "this.disabled = true"
     or 
     = link_to "back to payment type", payment_type_path(@event, @event_option)

@@ -11,6 +11,6 @@
       = f.text_field :verification_value, :label => "Card Verification Number", :hint => "(found on back of card)"
 
     %p== Your credit card will be charged <b>#{ number_to_currency @event_option.price }</b>
-    = f.submit "Purchase"
+    = f.submit "Purchase", :onclick => "this.disabled = true"
     or 
     = link_to "back to payment type", payment_type_path(@event, @event_option)
