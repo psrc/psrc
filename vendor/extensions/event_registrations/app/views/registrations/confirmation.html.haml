@@ -1,23 +1,26 @@
-%h2 You're all done!
-%p Your payment was successfully submitted and a confirmation receipt e-mail has been sent.
-- # probably should say something else if it is sent via check
+%h2.title You're all done!
+%p Your payment information was successfully submitted and a confirmation invoice e-mail has been sent.
 
+- section "Registered Attendees" do
+  %table#registered-attendees
+    %thead
+      %tr
+        %th Attendee
+        %th E-mail
+        %th Vegetarian?
+    %tbody
+      - for person in session[:registration_set].attendees
+        - next if person.blank?
+        %tr
+          %td.name= person.name
+          %td.mail= person.email
+          %td.vegetarian= (person.vegetarian == "1") ? "Yes" : "No"
+  
+%h3.title Questions?
+%p== If you have questions, please contact Andrew Werfelmann at 206-971-3292 or by e-mail at #{ mail_to "awerfelmann@psrc.org" }
+%br
 
-%h3 Registration Contact Info:
-= debug session[:registration_contact]
-
-- unless session[:registration_set].table_name.blank?
-  %h3 Table Name
-  %strong= session[:registration_set].table_name
-
-%h3 Registered Attendees
-
-%ul 
-- for person in session[:registration_set].attendees
-  - next if person.blank?
-  %li== #{person.to_s}
-
-%h4.title Where would you like to go next?
+%h3.title Next Steps
 %ul
   %li= link_to "Register more attendees for this event", event_path(@event)
   %li= link_to "Prosperity Partnership", "http://www.prosperitypartnership.org"

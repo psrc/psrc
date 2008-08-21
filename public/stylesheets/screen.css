@@ -157,3 +157,9 @@ input#set_table_name {
 
 #card_verification_value {
   width: 3em !important; }
+
+
+table#registered-attendees {
+  width: 99%; }
+  table#registered-attendees th, table#registered-attendees td {
+    text-align: left; }
