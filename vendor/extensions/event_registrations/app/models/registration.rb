@@ -9,7 +9,15 @@ class Registration < ActiveRecord::Base
   validates_presence_of :registration_contact
   validates_presence_of :event_option
 
+  after_create :send_confirmation_email
+
   def number_of_attendees
     self.registration_set.attendees.find_all { |a| !a.blank? }.size
+  end
+
+  private
+
+  def send_confirmation_email
+    Emailer.deliver_registration_confirmation self
   end
 end
