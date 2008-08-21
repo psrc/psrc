@@ -1,4 +1,12 @@
 /* Added by Fixie */
+#events table.index a:link, #events table.index a:visited {
+  color: black;
+  text-decoration: none;
+}
+#events table.index a:hover {
+  color: blue;
+  text-decoration: underline;
+}
 
 .add a {
   float:right;
@@ -13,12 +21,22 @@
   background-color: #FFFFB3;
 }
 
-table#events td {
+tbody.events td {
   padding: 12px 4px !important;
+  border-bottom: 1px solid #EAEAEA;
 }
-  table#events td.event-name {
+  tbody.events td.event-name {
     font-size: 116%;
     font-weight: bold;
+  }
+
+  tbody.events tr.event-option td {
+    border: none !important;
+    padding: 2px 4px !important;
+    font-size: 93%;
+  }
+  tbody.events tr.event-option td.description {
+    padding-left: 26px !important;
   }
 
 

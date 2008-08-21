@@ -15,4 +15,20 @@ class EventOption < ActiveRecord::Base
       self.early_price
     end
   end
+
+  def seating_type
+    if is_table?
+      "Table - up to #{self.max_number_of_attendees}"
+    elsif is_individual?
+      "Individual"
+    end
+  end
+
+  def is_individual?
+    self.max_number_of_attendees == 1
+  end
+
+  def is_table?
+    self.max_number_of_attendees > 1
+  end
 end

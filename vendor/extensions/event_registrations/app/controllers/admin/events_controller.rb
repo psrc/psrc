@@ -11,7 +11,7 @@ class Admin::EventsController < ApplicationController
     @event = Event.new params[:event]
     if @event.save
       flash[:notice] = "Event saved"
-      redirect_to admin_event_path(@event)
+      redirect_to admin_events_path
     else
       flash[:error] = "Couldn't save event"
       render :action => 'new'
@@ -25,6 +25,12 @@ class Admin::EventsController < ApplicationController
     else
       render :action => 'edit'
     end
+  end
+
+  def destroy
+    @event = Event.destroy params[:id]
+    flash[:notice] = "Event Deleted"
+    redirect_to admin_events_path
   end
 
   def edit

@@ -6,7 +6,7 @@ class Admin::EventOptionsController < ApplicationController
   def destroy
     @event_option = EventOption.destroy params[:id]
     flash[:notice] = "Option deleted"
-    redirect_to admin_event_path(@event_option.event)
+    redirect_to admin_events_path
   end
 
   def new
