@@ -9,11 +9,11 @@
       = f.text_field :organization, :label => "Organization", :hint => "(optional)"
       = f.text_field :address, :label => "Mailing Address"
       = f.text_field :city, :label => "City"
-      = f.text_field :state, :label => "State/Province"
+      = f.text_field :state, :label => "State/Province", :hint => "(eg. Washington)"
       = f.select :state, ["United States", "Canada"], :label => "Country"
-      = f.text_field :zip, :label => "Zip/Postal Code"
+      = f.text_field :zip, :label => "Zip/Postal Code", :hint => "(eg. 98121)"
       = f.text_field :email, :label => "E-mail Address"
-      = f.text_field :phone, :label => "Phone Number"    
+      = f.text_field :phone, :label => "Phone Number", :hint => "(eg. 206-464-7090)"
     
     %p
       = f.submit "Continue"
