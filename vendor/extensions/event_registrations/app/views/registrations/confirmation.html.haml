@@ -1,4 +1,4 @@
-%h2.title You're all done!
+%h2.title Success! You're all done!
 %p Your payment information was successfully submitted and a confirmation invoice e-mail has been sent.
 
 - section "Registered Attendees" do
@@ -8,6 +8,8 @@
         %th Attendee
         %th E-mail
         %th Vegetarian?
+        - unless session[:registration_set].table_name.blank?
+          %th Table Name
     %tbody
       - for person in session[:registration_set].attendees
         - next if person.blank?
@@ -15,6 +17,8 @@
           %td.name= person.name
           %td.mail= person.email
           %td.vegetarian= (person.vegetarian == "1") ? "Yes" : "No"
+          - unless session[:registration_set].table_name.blank?
+            %td.table-name= session[:registration_set].table_name
   
 %h3.title Questions?
 %p== If you have questions, please contact Andrew Werfelmann at 206-971-3292 or by e-mail at #{ mail_to "awerfelmann@psrc.org" }
