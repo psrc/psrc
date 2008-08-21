@@ -1,4 +1,6 @@
 
+Attendee
+
 class AttendeeSet 
   attr_accessor :attendees
   attr_accessor :table_name

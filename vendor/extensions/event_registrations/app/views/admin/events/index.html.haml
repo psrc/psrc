@@ -18,7 +18,7 @@
         - for event in @events
           %tr
             %td.event-name= link_to(event.name, edit_admin_event_path(event))
-            %td.attendees 00
+            %td.attendees= event.number_of_attendees
             %td.date= date_span(event)
             %td.child= link_to image_tag("admin/add-registration-option.png"), new_admin_event_option_path(:event_id => event)
             %td.remove= link_to image_tag("admin/remove.png"), admin_event_path(event), :method => :delete, :confirm => "Are you want to remove this event? There is no undo."
@@ -27,6 +27,6 @@
           - for option in event.event_options
             %tr.event-option
               %td.description== #{ link_to option.description, edit_admin_event_option_path(option) } <span class="quiet">(#{ option.seating_type })</span>
-              %td.attendees{ :colspan => 2 } 00
+              %td.attendees{ :colspan => 2 }= option.number_of_attendees
               %td.blank &nbsp;
               %td.remove{ :colspan => 2 }= link_to image_tag("admin/remove.png"), admin_event_option_path(option), :method => :delete, :confirm => "Are you want to remove this event option? There is no undo."

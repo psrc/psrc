@@ -47,7 +47,10 @@ class RegistrationsController < ApplicationController
     @card = session[:payment].card if session[:payment]
     if request.post?
       begin
-        session[:payment] = Payment.new(params[:card], @event_option.price)
+        registration_object = Registration.new :registration_set => session[:registration_set], 
+                                               :registration_contact => session[:registration_contact],
+                                               :event_option => @event_option
+        session[:payment] = Payment.new(params[:card], @event_option.price, registration_object)
       rescue RuntimeError => e
         flash.now[:error] = e
         @card = ActiveMerchant::Billing::CreditCard.new(params[:card])

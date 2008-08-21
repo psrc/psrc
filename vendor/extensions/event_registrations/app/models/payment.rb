@@ -1,9 +1,11 @@
+Registration
 class Payment
   @@gateway = ActiveMerchant::Billing::ViaklixGateway.new :login => "LOGIN", :password => "PASSWORD"
 
   attr_reader :card
 
-  def initialize card_values, amount
+  def initialize card_values, amount, registration_object
+    @registration_object = registration_object
     @card = ActiveMerchant::Billing::CreditCard.new card_values
     raise @card.errors.full_messages.join(" and ") unless @card.valid?
     @amount = amount
@@ -30,13 +32,14 @@ class Payment
 
   # Authorize purchase from gateway
   def execute_purchase
-    attempt = @@gateway.purchase((@amount*100).to_i, @card)
-    if attempt.success?
+    #attempt = @@gateway.purchase((@amount*100).to_i, @card)
+    #if attempt.success?
+      @registration_object.save!
       exit 0
-    else
-      STDERR.puts attempt.message
-      exit -1
-    end
+    #else
+      #STDERR.puts attempt.message
+      #exit -1
+    #end
   end
 
   private

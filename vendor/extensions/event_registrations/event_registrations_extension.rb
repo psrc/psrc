@@ -34,3 +34,7 @@ class EventRegistrationsExtension < Radiant::Extension
   end
   
 end
+
+EventOption
+Registration
+Event
