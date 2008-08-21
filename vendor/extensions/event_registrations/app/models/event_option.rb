@@ -1,6 +1,8 @@
 class EventOption < ActiveRecord::Base
   belongs_to :event
   has_many :registrations
+  validates_presence_of :description
+  validates_presence_of :max_number_of_attendees
 
   def self.max_table_seating
     find(:first, :order => 'max_number_of_attendees desc').max_number_of_attendees

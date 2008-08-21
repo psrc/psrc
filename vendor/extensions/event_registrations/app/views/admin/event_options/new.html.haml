@@ -1,7 +1,7 @@
 %h1.title Create a Registration Option
 %p== These options are the various ways someone can register for the #{ @event.name }.  
 
-- form_for :admin, @event_option, :builder => ::WebSgFormBuilder do |f|
+- form_for [:admin, @event_option], :builder => ::WebSgFormBuilder do |f|
   = render :partial => 'form', :object => f
   %br
   = submit_tag "Create Registration Option"

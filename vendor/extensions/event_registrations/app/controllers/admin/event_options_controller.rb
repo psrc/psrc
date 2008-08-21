@@ -16,8 +16,9 @@ class Admin::EventOptionsController < ApplicationController
 
   def create
     @event_option = EventOption.new params[:event_option]
+    @event = @event_option.event
     if @event_option.save
-      flash[:notice] = "Option created"
+      flash[:notice] = "Registration option created"
       redirect_to admin_events_path
     else
       flash[:error] = "Couldn't save option"

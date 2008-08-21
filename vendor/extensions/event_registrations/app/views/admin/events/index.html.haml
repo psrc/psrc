@@ -24,9 +24,13 @@
             %td.remove= link_to image_tag("admin/remove.png"), admin_event_path(event), :method => :delete, :confirm => "Are you want to remove this event? There is no undo."
             %td.public= link_to image_tag("admin/view-site.gif"), event_path(event)
 
-          - for option in event.event_options
+          - if event.event_options
+            - for option in event.event_options
+              %tr.event-option
+                %td.description== #{ link_to option.description, edit_admin_event_option_path(option) } <span class="quiet">(#{ option.seating_type })</span>
+                %td.attendees{ :colspan => 2 }= option.number_of_attendees
+                %td.blank &nbsp;
+                %td.remove{ :colspan => 2 }= link_to image_tag("admin/remove.png"), admin_event_option_path(option), :method => :delete, :confirm => "Are you want to remove this event option? There is no undo."
+          - else
             %tr.event-option
-              %td.description== #{ link_to option.description, edit_admin_event_option_path(option) } <span class="quiet">(#{ option.seating_type })</span>
-              %td.attendees{ :colspan => 2 }= link_to(option.number_of_attendees, admin_registration_path(event))
-              %td.blank &nbsp;
-              %td.remove{ :colspan => 2 }= link_to image_tag("admin/remove.png"), admin_event_option_path(option), :method => :delete, :confirm => "Are you want to remove this event option? There is no undo."
+              %td.description.quiet{:colspan => 6}== No registration options created yet.
