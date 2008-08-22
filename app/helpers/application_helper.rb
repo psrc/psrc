@@ -26,6 +26,31 @@ module ApplicationHelper
       block.call
     end
   end
+  
+  def document options={}, &block
+    haml_tag :div, {:id => "custom-doc", :class => "clear#{ ' yui-t1' if options[:sidebar] }"} do
+      block.call
+    end
+  end
+  
+  def sidebar options={}, &block
+    @sidebar = true
+    haml_tag :div, {:id => options[:id], :class => "yui-b"} do
+      block.call
+    end
+  end
+  
+  def main_content &block
+    haml_tag :div, {:id => "yui-main"} do
+      if @sidebar
+        haml_tag :div, {:class => "yui-b"} do
+          block.call
+        end
+      else
+        block.call
+      end
+    end
+  end
 
   def page_id
     "#{controller.controller_name}_#{controller.action_name}"
