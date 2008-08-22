@@ -78,7 +78,7 @@ end
 after "deploy", "deploy:cleanup"
 after "deploy:migrations" , "deploy:cleanup"
 after "deploy:update_code", "deploy:symlink_configs"
-after "deploy:migrations", "extensions_migrations"
+after "deploy:migrate", "extensions_migrations"
 
 # uncomment the following to have a database backup done before every migration
 # before "deploy:migrate", "db:dump"
