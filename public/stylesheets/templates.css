@@ -1,0 +1,83 @@
+
+
+
+html {
+  background: #E3E3E3;
+  color: #464037;
+  border-top: 5px solid #E99A17;
+  padding-top: 2em; }
+
+#custom-doc {
+  background: #FFF;
+  padding: 1em;
+  margin: auto;
+  text-align: left;
+  width: 63.46em;
+  *width: 61.93em;
+  min-width: 825px;
+  -moz-border-radius-topright: 15px;
+  -moz-border-radius-bottomleft: 15px; }
+
+
+a:link, a:active {
+  color: #367CAF;
+  text-decoration: none; }
+a:visited {
+  color: #67A3CF;
+  text-decoration: none; }
+a:hover {
+  text-decoration: underline; }
+a:focus {
+  outline: none; }
+
+.section {
+  margin-bottom: 2em; }
+  .section .section-content {
+    padding: 0.5em; }
+  .section h2, .section h3 {
+    margin: 0;
+    padding: 0;
+    background: #ACF6F7;
+    color: #055959;
+    padding: 0.1em 0.4em; }
+
+
+.notice, .success, .error {
+  margin-bottom: 1em;
+  text-align: center;
+  font-weight: bold;
+  padding: 0.8em; }
+  .notice a,   .success a,   .error a {
+    font-weight: bold; }
+  .notice h2,   .success h2,   .error h2 {
+    padding: 0;
+    margin: 0;
+    text-transform: capitalize; }
+
+.errorExplanation {
+  background: #FBE3E4;
+  color: #8a1f11;
+  border: 1px solid #FBC2C4;
+  text-align: center;
+  font-weight: bold; }
+  .errorExplanation h2 {
+    margin: 0; }
+
+.error {
+  background: #CF001D;
+  color: #FFF; }
+
+.notice {
+  background: #FFF6BF;
+  color: #514721;
+  border-color: #FFD324; }
+
+.success {
+  background: #E6EFC2;
+  color: #264409;
+  border-color: #C6D880; }
+
+.fieldWithErrors {
+  display: inline; }
+  .fieldWithErrors input {
+    background: #FFDFE1; }

@@ -4,8 +4,8 @@
   %head
     %meta{ 'http-equiv' => "Content-Type", :content => "text/html; charset=utf-8" }
     %meta{ 'http-equiv' => "Content-Language", :content => "en" }
-    %meta{ :name => "keywords", :content => "Prosperity Partnership, Events, Registration" }
-    %meta{ :name => "description", :content => "Prosperity Partnership Events Registration" }
+    %meta{ :name => "keywords", :content => "Puget Sound Regional Council, PSRC, Prosperity Partnership, Puget Sound Region, Transportation, Growth Management, Economic Development" }
+    %meta{ :name => "description", :content => "Puget Sound Regional Council" }
     %meta{ :name => "author", :content => "FixieConsulting.com" }
     %meta{ :name => "robots", :content => "all, follow" }
     %meta{ :name => "googlebot", :content => "index, follow, snippet, archive" }
@@ -21,24 +21,13 @@
     /[if lte IE 7]
       = stylesheet_link_tag 'ie'
     /[if lt IE 7]
+      %script{:type=>"text/javascript", :src=>"/admin/javascripts/pngfix.js"}
       = stylesheet_link_tag 'ie6'
 
     %title
-      = @event.name ||= "Puget Sound Regional Council"
+      = @page_title ||= "Puget Sound Regional Council"
   %body
-    #custom-doc
-      #yui-main
-        - unless @progress_step.blank?
-          %h1.title== #{@event.name} Registration
-          %p.quiet== #{ date_span(@event) } / #{ @event.location }
-          - if current_page?(event_path(@event))
-            = @event.description
-          - else
-            #progress{:class => "step-#{@progress_step}"}
-              %h4== Step #{@progress_step} of 5
-          #event-registration
-            = flash_messages
-            = yield
+    = yield
     #ft
-      Prosperity Partnership
+      Puget Sound Regional Council
     =# render :partial => "shared/analytics"
