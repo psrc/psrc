@@ -9,6 +9,7 @@ class TemplatesExtension < Radiant::Extension
   define_routes do |map|
     map.with_options(:controller => 'admin/templates') do |m|
       m.two_col_with_nav  'admin/templates/two-col-with-nav', :action => 'two_col_with_nav'
+      m.three_col_with_nav  'admin/templates/three-col-with-nav', :action => 'three_col_with_nav'
     end
     
     map.connect 'admin/templates/:action', :controller => 'admin/templates'

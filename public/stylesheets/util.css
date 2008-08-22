@@ -39,6 +39,23 @@
 .hide {
   display: none; }
 
+.photo-caption-left {
+  float: left;
+  margin-right: 0.5em; }
+
+.photo-caption-right {
+  float: right;
+  margin-left: 0.5em; }
+
+.photo-caption-left img, .photo-caption-right img {
+  padding: 0.3em;
+  border: 1px solid #EEE;
+  display: block; }
+.photo-caption-left p, .photo-caption-right p {
+  color: #AFA699;
+  font-size: 85%;
+  font-style: italic; }
+
 .quiet {
   color: #AFA699; }
 
@@ -50,10 +67,6 @@
 
 .strong-links a {
   font-weight: bold; }
-
-.title {
-  margin: 0;
-  padding: 0; }
 
 dl.two-col dt {
   float: left;
