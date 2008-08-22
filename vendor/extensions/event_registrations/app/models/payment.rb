@@ -1,8 +1,18 @@
+
+class BigDecimal
+  # this works around http://code.whytheluckystiff.net/syck/ticket/24 until it gets fixed..
+  alias :_original_to_yaml :to_yaml
+  def to_yaml (opts={},&block)
+    to_s.to_yaml(opts,&block)
+  end
+end
+
 Registration
+
 class Payment
   @@gateway = ActiveMerchant::Billing::ViaklixGateway.new :login => "LOGIN", :password => "PASSWORD"
 
-  attr_reader :card
+  attr_reader :card, :registration_object
 
   def initialize card_values, amount, registration_object
     @registration_object = registration_object
@@ -10,6 +20,11 @@ class Payment
     raise @card.errors.full_messages.join(" and ") unless @card.valid?
     @amount = amount
     queue
+  end
+
+  def registration
+    return nil unless completed?
+    Registration.find(@job.stdout)
   end
 
   def completed?
@@ -34,7 +49,9 @@ class Payment
   def execute_purchase
     #attempt = @@gateway.purchase((@amount*100).to_i, @card)
     #if attempt.success?
+      @registration_object.payment = self
       @registration_object.save!
+      puts @registration_object.id
       exit 0
     #else
       #STDERR.puts attempt.message

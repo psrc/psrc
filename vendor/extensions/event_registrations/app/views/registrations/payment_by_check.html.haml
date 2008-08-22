@@ -1,6 +1,6 @@
 #payment
   %h2 Payment by Check
-  - form_for :card, :url => payment_by_check_path, :builder => ::WebSgFormBuilder do |f|
+  - form_for :payment, :url => payment_by_check_path, :builder => ::WebSgFormBuilder do |f|
 
     %h3.title Send check to:
     %address
@@ -11,7 +11,9 @@
     = f.date_select :payment_date, :order => [:month, :day, :year], :label => "Approximate Delivery Date"
     %p= f.check_box :agreement, :label => "I agree that I will send a check in the amount of <b>#{ number_to_currency @event_option.price}</b>"
     
-    %p Note, you will be sent a confirmation invoice by email once the registration is confirmed.  When paying by check, please include a copy of your confirmation and invoice emails.
+    %p 
+      Note, you will be sent a confirmation invoice by email once the registration is confirmed.  
+      When paying by check, please include a copy of your confirmation and invoice emails.
 
     = f.submit "Purchase", :onclick => "this.disabled = true"
     or 

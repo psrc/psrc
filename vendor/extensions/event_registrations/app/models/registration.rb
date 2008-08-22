@@ -4,6 +4,7 @@ class Registration < ActiveRecord::Base
 
   serialize :registration_set,      AttendeeSet
   serialize :registration_contact,  RegistrationContact
+  serialize :payment
 
   validates_presence_of :registration_set
   validates_presence_of :registration_contact

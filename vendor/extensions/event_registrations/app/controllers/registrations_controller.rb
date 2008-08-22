@@ -51,10 +51,7 @@ class RegistrationsController < ApplicationController
     @card = session[:payment].card if session[:payment]
     if request.post?
       begin
-        registration_object = Registration.new :registration_set => session[:registration_set], 
-                                               :registration_contact => session[:registration_contact],
-                                               :event_option => @event_option
-        session[:payment] = Payment.new(params[:card], @event_option.price, registration_object)
+        session[:payment] = Payment.new(params[:card], @event_option.price, build_registration_object)
       rescue RuntimeError => e
         flash.now[:error] = e
         @card = ActiveMerchant::Billing::CreditCard.new(params[:card])
@@ -67,12 +64,21 @@ class RegistrationsController < ApplicationController
 
   def payment_by_check
     if request.post?
-      redirect_to confirmation_path
+      @payment = PaymentByCheck.new :agreement    => params[:payment][:agreement], 
+                                    :payment_date => convert_date(params[:payment], :payment_date)
+      if @payment.valid?
+        reg = build_registration_object
+        reg.payment = @payment
+        reg.save!
+        session[:registration] = reg
+        redirect_to confirmation_path
+      end
     end
   end
 
   def poll_for_credit_card_payment
     if session[:payment].completed?
+      session[:registration] = session[:payment].registration
       redirect_to confirmation_path
     elsif session[:payment].error?
       redirect_to payment_by_credit_card_path
@@ -84,6 +90,7 @@ class RegistrationsController < ApplicationController
   end
   
   def confirmation
+    @registration = session[:registration]
   end
 
   private
@@ -102,5 +109,17 @@ class RegistrationsController < ApplicationController
   def set_progress_step
     @progress_step = STEPS[self.action_name]
   end
+
+  def build_registration_object
+    Registration.new :registration_set      => session[:registration_set], 
+                     :registration_contact  => session[:registration_contact],
+                     :event_option          => @event_option
+  end
+
+  def convert_date(hash, date_symbol_or_string)
+    attribute = date_symbol_or_string.to_s
+    return Date.new(hash[attribute + '(1i)'].to_i, hash[attribute + '(2i)'].to_i, hash[attribute + '(3i)'].to_i)   
+  end
+
   
 end
