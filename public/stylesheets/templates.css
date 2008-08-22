@@ -15,8 +15,7 @@ html {
   width: 63.46em;
   *width: 61.93em;
   min-width: 825px;
-  -moz-border-radius-topright: 15px;
-  -moz-border-radius-bottomleft: 15px; }
+  -moz-border-radius: 15px; }
 
 
 a:link, a:active {

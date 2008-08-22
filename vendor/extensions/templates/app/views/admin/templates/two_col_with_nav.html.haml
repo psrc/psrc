@@ -1,4 +1,10 @@
 #custom-doc.yui-t1.clear
+  .yui-b
+    %ul
+      %li== #{ no_tag :li } Ut risus
+      %li== #{ no_tag :li } pharetra quis
+      %li== #{ no_tag :li } viverra eu
+      %li== #{ no_tag :li } blandit non
   #yui-main
     .yui-b
       %h2== #{ no_tag :h2 } Page Header: Two-Col with Nav
@@ -6,12 +12,12 @@
         - grid_unit :first => true do
           %p
             = no_tag :p
-            Ut risus metus, viverra eu, pharetra quis, blandit non, tortor. Etiam tincidunt nunc vel libero. In venenatis tortor. Suspendisse vitae ligula eu tellus commodo ornare. Aenean rhoncus auctor purus. Nunc laoreet metus? Integer interdum. Aenean sit amet lorem pretium eros semper ultrices. Suspendisse eros justo, facilisis sodales, suscipit scelerisque, ornare in, metus. Aenean augue. Suspendisse potenti. Suspendisse quam ipsum, facilisis a, blandit non, aliquet eget, urna. Maecenas mi. Cras feugiat posuere nulla. Aenean arcu mi, pretium ut, luctus a, lobortis vel, eros.
+            == Ut risus metus, viverra eu, pharetra quis, blandit non, tortor. <em>#{ no_tag :em }Etiam tincidunt nunc vel libero</em>. In venenatis tortor. Suspendisse vitae ligula eu tellus commodo ornare. Aenean rhoncus auctor purus. Nunc laoreet metus? Integer interdum. Aenean sit amet lorem pretium eros semper ultrices. Suspendisse eros justo, facilisis sodales, suscipit scelerisque, ornare in, metus. Aenean augue. Suspendisse potenti. Suspendisse quam ipsum, facilisis a, blandit non, aliquet eget, urna. Maecenas mi. Cras feugiat posuere nulla. Aenean arcu mi, pretium ut, luctus a, lobortis vel, eros.
             In aliquam gravida arcu! Suspendisse sed ante. Phasellus odio pede, lacinia id; dignissim non, rutrum eu, massa. Nunc sodales, diam a tempus egestas, urna diam auctor erat, ut consectetuer eros libero sed arcu. Aliquam nullam.
 
           %p
             = no_tag :p
-            Ut risus metus, viverra eu, pharetra quis, blandit non, tortor. <b>Etiam tincidunt nunc vel libero</b>. In venenatis tortor. Suspendisse vitae ligula eu tellus commodo ornare. Aenean rhoncus auctor purus. Nunc laoreet metus? Integer interdum. Aenean sit amet lorem pretium eros semper ultrices. Suspendisse eros justo, facilisis sodales, suscipit scelerisque, ornare in, metus. Aenean augue. Suspendisse potenti. Suspendisse quam ipsum, facilisis a, blandit non, aliquet eget, urna. Maecenas mi. Cras feugiat posuere nulla. Aenean arcu mi, pretium ut, luctus a, lobortis vel, eros.
+            ==Ut risus metus, viverra eu, pharetra quis, blandit non, tortor. <strong>#{ no_tag :strong } Etiam tincidunt nunc vel libero</strong>. In venenatis tortor. Suspendisse vitae ligula eu tellus commodo ornare. Aenean rhoncus auctor purus. Nunc laoreet metus? Integer interdum. Aenean sit amet lorem pretium eros semper ultrices. Suspendisse eros justo, facilisis sodales, suscipit scelerisque, ornare in, metus. Aenean augue. Suspendisse potenti. Suspendisse quam ipsum, facilisis a, blandit non, aliquet eget, urna. Maecenas mi. Cras feugiat posuere nulla. Aenean arcu mi, pretium ut, luctus a, lobortis vel, eros.
 
         - grid_unit do
           %h3== #{ no_tag :h3 } Section Header
@@ -20,9 +26,15 @@
             %li== #{ no_tag :li } Ut risus metus, viverra eu, pharetra quis, blandit non
             %li== #{ no_tag :li } Ut risus metus, viverra eu, pharetra quis, blandit non
             %li== #{ no_tag :li } Ut risus metus, viverra eu, pharetra quis, blandit non
+            
           %blockquote
             = no_tag :blockquote
             Etiam tincidunt nunc vel libero
-                              
-  .yui-b
-    sidebar content
+
+          %h3== #{ no_tag :h3 } Section Header
+          %ol
+            %li== #{ no_tag :li } Ut risus metus, viverra eu, pharetra quis, blandit non
+            %li== #{ no_tag :li } Ut risus metus, viverra eu, pharetra quis, blandit non
+            %li== #{ no_tag :li } Ut risus metus, viverra eu, pharetra quis, blandit non
+            %li== #{ no_tag :li } Ut risus metus, viverra eu, pharetra quis, blandit non
+
