@@ -42,7 +42,9 @@ unless defined? Bj
   #
   # rubyforge/remote
   #
-    require "active_record"
+    $: << File.dirname(__FILE__) + "/../../../rails/activerecord/lib/active_record"
+    $: << File.dirname(__FILE__) + "/../../../rails/activerecord/lib"
+    require File.dirname(__FILE__) + "/../../../rails/activerecord/lib/activerecord"
   #
   # rubyforge/remote or local/lib
   #
