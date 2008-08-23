@@ -7,7 +7,8 @@ class RegistrationsController < ApplicationController
 
   before_filter :get_event_and_option
   before_filter :set_progress_step
-  
+  before_filter :check_for_completed_registration, :except => :confirmation
+
   def attendee_info
     @number_of_attendees = @event_option.max_number_of_attendees
     @set = AttendeeSet.new @number_of_attendees
@@ -121,5 +122,11 @@ class RegistrationsController < ApplicationController
     return Date.new(hash[attribute + '(1i)'].to_i, hash[attribute + '(2i)'].to_i, hash[attribute + '(3i)'].to_i)   
   end
 
-  
+  def check_for_completed_registration
+    if session[:registration] and !session[:registration].new_record?
+      flash[:notice] = "Please continue your registration process."
+      redirect_to event_path(@event)
+      return false
+    end
+  end
 end
