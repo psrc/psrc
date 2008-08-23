@@ -1,19 +1,7 @@
-
-class BigDecimal
-  # this works around http://code.whytheluckystiff.net/syck/ticket/24 until it gets fixed..
-  alias :_original_to_yaml :to_yaml
-  def to_yaml (opts={},&block)
-    to_s.to_yaml(opts,&block)
-  end
-end
-
-Registration
-
-class Payment
+class PaymentByCreditCard
   @@gateway = ActiveMerchant::Billing::ViaklixGateway.new :login => "LOGIN", :password => "PASSWORD"
 
   attr_reader :card, :registration_object
-
 
   def payment_method
     "Credit Card"
@@ -68,6 +56,6 @@ class Payment
 
   def queue
     stdin = Base64.encode64(Marshal.dump(self))
-    @job = Bj.submit("./script/runner Payment.start_purchase", :stdin => stdin).first
+    @job = Bj.submit("./script/runner PaymentByCreditCard.start_purchase", :stdin => stdin).first
   end
 end

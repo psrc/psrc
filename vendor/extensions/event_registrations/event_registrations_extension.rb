@@ -39,3 +39,4 @@ end
 EventOption
 Registration
 Event
+require 'big_decimal'
