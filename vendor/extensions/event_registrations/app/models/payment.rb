@@ -14,6 +14,11 @@ class Payment
 
   attr_reader :card, :registration_object
 
+
+  def payment_method
+    "Credit Card"
+  end
+
   def initialize card_values, amount, registration_object
     @registration_object = registration_object
     @card = ActiveMerchant::Billing::CreditCard.new card_values
