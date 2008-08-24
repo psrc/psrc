@@ -6,11 +6,9 @@
   chosen template.
   
 %ul
-  %li Two Columns (1/2, 1/2)
-  %li Two Columns (2/3, 1/3)
-  %li Two Columns (3/4, 1/4)
-  %li= link_to "Two-Columns (180px Navigation, 1/2, 1/2)", two_col_with_nav_path, :target => :blank
-  %li Three Columns (1/3, 1/3, 1/3)
-  %li Three Columns (1/3, 2/3)
-  %li= link_to "Three-Columns (180px Navigation, 1/3, 1/3, 1/3)", three_col_with_nav_path, :target => :blank
-  %li Four Columns (1/4, 1/4, 1/4, 1/4)
+  %li= link_to "Two Columns (1/2, 1/2)", two_col_halves_path
+  %li= link_to "Two Columns (2/3, 1/3)", two_col_two_thirds_path
+  %li= link_to "Two Columns (3/4, 1/4)", two_col_three_fourths_path
+  %li= link_to "Two-Columns (180px Navigation, 1/2, 1/2)", two_col_with_nav_path
+  %li= link_to "Three Columns (1/3, 1/3, 1/3)", three_col_thirds_path
+  %li= link_to "Three-Columns (180px Navigation, 1/3, 1/3, 1/3)", three_col_with_nav_path

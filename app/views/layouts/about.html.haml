@@ -37,7 +37,24 @@
         %li= link_to "Economic Development", templates_path
         %li= link_to "Funding", templates_path
         %li= link_to "Data", templates_path
-    = yield
+
+    - document :sidebar => true do
+      #banner
+        #banner-content &nbsp;
+      - sidebar do
+        %ul#page-navigation
+          %li.first= link_to "Ut risus", "#"
+          %li.active= link_to "pharetra quis", "#"
+          %li= link_to "viverra eu", "#"
+          %li= link_to "blandit non", "#"
+      - main_content do
+        %h2 TEST
+        - grid :halves do
+          - grid_unit :first => true do
+            = yield
+          - grid_unit do
+            = yield :col2
+
     #ft
       = yield(:footer)
       %ul.clear

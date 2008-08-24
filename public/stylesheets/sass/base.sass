@@ -3,15 +3,34 @@
   UI base.css, version: 2.4.1 part of YUI's CSS Foundation
 
 
+h1,h2,h3,h4,h5,h6,strong,legend
+  :font-weight bold
+
+/
+  h1,h2
+  :font-family arial,helvetica,clean,sans-serif
+
+h1,h2,h3,h4
+  :font-family Georgia,"Times New Roman",Times,serif
+  :margin 1em 0
+  &.title
+    :margin-bottom 0
+  &.first
+    :margin-top 0
+
 h1
   :font-size 197%
-  :letter-spacing -2px
+  :letter-spacing -1px
+  :font-weight normal
 h2
   :font-size 174%
   :letter-spacing -1px
+  :font-weight normal
 h3
-  :font-size 123.1%
-
+  :font-size 146.5%
+  :color #F69220
+  :margin 1em 0 0.4em
+  :font-weight normal
 h4
   :font-size 108%
 
@@ -32,6 +51,10 @@ em
 
 blockquote,ul,ol
   :margin 1em
+
+blockquote
+  :padding 1em 35px
+  :background url(/images/quote.gif) no-repeat left top
 
 ol,ul
   :margin-left 2em
@@ -57,6 +80,9 @@ caption
 p,fieldset,table,pre
   :margin-bottom 1em
   
+p,li
+  :line-height 1.7em
+
 
 /
   setting a consistent width, 160px

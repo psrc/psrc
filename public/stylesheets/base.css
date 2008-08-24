@@ -1,25 +1,38 @@
 
+h1, h2, h3, h4, h5, h6, strong, legend {
+  font-weight: bold; }
+
+/ {
+  font-family: arial,helvetica,clean,sans-serif; }
+
+h1, h2, h3, h4 {
+  font-family: Georgia,"Times New Roman",Times,serif;
+  margin: 1em 0; }
+  h1.title,   h2.title,   h3.title,   h4.title {
+    margin-bottom: 0; }
+  h1.first,   h2.first,   h3.first,   h4.first {
+    margin-top: 0; }
+
 h1 {
   font-size: 197%;
-  letter-spacing: -2px; }
+  letter-spacing: -1px;
+  font-weight: normal; }
 
 h2 {
   font-size: 174%;
-  letter-spacing: -1px; }
+  letter-spacing: -1px;
+  font-weight: normal; }
 
 h3 {
-  font-size: 123.1%; }
+  font-size: 146.5%;
+  color: #F69220;
+  margin: 1em 0 0.4em;
+  font-weight: normal; }
 
 h4 {
-  font-size: 108%; }
-
-h1, h2, h3 {
-  margin: 1em 0; }
-  h1.title,   h2.title,   h3.title {
-    margin-bottom: 0; }
-
-h1, h2, h3, h4, h5, h6, strong, legend {
-  font-weight: bold; }
+  font-size: 123.1%;
+  color: #B3D247;
+  font-weight: normal; }
 
 abbr, acronym {
   border-bottom: 1px dotted #000;
@@ -30,6 +43,10 @@ em {
 
 blockquote, ul, ol {
   margin: 1em; }
+
+blockquote {
+  padding: 1em 35px;
+  background: url(/images/quote.gif) no-repeat left top; }
 
 ol, ul {
   margin-left: 2em; }
@@ -54,6 +71,9 @@ caption {
 
 p, fieldset, table, pre {
   margin-bottom: 1em; }
+
+p, li {
+  line-height: 1.7em; }
 
 
 input[type=text], input[type=password], textarea {

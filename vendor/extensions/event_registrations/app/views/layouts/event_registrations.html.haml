@@ -27,18 +27,19 @@
       = @event.name ||= "Puget Sound Regional Council"
   %body
     #doc
-      #yui-main
-        - unless @progress_step.blank?
-          %h1.title== #{@event.name} Registration
-          %p.quiet== #{ date_span(@event) } / #{ @event.location }
-          - if current_page?(event_path(@event))
-            = @event.description
-          - else
-            #progress{:class => "step-#{@progress_step}"}
-              %h4== Step #{@progress_step} of 5
-          #event-registration
-            = flash_messages
-            = yield
+      #doc-content
+        #yui-main
+          - unless @progress_step.blank?
+            %h1.title== #{@event.name} Registration
+            %p.quiet== #{ date_span(@event) } / #{ @event.location }
+            - if current_page?(event_path(@event))
+              = @event.description
+            - else
+              #progress{:class => "step-#{@progress_step}"}
+                %h4== Step #{@progress_step} of 5
+            #event-registration
+              = flash_messages
+              = yield
     #ft
       Prosperity Partnership
     =# render :partial => "shared/analytics"

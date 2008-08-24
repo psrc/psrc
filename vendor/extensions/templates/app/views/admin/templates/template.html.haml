@@ -1,0 +1,18 @@
+- document :sidebar => @sidebar do
+  #banner
+    #banner-content &nbsp;
+  - if @sidebar
+    - sidebar do
+      = render :partial => "navigation"
+  - main_content do
+    = page_header @title
+    - grid @grid do
+      - grid_unit :first => true do
+        = render :partial => "main_content"
+        - unless @grid == :thirds
+          = render :partial => "secondary_content"
+      - if @grid == :thirds
+        - grid_unit do
+          = render :partial => "secondary_content", :locals => { :first => true }
+      - grid_unit do
+        = render :partial => "sub_content"

@@ -67,11 +67,6 @@ input#set_table_name {
 #contact-info input.text, #payment input.text {
   width: 25em; }
 
-#ft {
-  margin-top: 3em;
-  border-top: 1px solid #F4CD8B;
-  padding: 0.5em 0; }
-
 
 #card_verification_value {
   width: 3em !important; }

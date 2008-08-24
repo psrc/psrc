@@ -3,30 +3,30 @@
 
 / === YUI PiggyBack ===  /
 html
-  :background #FFF
-  :color #464037
-  :border-top 5px solid #E99A17
-  :padding-top 2em
+  :background #BDE9FF
+  :color #2F2520
 
-#doc2
+#doc,#doc2,#custom-doc
+  :background #DFF5FF
+  :-moz-border-radius 10px
 
-#custom-doc
-  :background #FFF
+#doc-content
   :padding 1em
+
+#custom-doc, #header-content, #logo, #ft
   :margin auto
   :text-align left
   :width 63.46em
   :*width 61.93em
   :min-width 825px
-  :-moz-border-radius 15px
 
 / === LINKS === /
 a
   &:link, &:active
-    :color #367CAF
+    :color #277D9F
     :text-decoration none
   &:visited
-    :color #67A3CF
+    :color #5AAECF
     :text-decoration none
   &:hover
     :text-decoration underline
@@ -34,6 +34,58 @@ a
     :outline none
 
 // === REUSABLE LAYOUT === //
+
+#banner
+  :border 1px solid #7BD3F7
+  #banner-content
+    :height 135px
+    :border 3px solid #BDE9FF
+    :background url(/images/banner2.jpg) no-repeat center center
+
+#ft
+  :margin auto
+  :padding 0.5em 0
+  :margin-bottom 1em
+  ul
+    :margin 0
+    :padding 0
+    li
+      :font-size 85%
+      :list-style none
+      :margin-right 2em
+      :float left
+      a:link, a:visited
+        :color #9E8B71
+
+#header
+  :font-family arial,helvetica,clean,sans-serif
+  :font-weight bold
+  :font-size 93%
+  :background #F15A24
+  :margin-bottom 1.5em
+  ul#header-content
+    :padding 0
+    li
+      :float left
+      :margin 0.4em 0
+      :margin-right 1em
+      :padding 0
+      :list-style none
+      :line-height 1.6em
+      a:link, a:visited
+        :background #EF4D24
+        :color #FFEFDF
+        :padding 0.3em 0.4em
+        :-moz-border-radius 3px
+      &.current
+        a:link, a:visited
+          :background #F58E27
+          :color #FFFAEF
+          :font-weight bold
+
+#logo
+  :margin-top 1em
+  :margin-bottom 0.2em
 
 .section
   :margin-bottom 2em
@@ -46,21 +98,47 @@ a
     :background #ACF6F7
     :color #055959
     :padding 0.1em 0.4em
-    
+
+.photo-caption-left
+  :float left
+  :margin-right 0.5em
+
+.photo-caption-right
+  :float right
+  :margin-left 0.5em
+
+.photo-caption-left, .photo-caption-right
+  img
+    :background white
+    :padding 0.3em
+    :border 1px solid #EEE
+    :display block
+  p
+    :color #684234
+    :font-size 85%
+    :font-style italic
+
 ul#page-navigation
   :-moz-border-radius 5px
-  :background #C4FEF3
+  :background #BAD75F
   :margin 0
   :margin-top 2em
   :padding 0
   li
     :list-style none
+    :border-top 1px solid #AFCF4D
     a:link, a:visited
       :height 1%
       :display block
       :font-weight bold
-      :color #007E79
-      :padding 0.6em 0.4em
+      :color #7F8836
+      :padding 0.25em 0.4em
+    &.active
+      :background url(/images/nav-arrow.gif) no-repeat 155px 0.4em
+      a:link, a:visited
+        :color #2F2520
+    &.first
+      :border-top none
 
 
     
