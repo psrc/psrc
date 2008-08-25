@@ -23,5 +23,5 @@ class Registration < ActiveRecord::Base
     Emailer.deliver_registration_confirmation self
   end
 end
-require 'payment'
+require 'payment_by_credit_card'
 require 'payment_by_check'

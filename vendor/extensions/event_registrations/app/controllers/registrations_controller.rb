@@ -25,6 +25,7 @@ class RegistrationsController < ApplicationController
   end
 
   def contact_info
+    make_them_start_over and return false unless session[:registration_set]
     @registration_contact = session[:registration_contact]
     if request.post?
       @set = session[:registration_set]
@@ -39,6 +40,7 @@ class RegistrationsController < ApplicationController
   end
 
   def payment_type
+    make_them_start_over and return false unless session[:registration_contact]
     if request.post? and params[:payment]
       if params[:payment][:type] =~ /credit/i
         redirect_to payment_by_credit_card_path
@@ -49,6 +51,7 @@ class RegistrationsController < ApplicationController
   end
   
   def payment_by_credit_card
+    make_them_start_over and return false unless session[:registration_contact]
     @card = session[:payment].card if session[:payment]
     if request.post?
       begin
@@ -64,6 +67,7 @@ class RegistrationsController < ApplicationController
   end
 
   def payment_by_check
+    make_them_start_over and return false unless session[:registration_contact]
     if request.post?
       @payment = PaymentByCheck.new :agreement    => params[:payment][:agreement], 
                                     :payment_date => convert_date(params[:payment], :payment_date)
@@ -78,6 +82,7 @@ class RegistrationsController < ApplicationController
   end
 
   def poll_for_credit_card_payment
+    make_them_start_over and return false unless session[:registration]
     if session[:payment].completed?
       session[:registration] = session[:payment].registration
       redirect_to confirmation_path
@@ -123,10 +128,17 @@ class RegistrationsController < ApplicationController
   end
 
   def check_for_completed_registration
-    if session[:registration] and !session[:registration].new_record?
-      flash[:notice] = "Please continue your registration process."
-      redirect_to event_path(@event)
-      return false
-    end
+    make_them_start_over if session[:registration] and !session[:registration].new_record?
   end
+
+  def check_for_started_registraiton
+    make_them_start_over if !session[:registration]
+  end
+
+  def make_them_start_over
+    flash[:notice] = "Please continue your registration process."
+    redirect_to event_path(@event)
+    return false
+  end
+
 end
