@@ -51,7 +51,8 @@ blockquote {
   background: url(/images/quote.gif) no-repeat left 0.2em;
   font-size: 108%;
   border-top: 1px solid #FFF0DF;
-  border-bottom: 1px solid #FFF0DF; }
+  border-bottom: 1px solid #FFF0DF;
+  font-style: italic; }
 
 ol, ul {
   margin-left: 2em; }
