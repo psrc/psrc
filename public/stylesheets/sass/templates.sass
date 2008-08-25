@@ -2,18 +2,14 @@
 / by Fixie Consulting (http://www.fixieconsulting.com)
 
 / === YUI PiggyBack ===  /
-html
-  :background #BDE9FF
-  :color #2F2520
-
 #doc,#doc2,#custom-doc
-  :background #DFF5FF
+  :background #BDE9FF
   :-moz-border-radius 10px
 
 #doc-content
   :padding 1em
 
-#custom-doc, #header-content, #logo, #ft
+#custom-doc, #banner, #header-content, #logo, #ft
   :margin auto
   :text-align left
   :width 63.46em
@@ -37,6 +33,7 @@ a
 
 #banner
   :border 1px solid #7BD3F7
+  :margin-bottom 1em
   #banner-content
     :height 135px
     :border 3px solid #BDE9FF
@@ -45,7 +42,7 @@ a
 #ft
   :margin auto
   :padding 0.5em 0
-  :margin-bottom 1em
+  :padding-left 4em
   ul
     :margin 0
     :padding 0
@@ -62,7 +59,7 @@ a
   :font-weight bold
   :font-size 93%
   :background #F15A24
-  :margin-bottom 1.5em
+  :margin-bottom 1em
   ul#header-content
     :padding 0
     li
@@ -84,8 +81,17 @@ a
           :font-weight bold
 
 #logo
-  :margin-top 1em
-  :margin-bottom 0.2em
+  :margin-top 1.2em
+  :margin-bottom 0.1em
+  h1
+    :margin 0
+  
+#page-content
+  :background #FFF
+  :padding 1em 1em 0.5em 1em
+
+#page-header
+  :margin 0.2em 0.2em 0.5em
 
 .section
   :margin-bottom 2em
@@ -108,30 +114,35 @@ a
   :margin-left 0.5em
 
 .photo-caption-left, .photo-caption-right
-  img
+  dt
+    :margin 0
+    :padding 0
     :background white
-    :padding 0.3em
+    :padding 0.3em 0.3em 0 0.3em
     :border 1px solid #EEE
-    :display block
-  p
+    img
+      :padding 0
+      :margin 0
+  dd
     :color #684234
     :font-size 85%
     :font-style italic
+    :padding 0.2em
 
 ul#page-navigation
   :-moz-border-radius 5px
-  :background #BAD75F
+  :background #E3F6FF
   :margin 0
-  :margin-top 2em
   :padding 0
+  :margin-top 3.3em
   li
     :list-style none
-    :border-top 1px solid #AFCF4D
+    :border-top 1px solid #BDE9FF
     a:link, a:visited
       :height 1%
       :display block
       :font-weight bold
-      :color #7F8836
+      :color #6DA1AF
       :padding 0.25em 0.4em
     &.active
       :background url(/images/nav-arrow.gif) no-repeat 155px 0.4em

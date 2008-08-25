@@ -2,8 +2,11 @@
   Setting base HTML Elements that were reset by YUI Reset.
   UI base.css, version: 2.4.1 part of YUI's CSS Foundation
 
+html
+  /:background #BDE9FF
+  :color #2F2520
 
-h1,h2,h3,h4,h5,h6,strong,legend
+h5,h6,strong,legend
   :font-weight bold
 
 /
@@ -17,30 +20,23 @@ h1,h2,h3,h4
     :margin-bottom 0
   &.first
     :margin-top 0
-
+    
 h1
   :font-size 197%
   :letter-spacing -1px
-  :font-weight normal
 h2
   :font-size 174%
   :letter-spacing -1px
-  :font-weight normal
 h3
   :font-size 146.5%
   :color #F69220
-  :margin 1em 0 0.4em
-  :font-weight normal
+  :margin 1em 0 0.3em
 h4
-  :font-size 108%
-
-h1,h2,h3
-  :margin 1em 0
-  &.title
-    :margin-bottom 0
-
-h1,h2,h3,h4,h5,h6,strong,legend
-  :font-weight bold
+  :font-size 123.1%
+  :color #9FBF3B
+  :margin 1em 0 0.3em
+  &.first
+    :margin-top 0.5em
 
 abbr,acronym
   :border-bottom 1px dotted #000
@@ -53,8 +49,11 @@ blockquote,ul,ol
   :margin 1em
 
 blockquote
-  :padding 1em 35px
-  :background url(/images/quote.gif) no-repeat left top
+  :padding 0.5em 35px
+  :background url(/images/quote.gif) no-repeat left 0.2em
+  :font-size 108%
+  :border-top 1px solid #FFF0DF
+  :border-bottom 1px solid #FFF0DF
 
 ol,ul
   :margin-left 2em
@@ -81,7 +80,7 @@ p,fieldset,table,pre
   :margin-bottom 1em
   
 p,li
-  :line-height 1.7em
+  :line-height 1.6em
 
 
 /

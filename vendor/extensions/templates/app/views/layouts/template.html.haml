@@ -27,7 +27,8 @@
     %title
       = @page_title ||= "Puget Sound Regional Council"
   %body
-    #logo= image_tag "psrc-logo.gif"
+    #logo
+      %h1= image_tag "psrc-logo.gif", :alt => "Puget Sound Regional Council"
     #header
       %ul#header-content.clear
         %li.current= link_to "Home", templates_path
@@ -37,6 +38,8 @@
         %li= link_to "Economic Development", templates_path
         %li= link_to "Funding", templates_path
         %li= link_to "Data", templates_path
+    #banner
+      #banner-content &nbsp;
     = yield
     #ft
       = yield(:footer)
