@@ -42,15 +42,15 @@ a
 #ft
   :margin auto
   :padding 0.5em 0
-  :padding-left 4em
   ul
     :margin 0
     :padding 0
+    :text-align center
     li
       :font-size 85%
       :list-style none
       :margin-right 2em
-      :float left
+      :display inline
       a:link, a:visited
         :color #9E8B71
 
@@ -70,14 +70,16 @@ a
       :list-style none
       :line-height 1.6em
       a:link, a:visited
-        :background #EF4D24
+        /:background #EF4D24
         :color #FFEFDF
         :padding 0.3em 0.4em
         :-moz-border-radius 3px
+      a:hover
+        :background #F58E27
+        :text-decoration none
       &.current
         a:link, a:visited
           :background #F58E27
-          :color #FFFAEF
           :font-weight bold
 
 #logo
@@ -92,6 +94,10 @@ a
 
 #page-header
   :margin 0.2em 0.2em 0.5em
+  
+#sub-page-header
+  :margin 0.2em 0 1em 
+  :color #7F6F67
 
 .section
   :margin-bottom 2em
@@ -134,7 +140,7 @@ ul#page-navigation
   :background #E3F6FF
   :margin 0
   :padding 0
-  :margin-top 3.3em
+
   li
     :list-style none
     :border-top 1px solid #BDE9FF
