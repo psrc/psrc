@@ -64,7 +64,7 @@ a:focus {
   font-family: arial,helvetica,clean,sans-serif;
   font-weight: bold;
   font-size: 93%;
-  background: #F15A24;
+  background: #F69220;
   margin-bottom: 1em; }
   #header ul#header-content li {
     float: left;
@@ -81,7 +81,8 @@ a:focus {
       background: #F58E27;
       text-decoration: none; }
     #header ul#header-content li.current a:link, #header ul#header-content li.current a:visited {
-      background: #F58E27;
+      background: #EFD027;
+      color: #442011;
       font-weight: bold; }
 
 #logo {
