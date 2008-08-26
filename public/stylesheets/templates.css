@@ -3,7 +3,7 @@
 
 
 #main-content-wrapper {
-  background: #BDE9FF;
+  background: #A4D6EF;
   -moz-border-radius: 8px;
   padding: 1em;
   padding-top: 0.9em; }
@@ -64,7 +64,7 @@ a:focus {
   font-family: arial,helvetica,clean,sans-serif;
   font-weight: bold;
   font-size: 93%;
-  background: #F69220;
+  background: #EF870E;
   margin-bottom: 1em; }
   #header ul#header-content li {
     float: left;
@@ -74,7 +74,7 @@ a:focus {
     list-style: none;
     line-height: 1.6em; }
     #header ul#header-content li a:link, #header ul#header-content li a:visited {
-      color: #FFEFDF;
+      color: #FFF;
       padding: 0.3em 0.4em;
       -moz-border-radius: 3px; }
     #header ul#header-content li a:hover {
@@ -82,7 +82,7 @@ a:focus {
       text-decoration: none; }
     #header ul#header-content li.current a:link, #header ul#header-content li.current a:visited {
       background: #EFD027;
-      color: #442011;
+      color: #5F350C;
       font-weight: bold; }
 
 #logo {
