@@ -1,0 +1,8 @@
+= render :partial => "main_content"
+= render :partial => "sub_content" unless @hide_sub_content
+- content_for :col2 do
+  = render :partial => "secondary_content", :locals => { :first => true }
+- content_for :col3 do
+  = render :partial => "secondary_content", :locals => { :first => true }  
+  
+  

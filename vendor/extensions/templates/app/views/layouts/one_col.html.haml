@@ -1,0 +1,17 @@
+!!! XML
+!!! Strict
+%html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => "en" }
+  %head
+    = render :partial => "head"
+  %body
+    = render :partial => "branding"
+    - document do
+      - main_content do
+        %h2#page-header 
+          / replace with <r:title />
+          Title goes here
+        #main-content
+          / ##### FAKE CONTENT - replace with <r:content/> ##### /
+          = yield
+          / ##### END FAKE CONTENT #### /
+    = render :partial => "footer"

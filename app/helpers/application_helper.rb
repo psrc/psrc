@@ -27,53 +27,24 @@ module ApplicationHelper
     end
   end
   
-  def document options={}, &block
-    haml_tag :div, {:id => "doc2", :class => "clear#{ ' yui-t2' if options[:sidebar] }"} do
-      block.call
-    end
-  end
-  
-  def sidebar options={}, &block
+  def sidebar &block
     @sidebar = true
-    haml_tag :div, {:id => options[:id], :class => "yui-b"} do
+    haml_tag :div, {:id => "sidebar", :class => "yui-b"} do
       block.call
     end
   end
   
   def main_content &block
     haml_tag :div, {:id => "yui-main"} do
-      if @sidebar
-        haml_tag :div, {:class => "yui-b"} do
-          block.call
-        end
-      else
+      haml_tag :div, {:id => "main-content-wrapper", :class => "#{"yui-b" if @sidebar }"} do
         block.call
       end
     end
   end
 
   def document options={}, &block
-    haml_tag :div, {:id => "custom-doc", :class => "clear#{ ' yui-t2' if options[:sidebar] }"} do
-      haml_tag :div, {:id => "doc-content"} do
-        block.call
-      end
-    end
-  end
-
-  def sidebar options={}, &block
-    @sidebar = true
-    haml_tag :div, {:id => options[:id], :class => "yui-b"} do
-      block.call
-    end
-  end
-
-  def main_content &block
-    haml_tag :div, {:id => "yui-main"} do
-      if @sidebar
-        haml_tag :div, {:class => "yui-b"} do
-          block.call
-        end
-      else
+    haml_tag :div, {:id => "custom-doc", :class => "#{ 'yui-t2' if options[:sidebar] }"} do
+      haml_tag :div, {:id => "bd"} do
         block.call
       end
     end

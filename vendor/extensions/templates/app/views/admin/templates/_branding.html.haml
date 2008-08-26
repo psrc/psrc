@@ -1,0 +1,16 @@
+#logo
+  %h1= link_to image_tag("psrc-logo.gif", :alt => "Puget Sound Regional Council"), "#"
+#header
+  %ul#header-content.clear
+    %li.current= link_to "Home", templates_path
+    %li= link_to "About", templates_path
+    %li= link_to "Growth Management", templates_path
+    %li= link_to "Transportation", templates_path
+    %li= link_to "Economic Development", templates_path
+    %li= link_to "Funding", templates_path
+    %li= link_to "Data", templates_path
+#breadcrumbs
+  / Replace with <r:if_parent><r:breadcrumbs separator=" &raquo; " /></r:if_parent>
+  <a href="/">Home</a> &raquo; Current Page
+#banner
+  #banner-content &nbsp;

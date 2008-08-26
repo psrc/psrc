@@ -2,13 +2,17 @@
 / by Fixie Consulting (http://www.fixieconsulting.com)
 
 / === YUI PiggyBack ===  /
-#doc,#doc2,#custom-doc
+#bd
+
+#main-content-wrapper
   :background #BDE9FF
-  :-moz-border-radius 10px
-
-#doc-content
+  :-moz-border-radius 8px
   :padding 1em
-
+  :padding-top 0.9em
+  #main-content
+    :background #FFF
+    :padding 1em
+    
 #custom-doc, #banner, #breadcrumbs, #header-content, #logo, #ft
   :margin auto
   :text-align left
@@ -43,7 +47,8 @@ a
   :font-size 85%
   :margin-bottom 0.5em
   :color #7F6F67
-
+  a:link, a:visited
+    :text-decoration underline
 #ft
   :margin auto
   :padding 0.5em 0
@@ -66,7 +71,7 @@ a
   :background #F15A24
   :margin-bottom 1em
   ul#header-content
-    :padding 0
+
     li
       :float left
       :margin 0.4em 0
@@ -98,7 +103,7 @@ a
   :padding 1em 1em 0.5em 1em
 
 #page-header
-  :margin 0.2em 0.2em 0.5em
+  :margin 0 0 0.3em 0
   
 #sub-page-header
   :margin 0.2em 0 1em 
@@ -141,20 +146,21 @@ a
     :padding 0.2em
 
 ul#page-navigation
-  :-moz-border-radius 5px
-  :background #E3F6FF
+  :-moz-border-radius 8px
+  :background #BCD95E
   :margin 0
   :padding 0
 
   li
     :list-style none
-    :border-top 1px solid #BDE9FF
+    :border-top 1px solid #AFCF4D
     a:link, a:visited
       :height 1%
       :display block
       :font-weight bold
-      :color #6DA1AF
+      :color #676F22
       :padding 0.25em 0.4em
+      :font-size 93%
     &.active
       :background url(/images/nav-arrow.gif) no-repeat 155px 0.4em
       a:link, a:visited
