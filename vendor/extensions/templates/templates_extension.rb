@@ -10,6 +10,7 @@ class TemplatesExtension < Radiant::Extension
     map.with_options(:controller => 'admin/templates') do |m|
       m.templates 'admin/templates', :action => 'index'
       m.one_col  'admin/templates/one-col', :action => 'one_col'
+      m.one_col_with_nav  'admin/templates/one-col-with-nav', :action => 'one_col_with_nav'      
       m.two_col_with_nav  'admin/templates/two-col-with-nav', :action => 'two_col_with_nav'
       m.three_col_with_nav  'admin/templates/three-col-with-nav', :action => 'three_col_with_nav'
       m.two_col_halves  'admin/templates/two-col-halves', :action => 'two_col_halves'

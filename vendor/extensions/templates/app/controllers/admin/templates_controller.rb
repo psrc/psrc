@@ -10,6 +10,10 @@ class Admin::TemplatesController < ApplicationController
     render :layout => "one_col", :action => "content"
   end
 
+  def one_col_with_nav
+    render :layout => "one_col_with_nav", :action => "content"
+  end
+  
   def two_col_halves
     @hide_sub_content = true
     render :layout => "two_col_halves", :action => "content"
