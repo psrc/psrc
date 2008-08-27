@@ -15,7 +15,7 @@ class Attendee
   end
 
   def to_s
-    "#{name} (#{email})"
+    "#{name} (<a href='mailto:#{email}'>#{email}</a>)"
   end
 
   def blank?

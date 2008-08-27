@@ -41,6 +41,12 @@ tbody.events td {
   
 input.text.short { width: 50px; }
 
+.registrations th, .registrations td{
+  width: 24%;
+  vertical-align: top;
+}
+
+
 
 /* End Fixie Additions */
 

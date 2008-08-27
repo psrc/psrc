@@ -1,11 +1,10 @@
 #content
-
   %h1== Registrations for #{ link_to @event.name, admin_events_path }
 
   - for option in @event.event_options
-    %h2= option.description
+    %h3= option.description
     
-    %table.index
+    %table.registrations.index
       %tr 
         %th Registered On
         %th Payment Method
@@ -17,16 +16,17 @@
           %td= registration.created_at
           %td= registration.payment.payment_method
           %td
-            %br= registration.registration_contact
-            %br= registration.registration_contact.address
-            %br= registration.registration_contact.city
-            %br= registration.registration_contact.state
-            %br= registration.registration_contact.zip
-            %br= registration.registration_contact.phone
+            %address
+              = registration.registration_contact
+              %br= registration.registration_contact.address
+              %br= registration.registration_contact.city
+              %br= registration.registration_contact.state
+              %br= registration.registration_contact.zip
+              %br= registration.registration_contact.phone
           %td
             - if table = registration.registration_set.table_name
               %li
-                == Table Name: #{ table }
+                == Table: <strong>#{ table }</strong>
             %ul
               - registration.registration_set.each do |person|
                 - next if person.blank?
