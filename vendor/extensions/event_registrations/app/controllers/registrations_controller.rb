@@ -81,7 +81,7 @@ class RegistrationsController < ApplicationController
   end
 
   def poll_for_credit_card_payment
-    make_them_start_over and return false unless session[:registration]
+    make_them_start_over and return false unless session[:payment]
     if session[:payment].completed?
       session[:registration] = session[:payment].registration
       redirect_to confirmation_path

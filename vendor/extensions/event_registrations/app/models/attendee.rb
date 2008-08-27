@@ -15,7 +15,9 @@ class Attendee
   end
 
   def to_s
-    "#{name} (<a href='mailto:#{email}'>#{email}</a>)"
+    name_email = "#{name} (<a href='mailto:#{email}'>#{email}</a>)"
+    name_email += " (V)" if vegetarian == "1"
+    name_email
   end
 
   def blank?
