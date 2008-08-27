@@ -1,28 +1,22 @@
 
 
 
-#event-registration {
-  padding-bottom: 1em; }
-
 #progress {
-  height: 37px;
-  margin-bottom: 2em;
-  margin-top: 0.5em;
-  background: #ACF6F7 url(/images/event_steps.gif) no-repeat;
-  -moz-border-radius-topright: 3px;
-  -moz-border-radius-bottomright: 3px;
+  height: 223px;
+  background: url(/images/event_steps_vertical.png) no-repeat;
   text-indent: -6000px;
   position: relative; }
   #progress.step-2 {
-    background-position: left -54px; }
+    background-position: left -224px; }
   #progress.step-3 {
-    background-position: left -108px; }
+    background-position: left -449px; }
   #progress.step-4 {
-    background-position: left -162px; }
+    background-position: left -674px; }
   #progress.step-5 {
-    background-position: left -216px; }
+    background-position: left -899px; }
   #progress h4 {
-    padding-top: 10px; }
+    margin: 0;
+    padding: 0; }
 
 
 table.registration {
@@ -37,13 +31,13 @@ table.registration {
   table.registration th span, table.registration td span {
     font-weight: normal;
     font-size: 85%;
-    color: #AFA699; }
+    color: #8F806B; }
 
 .attendee {
   padding: 0.5em 0; }
   .attendee.even {
-    border-top: 1px solid #ACF6F7;
-    border-bottom: 1px solid #ACF6F7; }
+    border-top: 1px solid #CFF0FF;
+    border-bottom: 1px solid #CFF0FF; }
   .attendee h4 {
     color: #B6986A;
     font-size: 85%;
@@ -59,10 +53,10 @@ table.registration {
 
 
 #table-name-container {
-  margin: 1em 0 2em 0; }
+  margin: 0.5em 0; }
 
 input#set_table_name {
-  width: 27.5em; }
+  width: 20.7em; }
 
 #contact-info input.text, #payment input.text {
   width: 25em; }

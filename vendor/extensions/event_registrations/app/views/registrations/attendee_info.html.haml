@@ -1,4 +1,4 @@
-%h2.title= "Who will be attending this event?"
+%h2 Who will be attending this event?
 - form_for :set, :url => attendee_info_path, :builder => ::WebSgFormBuilder do |f|
   %fieldset
     - if @number_of_attendees > 1

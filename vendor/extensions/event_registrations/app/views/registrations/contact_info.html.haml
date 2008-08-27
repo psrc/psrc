@@ -1,6 +1,6 @@
 #contact-info
-  %h2.title Whom may we contact?
-  %p Note: Doesn't have to be the same as attendee information.
+  %h2 Whom may we contact?
+  %p.quiet Note: Doesn't have to be the same as attendee information.
 
   - form_for :registration_contact, :url => contact_info_path(@event,@event_option), :builder => ::WebSgFormBuilder do |f|
     - f.fieldset do

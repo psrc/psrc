@@ -4,24 +4,24 @@
   Registration confirmation #: 
   %strong= @registration.id
 
-- section "Registered Attendees" do
-  %table#registered-attendees
-    %thead
+%h4 Registered Attendees
+%table#registered-attendees
+  %thead
+    %tr
+      %th Name
+      %th E-mail
+      %th Vegetarian?
+      - unless @registration.registration_set.table_name.blank?
+        %th Table Name
+  %tbody
+    - for person in @registration.registration_set.attendees
+      - next if person.blank?
       %tr
-        %th Name
-        %th E-mail
-        %th Vegetarian?
+        %td.name= person.name
+        %td.mail= person.email
+        %td.vegetarian= (person.vegetarian == "1") ? "Yes" : "No"
         - unless @registration.registration_set.table_name.blank?
-          %th Table Name
-    %tbody
-      - for person in @registration.registration_set.attendees
-        - next if person.blank?
-        %tr
-          %td.name= person.name
-          %td.mail= person.email
-          %td.vegetarian= (person.vegetarian == "1") ? "Yes" : "No"
-          - unless @registration.registration_set.table_name.blank?
-            %td.table-name= @registration.registration_set.table_name          
+          %td.table-name= @registration.registration_set.table_name          
   
 %h3.title Questions?
 %p== If you have questions, please contact Andrew Werfelmann at 206-971-3292 or by e-mail at #{ mail_to "awerfelmann@psrc.org" }

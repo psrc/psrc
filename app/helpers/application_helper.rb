@@ -61,7 +61,7 @@ module ApplicationHelper
   def section title, options={}, &block
     haml_tag :div, {:id => options[:id], :class => "section"} do
 
-      haml_tag((options[:header_size] || :h3), title)
+      haml_tag((options[:header_size] || :h4), title)
       haml_tag :div, {:class => "section-content"} do
         block.call
       end

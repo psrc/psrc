@@ -98,6 +98,10 @@ a:focus {
 #page-header {
   margin: 0 0 0.3em 0; }
 
+#page-sub-header {
+  margin: -0.3em 0 0.3em 0;
+  color: #7F6F67; }
+
 #sub-page-header {
   margin: 0.2em 0 1em;
   color: #7F6F67; }
@@ -106,11 +110,12 @@ a:focus {
   margin-bottom: 2em; }
   .section .section-content {
     padding: 0.5em; }
-  .section h2, .section h3 {
+  .section h4 {
     margin: 0;
     padding: 0;
-    background: #ACF6F7;
-    color: #055959;
+    background: #DDEFA4;
+    display: inline;
+    color: #676F22;
     padding: 0.1em 0.4em; }
 
 .photo-caption-left {

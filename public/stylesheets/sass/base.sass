@@ -16,6 +16,7 @@ h5,h6,strong,legend
 h1,h2,h3,h4
   :font-family Georgia,"Times New Roman",Times,serif
   :margin 1em 0
+  :letter-spacing -0.05em
   &.title
     :margin-bottom 0
   &.first
@@ -23,10 +24,8 @@ h1,h2,h3,h4
     
 h1
   :font-size 197%
-  :letter-spacing -1px
 h2
   :font-size 174%
-  :letter-spacing -1px
 h3
   :font-size 146.5%
   :color #DF851B
@@ -66,8 +65,12 @@ ul li
   :list-style disc outside
 
 th,td
-  :border-bottom 2px solid #ACF6F7
-  :padding .5em
+  :padding 0.3em
+  :vertical-align middle
+  :border-bottom 1px solid #CFF0FF
+
+thead
+  :background #CFF0FF
 
 th
   :font-weight bold
