@@ -170,11 +170,8 @@ module ActionController #:nodoc:
             # Note that the regexp does not allow $1 to end with a ':'
             $1.constantize
           rescue LoadError, NameError => const_error
-            raise ActionController::SessionRestoreError, <<-end_msg
-Session contains objects whose class definition isn\'t available.
-Remember to require the classes for all objects kept in the session.
-(Original exception: #{const_error.message} [#{const_error.class}])
-end_msg
+           reset_session
+           redirect_to '/'
           end
 
           retry
