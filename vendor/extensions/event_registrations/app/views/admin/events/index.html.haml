@@ -13,7 +13,7 @@
           %th Name
           %th # Registered
           %th Dates
-          %th{:colspan => 2} Modify
+          %th{:colspan => 2} Actions
           %th Public
 
       %tbody.events
@@ -33,6 +33,6 @@
             - for option in event.event_options
               %tr.event-option
                 %td.description== #{ link_to option.description, edit_admin_event_option_path(option) } <span class="quiet">(#{ option.seating_type })</span>
-                %td.attendees{ :colspan => 2 }= option.number_of_attendees
+                %td.attendees.quiet{ :colspan => 2 }= option.number_of_attendees
                 %td.blank &nbsp;
                 %td.remove{ :colspan => 2 }= link_to image_tag("admin/remove.png"), admin_event_option_path(option), :method => :delete, :confirm => "Are you want to remove this event option? There is no undo."

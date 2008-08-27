@@ -1,7 +1,6 @@
 /* Added by Fixie */
 #events table.index a:link, #events table.index a:visited {
   color: black;
-  text-decoration: none;
 }
 #events table.index a:hover {
   color: blue;
@@ -45,6 +44,8 @@ input.text.short { width: 50px; }
   width: 24%;
   vertical-align: top;
 }
+
+.registrations address { font-style: normal; }
 
 
 

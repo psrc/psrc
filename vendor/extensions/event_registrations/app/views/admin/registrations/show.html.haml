@@ -1,5 +1,5 @@
 #content
-  %h1== Registrations for #{ link_to @event.name, admin_events_path }
+  %h2== Registrations for #{ link_to @event.name, admin_events_path }
 
   - for option in @event.event_options
     %h3= option.description
