@@ -55,16 +55,16 @@ class PaymentByCreditCard
 
   # Authorize purchase from gateway
   def execute_purchase
-    attempt = @@gateway.purchase((@amount*100).to_i, @card, :billing_address => @card.billing_address )
-    if attempt.success?
+    #attempt = @@gateway.purchase((@amount*100).to_i, @card, :billing_address => @card.billing_address )
+    #if attempt.success?
       @registration_object.payment = self
       @registration_object.save!
       puts @registration_object.id
       exit 0
-    else
-      STDERR.puts attempt.message
-      exit -1
-    end
+    #else
+      #STDERR.puts attempt.message
+      #exit -1
+    #end
   end
 
   private
