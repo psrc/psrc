@@ -8,7 +8,6 @@ class AttendeeSet
   include Validatable
 
   # Make sure that not all the attendees are blank, and that at least one of them is valid.
-  validates_each :attendees, :logic => lambda { errors.add(:attendees, "is not valid") if !@attendees.find {|a| !a.blank? } or @attendees.find { |a| !a.blank? and !a.valid? } }
   validates_presence_of :table_name, :if => lambda { |a| a.number_of_people > 1 }
 
   def each
