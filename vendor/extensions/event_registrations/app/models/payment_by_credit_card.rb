@@ -14,7 +14,7 @@ class ActiveMerchant::Billing::CreditCard
 end
 
 class PaymentByCreditCard
-  @@gateway = ActiveMerchant::Billing::ViaklixGateway.new :login => "LOGIN", :password => "PASSWORD"
+  @@gateway = ActiveMerchant::Billing::ViaklixGateway.new :login => "405372", :password => "TM2ZS9", :test => true
 
   attr_reader :card, :registration_object, :billing_address
 
@@ -36,11 +36,11 @@ class PaymentByCreditCard
   end
 
   def completed?
-    @job.finished? #and @job.exit_status == 0
+    @job.finished? and @job.exit_status == 0
   end
 
   def error?
-    #@job.finished? and @job.exit_status != 0
+    @job.finished? and @job.exit_status != 0
   end
 
   def error_message
@@ -55,16 +55,16 @@ class PaymentByCreditCard
 
   # Authorize purchase from gateway
   def execute_purchase
-    #attempt = @@gateway.purchase((@amount*100).to_i, @card, :billing_address => @card.billing_address )
-    #if attempt.success?
+    attempt = @@gateway.purchase((@amount*100).to_i, @card, :billing_address => @card.billing_address )
+    if attempt.success?
       @registration_object.payment = self
       @registration_object.save!
       puts @registration_object.id
       exit 0
-    #else
-      #STDERR.puts attempt.message
-      #exit -1
-    #end
+    else
+      STDERR.puts attempt.message
+      exit -1
+    end
   end
 
   private

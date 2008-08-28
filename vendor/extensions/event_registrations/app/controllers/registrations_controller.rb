@@ -86,6 +86,7 @@ class RegistrationsController < ApplicationController
       session[:registration] = session[:payment].registration
       redirect_to confirmation_path
     elsif session[:payment].error?
+      flash[:error] = session[:payment].error_message
       redirect_to payment_by_credit_card_path
     end
   end
