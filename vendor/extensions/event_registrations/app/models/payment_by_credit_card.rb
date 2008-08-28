@@ -8,15 +8,15 @@ class ActiveMerchant::Billing::CreditCard
   alias_method_chain :validate, :check_address
 
   def billing_address
-    { :address => address, :zip => zip }
+    { :address1 => address, :zip => zip }
   end
 
 end
 
 class PaymentByCreditCard
-  @@gateway = ActiveMerchant::Billing::ViaklixGateway.new :login => "405372", :password => "TM2ZS9", :test => true
+  @@gateway = ActiveMerchant::Billing::ViaklixGateway.new :login => "405372", :user => "512psrc", :password => "TM2ZS9", :test => true
 
-  attr_reader :card, :registration_object, :billing_address
+  attr_reader :card, :registration_object
 
   def payment_method
     "Credit Card"
@@ -55,16 +55,16 @@ class PaymentByCreditCard
 
   # Authorize purchase from gateway
   def execute_purchase
-    #attempt = @@gateway.purchase((@amount*100).to_i, @card, :billing_address => @card.billing_address )
-    #if attempt.success?
+    attempt = @@gateway.purchase((@amount*100).to_i, @card, :billing_address => @card.billing_address )
+    if attempt.success?
       @registration_object.payment = self
       @registration_object.save!
       puts @registration_object.id
       exit 0
-    #else
-      #STDERR.puts attempt.message
-      #exit -1
-    #end
+    else
+      STDERR.puts attempt.message
+      exit -1
+    end
   end
 
   private

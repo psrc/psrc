@@ -22,9 +22,6 @@ module ActiveMerchant #:nodoc:
     end
 
     def ssl_post(url, data, headers = {})
-      puts url
-      puts data
-      puts headers
       # Ruby 1.8.4 doesn't automatically set this header
       headers['Content-Type'] ||= "application/x-www-form-urlencoded"
 

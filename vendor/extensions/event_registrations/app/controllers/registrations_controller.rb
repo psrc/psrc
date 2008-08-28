@@ -40,11 +40,15 @@ class RegistrationsController < ApplicationController
 
   def payment_type
     make_them_start_over and return false unless session[:registration_contact]
-    if request.post? and params[:payment]
-      if params[:payment][:type] =~ /credit/i
-        redirect_to payment_by_credit_card_path
+    if request.post?
+      if  params[:payment]
+        if params[:payment][:type] =~ /credit/i
+          redirect_to payment_by_credit_card_path
+        else
+          redirect_to payment_by_check_path
+        end
       else
-        redirect_to payment_by_check_path
+        flash[:error] = "Please select a payment method."
       end
     end
   end
