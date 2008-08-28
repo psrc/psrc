@@ -10,7 +10,7 @@ class PaymentByCreditCard
   def initialize card_values, amount, registration_object
     @registration_object = registration_object
     @card = ActiveMerchant::Billing::CreditCard.new card_values
-    raise @card.errors.full_messages.join(" and ") unless @card.valid?
+    raise "Please double-check your credit card information below." unless @card.valid?
     @amount = amount
     queue
   end
