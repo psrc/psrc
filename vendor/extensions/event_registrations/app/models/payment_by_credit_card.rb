@@ -1,7 +1,22 @@
+class ActiveMerchant::Billing::CreditCard
+  attr_accessor :address, :zip
+  def validate_with_check_address
+    errors.add(:address, "must be provided") if address.blank?
+    errors.add(:zip, "must be provided") if zip.blank?
+    validate_without_check_address
+  end
+  alias_method_chain :validate, :check_address
+
+  def billing_address
+    { :address => address, :zip => zip }
+  end
+
+end
+
 class PaymentByCreditCard
   @@gateway = ActiveMerchant::Billing::ViaklixGateway.new :login => "LOGIN", :password => "PASSWORD"
 
-  attr_reader :card, :registration_object
+  attr_reader :card, :registration_object, :billing_address
 
   def payment_method
     "Credit Card"
@@ -40,7 +55,7 @@ class PaymentByCreditCard
 
   # Authorize purchase from gateway
   def execute_purchase
-    #attempt = @@gateway.purchase((@amount*100).to_i, @card)
+    #attempt = @@gateway.purchase((@amount*100).to_i, @card, :billing_address => @card.billing_address )
     #if attempt.success?
       @registration_object.payment = self
       @registration_object.save!

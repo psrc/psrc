@@ -9,6 +9,8 @@
       = f.text_field :first_name, :label => "First Name", :hint => "Exactly as it appears on card"
       = f.text_field :last_name, :label => "Last name", :hint => "Exactly as it appears on card"
       = f.text_field :verification_value, :label => "Card Verification Number", :hint => "(found on back of card)"
+      = f.text_field :address, :label => "Billing Address", :hint => "Billing address for card"
+      = f.text_field :zip, :label => "Billing Address Zip Code", :hint => "Billing address zip code for card"
 
     %p== Your credit card will be charged <b>#{ number_to_currency @event_option.price }</b>
     = f.submit "Purchase", :onclick => "this.disabled = true"
