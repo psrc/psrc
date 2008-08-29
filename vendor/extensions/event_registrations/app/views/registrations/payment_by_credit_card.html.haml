@@ -1,5 +1,5 @@
 #payment
-  %h2 Payment by Credit Card
+  %h2.first Payment by Credit Card
   - form_for :card, :url => payment_by_credit_card_path, :builder => ::WebSgFormBuilder do |f|
     - f.fieldset do
       = f.text_field :number, :label => "Credit Card Number", :hint => "(no dashes or spaces needed)", :class => "title focus", :maxlength => 16

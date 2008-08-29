@@ -46,7 +46,8 @@ a:focus {
 
 #ft {
   margin: auto;
-  padding: 1em 0 0.5em; }
+  padding: 1em 0 0.5em;
+  color: #9E8B71; }
   #ft ul {
     margin: 0;
     padding: 0; }
@@ -167,7 +168,7 @@ ul#page-navigation {
   margin-bottom: 1em;
   text-align: center;
   font-weight: bold;
-  padding: 0.8em; }
+  padding: 0.5em; }
   .notice a,   .success a,   .error a {
     font-weight: bold; }
   .notice h2,   .success h2,   .error h2 {

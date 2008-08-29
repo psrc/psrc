@@ -1,9 +1,13 @@
-%h2 Who will be attending this event?
+%h2.first Who will be attending this event?
+
 - form_for :set, :url => attendee_info_path, :builder => ::WebSgFormBuilder do |f|
   %fieldset
     - if @number_of_attendees > 1
       #table-name-container
-        = f.text_field :table_name, :class => "focus title", :label => "Table Name", :hint => "(eg. Your company or organization name)"
+        = f.text_field :table_name, :class => "focus title", :label => "Table Name", :hint => "Required (eg. Your company or organization name)"
+      %p.quiet
+        == Note: If you do not have the names of every attendee for this table, you may e-mail additions to #{ mail_to "Andrew Werfelmann", "awerfelmann@psrc.org" } at a later date.
+
     - counter = 0
     - @set.each do |@person|
       - fields_for :person, :builder => ::WebSgFormBuilder do |a|

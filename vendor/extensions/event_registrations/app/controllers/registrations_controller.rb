@@ -1,4 +1,5 @@
 class RegistrationsController < ApplicationController
+  layout 'events'
   no_login_required
 
   STEPS = { "attendee_info" => 1, "contact_info" => 2, "payment_type" => 3, 
