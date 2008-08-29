@@ -1,7 +1,7 @@
 class RegistrationContact
   include Validatable
 
-  attr_accessor :name, :title, :organization, :address, :city, :state, :zip, :email, :phone
+  attr_accessor :name, :title, :organization, :address, :city, :state, :country, :zip, :email, :phone
   validates_presence_of :name, :address, :state, :city, :zip, :email, :phone
 
   validates_format_of :email, :with => ValidatesEmailFormatOf::Regex
@@ -11,7 +11,7 @@ class RegistrationContact
       instance_variable_set "@#{key}", value
     end
   end
-
+  
   def to_s
     "#{name} (<a href='mailto:#{email}'>#{email}</a>)"
   end
