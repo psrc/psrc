@@ -3,6 +3,6 @@
   %td.early
     - if event_option.early_available?
       = number_to_currency event_option.early_price 
-      %span== (Save #{ number_to_currency event_option.normal_price - event_option.early_price }! Register by #{ event_option.early_price_date.strftime("%b %d") })
+      %span== (Before #{ event_option.early_price_date.strftime("%b %d") })
   %td.normal= number_to_currency event_option.normal_price
   %td.select= link_to image_tag("btn_select.png", :alt => "Select"), attendee_info_path(@event, event_option)

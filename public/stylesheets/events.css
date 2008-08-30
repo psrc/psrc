@@ -1,29 +1,55 @@
 
 
 .event-page {
-  padding-top: 4em !important; }
+  padding-top: 2em !important; }
+  .event-page h1, .event-page h2, .event-page h3, .event-page h4 {
+    font-family: arial,helvetica,clean,sans-serif; }
+  .event-page h4 {
+    font-weight: bold; }
   .event-page #ft {
     color: #A9A9A9; }
 
-.prosperity {
-  background: #E9E9E9 !important;
-  border-top: 5px solid #00415E; }
-  .prosperity #main-content-wrapper {
-    background: #00415E url(/images/prosperity-dots.png) no-repeat right top; }
-  .prosperity #page-header {
-    color: #FFF; }
-  .prosperity #page-sub-header {
-    color: #C2E0EF; }
-  .prosperity h4 {
-    color: #00324C; }
-  .prosperity th {
-    background: #5F9FBF;
-    color: #EFFAFF; }
-  .prosperity td {
-    border-color: #E9E9E9; }
+.prosperity #event-logo {
+  text-align: center;
+  margin-top: 1em; }
+  .prosperity #event-logo img {
+    width: 167px;
+    margin: auto; }
+.prosperity #event-container {
+  padding: 1em 0;
+  background: #003F77; }
+.prosperity #main-content-container {
+  margin-right: 1em;
+  background: #FFF url(/images/pp-circles.png) no-repeat center 3px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  padding: 1em;
+  padding-top: 120px; }
+.prosperity #main-content-wrapper {
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  background: #003F77; }
+  .prosperity #main-content-wrapper #main-content {
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px; }
+.prosperity #page-header {
+  color: #FFF; }
+.prosperity #page-sub-header {
+  color: #C2E0EF; }
+.prosperity #pp-photos-cont {
+  background: #FFF;
+  padding: 1em 0; }
+.prosperity h4 {
+  color: #003F77; }
+.prosperity th {
+  background: #003F77;
+  color: #EFFAFF; }
+.prosperity td {
+  border-color: #E9E9E9; }
 
 
 #progress {
+  margin-right: -1em;
   height: 33px;
   background: #DFF0F7 url(/images/event_steps.gif) no-repeat;
   text-indent: -6000px;

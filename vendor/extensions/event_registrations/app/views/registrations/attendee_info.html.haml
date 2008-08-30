@@ -5,22 +5,18 @@
     - if @number_of_attendees > 1
       #table-name-container
         = f.text_field :table_name, :class => "focus title", :label => "Table Name", :hint => "Required (eg. Your company or organization name)"
-      %p.quiet
-        == Note: If you do not have the names of every attendee for this table, you may e-mail additions to #{ mail_to "Andrew Werfelmann", "awerfelmann@psrc.org" } at a later date.
-
+      %h4.title Table Attendees (optional)
+      %p.quiet Table participants you have time to send participants names and e-mail addresses.
     - counter = 0
     - @set.each do |@person|
       - fields_for :person, :builder => ::WebSgFormBuilder do |a|
         %div{:class => "attendee clear #{cycle(:odd,:even)}"}
-          - unless @number_of_attendees == 1
-            %h4== Attendee #{ counter + 1 }
           .field
             = a.text_field :name, :label => "Full Name", :class => "focus", :index => counter
           .field
             = a.text_field :email, :label => "E-Mail", :index => counter
           .field.vegetarian
             = a.check_box :vegetarian, :label => "Vegetarian?", :index => counter
-      - counter += 1
   
   %p
     = submit_tag "Continue"

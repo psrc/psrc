@@ -13,7 +13,7 @@
     %link{ :rel => "shortcut icon", :href => "/favicon.ico" }
     %link{ :rel => "icon", :href=> "/favicon.ico" }
 
-    = javascript_include_tag 'prototype', 'effects', 'application', :cache => "cache/all"
+    = javascript_include_tag 'prototype', 'effects', 'application', 'corners', :cache => "cache/all"
     = stylesheet_link_tag 'yui', 'base', 'events', 'templates', 'forms', 'util'
 
     = yield(:head)
@@ -27,15 +27,22 @@
     %title
       = @page_title ||= "Prosperity Partnership Event Registration"
   %body{:class => :prosperity}
-    - document :class => "event-page", :id => :doc do
-      - main_content do
-        %h2#page-header== #{@event.name} Registration
-        %h3#page-sub-header== #{ date_span(@event) } / #{ @event.location }
-        - unless current_page?(event_path(@event))
-          #progress{:class => "step-#{@progress_step}"}
-            %h4== Step #{@progress_step} of 5
-        #main-content
-          = simple_format @event.description if current_page?(event_path(@event))
-          = yield
+    - document :class => "event-page" do
+      - grid :one_fourth, :id => "event-container" do
+        - grid_unit :first => true do
+          #event-logo
+            = image_tag "prosperity-logo-sm.gif", :alt => "Prosperity Partnership"
+          - unless current_page?(event_path(@event))
+            #progress{:class => "step-#{@progress_step}"}
+              %h4== Step #{@progress_step} of 5
+        
+        - grid_unit do
+          #main-content-container
+            #main-content-wrapper
+              %h2#page-header== #{@event.name} Registration
+              %h3#page-sub-header== #{ date_span(@event) } / #{ @event.location }
+              #main-content
+                = simple_format @event.description if current_page?(event_path(@event))
+                = yield
       #ft
         == Brought to you by #{ link_to "Prosperity Partnership", "http://www.prosperitypartnership.org" }

@@ -2,6 +2,7 @@
 // This file is automatically included by javascript_include_tag :defaults
 Event.observe(window, 'load', function() {
   observeInputsWithDefaultText();
+  observeCorners();
   focusTextbox();
 });
 
@@ -26,4 +27,18 @@ function observeInputsWithDefaultText(){
 function focusTextbox(){
   if($$('.focus').any())
     $$('.focus').first().focus()
+}
+
+function observeCorners(){
+  settings = {
+    tl: { radius: 15 },
+    tr: { radius: 15 },
+    bl: { radius: 15 },
+    br: { radius: 15 },
+    antiAlias: true,
+    autoPad: false,
+    validTags: ["div"]
+  }
+  var cornersObj = new curvyCorners(settings, '.rounded');
+  cornersObj.applyCornersToAll();
 }

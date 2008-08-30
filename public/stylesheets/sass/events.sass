@@ -3,28 +3,55 @@
 
 
 .event-page
-  :padding-top 4em !important
+  h1,h2,h3,h4
+    :font-family arial,helvetica,clean,sans-serif
+  h4
+    :font-weight bold
+  :padding-top 2em !important
   #ft
     :color #A9A9A9
 .prosperity
-  :background #E9E9E9 !important
-  :border-top 5px solid #00415E
+  #event-logo
+    :text-align center
+    :margin-top 1em
+    img
+      :width 167px
+      :margin auto
+  #event-container
+    :padding 1em 0
+    :background #003F77
+  #main-content-container
+    :margin-right 1em
+    :background #FFF url(/images/pp-circles.png) no-repeat center 3px
+    :-moz-border-radius 15px
+    :-webkit-border-radius 15px
+    :padding 1em
+    :padding-top 120px
   #main-content-wrapper
-    :background #00415E url(/images/prosperity-dots.png) no-repeat right top
+    :-webkit-border-radius 15px
+    :-moz-border-radius 15px
+    :background #003F77
+    #main-content
+      :-webkit-border-radius 15px
+      :-moz-border-radius 15px
   #page-header
     :color #FFF
   #page-sub-header
     :color #C2E0EF
+  #pp-photos-cont
+    :background #FFF
+    :padding 1em 0
   h4
-    :color #00324C
+    :color #003F77
   th
-    :background #5F9FBF
+    :background #003F77
     :color #EFFAFF
   td
     :border-color #E9E9E9
 
 / === EVENT REGISTRATION === /
 #progress
+  :margin-right -1em
   :height 33px
   :background #DFF0F7 url(/images/event_steps.gif) no-repeat
   :text-indent -6000px
