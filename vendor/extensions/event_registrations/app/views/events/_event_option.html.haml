@@ -5,4 +5,4 @@
       = number_to_currency event_option.early_price 
       %span== (Before #{ event_option.early_price_date.strftime("%b %d") })
   %td.normal= number_to_currency event_option.normal_price
-  %td.select= link_to image_tag("btn_select.png", :alt => "Select"), attendee_info_path(@event, event_option)
+  %td.select= link_to image_tag("btn_select.png", :alt => "Select #{ event_option.description }"), attendee_info_path(@event, event_option)
