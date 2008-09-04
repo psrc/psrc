@@ -31,7 +31,7 @@
       - grid :one_fourth, :id => "event-container" do
         - grid_unit :first => true do
           #event-logo
-            = image_tag "prosperity-logo-sm.gif", :alt => "Prosperity Partnership"
+            = link_to image_tag("prosperity-logo-sm.gif", :alt => "Prosperity Partnership"), "http://www.prosperitypartnership.org"
           - unless current_page?(event_path(@event))
             #progress{:class => "step-#{@progress_step}"}
               %h4== Step #{@progress_step} of 5
@@ -45,4 +45,5 @@
                 = simple_format @event.description if current_page?(event_path(@event))
                 = yield
       #ft
+        .float-right= link_to "Puget Sound Regional Council", "http://www.psrc.org"
         == Brought to you by #{ link_to "Prosperity Partnership", "http://www.prosperitypartnership.org" }
