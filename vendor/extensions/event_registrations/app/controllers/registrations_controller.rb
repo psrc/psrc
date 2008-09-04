@@ -26,7 +26,7 @@ class RegistrationsController < ApplicationController
 
   def contact_info
     make_them_start_over and return false unless session[:registration_set]
-    @registration_contact = session[:registration_contact]
+    @registration_contact = session[:registration_contact] || RegistrationContact.new(:state => "WA")
     if request.post?
       @set = session[:registration_set]
       @registration_contact = RegistrationContact.new params[:registration_contact]
