@@ -45,7 +45,7 @@
           #main-content-container
             #main-content-wrapper
               %h2#page-header== #{@event.name} Registration
-              %h3#page-sub-header== #{ date_span(@event) } / #{ @event.location }
+              %h3#page-sub-header== #{ relative_date_span [@event.start_date, @event.end_date] } / #{ @event.location }
               #main-content
                 = simple_format @event.description if current_page?(event_path(@event))
                 = yield

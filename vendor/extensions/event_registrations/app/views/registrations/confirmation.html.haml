@@ -1,8 +1,17 @@
 %h2.title Success! You're all done!
 %p Your payment information was successfully submitted and a confirmation invoice e-mail has been sent.
+
+%p
+  %span.strong Total cost: 
+  = number_to_currency @event_option.price
+
+%p
+  %span.strong Payment Method: 
+  = @registration.payment.payment_method
+  
 %p 
-  Registration confirmation #: 
-  %strong= @registration.id
+  %span.strong Registration confirmation #: 
+  = @registration.id
 
 %h4 Registered Attendees
 %table#registered-attendees
