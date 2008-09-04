@@ -13,7 +13,7 @@ select, textarea, input.text {
   border-color: #C6C6C6 #C6C6C6 #E3E3E3;
   border-width: 1px;
   border-style: solid;
-  padding: 0.2em; }
+  padding: 0.1em; }
 
 textarea {
   height: 10em; }
@@ -40,9 +40,6 @@ select {
 address {
   margin-bottom: 1em; }
 
-form dt, form dd {
-  margin: 0;
-  padding: 0; }
 form dt label {
   font-size: 93%;
   font-weight: bold; }

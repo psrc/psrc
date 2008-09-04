@@ -1,7 +1,7 @@
 class Attendee 
   include Validatable
 
-  attr_accessor :name, :email, :vegetarian
+  attr_accessor :name, :email, :organization, :vegetarian
 
   def initialize hsh={}
     hsh.each do |key, value|

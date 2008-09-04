@@ -5,15 +5,15 @@
   - form_for :registration_contact, :url => contact_info_path(@event,@event_option), :builder => ::WebSgFormBuilder do |f|
     - f.fieldset do
       = f.text_field :name, :label => "Name", :class => "focus"
-      = f.text_field :title, :label => "Title", :hint => "(optional)"
-      = f.text_field :organization, :label => "Organization", :hint => "(optional)"
+      = f.text_field :title, :label => "Title"
+      = f.text_field :organization, :label => "Organization"
       = f.text_field :address, :label => "Mailing Address"
       = f.text_field :city, :label => "City"
-      = f.select :state, state_province_options, :label => "State/Province", :hint => "(eg. Washington)"
+      = f.select :state, state_province_options, :label => "State/Province"
       = f.select :country, ["United States", "Canada"], :label => "Country"
-      = f.text_field :zip, :label => "Zip/Postal Code", :hint => "(eg. 98121)"
+      = f.text_field :zip, :label => "Zip/Postal Code"
       = f.text_field :email, :label => "E-mail Address"
-      = f.text_field :phone, :label => "Phone Number", :hint => "(eg. 206-464-7090)"
+      = f.text_field :phone, :label => "Phone Number"
     
     %p
       = f.submit "Continue"

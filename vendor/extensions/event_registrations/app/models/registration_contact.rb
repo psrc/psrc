@@ -2,7 +2,7 @@ class RegistrationContact
   include Validatable
 
   attr_accessor :name, :title, :organization, :address, :city, :state, :country, :zip, :email, :phone
-  validates_presence_of :name, :address, :state, :city, :zip, :email, :phone
+  validates_presence_of :name, :title, :organization, :address, :state, :city, :zip, :email, :phone
 
   validates_format_of :email, :with => ValidatesEmailFormatOf::Regex
 

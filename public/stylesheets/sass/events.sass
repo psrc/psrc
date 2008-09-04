@@ -50,25 +50,38 @@
     :border-color #E9E9E9
 
 / === EVENT REGISTRATION === /
-#progress
-  :margin-right -1em
-  :height 33px
-  :background #DFF0F7 url(/images/event_steps.gif) no-repeat
-  :text-indent -6000px
+#event-branding-progress
   :position relative
-  &.step-2
-    :background-position left -47px
-  &.step-3
-    :background-position left -94px
-  &.step-4
-    :background-position left -141px
-  &.step-5
-    :background-position left -188px
-    
-  h4
-    :margin 0
-    :padding 0
-
+ol#progress
+  :margin 0
+  :margin-top 1em
+  :position absolute
+  :right -1.15em
+  :width 100%
+  li
+    :-moz-border-radius-topleft 5px
+    :-moz-border-radius-bottomleft 5px
+    :margin 0.5em 0
+    :background-color #566A9A
+    :background-repeat no-repeat
+    :background-position 0.15em 0.25em
+    :padding 0.4em 0
+    :color white
+    :padding-left 2em
+    :list-style none
+  li.step-1
+    :background-image url(/images/step-1.gif)
+  li.step-2
+    :background-image url(/images/step-2.gif)  
+  li.step-3
+    :background-image url(/images/step-3.gif)
+  li.step-4
+    :background-image url(/images/step-4.gif)
+  li.step-5
+    :background-image url(/images/step-5.gif)
+  li.current
+    :background-color white
+    :color #003F77
 / = Registration Options = /
 table.registration
   :width 99%
@@ -87,7 +100,7 @@ table.registration
 
 
 .attendee
-  :padding 0.5em 0
+  :padding 0.7em 0
   &.even
     :border-top 1px solid #CFF0FF
     :border-bottom 1px solid #CFF0FF
@@ -99,10 +112,10 @@ table.registration
     :float left
     :margin-right 1em
     input.text
-      :width 12em
-    &.vegetarian
-      :padding-top 1.5em
-      :font-size 93%
+      :width 11.5em
+  .vegetarian
+    :clear left
+    :font-size 93%
 
 / = Attendee Info = /
 #table-name-container

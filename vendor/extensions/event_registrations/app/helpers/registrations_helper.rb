@@ -1,6 +1,12 @@
 module RegistrationsHelper
   include EventsHelper
 
+  def progress_step step_num, name
+    current = (step_num == @progress_step)
+    # Adding <b> if current in case stylesheet is not included
+    "<li class='step-#{step_num}#{' current' if current}'>#{"<b>" if current}#{ name }#{"</b>" if current}</li>"
+  end
+  
   def state_province_options
     [['Alabama', 'AL'],
     ['Alaska', 'AK'],

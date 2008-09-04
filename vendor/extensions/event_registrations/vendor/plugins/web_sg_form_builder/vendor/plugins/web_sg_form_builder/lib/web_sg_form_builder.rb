@@ -19,9 +19,9 @@ class WebSgFormBuilder
     @builder = ::ActionView::Helpers::FormBuilder.new(*args)
   end
 
-  def fieldset(name="", &proc)
+  def fieldset(name=nil, &proc)
     legend = (name) ? "<legend>#{name}</legend>" : ""
-    concat("<fieldset>#{legend}<dl>", proc.binding)
+    concat("<fieldset>#{legend if name}<dl>", proc.binding)
     proc.call(self)
     concat("</dl></fieldset>", proc.binding)
   end
