@@ -38,8 +38,8 @@ end
 
 def create_event
   event = Event.new :name => "Joe's Event"
-  event.event_options.build :description => "Descrition of option 1", :max_number_of_attendees => 2
-  event.event_options.build :description => "Descrition of option 2", :max_number_of_attendees => 1
+  event.event_options.build :description => "Descrition of option 1", :max_number_of_attendees => 2, :normal_price => 10
+  event.event_options.build :description => "Descrition of option 2", :max_number_of_attendees => 1, :normal_price => 20
   event.start_date = Date.today
   event.end_date = Date.today + 1
   event.save! and event
@@ -52,4 +52,3 @@ end
 def test_credit_card_values
   { :month => 9, :year => Time.now.year + 1, :first_name => "Joe", :last_name => "Van Dyk", :number => "4111111111111111", :verification_value => '123', :address => "123 Main", :zip => "98028" }
 end
-

@@ -24,10 +24,10 @@
               %br= registration.registration_contact.zip
               %br= registration.registration_contact.phone
           %td
-            - if table = registration.registration_set.table_name
+            - if group_name = registration.registration_groups.first.group_name
               %li
-                == Table: <strong>#{ table }</strong>
+                == Table: <strong>#{ group_name }</strong>
             %ul
-              - registration.registration_set.each do |person|
+              - registration.event_attendees.each do |person|
                 - next if person.blank?
                 %li= person 

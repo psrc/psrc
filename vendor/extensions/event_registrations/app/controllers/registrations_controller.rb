@@ -7,81 +7,99 @@ class RegistrationsController < ApplicationController
 
   before_filter :get_event_and_option
   before_filter :set_progress_step
+  before_filter :check_for_started_registration,   :except => :attendee_info
   before_filter :check_for_completed_registration, :except => :confirmation
 
   def attendee_info
+    remember_event_and_option
     @number_of_attendees = @event_option.max_number_of_attendees
-    @set = AttendeeSet.new @number_of_attendees
-    if request.post?
-      table_name = params[:set][:table_name] if params[:set]
-      @set.update params[:person], table_name
-      if @set.valid?
-        redirect_to_next_step
-        session[:registration_set] = @set
-      else
-        flash.now[:error] = "Please fix errors below"
-      end
+    session[:registration] = Registration.new
+    @group = RegistrationGroup.new :event_option => @event_option
+    1.upto(@event_option.max_number_of_attendees) do |a|
+      @group.event_attendees.build
+    end
+  end
+
+  def submit_attendee_info
+    @group                = session[:registration].registration_groups.build :event_option => @event_option
+    @number_of_attendees  = @event_option.max_number_of_attendees
+    @group.group_name     = params[:group][:group_name] if params[:group]
+
+    params[:person].each { |i, p| @group.event_attendees << EventAttendee.new(p)  }
+
+    @group.registration   = session[:registration]
+
+    if @group.valid?
+      redirect_to_next_step
+    else
+      flash.now[:error] = "Please fix errors below (#{ @group.errors.full_messages.inspect })"
+      render :action => :attendee_info
     end
   end
 
   def contact_info
-    make_them_start_over and return false unless session[:registration_set]
-    @registration_contact = session[:registration_contact] || RegistrationContact.new(:state => "WA")
-    if request.post?
-      @set = session[:registration_set]
-      @registration_contact = RegistrationContact.new params[:registration_contact]
-      if @registration_contact.valid?
-        redirect_to_next_step
-        session[:registration_contact] = @registration_contact
-      else
-        flash.now[:error] = "Please fix errors below"
-      end
+    make_them_start_over and return false unless session[:registration]
+    @registration_contact = session[:contact] || RegistrationContact.new(:state => "WA")
+  end
+
+  def submit_contact_info
+    session[:contact] = @registration_contact = session[:registration].build_registration_contact(params[:registration_contact])
+    if @registration_contact.valid?
+      redirect_to_next_step
+    else
+      flash.now[:error] = "Please fix errors below"
+      render :action => :contact_info
     end
   end
 
   def payment_type
-    make_them_start_over and return false unless session[:registration_contact]
-    if request.post?
-      if  params[:payment]
-        if params[:payment][:type] =~ /credit/i
-          redirect_to payment_by_credit_card_path
-        else
-          redirect_to payment_by_check_path
-        end
+  end
+
+  def submit_payment_type
+    if params[:payment]
+      if params[:payment][:type] =~ /credit/i
+        redirect_to payment_by_credit_card_path
       else
-        flash[:error] = "Please select a payment method."
+        redirect_to payment_by_check_path
       end
+    else
+      flash[:error] = "Please select a payment method."
+      render :action => 'payment_type'
     end
   end
   
   def payment_by_credit_card
-    make_them_start_over and return false unless session[:registration_contact]
+    make_them_start_over and return false unless session[:registration]
     @card = session[:payment].card if session[:payment]
-    if request.post?
-      begin
-        session[:payment] = PaymentByCreditCard.new(params[:card], @event_option.price, build_registration_object)
-      rescue RuntimeError => e
-        flash.now[:error] = e
-        @card = ActiveMerchant::Billing::CreditCard.new(params[:card])
-        @card.valid?
-        return
-      end
+  end
+
+  def submit_payment_by_credit_card
+    @card = session[:payment].card if session[:payment]
+    begin
+      session[:payment] = PaymentByCreditCard.new(params[:card], session[:registration].payment_amount, session[:registration])
       redirect_to poll_for_credit_card_payment_path
+    rescue RuntimeError => e
+      flash.now[:error] = e
+      @card = ActiveMerchant::Billing::CreditCard.new(params[:card])
+      @card.valid?
+      render :action => 'payment_by_credit_card'
     end
   end
 
   def payment_by_check
-    make_them_start_over and return false unless session[:registration_contact]
-    if request.post?
-      @payment = PaymentByCheck.new :agreement    => params[:payment][:agreement], 
-                                    :payment_date => convert_date(params[:payment], :payment_date)
-      if @payment.valid?
-        reg = build_registration_object
-        reg.payment = @payment
-        reg.save!
-        session[:registration] = reg
-        redirect_to confirmation_path
-      end
+    make_them_start_over and return false unless session[:registration]
+  end
+
+  def submit_payment_by_check
+    @payment = PaymentByCheck.new :agreement    => params[:payment][:agreement], :amount => session[:registration].payment_amount,
+                                  :payment_date => convert_date(params[:payment], :payment_date)
+    if @payment.valid?
+      check = Payment.create_from_check @payment
+      session[:registration].payment = check
+      session[:registration].save!
+      redirect_to confirmation_path
+    else
+      render :action => 'payment_by_check'
     end
   end
 
@@ -96,35 +114,29 @@ class RegistrationsController < ApplicationController
     end
   end
   
-  def processing
-    @progress_step = 4
-  end
-  
   def confirmation
     @registration = session[:registration]
+    @registration_group = @registration.registration_groups.first
   end
 
   private
   
   def get_event_and_option
-    @event = Event.find params[:event_id] if params[:event_id]
-    @event_option = @event.event_options.find params[:event_option_id] if params[:event_option_id]
+    @event = Event.find(params[:event_id] || session[:event_id])
+    @event_option = @event.event_options.find(params[:event_option_id] || session[:event_option_id])
   end
 
   def redirect_to_next_step
-    current_step = STEPS[self.action_name].to_i
+    current_step = session[:current_registration_step]
     next_step = STEPS.index(current_step + 1)
     redirect_to :action => next_step
   end
 
   def set_progress_step
-    @progress_step = STEPS[self.action_name]
-  end
-
-  def build_registration_object
-    Registration.new :registration_set      => session[:registration_set], 
-                     :registration_contact  => session[:registration_contact],
-                     :event_option          => @event_option
+    if current_step = STEPS[self.action_name]
+      @progress_step = session[:current_registration_step] = current_step
+    end
+    true
   end
 
   def convert_date(hash, date_symbol_or_string)
@@ -133,17 +145,25 @@ class RegistrationsController < ApplicationController
   end
 
   def check_for_completed_registration
-    make_them_start_over if session[:registration] and !session[:registration].new_record?
+    if session[:registration] and !session[:registration].new_record?
+      session[:registration].destroy
+      make_them_start_over
+    end
   end
 
-  def check_for_started_registraiton
-    make_them_start_over if !session[:registration]
+  def check_for_started_registration
+    make_them_start_over and return false unless session[:registration]
   end
 
   def make_them_start_over
     flash[:notice] = "Please continue your registration process."
     redirect_to event_path(@event)
     return false
+  end
+
+  def remember_event_and_option
+    session[:event_id] = @event.id
+    session[:event_option_id] = @event_option.id
   end
 
 end

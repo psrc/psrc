@@ -1,7 +1,13 @@
 class Event < ActiveRecord::Base
   has_many :event_options, :order => "description"
+  has_many :registration_groups
   delegate :max_table_seating, :to => :event_options
+  has_many :registrations
+  delegate :event_attendees, :to => :registrations
+
   validates_presence_of :name
+  validates_presence_of :start_date
+  validates_presence_of :end_date
 
   def table_options
      self.event_options.find :all, :conditions => "max_number_of_attendees > 1"

@@ -14,15 +14,25 @@ class EventRegistrationsExtension < Radiant::Extension
      end
      map.event '/event/:id', :controller => 'events', :action => 'show'
      map.with_options(:controller => 'registrations') do |m|
-       m.attendee_info  'event/:event_id/registrations/:event_option_id/attendee-info',     :action => 'attendee_info'
-       m.contact_info   'event/:event_id/registrations/:event_option_id/contact-info',      :action => 'contact_info'
-       m.payment_by_credit_card   'event/:event_id/registrations/:event_option_id/get-credit-card',      :action => 'payment_by_credit_card'
-       m.payment_by_check   'event/:event_id/registrations/:event_option_id/get-check',      :action => 'payment_by_check'
-       m.poll_for_credit_card_payment   'event/:event_id/registrations/:event_option_id/poll-for-payment',      :action => 'poll_for_credit_card_payment'
-       m.payment_type   'event/:event_id/registrations/:event_option_id/payment-type',      :action => 'payment_type'
-       m.payment        'event/:event_id/registrations/:event_option_id/payment',           :action => 'payment'
-       m.processing     'event/:event_id/registrations/:event_option_id/payment/processing',:action => 'processing'
-       m.confirmation   'event/:event_id/registrations/:event_option_id/confirmation',      :action => 'confirmation'
+
+       m.attendee_info        'event/:event_id/registrations/:event_option_id/attendee-info',     :action => 'attendee_info',         :method => :get
+       m.submit_attendee_info 'submit-attendee-info',                                             :action => 'submit_attendee_info',  :method => :post
+
+       m.submit_contact_info   'submit-contact-info', :action => 'submit_contact_info'
+       m.contact_info          'contact-info',        :action => 'contact_info'
+
+       m.submit_payment_type  'submit-payment-type', :action => 'submit_payment_type'
+       m.payment_type         'payment-type', :action => 'payment_type'
+
+       m.submit_payment_by_credit_card 'submit-credit-card', :action => 'submit_payment_by_credit_card'
+       m.payment_by_credit_card        'get-credit-card', :action => 'payment_by_credit_card'
+
+       m.poll_for_credit_card_payment   'poll-for-payment',      :action => 'poll_for_credit_card_payment'
+
+       m.payment_by_check   'get-check',      :action => 'payment_by_check'
+       m.submit_payment_by_check   'submit-check',      :action => 'submit_payment_by_check'
+
+       m.confirmation   'confirmation',      :action => 'confirmation'
      end
    end
   
@@ -38,5 +48,8 @@ end
 
 EventOption
 Registration
+RegistrationContact
+RegistrationGroup
+EventAttendee
 Event
 require 'big_decimal'

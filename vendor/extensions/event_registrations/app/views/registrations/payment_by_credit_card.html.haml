@@ -1,6 +1,6 @@
 #payment
   %h2.first Payment by Credit Card
-  - form_for :card, :url => payment_by_credit_card_path, :builder => ::WebSgFormBuilder do |f|
+  - form_for :card, :url => submit_payment_by_credit_card_path, :builder => ::WebSgFormBuilder do |f|
     - f.fieldset do
       = f.text_field :number, :label => "Credit Card Number", :hint => "(no dashes or spaces needed)", :class => "focus", :maxlength => 16
       = f.select :month, [["Jan", 1], ["Feb", 2], ["Mar", 3], ["Apr", 4], ["May", 5], ["Jun", 6], ["Jul", 7], ["Aug", 8], ["Sep", 9], ["Oct", 10], ["Nov", 11], ["Dec", 12]], {:label => "Expiration Month"}
@@ -15,4 +15,4 @@
     %p== Your credit card will be charged <b>#{ number_to_currency @event_option.price }</b>
     = f.submit "Purchase", :onclick => "this.disabled = true"
     or 
-    = link_to "back to payment type", payment_type_path(@event, @event_option)
+    = link_to "back to payment type", payment_type_path

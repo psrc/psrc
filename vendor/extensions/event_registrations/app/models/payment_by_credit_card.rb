@@ -5,7 +5,7 @@ class ActiveMerchant::Billing::CreditCard
     errors.add(:zip, "must be provided") if zip.blank?
     validate_without_check_address
   end
-  alias_method_chain :validate, :check_address
+  #alias_method_chain :validate, :check_address
 
   def billing_address
     { :address1 => address, :zip => zip }
@@ -16,7 +16,7 @@ end
 class PaymentByCreditCard
   @@gateway = ActiveMerchant::Billing::ViaklixGateway.new :login => "405372", :user => "512psrc", :password => "TM2ZS9", :test => true
 
-  attr_reader :card, :registration_object
+  attr_reader :card, :registration_object, :amount
 
   def payment_method
     "Credit Card"
@@ -36,6 +36,7 @@ class PaymentByCreditCard
   end
 
   def completed?
+    @job = @job.reload
     @job.finished? and @job.exit_status == 0
   end
 
@@ -57,7 +58,7 @@ class PaymentByCreditCard
   def execute_purchase
     attempt = @@gateway.purchase((@amount*100).to_i, @card, :billing_address => @card.billing_address )
     if attempt.success?
-      @registration_object.payment = self
+      @registration_object.payment = Payment.create_from_card(self)
       @registration_object.save!
       puts @registration_object.id
       exit 0

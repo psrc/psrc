@@ -1,21 +1,19 @@
 %h2.first Who will be attending this event?
 
-- form_for :set, :url => attendee_info_path, :builder => ::WebSgFormBuilder do |f|
-  - f.fieldset do
+- form_for :group, :url => submit_attendee_info_path, :builder => ::WebSgFormBuilder do |f|
+  %fieldset
     - if @number_of_attendees > 1
       #table-name-container
         = f.text_field :table_name, :class => "focus title", :label => "Table Name"
       %h4.title Table Attendees <span class="hint">(optional)</span>
       %p.header-description== Table participants you have time to send participants names and e-mail addresses.  Email additions to Sylvia Nelson at #{ mail_to "snelson@psrc.org" }
-    - counter = 0
-    - @set.each do |@person|
+    - @group.event_attendees.each_with_index do |@person, i|
       - fields_for :person, :builder => ::WebSgFormBuilder do |a|
         %div{:class => "attendee clear #{cycle(:odd,:even)}"}
-          .field= a.text_field :name, :label => "Full Name", :class => "focus", :index => counter
-          .field= a.text_field :organization, :label => "Organization", :index => counter
-          .field= a.text_field :email, :label => "E-Mail", :index => counter
-          .vegetarian= a.check_box :vegetarian, :label => "Vegetarian?", :index => counter
-          - counter += 1
+          .field= a.text_field :name, :label => "Full Name", :class => "focus", :index => i
+          .field= a.text_field :organization, :label => "Organization", :index => i
+          .field= a.text_field :email, :label => "E-Mail", :index => i
+          .vegetarian= a.check_box :vegetarian, :label => "Vegetarian?", :index => i
   
   %p
     = submit_tag "Continue"

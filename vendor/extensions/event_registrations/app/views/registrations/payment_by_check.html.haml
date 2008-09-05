@@ -1,6 +1,6 @@
 #payment
   %h2.first Payment by Check
-  - form_for :payment, :url => payment_by_check_path, :builder => ::WebSgFormBuilder do |f|
+  - form_for :payment, :url => submit_payment_by_check_path, :builder => ::WebSgFormBuilder do |f|
 
     %h3.title Send check to:
     = render :partial => "psrc_address"
@@ -14,4 +14,4 @@
 
     = f.submit "Purchase", :onclick => "this.disabled = true"
     or 
-    = link_to "back to payment type", payment_type_path(@event, @event_option)
+    = link_to "back to payment type", payment_type_path

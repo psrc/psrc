@@ -1,20 +1,22 @@
-
 class Registration < ActiveRecord::Base
-  belongs_to :event_option
-  delegate :event, :to => :event_option
+  has_many :registration_groups
+  has_one  :payment
+  belongs_to  :registration_contact
 
-  serialize :registration_set,      AttendeeSet
-  serialize :registration_contact,  RegistrationContact
-  serialize :payment
-
-  validates_presence_of :registration_set
   validates_presence_of :registration_contact
-  validates_presence_of :event_option
+  validates_presence_of :payment
+  validates_presence_of :registration_groups
 
-  after_create :send_confirmation_email
+  def payment_amount
+    read_attribute(:payment_amount) || calculate_payment_amount
+  end
+
+  def event_attendees
+    self.registration_groups.map { |g| g.event_attendees }.flatten
+  end
 
   def number_of_attendees
-    self.registration_set.attendees.find_all { |a| !a.blank? }.size
+    event_attendees.size
   end
   
   def invoiceable?
@@ -23,9 +25,15 @@ class Registration < ActiveRecord::Base
 
   private
 
+  def calculate_payment_amount
+    amount = 0
+    self.registration_groups.each do |group|
+      amount += group.event_option.price
+    end
+    amount
+  end
+
   def send_confirmation_email
     Emailer.deliver_registration_confirmation self
   end
 end
-require 'payment_by_credit_card'
-require 'payment_by_check'

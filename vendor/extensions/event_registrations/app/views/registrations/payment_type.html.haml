@@ -1,6 +1,6 @@
 %h2.first How would you like to pay?
 
-- form_for :payment, :url => payment_type_path, :builder => ::WebSgFormBuilder do |f|
+- form_for :payment, :url => submit_payment_type_path, :builder => ::WebSgFormBuilder do |f|
   - f.fieldset do
     %p= f.radio_button :type, "Credit Card"
     %p= f.radio_button :type, "Check"
@@ -8,4 +8,4 @@
     %p
       = f.submit "Continue"
       or 
-      = link_to "back to contact information", contact_info_path(@event, @event_option)
+      = link_to "back to contact information", contact_info_path
