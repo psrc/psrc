@@ -12,7 +12,7 @@ Registered Attendees (<%= @registration.registration_set.attendees.size %>)
 <%= person.name %> (<%= person.email %>) <%= (person.vegetarian == "1") ? "Vegetarian" : "" %>
 Organization: <%= person.organization %> <%= "| Table: #{ @registration.registration_set.table_name }" unless @registration.registration_set.table_name.blank? %>
 <% end %>
-<% unless @registration.payment.payment_method == "Credit Card" %>
+<% unless @registration.invoiceable? %>
 Invoice
 -------
 Please mail your payment with a copy of this invoice to:

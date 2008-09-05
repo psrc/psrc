@@ -15,6 +15,7 @@
 
     = javascript_include_tag 'prototype', 'effects', 'application', 'corners', :cache => "cache/all"
     = stylesheet_link_tag 'yui', 'base', 'events', 'templates', 'forms', 'util'
+    = stylesheet_link_tag 'yui', 'base', 'events', 'templates', 'forms', 'util', 'event-print', :media => "print"
 
     = yield(:head)
 
@@ -31,7 +32,7 @@
       - grid :one_fourth, :id => "event-container" do
         - grid_unit :id => "event-branding-progress", :first => true do
           #event-logo
-            = link_to image_tag("prosperity-logo-sm.gif", :alt => "Prosperity Partnership"), "http://www.prosperitypartnership.org"
+            = link_to image_tag("prosperity-logo-sm-filled.png", :alt => "Prosperity Partnership"), "http://www.prosperitypartnership.org"
           - unless current_page?(event_path(@event))
             %ol#progress
               = progress_step 1, "Attendee Information"

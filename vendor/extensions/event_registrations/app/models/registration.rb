@@ -16,6 +16,10 @@ class Registration < ActiveRecord::Base
   def number_of_attendees
     self.registration_set.attendees.find_all { |a| !a.blank? }.size
   end
+  
+  def invoiceable?
+    self.payment.payment_method == "Credit Card"
+  end
 
   private
 
