@@ -10,9 +10,7 @@
 
 - unless @registration.invoiceable?
   %h4 Invoice
-  
   %p== Please mail your payment of #{ number_to_currency @registration.event_option.price } with a copy of this invoice to:
-
   = render :partial => "psrc_address"
 
 - else
