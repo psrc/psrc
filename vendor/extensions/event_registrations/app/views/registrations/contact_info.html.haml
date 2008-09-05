@@ -4,7 +4,7 @@
 
   - form_for :registration_contact, :url => contact_info_path(@event,@event_option), :builder => ::WebSgFormBuilder do |f|
     - f.fieldset do
-      = f.text_field :name, :label => "Name", :class => "focus"
+      = f.text_field :name, :label => "Full Name", :class => "focus"
       = f.text_field :title, :label => "Title"
       = f.text_field :organization, :label => "Organization"
       = f.text_field :address, :label => "Mailing Address"
