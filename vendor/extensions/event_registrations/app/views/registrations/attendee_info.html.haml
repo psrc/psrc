@@ -15,6 +15,7 @@
           .field= a.text_field :organization, :label => "Organization", :index => counter
           .field= a.text_field :email, :label => "E-Mail", :index => counter
           .vegetarian= a.check_box :vegetarian, :label => "Vegetarian?", :index => counter
+          - counter += 1
   
   %p
     = submit_tag "Continue"

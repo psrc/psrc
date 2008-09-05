@@ -18,6 +18,7 @@
   %thead
     %tr
       %th Name
+      %th Organization
       %th E-mail
       %th Vegetarian?
       - unless @registration.registration_set.table_name.blank?
@@ -27,6 +28,7 @@
       - next if person.blank?
       %tr
         %td.name= person.name
+        %td.organization= person.organization
         %td.mail= person.email
         %td.vegetarian= (person.vegetarian == "1") ? "Yes" : "No"
         - unless @registration.registration_set.table_name.blank?

@@ -6,7 +6,7 @@ class PaymentByCheck
   attr_accessor :payment_date, :agreement
 
   def payment_method
-    "Check <br /><small>Approx delivery date: #{ payment_date }</small>"
+    "Check (Approx delivery date: #{ payment_date })"
   end
 
   def initialize options={}
