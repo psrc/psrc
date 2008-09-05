@@ -1,20 +1,21 @@
--- Registration Confirmation --
-
+===================================================================
+REGISTRATION CONFIRMATION
+===================================================================
 <%= @registration.event.name %> | <%= relative_date_span [@registration.event.start_date, @registration.event.end_date] %> | <%= @registration.event.location %>
-
 <%= @registration.event.description %>
 
 View more event details or register more attendees at: http://register.prosperitypartnership.org/event/<%= @registration.event.id %>
 
--- Registered Attendees (<%= @registration.registration_set.attendees.size %>) --
+Registration confirmation #: <%= @registration.id %>
 
-<% for person in @registration.registration_set.attendees %><% next if person.blank? %>
-<%= person.name %> (<%= person.email %>) <%= (person.vegetarian == "1") ? "Vegetarian" : "" %>
-Organization: <%= person.organization %> <%= "| Table: #{ @registration.registration_set.table_name }" unless @registration.registration_set.table_name.blank? %>
-<% end %>
+Total cost: <%= number_to_currency @registration.event_option.price %>
+
+Payment method: <%= @registration.payment.payment_method %>
 
 <% unless @registration.invoiceable? %>
--- Invoice --
+===================================================================
+INVOICE
+===================================================================
 
 Please mail your payment with a copy of this invoice to:
     
@@ -22,14 +23,19 @@ Puget Sound Regional Council
 1011 Western Ave, Suite 500
 Seattle, WA 98104
 <% else %>
--- Payment Information --
+===================================================================
+PAYMENT INFORMATION
+===================================================================
 
 Note, this is not an invoice.  Your credit card was successfully charged.
 <% end %>
-
-Total cost: <%= number_to_currency @registration.event_option.price %>
-Payment method: <%= @registration.payment.payment_method %>
-
-Registration confirmation #: <%= @registration.id %>
-
 For all billing questions, please contact Andrew Werfelmann at 206-971-3292 or awerfelmann@psrc.org
+
+===================================================================
+REGISTERED ATTENDEES (<%= @registration.registration_set.attendees.size %>)
+===================================================================
+
+<% for person in @registration.registration_set.attendees %><% next if person.blank? %>
+<%= person.name %> (<%= person.email %>) (<%= (person.vegetarian == "1") ? "V" : "" %>)
+Organization: <%= person.organization %> <%= "| Table: #{ @registration.registration_set.table_name }" unless @registration.registration_set.table_name.blank? %>
+<% end %>
