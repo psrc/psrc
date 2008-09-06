@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  has_many :event_options
+  has_many :event_options, :order => "description"
   delegate :max_table_seating, :to => :event_options
   validates_presence_of :name
 
