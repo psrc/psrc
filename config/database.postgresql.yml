@@ -5,21 +5,12 @@
 
 development:
   adapter: postgresql
-  database: radiant_dev
-  username: root
-  password:
-  host: localhost
+  database: psrc_dev
   
 test:
   adapter: postgresql
-  database: radiant_test
-  username: root
-  password:
-  host: localhost
+  database: psrc_test
 
 production:
   adapter: postgresql
-  database: radiant_live
-  username: root
-  password:
-  host: localhost
+  database: psrc_prod
