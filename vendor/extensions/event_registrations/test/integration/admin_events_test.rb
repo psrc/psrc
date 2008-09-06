@@ -3,9 +3,9 @@ require File.dirname(__FILE__) + "/../../spec/spec_helper"
 
 class AdminEventsTest < ActionController::IntegrationTest
   def setup
-    User.create!  :name => "Administrator", :login => 'admin', :password => 'radiant', :password_confirmation => 'radiant', :admin => true
+    User.create!  :name => "Administrator", :login => 'admin1', :password => 'radiant', :password_confirmation => 'radiant', :admin => true
     visit         login_path
-    fills_in      "username", :with => 'admin'
+    fills_in      "username", :with => 'admin1'
     fills_in      "password", :with => 'radiant'
     clicks_button "Login"
     clicks_link   "Events"
