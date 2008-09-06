@@ -5,7 +5,7 @@ class ActiveMerchant::Billing::CreditCard
     errors.add(:zip, "must be provided") if zip.blank?
     validate_without_check_address
   end
-  #alias_method_chain :validate, :check_address
+  alias_method_chain :validate, :check_address
 
   def billing_address
     { :address1 => address, :zip => zip }
@@ -20,6 +20,10 @@ class PaymentByCreditCard
 
   def payment_method
     "Credit Card"
+  end
+
+  def valid?
+    @card.valid?
   end
 
   def initialize card_values, amount, registration_object
