@@ -71,7 +71,7 @@ end
 
 task "extensions_migrations", :roles => :db, :except => {:no_release => true, :no_symlink => true} do
   run <<-CMD
-    cd #{current_path} && RAILS_ENV=production rake db:migrate:extensions
+    cd #{release_path} && RAILS_ENV=production rake db:migrate:extensions
   CMD
 end
 
