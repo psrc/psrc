@@ -25,4 +25,3 @@ ActionMailer::Base.smtp_settings = {
   :address            => 'smtp.ey03.engineyard.com',
   :port               => 25 }
 
-ExceptionNotifier.exception_recipients = %w(joe@fixieconsulting.com jordan@fixieconsulting.com)

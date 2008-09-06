@@ -2,7 +2,6 @@ require_dependency 'radiant'
 
 class ApplicationController < ActionController::Base
   include LoginSystem
-  include ExceptionNotifiable  
   
   filter_parameter_logging :password, :password_confirmation
   
