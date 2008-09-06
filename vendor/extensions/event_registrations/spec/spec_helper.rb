@@ -46,7 +46,7 @@ def create_event
 end
 
 def create_registration_contact
-  RegistrationContact.new
+  RegistrationContact.create! :email => "joe@pinkpucker.net", :name => "Joe Van Dyk", :address => '123 main', :city => "Seattle", :state => "WA", :zip => "98028", :phone => "123"
 end
 
 def test_credit_card_values

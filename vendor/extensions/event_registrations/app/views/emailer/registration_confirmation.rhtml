@@ -17,7 +17,7 @@ Payment method: <%= @registration.payment.payment_method %>
 INVOICE
 ===================================================================
 
-Please mail your payment of <%= number_to_currency @registration.event_option.price %> with a copy of this invoice to:
+Please mail your payment of <%= number_to_currency @registration.payment_amount %> with a copy of this invoice to:
     
 Puget Sound Regional Council
 1011 Western Ave, Suite 500
@@ -27,14 +27,15 @@ Seattle, WA 98104
 PAYMENT INFORMATION
 ===================================================================
 
-Note, this is not an invoice.  Your credit card was successfully charged <%= number_to_currency @registration.event_option.price %>.
+Note, this is not an invoice.  Your credit card was successfully charged <%= number_to_currency @registration.payment_amount %>.
 <% end %>
 For all billing questions, please contact Andrew Werfelmann at 206-971-3292 or awerfelmann@psrc.org
 
 ===================================================================
-REGISTERED ATTENDEES (<%= @registration.registration_set.attendees.size %>)
+REGISTERED ATTENDEES (<%= @registration.number_of_attendees %>)
 ===================================================================
-<% for person in @registration.registration_set.attendees %><% next if person.blank? %>
-<%= person.name %> (<%= person.email %>) <%= (person.vegetarian == "1") ? "(V)" : "" %>
-Organization: <%= person.organization %> <%= "| Table: #{ @registration.registration_set.table_name }" unless @registration.registration_set.table_name.blank? %>
+<% for person in @registration.event_attendees %>
+<% next if person.blank? -%>
+<%= person -%>
+<%= "| Table: #{ person.registration_group.group_name }" unless person.registration_group.group_name.blank? %>
 <% end %>

@@ -10,12 +10,12 @@
 
 - unless @registration.invoiceable?
   %h4 Invoice
-  %p== Please mail your payment of #{ number_to_currency @registration.event_option.price } with a copy of this invoice to:
+  %p== Please mail your payment of #{ number_to_currency @registration.payment_amount } with a copy of this invoice to:
   = render :partial => "psrc_address"
 
 - else
   %h4 PAYMENT INFORMATION
-  %p== Note, this is not an invoice.  Your credit card was successfully charged #{ number_to_currency @registration.event_option.price }.
+  %p== Note, this is not an invoice.  Your credit card was successfully charged #{ number_to_currency @registration.payment_amount }.
 
 %h4 Registered Attendees
 %table#registered-attendees
@@ -37,6 +37,10 @@
         %td.vegetarian= person.vegetarian ? "Yes" : "No"
         - unless @registration_group.group_name.blank?
           %td.table-name= @registration_group.group_name
+
+%p
+  %span.strong Event Schedule
+  = textilize @event.schedule
   
 %h3.title Billing Questions?
 %p== If you have questions, please contact Andrew Werfelmann at 206-971-3292 or by e-mail at #{ mail_to "awerfelmann@psrc.org" }

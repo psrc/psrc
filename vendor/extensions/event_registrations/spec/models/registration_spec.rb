@@ -2,9 +2,10 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Registration, "for two people" do
   before(:each) do
+    ActionMailer::Base.deliveries = []
     @event                = create_event
     @registration_contact = create_registration_contact
-    @reg                  = Registration.new :registration_contact => @registration_contact
+    @reg                  = Registration.new :registration_contact => @registration_contact, :event => @event
     @option               = @event.event_options.build :description => "Event Description", :max_number_of_attendees => 1, :normal_price => 10
     @group1               = @reg.registration_groups.build :event_option => @option
     @group2               = @reg.registration_groups.build :event_option => @option
@@ -26,13 +27,22 @@ describe Registration, "for two people" do
     @reg.event_attendees.should be_include(@joe)
     @reg.event_attendees.should be_include(@jordan)
   end
+
+  it "should send one email" do
+    ActionMailer::Base.deliveries.size.should == 1
+    email = ActionMailer::Base.deliveries.shift
+    email.to.should == [@registration_contact.email]
+    email.subject.should be_include(@event.name)
+    email.bcc .should == [Emailer::PSRC_CONTACT]
+    email.from.should == [Emailer::PSRC_SYSTEM.match(/<(.+)>/)[1]]
+  end
 end
 
 describe Registration, "for one person and two tables" do
   before(:each) do
     @event                = create_event
     @registration_contact = create_registration_contact
-    @reg                  = Registration.new :registration_contact => @registration_contact
+    @reg                  = Registration.new :registration_contact => @registration_contact, :event => @event
     @ind_option           = @event.event_options.create :description => "I Event Description", :max_number_of_attendees => 1,  :normal_price => 10
     @ind_group            = @reg.registration_groups.build :event_option => @ind_option
     @table_option         = @event.event_options.create :description => "T Event Description", :max_number_of_attendees => 10, :normal_price => 100

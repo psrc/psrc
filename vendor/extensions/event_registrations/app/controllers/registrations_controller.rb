@@ -13,7 +13,7 @@ class RegistrationsController < ApplicationController
   def attendee_info
     remember_event_and_option
     @number_of_attendees = @event_option.max_number_of_attendees
-    session[:registration] = Registration.new
+    session[:registration] = Registration.new :event => @event
     @group = RegistrationGroup.new :event_option => @event_option
     1.upto(@event_option.max_number_of_attendees) do |a|
       @group.event_attendees.build
@@ -25,7 +25,7 @@ class RegistrationsController < ApplicationController
     @number_of_attendees  = @event_option.max_number_of_attendees
     @group.group_name     = params[:group][:group_name] if params[:group]
 
-    params[:person].each { |i, p| @group.event_attendees << EventAttendee.new(p)  }
+    params[:person].each { |i, p| @group.event_attendees << EventAttendee.new(p) unless p[:name].blank?  }
 
     @group.registration   = session[:registration]
 
@@ -70,10 +70,12 @@ class RegistrationsController < ApplicationController
   
   def payment_by_credit_card
     make_them_start_over and return false unless session[:registration]
+    @registration = session[:registration]
     @card = session[:payment].card if session[:payment]
   end
 
   def submit_payment_by_credit_card
+    @registration = session[:registration]
     @card = session[:payment].card if session[:payment]
     begin
       session[:payment] = PaymentByCreditCard.new(params[:card], session[:registration].payment_amount, session[:registration])
@@ -88,6 +90,7 @@ class RegistrationsController < ApplicationController
 
   def payment_by_check
     make_them_start_over and return false unless session[:registration]
+    @registration = session[:registration]
   end
 
   def submit_payment_by_check

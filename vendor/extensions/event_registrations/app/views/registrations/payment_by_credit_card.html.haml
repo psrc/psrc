@@ -12,7 +12,7 @@
       = f.text_field :address, :label => "Billing Address", :hint => "(billing address for card)"
       = f.text_field :zip, :label => "Zip Code", :hint => "(billing zip code for card)"
 
-    %p== Your credit card will be charged <b>#{ number_to_currency @event_option.price }</b>
+    %p== Your credit card will be charged <b>#{ number_to_currency @registration.payment_amount }</b>
     = f.submit "Purchase", :onclick => "this.disabled = true"
     or 
     = link_to "back to payment type", payment_type_path

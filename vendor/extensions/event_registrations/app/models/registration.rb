@@ -2,10 +2,13 @@ class Registration < ActiveRecord::Base
   has_many :registration_groups
   has_one  :payment
   belongs_to  :registration_contact
+  after_create :send_confirmation_email
+  belongs_to :event
 
   validates_presence_of :registration_contact
   validates_presence_of :payment
   validates_presence_of :registration_groups
+  validates_presence_of :event
 
   def payment_amount
     read_attribute(:payment_amount) || calculate_payment_amount
