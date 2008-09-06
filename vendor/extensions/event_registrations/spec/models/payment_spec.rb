@@ -42,6 +42,10 @@ describe Payment, "from credit card" do
   it "should force entry of address" do
     lambda { card = PaymentByCreditCard.new(test_credit_card_values.update(:address => ''), '1.99', String) }.should raise_error(RuntimeError)
   end
+
+  it "should force entry of first name" do
+    lambda { card = PaymentByCreditCard.new(test_credit_card_values.update(:first_name => ''), '1.99', String) }.should raise_error(RuntimeError)
+  end
 end
 
 

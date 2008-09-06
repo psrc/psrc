@@ -135,6 +135,8 @@ module ActiveMerchant #:nodoc:
         errors.add :month,      "is not a valid month" unless valid_month?(@month)
         errors.add :year,       "expired"              if expired?
         errors.add :year,       "is not a valid year"  unless valid_expiry_year?(@year)
+        errors.add(:address, "must be provided")       if address.blank?
+        errors.add(:zip, "must be provided")           if zip.blank?
       end
 
       def validate_switch_or_solo_attributes #:nodoc:

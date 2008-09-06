@@ -1,16 +1,8 @@
 class ActiveMerchant::Billing::CreditCard
   attr_accessor :address, :zip
-  def validate_with_check_address
-    errors.add(:address, "must be provided") if address.blank?
-    errors.add(:zip, "must be provided") if zip.blank?
-    validate_without_check_address
-  end
-  alias_method_chain :validate, :check_address
-
   def billing_address
     { :address1 => address, :zip => zip }
   end
-
 end
 
 class PaymentByCreditCard
