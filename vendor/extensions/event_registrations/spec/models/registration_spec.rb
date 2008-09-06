@@ -46,8 +46,8 @@ describe Registration, "for one person and two tables" do
     @ind_option           = @event.event_options.create :description => "I Event Description", :max_number_of_attendees => 1,  :normal_price => 10
     @ind_group            = @reg.registration_groups.build :event_option => @ind_option
     @table_option         = @event.event_options.create :description => "T Event Description", :max_number_of_attendees => 10, :normal_price => 100
-    @table_group1         = @reg.registration_groups.build :event_option => @table_option
-    @table_group2         = @reg.registration_groups.build :event_option => @table_option
+    @table_group1         = @reg.registration_groups.build :event_option => @table_option, :group_name => "Joe's Table"
+    @table_group2         = @reg.registration_groups.build :event_option => @table_option, :group_name => "Jordan's Table"
 
     @table_group1.registration = @reg
     @table_group2.registration = @reg

@@ -19,8 +19,11 @@ class Test::Unit::TestCase
 end
 
 module TestHelpers
-  DEFAULT_ATTENDEE_INFO = { :table_name => "Joe's Table",
-                            :attendees => [ { :name => "Joe", :email => "joe@pinkpucker.net" } ] }
+  DEFAULT_TABLE_ATTENDEE_INFO = { :table_name => "Joe's Table",
+                                  :attendees => [ { :name => "Joe", :email => "joe@pinkpucker.net" } ] }
+
+  DEFAULT_SINGLE_ATTENDEE_INFO = { :attendees => [ { :name => "Joe", :email => "joe@pinkpucker.net" } ] }
+
 
   DEFAULT_CONTACT_INFO  = { "full name"              => "Joe",
                             "mailing address"   => "123 Main",
@@ -32,15 +35,18 @@ module TestHelpers
 
 
   # Clicks on the given event option for an event
-  def click_on_event option = @option
+  def click_on_event option
      visits       event_path(option.event)
-     clicks_link  @option.description
+     clicks_link  option.description
+  end
+
+  def fill_in_table_attendee_info options = DEFAULT_TABLE_ATTENDEE_INFO
+    fills_in "Table Name", :with => options[:table_name] if options[:table_name]
+    fill_in_attendee_info options
   end
 
   # Fills in the Attendee Information page
-  def fill_in_attendee_info options = DEFAULT_ATTENDEE_INFO
-    fills_in "Table Name", :with => options[:table_name] if options[:table_name]
-
+  def fill_in_attendee_info options = DEFAULT_SINGLE_ATTENDEE_INFO
     options[:attendees].each_with_index do |attendee, i|
       fills_in "person[#{i}][name]",      :with => attendee[:name]
       fills_in "person[#{i}][email]",     :with => attendee[:email]
@@ -121,7 +127,7 @@ module TestHelpers
     assert session[:registration].new_record?, "Registration should be not saved yet"
     yield
     assert !session[:registration].new_record?, "Registration should have been saved"
-    pending "Look into why testing for emails in integration tests doesn't work."
-    assert !ActionMailer::Base.deliveries.empty?, "Emails should have been sent."
+    #pending "Look into why testing for emails in integration tests doesn't work."
+    #assert !ActionMailer::Base.deliveries.empty?, "Emails should have been sent."
   end
 end
