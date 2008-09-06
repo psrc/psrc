@@ -33,7 +33,7 @@ describe Registration, "for two people" do
     email = ActionMailer::Base.deliveries.shift
     email.to.should == [@registration_contact.email]
     email.subject.should be_include(@event.name)
-    email.bcc .should == [Emailer::PSRC_CONTACT]
+    email.bcc .should ==  Emailer::PSRC_CONTACT
     email.from.should == [Emailer::PSRC_SYSTEM.match(/<(.+)>/)[1]]
   end
 end
