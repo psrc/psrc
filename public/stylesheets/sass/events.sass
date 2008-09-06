@@ -1,7 +1,6 @@
 / PUGET SOUND REGIONAL COUNCIL (http://www.psrc.org)
 / by Fixie Consulting (http://www.fixieconsulting.com)
 
-
 .event-page
   h1,h2,h3,h4
     :font-family arial,helvetica,clean,sans-serif
@@ -19,7 +18,7 @@
       :margin auto
   #event-container
     :padding 1em 0
-    :background #003F77
+    :background #1A4175
   #main-content-container
     :margin-right 1em
     :background #FFF url(/images/pp-circles.png) no-repeat center 3px
@@ -30,7 +29,7 @@
   #main-content-wrapper
     :-webkit-border-radius 15px
     :-moz-border-radius 15px
-    :background #003F77
+    :background #1A4175
     #main-content
       :-webkit-border-radius 15px
       :-moz-border-radius 15px
@@ -42,9 +41,9 @@
     :background #FFF
     :padding 1em 0
   h4
-    :color #003F77
+    :color #1A4175
   th
-    :background #003F77
+    :background #1A4175
     :color #EFFAFF
   td
     :border-color #E9E9E9
@@ -83,7 +82,7 @@ ol#progress
     :background-image url(/images/step-5.gif)
   li.current
     :background-color white
-    :color #003F77
+    :color #1A4175
 / = Registration Options = /
 table.registration
   :width 99%
@@ -131,11 +130,17 @@ input#set_table_name
     :width 25em
   
 / = Credit Card = /
-#card_verification_value
-  :width 3em !important
+#card_verification_value, #card_zip
+  :width 3.5em !important
   
 / = Confirmation = /
 table#registered-attendees
   :width 99%
   th,td
     :text-align left
+
+h4.title .hint
+  :font-size 68%
+  :color #7F6F67
+  :font-weight normal
+  :letter-spacing 0

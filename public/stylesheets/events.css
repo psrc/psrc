@@ -17,7 +17,7 @@
     margin: auto; }
 .prosperity #event-container {
   padding: 1em 0;
-  background: #003F77; }
+  background: #1A4175; }
 .prosperity #main-content-container {
   margin-right: 1em;
   background: #FFF url(/images/pp-circles.png) no-repeat center 3px;
@@ -28,7 +28,7 @@
 .prosperity #main-content-wrapper {
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
-  background: #003F77; }
+  background: #1A4175; }
   .prosperity #main-content-wrapper #main-content {
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px; }
@@ -40,9 +40,9 @@
   background: #FFF;
   padding: 1em 0; }
 .prosperity h4 {
-  color: #003F77; }
+  color: #1A4175; }
 .prosperity th {
-  background: #003F77;
+  background: #1A4175;
   color: #EFFAFF; }
 .prosperity td {
   border-color: #E9E9E9; }
@@ -82,7 +82,7 @@ ol#progress {
     background-image: url(/images/step-5.gif); }
   ol#progress li.current {
     background-color: white;
-    color: #003F77; }
+    color: #1A4175; }
 
 
 table.registration {
@@ -128,11 +128,17 @@ input#set_table_name {
   width: 25em; }
 
 
-#card_verification_value {
-  width: 3em !important; }
+#card_verification_value, #card_zip {
+  width: 3.5em !important; }
 
 
 table#registered-attendees {
   width: 99%; }
   table#registered-attendees th, table#registered-attendees td {
     text-align: left; }
+
+h4.title .hint {
+  font-size: 68%;
+  color: #7F6F67;
+  font-weight: normal;
+  letter-spacing: 0; }

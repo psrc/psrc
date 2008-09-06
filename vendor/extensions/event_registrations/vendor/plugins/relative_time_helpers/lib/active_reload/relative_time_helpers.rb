@@ -10,7 +10,7 @@ module ActiveReload
       :today          => 'today',
       :yesterday      => 'yesterday',
       :tomorrow       => 'tomorrow',
-      :initial_format => '%b %e',
+      :initial_format => '%B %e',
       :year_format    => ', %Y'
     }
 
@@ -37,10 +37,10 @@ module ActiveReload
         relative_date(times.first)
       else
         first = times.first; last = times.last; now = time_class.now
-        returning [first.strftime('%b %e')] do |arr|
+        returning [first.strftime('%B %e')] do |arr|
           arr << ", #{first.year}" unless first.year == last.year
           arr << ' - '
-          arr << last.strftime('%b') << ' ' unless first.year == last.year && first.month == last.month
+          arr << last.strftime('%B') << ' ' unless first.year == last.year && first.month == last.month
           arr << last.day
           arr << ", #{last.year}" unless first.year == last.year && last.year == now.year
         end.to_s

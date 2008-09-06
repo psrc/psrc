@@ -4,8 +4,8 @@
   - f.fieldset do
     - if @number_of_attendees > 1
       #table-name-container
-        = f.text_field :table_name, :class => "focus title", :label => "Table Name", :hint => "(Required)"
-      %h4.title Table Attendees (optional)
+        = f.text_field :table_name, :class => "focus title", :label => "Table Name"
+      %h4.title Table Attendees <span class="hint">(optional)</span>
       %p.header-description== Table participants you have time to send participants names and e-mail addresses.  Email additions to Sylvia Nelson at #{ mail_to "snelson@psrc.org" }
     - counter = 0
     - @set.each do |@person|

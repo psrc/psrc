@@ -2,15 +2,15 @@
   %h2.first Payment by Credit Card
   - form_for :card, :url => payment_by_credit_card_path, :builder => ::WebSgFormBuilder do |f|
     - f.fieldset do
-      = f.text_field :number, :label => "Credit Card Number", :hint => "(no dashes or spaces needed)", :class => "title focus", :maxlength => 16
+      = f.text_field :number, :label => "Credit Card Number", :hint => "(no dashes or spaces needed)", :class => "focus", :maxlength => 16
       = f.select :month, [["Jan", 1], ["Feb", 2], ["Mar", 3], ["Apr", 4], ["May", 5], ["Jun", 6], ["Jul", 7], ["Aug", 8], ["Sep", 9], ["Oct", 10], ["Nov", 11], ["Dec", 12]], {:label => "Expiration Month"}
       = f.select :year,  [["2008", 2008], ["2009", 2009], ["2010", 2010], ["2011", 2011], ["2012", 2012], ["2013", 2013]], {:label => "Expiration Year"}
         
-      = f.text_field :first_name, :label => "First Name", :hint => "Exactly as it appears on card"
-      = f.text_field :last_name, :label => "Last name", :hint => "Exactly as it appears on card"
+      = f.text_field :first_name, :label => "First Name", :hint => "(exactly as it appears on card)"
+      = f.text_field :last_name, :label => "Last name", :hint => "(exactly as it appears on card)"
       = f.text_field :verification_value, :label => "Card Verification Number", :hint => "(found on back of card)"
-      = f.text_field :address, :label => "Billing Address", :hint => "Billing address for card"
-      = f.text_field :zip, :label => "Billing Address Zip Code", :hint => "Billing address zip code for card"
+      = f.text_field :address, :label => "Billing Address", :hint => "(billing address for card)"
+      = f.text_field :zip, :label => "Zip Code", :hint => "(billing zip code for card)"
 
     %p== Your credit card will be charged <b>#{ number_to_currency @event_option.price }</b>
     = f.submit "Purchase", :onclick => "this.disabled = true"
