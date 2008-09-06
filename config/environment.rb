@@ -93,3 +93,16 @@ end
 
 ExceptionNotifier.email_to = ["joe@fixieconsulting.com", "jordan@fixieconsulting.com"]
 ExceptionNotifier.email_from = "PSRC Website <your-mom@psrc.org>"
+ 
+# Ruby 1.8.7 adds a chars method, which returns an enumerator object.
+# But Rails 2.0.2 expects a ActiveSupport::Multibyte::Chars object.
+# So we remove that method.
+unless '1.9'.respond_to?(:force_encoding)
+  String.class_eval do
+    begin
+      remove_method :chars
+    rescue NameError
+      # OK
+    end
+  end
+end
