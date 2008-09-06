@@ -90,3 +90,6 @@ Radiant::Initializer.run do |config|
     ResponseCache.defaults[:logger]    = ActionController::Base.logger
   end
 end
+
+ExceptionNotifier.email_to = ["joe@fixieconsulting.com", "jordan@fixieconsulting.com"]
+ExceptionNotifier.email_from = "PSRC Website <your-mom@psrc.org>"
