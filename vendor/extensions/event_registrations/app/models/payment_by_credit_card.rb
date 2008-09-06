@@ -14,8 +14,6 @@ class ActiveMerchant::Billing::CreditCard
 end
 
 class PaymentByCreditCard
-  @@gateway = ActiveMerchant::Billing::ViaklixGateway.new :login => "405372", :user => "512psrc", :password => "TM2ZS9"#, :test => true
-
   attr_reader :card, :registration_object, :amount
 
   def payment_method
@@ -60,7 +58,7 @@ class PaymentByCreditCard
 
   # Authorize purchase from gateway
   def execute_purchase
-    attempt = @@gateway.purchase((@amount*100).to_i, @card, :billing_address => @card.billing_address )
+    attempt = $gateway.purchase((@amount*100).to_i, @card, :billing_address => @card.billing_address )
     if attempt.success?
       @registration_object.payment = Payment.create_from_card(self)
       @registration_object.save!

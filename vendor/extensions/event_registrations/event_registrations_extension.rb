@@ -54,3 +54,9 @@ EventAttendee
 Event
 require 'big_decimal'
 
+case RAILS_ENV
+when 'production'
+  $gateway = ActiveMerchant::Billing::ViaklixGateway.new :login => "405372", :user => "512psrc", :password => "TM2ZS9"
+else
+  $gateway = ActiveMerchant::Billing::ViaklixGateway.new :login => "405372", :user => "512psrc", :password => "TM2ZS9", :test => true
+end
