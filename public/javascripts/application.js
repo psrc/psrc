@@ -2,7 +2,7 @@
 // This file is automatically included by javascript_include_tag :defaults
 Event.observe(window, 'load', function() {
   observeInputsWithDefaultText();
-  observeCorners();
+  //observeCorners();
   focusTextbox();
 });
 
@@ -22,6 +22,11 @@ function observeInputsWithDefaultText(){
       }.bind(input))    
     })
   }
+}
+
+function disableSubmit(form){
+  // Commit is the submit button name
+  form.commit.disabled = true;
 }
 
 function focusTextbox(){

@@ -1,7 +1,7 @@
 %h2.first Who will be attending this event?
 
 - form_for :group, :url => submit_attendee_info_path, :builder => ::WebSgFormBuilder do |f|
-  %fieldset
+  - f.fieldset do
     - if @number_of_attendees > 1
       #table-name-container
         = f.text_field :group_name, :class => "focus title", :label => "Table Name"

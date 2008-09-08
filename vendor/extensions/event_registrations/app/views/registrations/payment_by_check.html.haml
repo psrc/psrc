@@ -1,6 +1,6 @@
 #payment
   %h2.first Payment by Check
-  - form_for :payment, :url => submit_payment_by_check_path, :builder => ::WebSgFormBuilder do |f|
+  - form_for :payment, :url => submit_payment_by_check_path, :html => {:onsubmit => "disableSubmit(this);"}, :builder => ::WebSgFormBuilder do |f|
 
     %h3.title Send check to:
     = render :partial => "psrc_address"
@@ -12,6 +12,6 @@
       You will be sent a confirmation invoice by email once the registration is confirmed.  
       When paying by check, please include a copy of your confirmation and invoice emails.
 
-    = f.submit "Purchase", :onclick => "this.disabled = true"
+    = f.submit "Purchase"
     or 
     = link_to "back to payment type", payment_type_path
