@@ -3,7 +3,11 @@ class AddEventIdToRegistration < ActiveRecord::Migration
     transaction do
       add_column :registrations, :event_id, :integer
       Registration.find(:all).each do |r|
-        r.update_attribute :event_id, r.registration_groups.first.event_option.event.id
+        begin
+          r.update_attribute :event_id, r.registration_groups.first.event_option.event.id
+        rescue
+          r.destroy
+        end
       end
     end
   end
