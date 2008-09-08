@@ -32,6 +32,9 @@ class RegistrationsController < ApplicationController
     if @group.valid?
       redirect_to_next_step
     else
+      @group.event_attendees.size.upto(@number_of_attendees-1) do 
+        @group.event_attendees.build
+      end
       flash.now[:error] = "Please fix errors below (#{ @group.errors.full_messages.inspect })"
       render :action => :attendee_info
     end

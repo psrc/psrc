@@ -6,6 +6,8 @@ class RegistrationGroup < ActiveRecord::Base
   validates_presence_of :registration
   validate :check_for_max_attendees
 
+  validates_presence_of :group_name, :if => lambda { |g| g.event_option.max_number_of_attendees > 1 }
+
   private
 
   def check_for_max_attendees
