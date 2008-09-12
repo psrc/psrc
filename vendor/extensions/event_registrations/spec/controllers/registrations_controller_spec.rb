@@ -8,6 +8,12 @@ describe RegistrationsController do
     @option = @event.event_options.first
   end
 
+  it "shouldn't error out when going straight to the confirmation page" do
+    get :attendee_info, :event_option_id => @option.id, :event_id => @event.id
+    get :confirmation
+    response.should be_redirect
+  end
+
   it "should show the attendee info page" do
     get :attendee_info, :event_option_id => @option.id, :event_id => @event.id
     assigns(:number_of_attendees).should == @option.max_number_of_attendees

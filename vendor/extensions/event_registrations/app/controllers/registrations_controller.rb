@@ -127,6 +127,7 @@ class RegistrationsController < ApplicationController
   
   def confirmation
     @registration = session[:registration]
+    make_them_start_over if @registration.new_record?
     @registration_group = @registration.registration_groups.first
   end
 
