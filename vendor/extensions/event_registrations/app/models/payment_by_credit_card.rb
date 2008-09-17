@@ -14,7 +14,7 @@ class ActiveMerchant::Billing::CreditCard
 end
 
 class PaymentByCreditCard
-  @@gateway = ActiveMerchant::Billing::ViaklixGateway.new :login => "405372", :user => "512psrc", :password => "TM2ZS9", :test => true
+  @@gateway = ActiveMerchant::Billing::ViaklixGateway.new :login => "405372", :user => "512psrc", :password => "TM2ZS9"#, :test => true
 
   attr_reader :card, :registration_object, :amount
 

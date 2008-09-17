@@ -1,4 +1,8 @@
 class RegistrationsController < ApplicationController
+
+  include SslRequirement
+  ssl_required :payment_by_credit_card, :submit_payment_by_credit_card, :poll_for_credit_card_payment
+  
   layout 'events'
   no_login_required
 

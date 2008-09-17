@@ -2,8 +2,9 @@ class Registration < ActiveRecord::Base
   has_many :registration_groups
   has_one  :payment
   belongs_to  :registration_contact
-  after_create :send_confirmation_email
   belongs_to :event
+
+  after_create :send_confirmation_email
 
   validates_presence_of :registration_contact
   validates_presence_of :payment
@@ -37,6 +38,11 @@ class Registration < ActiveRecord::Base
   end
 
   def send_confirmation_email
-    Emailer.deliver_registration_confirmation self
+    # Note: failure to send the confirmation email shouldn't result in a failed registration.
+    begin
+      Emailer.deliver_registration_confirmation self
+    rescue
+      true
+    end
   end
 end
