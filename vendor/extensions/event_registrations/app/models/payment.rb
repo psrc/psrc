@@ -4,8 +4,8 @@ class Payment < ActiveRecord::Base
     create! :amount => check.amount, :payment_method => "Check", :estimated_payment_date => check.payment_date
   end
 
-  def self.create_from_card card
-    create! :amount => card.amount, :payment_method => "Credit Card", :last_digits => card.last_digits
+  def self.create_from_card payment_card
+    create! :amount => payment_card.amount, :payment_method => "Credit Card", :last_digits => payment_card.card.last_digits
   end
   
   private
