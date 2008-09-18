@@ -27,7 +27,7 @@ Seattle, WA 98104
 PAYMENT INFORMATION
 ===================================================================
 
-Note, this is not an invoice.  Your credit card was successfully charged <%= number_to_currency @registration.payment_amount %>.
+Note, this is not an invoice.  Your credit card assigned to <%= @registration.payment.card.first_name %> <%= @registration.payment.card.last_name %> (ending in <%= @registration.payment.card.last_digits %>) was successfully charged <%= number_to_currency @registration.payment_amount %>.
 <% end %>
 For all billing questions, please contact Andrew Werfelmann at 206-971-3292 or awerfelmann@psrc.org
 

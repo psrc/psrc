@@ -5,7 +5,7 @@ class Payment < ActiveRecord::Base
   end
 
   def self.create_from_card card
-    create! :amount => card.amount, :payment_method => "Credit Card"
+    create! :amount => card.amount, :payment_method => "Credit Card", :last_digits => card.last_digits
   end
   
   private
