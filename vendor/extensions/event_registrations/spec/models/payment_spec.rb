@@ -18,6 +18,10 @@ describe Payment, "from credit card" do
   it "should remember the payment amount" do
     @payment.amount.should == BigDecimal.new("1.99")
   end
+  
+  it "should remember the last four digits of card" do
+    @payment.last_digits.should == test_credit_card_values[:number][12..15]
+  end
 
   it "should know that it's a credit card" do
     @payment.payment_method.should == "Credit Card"
