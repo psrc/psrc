@@ -22,6 +22,10 @@ describe Payment, "from credit card" do
   it "should remember the last four digits of card" do
     @payment.last_digits.should == test_credit_card_values[:number][12..15]
   end
+  
+  it "should remember the name on card" do
+    @payment.name.should == "#{ test_credit_card_values[:first_name] } #{ test_credit_card_values[:last_name] }"
+  end
 
   it "should know that it's a credit card" do
     @payment.payment_method.should == "Credit Card"
