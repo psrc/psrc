@@ -1,7 +1,6 @@
 class Emailer < ActionMailer::Base
   PSRC_SYSTEM = "PSRC Registration <economicdevelopment@psrc.org>"
-  #PSRC_CONTACT = "joe@pinkpucker.net"
-  PSRC_CONTACT = "snelson@psrc.org"
+  PSRC_CONTACT = "Sylvia Nelson <snelson@psrc.org>, Andrew Werfelmann <AWerfelmann@psrc.org"
 
   def registration_confirmation registration
     @from         = PSRC_SYSTEM
