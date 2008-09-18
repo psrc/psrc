@@ -53,3 +53,4 @@ RegistrationGroup
 EventAttendee
 Event
 require 'big_decimal'
+

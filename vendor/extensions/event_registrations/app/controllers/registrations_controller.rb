@@ -9,6 +9,7 @@ class RegistrationsController < ApplicationController
   STEPS = { "attendee_info" => 1, "contact_info" => 2, "payment_type" => 3, 
             "payment_by_check" => 4, "payment_by_credit_card" => 4, "poll_for_credit_card_payment" => 4, "confirmation" => 5 }
 
+  before_filter :redirect_to_correct_host
   before_filter :get_event_and_option
   before_filter :set_progress_step
   before_filter :check_for_started_registration,   :except => :attendee_info
@@ -174,6 +175,15 @@ class RegistrationsController < ApplicationController
   def remember_event_and_option
     session[:event_id] = @event.id
     session[:event_option_id] = @event_option.id
+  end
+
+  def redirect_to_correct_host
+    return true unless RAILS_ENV == 'production'
+    if request.host != "secure.psrc.org"
+      redirect_to request.protocol + "secure.psrc.org" + request.request_uri
+      flash.keep
+      return false
+    end
   end
 
 end
