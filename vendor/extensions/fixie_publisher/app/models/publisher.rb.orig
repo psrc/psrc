@@ -1,0 +1,33 @@
+class Publisher
+  TABLES = %w( events event_options users page_parts pages layouts snippets )
+  def self.publish!
+    table_string = TABLES.map { |t| "-t #{t} " }
+    data = `pg_dump #{current_dev} -a #{table_string}`
+    puts data
+<<<<<<< HEAD:vendor/extensions/fixie_publisher/app/models/publisher.rb
+    pg = IO::popen("psql psrc_prod", "w+")
+=======
+    pg = IO::popen("psql #{current_prod}", "w+")
+>>>>>>> Made the site updater stuff cooler:vendor/extensions/fixie_publisher/app/models/publisher.rb
+
+    pg << "begin;"
+      TABLES.each do |table|
+        pg << "delete from #{table};"
+      end
+      pg << data
+    pg << "commit;"
+  end
+
+  private
+
+  def self.current_dev
+    config = Rails::Configuration.new
+    config.database_configuration["development"]["database"]
+  end
+
+  def self.current_prod
+    config = Rails::Configuration.new
+    config.database_configuration["production"]["database"]
+  end
+
+end
