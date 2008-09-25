@@ -1,3 +1,6 @@
-%h3{:class => "#{"first" unless local_assigns[:first].nil? }"} Section Header
-%p Ut risus metus, viverra eu, pharetra quis, blandit non, tortor. <strong>Etiam tincidunt nunc vel libero</strong>. In venenatis tortor. Suspendisse vitae ligula eu tellus commodo ornare. Aenean rhoncus auctor purus. Nunc laoreet metus? Integer interdum. Aenean sit amet lorem pretium eros semper ultrices. Suspendisse eros justo, facilisis sodales, suscipit scelerisque, ornare in, metus. Aenean augue. 
-%p.quiet This is quiet text
+.section
+  .section-header
+    %h3{:class => "#{"first" unless local_assigns[:first].nil? }"} Section Header
+  .section-content
+    %p Ut risus metus, viverra eu, pharetra quis, blandit non, tortor. <strong>Etiam tincidunt nunc vel libero</strong>. In venenatis tortor. Suspendisse vitae ligula eu tellus commodo ornare. Aenean rhoncus auctor purus. Nunc laoreet metus? Integer interdum. Aenean sit amet lorem pretium eros semper ultrices. Suspendisse eros justo, facilisis sodales, suscipit scelerisque, ornare in, metus. Aenean augue.
+    %p.quiet This is quiet text

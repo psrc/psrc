@@ -6,7 +6,10 @@
       #table-name-container
         = f.text_field :group_name, :class => "focus title", :label => "Table Name"
       %h4.title Table Attendees <span class="hint">(optional)</span>
-      %p.header-description== Table participants you have time to send participants names and e-mail addresses.  Email additions to Sylvia Nelson at #{ mail_to "snelson@psrc.org" }
+      %p.header-description
+        It's OK if you don't have all participant names and email addresses when you
+        register a table.  Please email additions to your table to Sylvia Nelson at
+        = mail_to "snelson@psrc.org"
     - @group.event_attendees.each_with_index do |@person, i|
       - fields_for :person, :builder => ::WebSgFormBuilder do |a|
         %div{:class => "attendee clear #{cycle(:odd,:even)}"}
