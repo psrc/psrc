@@ -2,14 +2,11 @@
 html {
   color: #2F2520; }
 
+
 h5, h6, strong, legend {
   font-weight: bold; }
 
-/ {
-  font-family: arial,helvetica,clean,sans-serif; }
-
 h1, h2, h3, h4 {
-  font-family: Georgia,"Times New Roman",Times,serif;
   margin: 1em 0;
   letter-spacing: -0.05em; }
   h1.title,   h2.title,   h3.title,   h4.title {

@@ -5,15 +5,24 @@
 #bd
 
 #main-content-wrapper
-  :background #CFF0FF
-  /A4D6EF
+  :background #FCFCFC url(/images/bg-main-content.png) repeat-x 0 -20px
+  /C06122
+  :border 1px solid #DDD
+  :color #333
   :padding 1em
   :padding-top 0.9em
+
   #main-content
+    :border 1px solid #E9E9E9
+    :border-top 1px solid #CCC
     :background #FFF
     :padding 1em
+  #page-content
+    :padding 1em 1em 0.5em 1em
+    :border 1px solid #EEE
+    :border-top 1px solid #CCC
     
-#custom-doc, #banner, #breadcrumbs, #header ul, #logo, #ft
+#custom-doc, #banner, #breadcrumbs, #nav, #branding, #ft
   :margin auto
   :text-align left
   :width 63.46em
@@ -36,23 +45,23 @@ a
 // === REUSABLE LAYOUT === //
 
 #banner
-  :border 1px solid #7BD3F7
   :margin-bottom 1em
   #banner-content
-    :height 135px
-    :border 3px solid #BDE9FF
-    :background url(/images/banner2.jpg) no-repeat center center
+    :border 1px solid #FF7F00
+    :height 145px
+    :background #FF7F00 url(/images/banner2.jpg) no-repeat center center
     
 #breadcrumbs
   :font-size 85%
-  :margin-bottom 0.5em
+  :margin-bottom 0.2em
+  :padding-top 1em
   :color #7F6F67
   a:link, a:visited
     :text-decoration underline
 #ft
   :margin auto
   :padding 1em 0 0.5em
-  :color #9E8B71
+  :color #CCC
   ul
     :margin 0
     :padding 0
@@ -65,45 +74,90 @@ a
         :color #9E8B71
 
 #header
-  :font-family arial,helvetica,clean,sans-serif
   :font-weight bold
   :font-size 85%
-  :background #3F2200
-  /F15A24
+  :background #949494 url(/images/bg-header.png) repeat-x
   :padding 0
   :margin-bottom 1em
-  ul
+  ul#nav
+    :display block
     :padding 0
+    :margin 0 auto
     li
       :padding 0
       :list-style none
+      :position relative
+      :text-align center
+      :float left
+      :border-right 1px solid #999
       a:link, a:visited
-        :float left
-        :margin-right 1em
-        :padding 0.6em 0.4em 0.5em
-        :height 1%
-        :color #FFF
-        :text-transform uppercase
+        :display block
+        :padding 0.8em 2em
+        :vertical-align middle
+        :color #333
+        :text-transform capitalize
+      a.sub-nav
+        :padding-right 2.2em !important
+        :padding-left 1.4em !important
+        :background url(/images/global-nav-arrow.gif) no-repeat right 1.2em
       a:hover
-        :background #CFF0FF
-        :color #2F2520
+        :background #666 url(/images/bg-header-hover.png)
+        :color #FFF
         :text-decoration none
       &.current
         a:link, a:visited
-          :background #EF870E
-          /url(/images/bg-orange.png)
+          :background #666 url(/images/bg-header-hover.png)
           :color #FFF
-          /F58E27
+        li
+          a:link, a:visited
+            :background #EEE
+            :color #333     
+          a:hover
+            :background #666 url(/images/bg-header-hover.png)
+            :color #FFF
+            :text-decoration none   
+      ul
+        :position absolute
+        :left 0
+        :top 2.75em
+        :border-left 1px solid #DDD
+        :border-right 1px solid #DDD
+        :border-bottom 1px solid #DDD
+        :margin 0
+        :padding 0
+        li
+          :margin 0
+          :padding 0
+          :width 18em
+          :font-weight normal
+          :float none
+          :background-color #EEE
+          :border none
+          :text-align left
+          a:link, a:visited
+            :display block
+            :padding 0.2em
+            :height 1%
 
-#logo
+#branding
   :margin-top 1.2em
   :margin-bottom 0.1em
   h1
     :margin 0
-  
+  #search-container
+    :width 20em
+    :border 1px solid #EEE
+    :float right
+    :text-align left
+    #search-form
+      :vertical-align middle
+      :margin 0
+      :padding 0.5em
+      .text
+        :width 71%
+
 #page-content
   :background #FFF
-  :padding 1em 1em 0.5em 1em
 
 #page-header
   :margin 0 0 0.3em 0
@@ -117,17 +171,26 @@ a
   :color #7F6F67
 
 .section
-  :margin-bottom 2em
-
+  :border 1px solid #EEE
+  :margin-bottom 1em
+  .section-header
+    :background #FCFCFC url(/images/bg-section-header.png)
+    :border-bottom 1px solid #DDD
+    :padding 0.2em 0.5em
+    h3
+      :font-size 116%
+      :font-weight bold
+      :padding 0
+      :margin 0
+      :color #333 !important
+    h4
+      :font-weight bold
+      :font-size 93%
+      :padding 0
+      :margin 0
+      :color #333 !important
   .section-content
     :padding 0.5em
-  h4
-    :margin 0
-    :padding 0
-    :background #DDEFA4
-    :display inline
-    :color #676F22
-    :padding 0.1em 0.4em
 
 .photo-caption-left
   :float left
@@ -154,25 +217,26 @@ a
     :padding 0.2em
 
 ul#page-navigation
-  :background #C7DF7D
   :margin 0
   :padding 0.2em 0
+  :border-top 1px solid #CCC
+  :border-bottom 1px solid #CCC
   li
     :list-style none
-    :border-top 1px solid #BCD95E
+    :border-top 1px solid #EEE
     a:link, a:visited
       :height 1%
       :display block
-      :font-weight bold
-      :color #676F22
-      :padding 0.4em
+      :padding 0.5em 0.4em
       :font-size 93%
+      :font-weight bold
     &.active
-      :background url(/images/nav-arrow.gif) no-repeat 155px 0.2em
-      a:link, a:visited
-        :color #2F2520
+      :background #C06122 url(/images/nav-arrow.gif) no-repeat 155px 0.3em
+      a:link,a:visited
+        :color #FFF
     &.first
       :border-top none
+
 
 
     

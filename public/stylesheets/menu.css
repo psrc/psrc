@@ -1,0 +1,73 @@
+#header {
+  margin-bottom: 1em;
+  background: #CCC url(/images/bg-header.png);
+  font-weight: bold;
+  font-size: 85%;
+}
+
+#header ul li {
+  list-style: none;
+  float: left;
+  text-align: center;
+}
+
+#header ul li:hover ul,#header ul li.over ul {
+  display: block;
+}
+
+#header ul li ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+#header ul li ul li a {
+  display: block;
+  font-weight: normal;
+}
+
+
+#header ul li>ul {
+  top: auto;
+  left: auto;
+}
+
+#header ul li ul li {
+  float: none;
+  background-color: #EEE;
+  border: none;
+  text-align: left;
+  padding: 0.5em 0.2em !important;
+  width: 15em;
+}
+
+#header ul li ul li a {
+  border: none;
+}
+
+
+#header ul li a:link, #header ul li a:visited {
+  color: #FFF;
+  padding: 0.8em 1.8em;
+  border-right: 1px solid #999;
+  color: #333;  
+  width: 10em;
+  position: relative;
+}
+
+#header ul li.current a:link, #header ul li.current a:visited {
+  background: #666 url(/images/bg-header-hover.png) !important;
+  color: #FFF;
+}
+
+#header ul li a:hover {
+  background: #666 url(/images/bg-header-hover.png) !important;
+  color: #FFF;
+  text-decoration: none;
+}
+#header ul li a.sub-nav {
+  padding-right: 2.2em !important;
+  padding-left: 1.4em !important;
+  background: url(/images/global-nav-arrow.gif) no-repeat right 1.2em !important;  
+}

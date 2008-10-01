@@ -1,14 +1,34 @@
-#logo
-  %h1= link_to image_tag("psrc-logo.gif", :alt => "Puget Sound Regional Council"), "#"
-#header.clear
-  %ul
+#branding
+  #search-container
+    #search-form
+      = text_field_tag :search, "Search PSRC" ,:class => "text default-text"
+      = submit_tag "Search"
+      
+  = link_to image_tag("psrc-logo.gif", :alt => "Puget Sound Regional Council"), "#"
+#header
+  %ul#nav.clear
     %li.current= link_to "Home", templates_path
-    %li= link_to "About", templates_path
-    %li= link_to "Growth Management", templates_path
-    %li= link_to "Transportation", templates_path
-    %li= link_to "Economic Development", templates_path
-    %li= link_to "Funding", templates_path
-    %li= link_to "Data", templates_path
+    %li
+      = link_to "About", templates_path, :class => "sub-nav"
+      
+    %li
+      = link_to "Growth Management", templates_path, :class => "sub-nav"
+      %ul{:style => "display:none"}
+        %li= link_to "Another one", templates_path
+        %li= link_to "One more one", templates_path
+    %li
+      = link_to "Transportation", templates_path, :class => "sub-nav"
+      %ul{:style => "display:none"}
+        %li= link_to "Another one", templates_path
+        %li= link_to "One more one", templates_path
+        
+    %li
+      = link_to "Economic Development", templates_path, :class => "sub-nav"
+      %ul{:style => "display:none"}
+        %li= link_to "Another one", templates_path
+        %li= link_to "One more one", templates_path
+    %li= link_to "Funding", templates_path, :class => "sub-nav"
+    %li= link_to "Data", templates_path, :class => "sub-nav"
 #breadcrumbs
   / Replace with <r:if_parent><r:breadcrumbs separator=" &raquo; " /></r:if_parent>
   <a href="/">Home</a> &raquo; Current Page

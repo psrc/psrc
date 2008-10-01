@@ -2,10 +2,9 @@
 // This file is automatically included by javascript_include_tag :defaults
 Event.observe(window, 'load', function() {
   observeInputsWithDefaultText();
-  //observeCorners();
   focusTextbox();
+  observeNavigation();
 });
-
 
 function observeInputsWithDefaultText(){
   var inputsWithDefaultText = $$('input.default-text');
@@ -46,4 +45,24 @@ function observeCorners(){
   }
   var cornersObj = new curvyCorners(settings, '.rounded');
   cornersObj.applyCornersToAll();
+}
+
+function observeNavigation(){
+  if($$('.sub-nav').any()){
+    $$('.sub-nav').each(function(n){
+      var item = n.up();
+      var children = item.childElements()[1];
+      
+      item.observe('mouseover', function(){   
+        if(children){ children.show(); item.addClassName('current'); }
+      });
+      item.observe('mouseout', function(){  
+        if(children){ children.hide(); item.removeClassName('current'); }
+      });
+    });
+  }
+}
+
+function showChildren(parent){
+  alert(parent.innerHTML)
 }

@@ -9,8 +9,9 @@
 %link{ :rel => "shortcut icon", :href => "/favicon.ico" }
 %link{ :rel => "icon", :href=> "/favicon.ico" }
 
-= javascript_include_tag 'prototype', 'effects', 'application', :cache => "cache/all"
+= javascript_include_tag 'prototype', 'effects', 'application'
 = stylesheet_link_tag 'yui', 'base', 'templates', 'forms', 'util', :cache => "cache/all"
+
 
 = yield(:head)
 

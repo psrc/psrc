@@ -1,0 +1,20 @@
+!!! XML
+!!! Strict
+%html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => "en" }
+  %head
+    = render :partial => "head"
+  %body
+    = render :partial => "branding"
+    - document do
+      #page-content
+        - grid :two_thirds do
+          - grid_unit :first => true do
+            / ##### FAKE CONTENT - replace with <r:content/> ##### /
+            = yield
+            / ##### END FAKE CONTENT #### /
+
+          - grid_unit do
+            / ##### COL2 FAKE CONTENT - replace with <r:content part="col2" /> ##### /
+            = yield :col2
+            / ##### COL2 FAKE CONTENT ##### /
+    = render :partial => "footer"

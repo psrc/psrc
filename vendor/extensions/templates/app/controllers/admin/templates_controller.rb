@@ -5,6 +5,10 @@ class Admin::TemplatesController < ApplicationController
 
   def content
   end
+
+  def front
+    render :layout => "front", :action => "content"
+  end
   
   def one_col
     render :layout => "one_col", :action => "content"
