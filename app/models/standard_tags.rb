@@ -535,7 +535,32 @@ module StandardTags
       raise TagError.new("`snippet' tag must contain `name' attribute")
     end
   end
-  
+
+  # TODO Put into extension
+  desc %{ crazy hack for getting params in snippets }
+  tag "snippet:var" do |tag|
+    var = tag.attr['name'] || nil
+    if var.blank?
+      %{<b>NO ATTR SPECIFIED</b>}
+    else
+      ret_val = nil
+      content =
+        tag.context.instance_variable_get(:@tag_binding_stack).detect{ |slot|
+        slot.name == "snippet"}
+        if !content.blank?
+          ret_val = content.attr[var] || nil
+          if ret_val.blank?
+             %{<b>COULDN'T FIND ATTR #{var}</b>}
+          else
+             %{#{ret_val}}
+          end
+        else
+            %{<b>ERROR IN GETTING CONTENT</b>}
+        end
+    end
+  end
+
+
   desc %{ 
     Used within a snippet as a placeholder for substitution of child content, when 
     the snippet is called as a double tag.
