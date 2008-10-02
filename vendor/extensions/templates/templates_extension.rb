@@ -24,11 +24,11 @@ class TemplatesExtension < Radiant::Extension
   end
   
   def activate
-    admin.tabs.add "Templates", "/admin/templates", :after => "Layouts", :visibility => [:all]
+    #admin.tabs.add "Templates", "/admin/templates", :after => "Layouts", :visibility => [:all]
   end
   
   def deactivate
-    admin.tabs.remove "Templates"
+    #admin.tabs.remove "Templates"
   end
   
 end

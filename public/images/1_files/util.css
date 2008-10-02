@@ -67,32 +67,11 @@
 
 .reset-grid {
   width: 100% !important;
-  margin-left: 0 !important;
-  float: none !important; }
+  margin-left: 0 !important; }
 
 div.info {
   line-height: 1.6em;
   margin-bottom: 1.2em; }
-
-ul.links {
-  margin: 0;
-  padding: 0; }
-  ul.links li {
-    margin: 0;
-    padding: 0;
-    padding-bottom: 0.5em;
-    list-style: none;
-    font-weight: bold; }
-
-dl.meetups dt {
-  margin-top: 0.75em; }
-dl.meetups dd {
-  font-size: 93%;
-  color: #666;
-  margin-bottom: 0.75em; }
-
-.rickmap {
-  background: url(/images/rickmap.png) no-repeat right top; }
 
 .strong {
   font-weight: bold; }
@@ -107,7 +86,3 @@ dl.two-col dt {
 .view-more {
   text-align: right;
   font-size: 85%; }
-
-.view-all {
-  font-size: 85%;
-  margin-top: 0.75em; }

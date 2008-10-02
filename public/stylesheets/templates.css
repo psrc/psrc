@@ -65,7 +65,7 @@ a:focus {
       margin-right: 2em;
       display: inline; }
       #ft ul li a:link, #ft ul li a:visited {
-        color: #9E8B71; }
+        color: #808080; }
 
 #header {
   font-weight: bold;
@@ -182,7 +182,13 @@ a:focus {
       margin: 0;
       color: #333 !important; }
   .section .section-content {
-    padding: 0.5em; }
+    padding: 0.5em;
+    font-size: 93%; }
+    .section .section-content h4 {
+      margin: 0;
+      margin-top: 0.5em; }
+    .section .section-content dl dt {
+      font-weight: bold; }
 
 .photo-caption-left {
   float: left;
