@@ -31,8 +31,8 @@ function observeNavigation(){
     $("#nav li").hoverIntent(config);
   }
 }
-function showSubMenu(){ $(this).children('ul').slideDown(200) }
-function hideSubMenu(){ $(this).children('ul').slideUp(200) }
+function showSubMenu(){ $(this).addClass('current').children('ul').slideDown(200) }
+function hideSubMenu(){ $(this).removeClass('current').children('ul').slideUp(200) }
 
 function animateBannerCaption(){
   var bannerId = '#banner-caption';
