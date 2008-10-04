@@ -1,26 +1,16 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
-Event.observe(window, 'load', function() {
-  observeInputsWithDefaultText();
-  focusTextbox();
+jQuery(document).ready(function($) {
+  observeFocus();
   observeNavigation();
-});
+  animateBannerCaption();
+})
 
-function observeInputsWithDefaultText(){
-  var inputsWithDefaultText = $$('input.default-text');
-  if(inputsWithDefaultText.any()){
-    inputsWithDefaultText.each(function(input){
-      input.observe('focus', function(){ 
-        if($F(input) == input.defaultValue)
-          input.clear(); input.addClassName('input-focus');
-      }.bind(input))
+function comingSoon(elm){
+  $(elm).text('This feature is not available yet').effect('highlight',{}, 3000);
+}
 
-      input.observe('blur', function(){ 
-        if($F(input).empty())
-          input.value = input.defaultValue; input.removeClassName('input-focus');
-      }.bind(input))    
-    })
-  }
+function observeFocus(){
+  if($('input.focus').length > 0)
+    $('input.focus')[0].focus();
 }
 
 function disableSubmit(form){
@@ -28,41 +18,28 @@ function disableSubmit(form){
   form.commit.disabled = true;
 }
 
-function focusTextbox(){
-  if($$('.focus').any())
-    $$('.focus').first().focus()
-}
-
-function observeCorners(){
-  settings = {
-    tl: { radius: 15 },
-    tr: { radius: 15 },
-    bl: { radius: 15 },
-    br: { radius: 15 },
-    antiAlias: true,
-    autoPad: false,
-    validTags: ["div"]
-  }
-  var cornersObj = new curvyCorners(settings, '.rounded');
-  cornersObj.applyCornersToAll();
-}
-
 function observeNavigation(){
-  if($$('.sub-nav').any()){
-    $$('.sub-nav').each(function(n){
-      var item = n.up();
-      var children = item.childElements()[1];
-      
-      item.observe('mouseover', function(){   
-        if(children){ children.show(); item.addClassName('current'); }
-      });
-      item.observe('mouseout', function(){  
-        if(children){ children.hide(); item.removeClassName('current'); }
-      });
-    });
+  // Uses MouseIntent Jquery Plugin
+  if($('#nav li').length > 0){
+    var config = {    
+      sensitivity: 2, 
+      interval: 100,
+      over: showSubMenu,
+      timeout: 200,
+      out: hideSubMenu
+    };
+    $("#nav li").hoverIntent(config);
   }
 }
+function showSubMenu(){ $(this).children('ul').slideDown(200) }
+function hideSubMenu(){ $(this).children('ul').slideUp(200) }
 
-function showChildren(parent){
-  alert(parent.innerHTML)
+function animateBannerCaption(){
+  var bannerId = '#banner-caption';
+  var defaultWidth = $(bannerId).css('width');
+  $(bannerId).children().hide();
+  $(bannerId).css('width','0').animate({width: defaultWidth}, 700, function(){
+    $(this).children().fadeIn();
+  });
 }
+

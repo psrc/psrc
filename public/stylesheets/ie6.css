@@ -1,2 +1,6 @@
 #breadcrumbs { width: 72.8em; }
 #nav { width: 76.2em;}
+#banner-caption {
+  height:1%;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='image.png', sizingMethod='scale');
+}

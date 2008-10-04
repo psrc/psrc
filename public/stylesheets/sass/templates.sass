@@ -6,7 +6,6 @@
 
 #main-content-wrapper
   :background #FCFCFC url(/images/bg-main-content.png) repeat-x 0 -20px
-  /C06122
   :border 1px solid #DDD
   :color #333
   :padding 1em
@@ -32,12 +31,13 @@
 / === LINKS === /
 a
   &:link, &:active
-    :color #3C78A7
+    :color #004276
     :text-decoration none
   &:visited
-    :color #5AAECF
+    :color #5c7996
     :text-decoration none
   &:hover
+    :color #DF6C00
     :text-decoration underline
   &:focus
     :outline none
@@ -45,11 +45,30 @@ a
 // === REUSABLE LAYOUT === //
 
 #banner
+  :position relative
   :margin-bottom 1em
   #banner-content
     :border 1px solid #FF7F00
     :height 145px
     :background #FF7F00 url(/images/banner2.jpg) no-repeat center center
+  #banner-caption
+    :position absolute
+    :z-index 10
+    :top 1px
+    :left 1px
+    :height 145px
+    :width 12em
+    :background url(/images/bg-banner-caption.png)
+    :border-right 1px solid #FF7F00
+    #banner-caption-content
+      :filter alpha(opacity=100) 
+      :opacity 1
+      :-moz-opacity 1
+      :padding 1em
+      h4,h5
+        :margin 0.5em 0
+      p
+        :font-size 85%
     
 #breadcrumbs
   :font-size 85%
@@ -61,17 +80,15 @@ a
 #ft
   :margin auto
   :padding 1em 0 0.5em
-  :color #CCC
+  :color #999
+  :font-size 85%
   ul
     :margin 0
     :padding 0
     li
-      :font-size 85%
       :list-style none
       :margin-right 2em
       :display inline
-      a:link, a:visited
-        :color #808080
 
 #header
   :font-weight bold
@@ -104,6 +121,8 @@ a
         :background #666 url(/images/bg-header-hover.png)
         :color #FFF
         :text-decoration none
+      &.first
+        :border-left 1px solid #999
       &.current
         a:link, a:visited
           :background #666 url(/images/bg-header-hover.png)
@@ -117,7 +136,9 @@ a
             :color #FFF
             :text-decoration none   
       ul
+        :display none
         :position absolute
+        :z-index 100
         :left 0
         :top 2.75em
         :border-left 1px solid #DDD
@@ -125,18 +146,19 @@ a
         :border-bottom 1px solid #DDD
         :margin 0
         :padding 0
+        :background-color #EEE
         li
           :margin 0
           :padding 0
           :width 18em
           :font-weight normal
           :float none
-          :background-color #EEE
           :border none
           :text-align left
           a:link, a:visited
             :display block
             :padding 0.2em
+            :padding-left 1.3em
             :height 1%
 
 #branding
@@ -146,7 +168,6 @@ a
     :margin 0
   #search-container
     :width 20em
-    :border 1px solid #EEE
     :float right
     :text-align left
     #search-form
@@ -155,6 +176,10 @@ a
       :padding 0.5em
       .text
         :width 71%
+    #search-button
+      :font-size 85%
+      :font-weight bold
+      :color #264409
 
 #page-content
   :background #FFF
@@ -174,8 +199,8 @@ a
   :border 1px solid #EEE
   :margin-bottom 1em
   .section-header
-    :background #FCFCFC url(/images/bg-section-header.png)
-    :border-bottom 1px solid #DDD
+    :background #97c6e4 url(/images/bg-section-header2.png) repeat-x
+    :border-bottom 1px solid #81B1CF
     :padding 0.2em 0.5em
     h3
       :font-size 116%
@@ -192,10 +217,12 @@ a
   .section-content
     :padding 0.5em
     :font-size 93%
-
-    h4
+    h4,h5
       :margin 0
       :margin-top 0.5em
+    h5
+      :font-size 116%
+        
     dl
       dt
         :font-weight bold
