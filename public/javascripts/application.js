@@ -2,6 +2,7 @@ jQuery(document).ready(function($) {
   observeFocus();
   observeNavigation();
   animateBannerCaption();
+  jQuery('a[rel*=facebox]').facebox();
 })
 
 function comingSoon(elm){
@@ -23,23 +24,23 @@ function observeNavigation(){
   if($('#nav li').length > 0){
     var config = {    
       sensitivity: 2, 
-      interval: 100,
+      interval: 50,
       over: showSubMenu,
-      timeout: 200,
+      timeout: 350,
       out: hideSubMenu
     };
     $("#nav li").hoverIntent(config);
   }
 }
-function showSubMenu(){ $(this).addClass('current').children('ul').slideDown(200) }
-function hideSubMenu(){ $(this).removeClass('current').children('ul').slideUp(200) }
+function showSubMenu(){ $(this).addClass('current').children('ul').slideDown(300) }
+function hideSubMenu(){ $(this).removeClass('current').children('ul').slideUp(300) }
 
 function animateBannerCaption(){
   var bannerId = '#banner-caption';
   var defaultWidth = $(bannerId).css('width');
   $(bannerId).children().hide();
-  $(bannerId).css('width','0').animate({width: defaultWidth}, 700, function(){
-    $(this).children().fadeIn();
+  $(bannerId).css('width','0').animate({width: defaultWidth}, 800, function(){
+    $(this).children().fadeIn('slow');
   });
 }
 
