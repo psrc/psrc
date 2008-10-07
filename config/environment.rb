@@ -70,29 +70,34 @@ Radiant::Initializer.run do |config|
   end
   
   config.after_initialize do
-    # Radiant Options
-    Radiant::Config['admin.title'] = "Puget Sound Regional Council" if Radiant::Config['admin.title'] =~ /Radiant CMS/
-    Radiant::Config['admin.subtitle'] = "Control Panel" if Radiant::Config['admin.subtitle'] =~ /Publishing for Small Teams/
+    if ActiveRecord::Base.connection.tables.include?('config') #Without this, you won't be able to bootstrap a clean instance
+      # Radiant Options
+      Radiant::Config['admin.title'] = "Puget Sound Regional Council" if Radiant::Config['admin.title'] =~ /Radiant CMS/
+      Radiant::Config['admin.subtitle'] = "Control Panel" if Radiant::Config['admin.subtitle'] =~ /Publishing for Small Teams/
+      Radiant::Config['defaults.page.filter'] = "Textile"
+      Radiant::Config['defaults.page.status'] = 'published' if Radiant::Config['defaults.page.status'] =~ /draft/
 
-    # Add new inflection rules using the following format:
-    Inflector.inflections do |inflect|
-      inflect.uncountable 'config'
-      inflect.uncountable 'meta'
+      # Add new inflection rules using the following format:
+      Inflector.inflections do |inflect|
+        inflect.uncountable 'config'
+        inflect.uncountable 'meta'
+      end
+
+      # Auto-require text filters
+      Dir["#{RADIANT_ROOT}/app/models/*_filter.rb"].each do |filter|
+        require_dependency File.basename(filter).sub(/\.rb$/, '')
+      end
+
+      # Response Caching Defaults
+      ResponseCache.defaults[:directory] = ActionController::Base.page_cache_directory
+      ResponseCache.defaults[:logger]    = ActionController::Base.logger
     end
 
-    # Auto-require text filters
-    Dir["#{RADIANT_ROOT}/app/models/*_filter.rb"].each do |filter|
-      require_dependency File.basename(filter).sub(/\.rb$/, '')
-    end
-
-    # Response Caching Defaults
-    ResponseCache.defaults[:directory] = ActionController::Base.page_cache_directory
-    ResponseCache.defaults[:logger]    = ActionController::Base.logger
+    ExceptionNotifier.email_to = ["joe@fixieconsulting.com", "jordan@fixieconsulting.com"]
+    ExceptionNotifier.email_from = "PSRC Website <your-mom@psrc.org>"
   end
 end
 
-ExceptionNotifier.email_to = ["joe@fixieconsulting.com", "jordan@fixieconsulting.com"]
-ExceptionNotifier.email_from = "PSRC Website <your-mom@psrc.org>"
  
 # Ruby 1.8.7 adds a chars method, which returns an enumerator object.
 # But Rails 2.0.2 expects a ActiveSupport::Multibyte::Chars object.
