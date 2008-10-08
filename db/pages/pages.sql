@@ -1,3 +1,8 @@
+begin;
+  delete from pages;
+  delete from page_parts;
+  delete from snippets;
+  delete from layouts;
 --
 -- PostgreSQL database dump
 --
@@ -128,3 +133,4 @@ COPY snippets (id, name, filter_id, content, created_at, updated_at, created_by_
 -- PostgreSQL database dump complete
 --
 
+commit;
