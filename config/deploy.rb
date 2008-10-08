@@ -47,9 +47,9 @@ ssh_options[:paranoid] = false
   
 task :production do
 
-  role :web, "74.201.254.36:8372" # tanga_staging [thin,memcached,backgroundrb] [psql82-staging-1] and psrc [thin] [psql82-2-master]
-  role :app, "74.201.254.36:8372", :thin => true, :memcached => true, :backgroundrb => true
-  role :db , "74.201.254.36:8372", :primary => true
+  role :web, "74.201.254.36:8235" # tanga_staging [thin,memcached,backgroundrb] [psql82-staging-1] and psrc [thin] [psql82-2-master]
+  role :app, "74.201.254.36:8235", :thin => true, :memcached => true, :backgroundrb => true
+  role :db , "74.201.254.36:8235", :primary => true
   
   
   set :rails_env, "production"
