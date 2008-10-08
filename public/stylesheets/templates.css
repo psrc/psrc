@@ -44,24 +44,26 @@ a:focus {
   #banner #banner-content {
     border: 1px solid #FF7F00;
     height: 145px;
-    background: #FF7F00 url(/images/banner2.jpg) no-repeat center center; }
-  #banner #banner-caption {
-    position: absolute;
-    top: 1px;
-    left: 1px;
-    height: 145px;
-    width: 12em;
-    background: url(/images/bg-banner-caption.png);
-    border-right: 1px solid #FF7F00; }
-    #banner #banner-caption #banner-caption-content {
-      filter: alpha(opacity=100);
-      opacity: 1;
-      -moz-opacity: 1;
-      padding: 1em; }
-      #banner #banner-caption #banner-caption-content h4, #banner #banner-caption #banner-caption-content h5 {
-        margin: 0.5em 0; }
-      #banner #banner-caption #banner-caption-content p {
-        font-size: 85%; }
+    background: #FF7F00; }
+    #banner #banner-content #caption-container {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      height: 146px;
+      width: 12em;
+      background: url(/images/bg-banner-caption.png);
+      border-right: 1px solid #FF7F00; }
+      #banner #banner-content #caption-container #caption {
+        filter: alpha(opacity=100);
+        opacity: 1;
+        -moz-opacity: 1;
+        padding: 1em; }
+        #banner #banner-content #caption-container #caption * {
+          width: 12em; }
+        #banner #banner-content #caption-container #caption h4, #banner #banner-content #caption-container #caption h5 {
+          margin: 0.5em 0; }
+        #banner #banner-content #caption-container #caption p {
+          font-size: 85%; }
 
 #breadcrumbs {
   font-size: 85%;

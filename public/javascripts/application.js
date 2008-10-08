@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
   observeFocus();
   observeNavigation();
-  animateBannerCaption();
+  //animateBannerCaption();
   jQuery('a[rel*=facebox]').facebox();
 })
 
@@ -24,7 +24,7 @@ function observeNavigation(){
   if($('#nav li').length > 0){
     var config = {    
       sensitivity: 2, 
-      interval: 50,
+      interval: 20,
       over: showSubMenu,
       timeout: 350,
       out: hideSubMenu
@@ -32,11 +32,11 @@ function observeNavigation(){
     $("#nav li").hoverIntent(config);
   }
 }
-function showSubMenu(){ $(this).addClass('current').children('ul').slideDown(300) }
-function hideSubMenu(){ $(this).removeClass('current').children('ul').slideUp(300) }
+function showSubMenu(){ $(this).addClass('current').children('ul').slideDown(100) }
+function hideSubMenu(){ $(this).removeClass('current').children('ul').slideUp(100) }
 
 function animateBannerCaption(){
-  var bannerId = '#banner-caption';
+  var bannerId = '#banner-content div';
   var defaultWidth = $(bannerId).css('width');
   $(bannerId).children().hide();
   $(bannerId).css('width','0').animate({width: defaultWidth}, 800, function(){
