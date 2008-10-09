@@ -2,7 +2,7 @@
   %h2.first Payment by Credit Card
   - form_for :card, :url => submit_payment_by_credit_card_path, :html => {:onsubmit => "disableSubmit(this);"}, :builder => ::WebSgFormBuilder do |f|
     - f.fieldset do
-      = f.text_field :number, :label => "Credit Card Number", :hint => "(no dashes or spaces needed)", :class => "focus", :maxlength => 16
+      = f.text_field :number, :label => "Credit Card Number", :hint => "(Visa and MasterCard only)", :class => "focus", :maxlength => 16
       = f.select :month, [["Jan", 1], ["Feb", 2], ["Mar", 3], ["Apr", 4], ["May", 5], ["Jun", 6], ["Jul", 7], ["Aug", 8], ["Sep", 9], ["Oct", 10], ["Nov", 11], ["Dec", 12]], {:label => "Expiration Month"}
       = f.select :year,  [["2008", 2008], ["2009", 2009], ["2010", 2010], ["2011", 2011], ["2012", 2012], ["2013", 2013]], {:label => "Expiration Year"}
         

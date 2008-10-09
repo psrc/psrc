@@ -70,7 +70,7 @@ module TestHelpers
 
   # Picks a credit card on the Payment Type page
   def select_credit_card
-    chooses "Credit Card"
+    chooses "credit card"
     clicks_button "Continue"
   end
 

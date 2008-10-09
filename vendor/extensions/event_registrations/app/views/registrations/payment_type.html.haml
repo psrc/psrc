@@ -2,7 +2,7 @@
 
 - form_for :payment, :url => submit_payment_type_path, :builder => ::WebSgFormBuilder do |f|
   - f.fieldset do
-    %p= f.radio_button :type, "Credit Card"
+    %p= f.radio_button :type, "credit card", :label => "Credit Card (Visa and MasterCard only)"
     %p= f.radio_button :type, "Check"
 
     %p
