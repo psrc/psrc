@@ -38,7 +38,7 @@ end
 def path_for uri
   m = uri.to_s.match("www.psrc.org/(.+)")
   if m
-    "" + m[1]
+    m[1]
   else
     uri
   end
@@ -83,7 +83,7 @@ $pages.each do |page|
       puts "Setting page to parent page"
       radiant_page = parent
     end
-    radiant_page ||= Page.new :title => page.title, :parent => parent, :breadcrumb => page.title, :slug => File.basename(page.uri.to_s), :status_id => 100, :layout_id => 7
+    radiant_page ||= Page.new :title => page.title, :parent => parent, :breadcrumb => page.title, :slug => File.basename(page.uri.to_s), :status_id => 100, :layout_id => 5
     radiant_page.parts << PagePart.new(:name => "body", :content => fix_body(page.body))
     radiant_page.save
     puts " >> Created #{ radiant_page.url }!"
