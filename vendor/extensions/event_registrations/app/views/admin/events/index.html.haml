@@ -4,7 +4,10 @@
   %p Create and manage PSRC and Prosperity Partnership events.
 
   - if @events.blank?
-    %p.small== No events could be found. #{ link_to "Create an event", new_admin_event_path }.
+    %p.small
+      No events could be found.
+      - if changeable?
+        = link_to "Create an event", new_admin_event_path
   - else
     %table.index
 
@@ -19,11 +22,12 @@
       %tbody.events
         - for event in @events
           %tr
-            %td.event-name= link_to(event.name, edit_admin_event_path(event))
+            %td.event-name= link_to_if(changeable?, event.name, edit_admin_event_path(event))
             %td.attendees=  link_to event.number_of_attendees, admin_registration_path(event)
             %td.date=       date_span(event)
-            %td.child=      link_to image_tag("admin/add-registration-option.png"), new_admin_event_option_path(:event_id => event)
-            %td.remove=     link_to image_tag("admin/remove.png"), admin_event_path(event), :method => :delete, :confirm => "Are you want to remove this event? There is no undo."
+            - if changeable?
+              %td.child=      link_to image_tag("admin/add-registration-option.png"), new_admin_event_option_path(:event_id => event)
+              %td.remove=     link_to image_tag("admin/remove.png"), admin_event_path(event), :method => :delete, :confirm => "Are you want to remove this event? There is no undo."
             %td.public=     link_to image_tag("admin/view-site.gif"), event_path(event)
 
           - if event.event_options.blank?
@@ -32,7 +36,8 @@
           - else
             - for option in event.event_options
               %tr.event-option
-                %td.description== #{ link_to option.description, edit_admin_event_option_path(option) } <span class="quiet">(#{ option.seating_type })</span>
+                %td.description== #{ link_to_if changeable?,  option.description, edit_admin_event_option_path(option) } <span class="quiet">(#{ option.seating_type })</span>
                 %td.attendees.quiet{ :colspan => 2 }= option.number_of_attendees
                 %td.blank &nbsp;
-                %td.remove{ :colspan => 2 }= link_to image_tag("admin/remove.png"), admin_event_option_path(option), :method => :delete, :confirm => "Are you want to remove this event option? There is no undo."
+                - if changeable?
+                  %td.remove{ :colspan => 2 }= link_to image_tag("admin/remove.png"), admin_event_option_path(option), :method => :delete, :confirm => "Are you want to remove this event option? There is no undo."

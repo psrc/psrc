@@ -1,4 +1,9 @@
 module EventsHelper
+
+  def changeable?
+    RAILS_ENV != "production"
+  end
+
   def date_span event
     #txt = event.start_date.strftime("%b %d")
     #txt << "- #{event.end_date.strftime("%b %d")}" if event.start_date != event.end_date

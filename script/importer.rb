@@ -58,7 +58,7 @@ def create_parent_if_needed_for(uri)
     puts "didn't find page for #{ directory }, creating"
     puts "slug is #{ slug }"
     begin
-      Page.create!(:parent => create_parent_if_needed_for(directory), :title => slug, :breadcrumb => slug, :slug => slug.gsub(/[^A-Za-z0-9]/, '-'), :status_id => 100) 
+      Page.create!(:parent => create_parent_if_needed_for(directory), :title => slug, :breadcrumb => slug, :slug => slug.gsub(/[^A-Za-z0-9]/, '-'), :status_id => 100)
     rescue ActiveRecord::RecordInvalid
       nil
     end
@@ -89,4 +89,7 @@ $pages.each do |page|
     puts " >> Created #{ radiant_page.url }!"
     puts radiant_page.errors.full_messages unless radiant_page.valid?
 end
+<<<<<<< HEAD:script/importer.rb
 
+=======
+>>>>>>> site-updater:script/importer.rb

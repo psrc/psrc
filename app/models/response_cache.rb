@@ -5,7 +5,7 @@ class ResponseCache
     :directory => ActionController::Base.page_cache_directory,
     :expire_time => 5.minutes,
     :default_extension => '.yml',
-    :perform_caching => true,
+    :perform_caching => false,
     :logger => ActionController::Base.logger,
     :use_x_sendfile => false
   }
@@ -32,7 +32,7 @@ class ResponseCache
     self.directory         = options[:directory]
     self.expire_time       = options[:expire_time]
     self.default_extension = options[:default_extension]
-    self.perform_caching   = options[:perform_caching]
+    self.perform_caching   = false # options[:perform_caching]
     self.logger            = options[:logger]
     self.use_x_sendfile    = options[:use_x_sendfile]
   end
