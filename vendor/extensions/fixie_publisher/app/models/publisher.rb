@@ -4,6 +4,7 @@
 # Note: Obviously won't work with enforced database foreign keys,
 # so don't make them.
 # TODO: Also copy over user-provided photos from the dev env to the production one
+require 'open3'
 class Publisher
   TABLES = %w( events event_options users page_parts pages layouts snippets )
   def self.publish!
@@ -14,14 +15,16 @@ class Publisher
     puts "Loading with #{ psql_command }"
 
     data = `#{dump_command}`
-    pg = IO::popen(psql_command, "w+")
-
-    pg << "begin;"
+    Open3.popen3(psql_command) do |stdin, stdout, stderr| 
+      stdin << "begin;"
       TABLES.each do |table|
-        pg << "delete from #{table};"
+        stdin << "delete from #{table};"
       end
-      pg << data
-    pg << "commit;"
+      stdin << data
+      stdin << "commit;"
+      stdin.flush
+    end
+
   end
 
   private
@@ -44,3 +47,4 @@ class Publisher
   end
 
 end
+
