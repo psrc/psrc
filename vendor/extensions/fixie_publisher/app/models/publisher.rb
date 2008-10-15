@@ -8,9 +8,13 @@ class Publisher
   TABLES = %w( events event_options users page_parts pages layouts snippets )
   def self.publish!
     table_string = TABLES.map { |t| "-t #{t} " }
-    data = `pg_dump #{current_dev} -a #{table_string}`
-    puts data
-    pg = IO::popen("psql #{current_prod}", "w+")
+    dump_command = "pg_dump #{ connection_options("staging") } #{current_dev} -a #{table_string}"
+    psql_command = "psql #{ connection_options("production") } #{current_prod}"
+    puts "Dumping with #{ dump_command }"
+    puts "Loading with #{ psql_command }"
+
+    data = `#{dump_command}`
+    pg = IO::popen(psql_command, "w+")
 
     pg << "begin;"
       TABLES.each do |table|
@@ -21,6 +25,13 @@ class Publisher
   end
 
   private
+
+  def self.connection_options env
+    config = Rails::Configuration.new.database_configuration[env]
+    user = config["username"]
+    host = config["host"]
+    " -h #{ host } -U #{ user } "
+  end
 
   def self.current_dev
     config = Rails::Configuration.new
