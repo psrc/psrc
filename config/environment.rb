@@ -76,6 +76,7 @@ Radiant::Initializer.run do |config|
       Radiant::Config['admin.subtitle'] = "Control Panel" if Radiant::Config['admin.subtitle'] =~ /Publishing for Small Teams/
       Radiant::Config['defaults.page.filter'] = "Textile"
       Radiant::Config['defaults.page.status'] = 'published' if Radiant::Config['defaults.page.status'] =~ /draft/
+      Radiant::Config['debug?'] = true
 
       # Add new inflection rules using the following format:
       Inflector.inflections do |inflect|
