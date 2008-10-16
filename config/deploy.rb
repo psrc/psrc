@@ -14,7 +14,7 @@ set :keep_releases,       5
 set :application,         "psrc"
 set :repository,          "github-psrc:joevandyk/psrc.git"
 set :user,                "tanga"
-set :deploy_to,           "/data/#{application}"
+set :deploy_to,           defer { "/data/#{application}" }
 set :password,            "k31bv4j3"
 
 # This will execute the Git revision parsing on the *remote* server rather than locally
@@ -26,6 +26,9 @@ set :runner,							"tanga"
 
 set :production_database, "psrc_production"
 set :production_dbhost,   "psql82-2-master"
+
+set :draft_database, "psrc_draft"
+set :draft_dbhost,   "psql82-2-master"
 
 set :dbuser,        "tanga_db"
 set :dbpass,        "lb31v12j"
@@ -57,6 +60,22 @@ task :production do
   set :environment_dbhost, defer { production_dbhost }
 end
 
+
+task :draft do
+
+  role :web, "74.201.254.36:8235" # tanga_staging [thin,memcached,backgroundrb] [psql82-staging-1] and psrc [thin] [psql82-2-master]
+  role :app, "74.201.254.36:8235", :thin => true, :memcached => true, :backgroundrb => true
+  role :db , "74.201.254.36:8235", :primary => true
+  
+  
+  set :rails_env, "staging"
+  set :application, "psrc_draft"
+  set :monit_group, "psrc_draft"
+  
+  set :environment_database, defer { draft_database }
+  set :environment_dbhost, defer { draft_dbhost }
+end
+
 # =============================================================================
 # Any custom after tasks can go here.
 # after "deploy:symlink_configs", "psrc_custom"
@@ -71,7 +90,7 @@ end
 
 task "extensions_migrations", :roles => :db, :except => {:no_release => true, :no_symlink => true} do
   run <<-CMD
-    cd #{release_path} && RAILS_ENV=production rake db:migrate:extensions
+    cd #{release_path} && RAILS_ENV=#{rails_env} rake db:migrate:extensions
   CMD
 end
 
