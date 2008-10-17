@@ -18,3 +18,4 @@ db/development_structure.sql
 cache
 import
 public/page_attachments
+public/assets

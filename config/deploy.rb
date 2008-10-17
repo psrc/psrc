@@ -76,14 +76,18 @@ task :draft do
   set :environment_dbhost, defer { draft_dbhost }
 end
 
-# =============================================================================
-# Any custom after tasks can go here.
-# after "deploy:symlink_configs", "psrc_custom"
-# task :psrc_custom, :roles => :app, :except => {:no_release => true, :no_symlink => true} do
-#   run <<-CMD
-#   CMD
-# end
-# =============================================================================
+after "deploy:symlink_configs", "psrc_custom"
+task :psrc_custom, :roles => :app, :except => {:no_release => true, :no_symlink => true} do
+  run <<-CMD
+     ln -nfs #{shared_path}/page_attachments #{release_path}/public/page_attachments
+   CMD
+  run <<-CMD
+     ln -nfs #{shared_path}/assets #{release_path}/public/assets
+   CMD
+  run <<-CMD
+     ln -nfs #{shared_path}/uploads #{release_path}/public/uploads
+   CMD
+end
 
 # Do not change below unless you know what you are doing!
 
