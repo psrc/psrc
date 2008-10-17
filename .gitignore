@@ -17,3 +17,4 @@ config/facebooker.yml
 db/development_structure.sql
 cache
 import
+public/page_attachments

@@ -4,6 +4,19 @@
 # you don't control web/app server and can't set it the proper way
 # ENV['RAILS_ENV'] ||= 'production'
 
+# Ruby 1.8.7 adds a chars method, which returns an enumerator object.
+# But Rails 2.0.2 expects a ActiveSupport::Multibyte::Chars object.
+# So we remove that method.
+unless '1.9'.respond_to?(:force_encoding)
+  String.class_eval do
+    begin
+      remove_method :chars
+    rescue NameError
+      # OK
+    end
+  end
+end
+
 # Specifies gem version of Rails to use when vendor/rails is not present
 require File.join(File.dirname(__FILE__), 'boot')
 
@@ -100,15 +113,3 @@ Radiant::Initializer.run do |config|
 end
 
  
-# Ruby 1.8.7 adds a chars method, which returns an enumerator object.
-# But Rails 2.0.2 expects a ActiveSupport::Multibyte::Chars object.
-# So we remove that method.
-unless '1.9'.respond_to?(:force_encoding)
-  String.class_eval do
-    begin
-      remove_method :chars
-    rescue NameError
-      # OK
-    end
-  end
-end
