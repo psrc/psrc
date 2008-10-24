@@ -2,24 +2,42 @@
 / by Fixie Consulting (http://www.fixieconsulting.com)
 
 / === YUI PiggyBack ===  /
-#bd
-
 #main-content-wrapper
-  :background #FCFCFC url(/images/bg-main-content.png) repeat-x 0 -20px
-  :border 1px solid #DDD
-  :color #333
-  :padding 1em
-  :padding-top 0.9em
-
+  /:background #F3F0DC
+  :background #FFF
+  :-moz-border-radius-topright 10px
+  :-webkit-border-radius-topright 10px
+  /#FCFCFC url(/images/bg-main-content.png) repeat-x 0 -20px
+  /:border 1px solid #DFD0C3
+  /:padding 1em
+  /:padding-top 0.9em
+  #page-header
+    :background #25190F
+  h2
+    :color #C8BCA6
+    /:color #4E3114
+    :margin 0
+    :padding 0.2em 0.5em
   #main-content
-    :border 1px solid #E9E9E9
-    :border-top 1px solid #CCC
+    :border 1px solid #DFD0C3
+    /:border-top 1px solid #BFAC9B
+    :border-top none
     :background #FFF
     :padding 1em
   #page-content
     :padding 1em 1em 0.5em 1em
-    :border 1px solid #EEE
-    :border-top 1px solid #CCC
+    :border 1px solid #DFD0C3
+    :border-top 1px solid #BFAC9B
+  #main-content, #page-content
+    h2,h3,h4,h5
+      :color #8F883E
+      :padding-left 0
+    h2
+      :margin-top 1em
+    img.border
+      :border 4px solid #DFD0C3
+    .info
+      :font-size 93%
     
 #custom-doc, #banner, #breadcrumbs, #nav, #branding, #ft
   :margin auto
@@ -31,13 +49,15 @@
 / === LINKS === /
 a
   &:link, &:active
-    :color #004276
+    color: #015C82
+    / RED color: #CC3300
     :text-decoration none
   &:visited
-    :color #5c7996
+    color: #015C82
+    / RED color: #993300
     :text-decoration none
   &:hover
-    :color #DF6C00
+    :color #29b0e8
     :text-decoration underline
   &:focus
     :outline none
@@ -48,28 +68,30 @@ a
   :position relative
   :margin-bottom 1em
   #banner-content
-    :border 1px solid #FF7F00
+    :border 1px solid #9F9A77
     :height 145px
-    :background #FF7F00
+    :background transparent
     #caption-container
+      :-moz-border-radius-topright 10px
+      :-moz-border-radius-bottomleft 10px
+      :-webkit-border-radius-topright 10px
+      :-webkit-border-radius-bottomleft 10px
       :position absolute
-      :top 0px
-      :left 0px
-      :height 146px
-      :width 12em
-      :background url(/images/bg-banner-caption.png)
-      :border-right 1px solid #FF7F00
+      :border 2px solid #BFBA9B
+      :top 0.5em
+      :left 0.5em
+      :width 23em
+      :color #25190F
+      :background url(/images/bg-white.png)
       #caption
-        :filter alpha(opacity=100) 
-        :opacity 1
-        :-moz-opacity 1
-        :padding 1em
-        *
-          :width 12em
+        :font-family arial,helvetica,clean,sans-serif
+        :padding 0 0.5em
         h4,h5
-          :margin 0.5em 0
+          :font-family arial,helvetica,clean,sans-serif
+          :margin-top 0.5em
         p
           :font-size 85%
+          :margin-bottom 0.5em
     
 #breadcrumbs
   :font-size 85%
@@ -94,10 +116,11 @@ a
 #header
   :font-weight bold
   :font-size 85%
-  :background #949494 url(/images/bg-header.png) repeat-x
+  :background #BF5B0B
   :padding 0
   :margin-bottom 1em
   ul#nav
+    :font-family "Trebuchet MS", arial,helvetica,clean,sans-serif
     :display block
     :padding 0
     :margin 0 auto
@@ -108,33 +131,36 @@ a
       :z-index 99
       :text-align center
       :float left
-      :border-right 1px solid #999
+      :border-right 1px solid #EF974A
       a:link, a:visited
         :display block
         :padding 0.8em 2em
         :vertical-align middle
-        :color #333
+        :color #FFF
         :text-transform capitalize
       a.sub-nav
         :padding-right 2.2em !important
         :padding-left 1.4em !important
-        :background url(/images/global-nav-arrow.gif) no-repeat right 1.2em
+        :background url(/images/global-nav-arrow-white.gif) no-repeat right 1.2em
       a:hover
-        :background #666 url(/images/bg-header-hover.png)
+        :background #9F4C09
+        /:background #666 url(/images/bg-header-hover.png)
         :color #FFF
         :text-decoration none
       &.first
-        :border-left 1px solid #999
+        :border-left 1px solid #EF974A
       &.current
         a:link, a:visited
-          :background #666 url(/images/bg-header-hover.png)
+          :background #9F4C09
+          /:background #666 url(/images/bg-header-hover.png)
           :color #FFF
         li
           a:link, a:visited
-            :background #EEE
+            :background #FFF7EF
             :color #333     
           a:hover
-            :background #666 url(/images/bg-header-hover.png)
+            :background #AF5D15
+            /:background #666 url(/images/bg-header-hover.png)
             :color #FFF
             :text-decoration none   
       ul
@@ -148,7 +174,7 @@ a
         :border-bottom 1px solid #DDD
         :margin 0
         :padding 0
-        :background-color #EEE
+        :background-color #EFEAE0
         li
           :margin 0
           :padding 0
@@ -180,11 +206,7 @@ a
         :width 71%
     #search-button
       :font-size 85%
-      :font-weight bold
       :color #264409
-
-#page-content
-  :background #FFF
 
 #page-header
   :margin 0 0 0.3em 0
@@ -198,36 +220,42 @@ a
   :color #7F6F67
 
 .section
-  :border 1px solid #EEE
+  :border 1px solid #EFE5D1
   :margin-bottom 1em
+  :background #FFF
+  :-moz-border-radius-bottomleft 10px
+  :-moz-border-radius-topright 10px
+  :-webkit-border-radius-bottomleft 10px
+  :-webkit-border-radius-topright 10px
   .section-header
-    :background #97c6e4 url(/images/bg-section-header2.png) repeat-x
-    :border-bottom 1px solid #81B1CF
-    :padding 0.2em 0.5em
+    :-moz-border-radius-topright 10px
+    :-webkit-border-radius-topright 10px
+    :font-size 93%
+    :background #25190F
+    / url(/images/bg-section-header2.png) repeat-x
+    /:border-bottom 1px solid #81B1CF
+    :padding 0.5em 0.5em
+    h3, h4
+      :font-weight bold
+      :color #C8BCA6 !important
+      :text-transform uppercase
     h3
       :font-size 116%
-      :font-weight bold
       :padding 0
       :margin 0
-      :color #333 !important
     h4
-      :font-weight bold
       :font-size 93%
       :padding 0
       :margin 0
-      :color #333 !important
   .section-content
     :padding 0.5em
     :font-size 93%
     h4,h5
       :margin 0
-      :margin-top 0.5em
+      :padding-top 1em
     h5
       :font-size 116%
         
-    dl
-      dt
-        :font-weight bold
 
 .photo-caption-left
   :float left
@@ -254,6 +282,7 @@ a
     :padding 0.2em
 
 ul#page-navigation
+  :font-family "Trebuchet MS", arial,helvetica,clean,sans-serif
   :margin 0
   :padding 0.2em 0
   :border-top 1px solid #CCC
@@ -268,7 +297,7 @@ ul#page-navigation
       :font-size 93%
       :font-weight bold
     &.active
-      :background #C06122 url(/images/nav-arrow.gif) no-repeat 155px 0.3em
+      :background #BF5B0B url(/images/nav-arrow.gif) no-repeat 155px 0.25em
       a:link,a:visited
         :color #FFF
     &.first

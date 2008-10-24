@@ -32,13 +32,34 @@
 
 .date {
   float: right;
-  margin-top: 0.7em;
+  font-family: arial,helvetica,clean,sans-serif;
   font-size: 85%;
-  color: #AAA; }
+  color: #AAA;
+  margin-top: 1em;
+  margin-bottom: 0; }
 
 .email {
   background: url(/images/email.png) no-repeat;
   padding: 1px 0 2px 19px; }
+
+ul.features {
+  margin: 0; }
+  ul.features li {
+    margin: 0;
+    list-style: none;
+    float: left;
+    margin-right: 0.8em;
+    width: 125px; }
+    ul.features li img {
+      border: 2px solid #DFD0C3; }
+    ul.features li a:hover img {
+      border-color: #29B0E8; }
+    ul.features li p {
+      font-size: 85%;
+      line-height: 1.3em;
+      margin-bottom: 0; }
+    ul.features li.last {
+      margin-right: 0; }
 
 .float-left {
   float: left; }
@@ -55,24 +76,22 @@
 .hide {
   display: none; }
 
-.quiet {
-  color: #7F6F67; }
-
-.small {
-  font-size: 93%; }
-
-.info {
-  font-size: 93%;
-  color: #666; }
-
-.reset-grid {
-  width: 100% !important;
-  margin-left: 0 !important;
-  float: none !important; }
+.info a:link, .info a:visited {
+  text-decoration: underline; }
 
 div.info {
   line-height: 1.6em;
   margin-bottom: 1.2em; }
+
+dl.items dt {
+  font-size: 116%;
+  font-family: "Trebuchet MS", arial,helvetica,clean,sans-serif;
+  font-weight: normal; }
+dl.items dd {
+  margin-bottom: 1em; }
+
+div.item {
+  margin-bottom: 2em; }
 
 ul.links {
   margin: 0;
@@ -80,16 +99,70 @@ ul.links {
   ul.links li {
     margin: 0;
     padding: 0;
-    padding-bottom: 0.5em;
-    list-style: none;
-    font-weight: bold; }
+    padding-bottom: 0.25em;
+    list-style: none; }
 
 dl.meetups dt {
   margin-top: 0.75em; }
 dl.meetups dd {
   font-size: 93%;
-  color: #666;
+  color: #AAA;
   margin-bottom: 0.75em; }
+
+.pTop-s {
+  padding-top: 0.5em; }
+
+.pTop-m {
+  padding-top: 1em; }
+
+.pTop-l {
+  padding-top: 1.5em; }
+
+.mTop-s {
+  margin-top: 0.5em; }
+
+.mTop-m {
+  margin-top: 1em; }
+
+.mTop-l {
+  margin-top: 1.5em; }
+
+.p-s {
+  padding: 0.5em; }
+
+.p-m {
+  padding: 1em; }
+
+.p-l {
+  padding: 1.5em; }
+
+.indent-s {
+  margin-left: 0.5em; }
+
+.indent-m {
+  margin-left: 1em; }
+
+.indent-l {
+  margin-left: 1.5em; }
+
+.outdent-s {
+  margin-left: -0.5em; }
+
+.outdent-m {
+  margin-left: -1em; }
+
+.outdent-l {
+  margin-left: -1.5em; }
+
+dl.people dt {
+  margin-top: 0.75em; }
+dl.people dd {
+  color: #AAA;
+  font-style: italic;
+  font-size: 85%; }
+
+.quiet {
+  color: #7F6F67; }
 
 .rickmap {
   width: 115px;
@@ -97,14 +170,31 @@ dl.meetups dd {
   font-size: 85%;
   text-align: center; }
   .rickmap a {
+    font-family: arial,helvetica,clean,sans-serif;
     display: block;
     height: 1%; }
+
+.reset-grid {
+  width: 100% !important;
+  margin-left: 0 !important;
+  float: none !important; }
+
+.small {
+  font-size: 93%; }
 
 .strong {
   font-weight: bold; }
 
 .strong-links a {
   font-weight: bold; }
+
+.title {
+  margin-bottom: 0.1em !important;
+  padding-bottom: 0 !important; }
+
+.top {
+  margin-top: 0 !important;
+  padding-top: 0 !important; }
 
 dl.two-col dt {
   float: left;
@@ -115,5 +205,6 @@ dl.two-col dt {
   font-size: 85%; }
 
 .view-all {
+  font-family: arial,helvetica,clean,sans-serif;
   font-size: 85%;
   margin-top: 0.75em; }
