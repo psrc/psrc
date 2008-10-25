@@ -230,9 +230,9 @@ a:focus {
   .section .section-content {
     padding: 0.5em;
     font-size: 93%; }
-    .section .section-content h4, .section .section-content h5 {
+    .section .section-content h4.title, .section .section-content h5.title {
       margin: 0;
-      padding-top: 1em; }
+      padding-top: 0.1em; }
     .section .section-content h5 {
       font-size: 116%; }
 
