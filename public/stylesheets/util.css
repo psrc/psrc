@@ -84,7 +84,6 @@ div.info {
   margin-bottom: 1.2em; }
 
 dl.items dt {
-  font-size: 116%;
   font-family: "Trebuchet MS", arial,helvetica,clean,sans-serif;
   font-weight: normal; }
 dl.items dd {
@@ -92,6 +91,11 @@ dl.items dd {
 
 div.item {
   margin-bottom: 2em; }
+
+.list-header {
+  font-family: arial,helvetica,clean,sans-serif;
+  margin-top: 1em;
+  font-weight: bold; }
 
 ul.links {
   margin: 0;
@@ -187,6 +191,24 @@ dl.people dd {
 
 .strong-links a {
   font-weight: bold; }
+
+td.x2 {
+  width: 50%; }
+
+td.x3 {
+  width: 33%; }
+
+td.x4 {
+  width: 25%; }
+
+table.x2 td {
+  width: 50%; }
+
+table.x3 td {
+  width: 33%; }
+
+table.x4 td {
+  width: 25%; }
 
 .title {
   margin-bottom: 0.1em !important;

@@ -37,6 +37,12 @@
   *width: 61.93em;
   min-width: 825px; }
 
+#module {
+  margin: auto;
+  text-align: left;
+  width: 34.6em;
+  min-width: 450px; }
+
 
 a:link, a:active {
   color: #015C82;
@@ -233,8 +239,6 @@ a:focus {
     .section .section-content h4.title, .section .section-content h5.title {
       margin: 0;
       padding-top: 0.1em; }
-    .section .section-content h5 {
-      margin-top: 1em; }
 
 .photo-caption-left {
   float: left;
