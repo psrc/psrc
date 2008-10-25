@@ -43,8 +43,12 @@ strong {
 em {
   font-style: italic; }
 
-blockquote, ul, ol {
+blockquote {
   margin: 1em; }
+  
+ul, ol {
+  margin: 0 1em; }
+  
 
 blockquote {
   padding: 0.5em 40px;
