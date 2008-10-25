@@ -234,7 +234,7 @@ a:focus {
       margin: 0;
       padding-top: 0.1em; }
     .section .section-content h5 {
-      font-size: 116%; }
+      margin-top: 1em; }
 
 .photo-caption-left {
   float: left;
