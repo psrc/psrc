@@ -93,7 +93,8 @@ p, fieldset, table, pre {
 
 p {
   line-height: 1.6em; }
-
+  
+dl dt { font-weight: bold; }
 
 input[type=text], input[type=password], textarea {
   width: 12.25em;
