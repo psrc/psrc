@@ -24,7 +24,9 @@
     color: #8F883E;
     padding-left: 0; }
   #main-content-wrapper #main-content a h2, #main-content-wrapper #main-content a h3, #main-content-wrapper #main-content a h4, #main-content-wrapper #main-content a h5,   #main-content-wrapper #page-content a h2, #main-content-wrapper #page-content a h3, #main-content-wrapper #page-content a h4, #main-content-wrapper #page-content a h5 {
-    color: #015C82; }
+    color: #015C82;
+    font-family: "Trebuchet MS", arial,helvetica,clean,sans-serif;
+    font-weight: bold; }
   #main-content-wrapper #main-content h2,   #main-content-wrapper #page-content h2 {
     margin-top: 1em; }
   #main-content-wrapper #main-content img.border,   #main-content-wrapper #page-content img.border {
