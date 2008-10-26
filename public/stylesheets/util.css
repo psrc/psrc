@@ -165,6 +165,13 @@ dl.people dd {
   font-style: italic;
   font-size: 85%; }
 
+dl.photo-summary dt {
+  float: left; }
+  dl.photo-summary dt img {
+    border: 2px solid #BFBA9B; }
+dl.photo-summary dd {
+  margin-left: 160px; }
+
 .quiet {
   color: #AAA; }
 
