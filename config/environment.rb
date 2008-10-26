@@ -106,10 +106,9 @@ Radiant::Initializer.run do |config|
       ResponseCache.defaults[:directory] = ActionController::Base.page_cache_directory
       ResponseCache.defaults[:logger]    = ActionController::Base.logger
     end
-
-    ExceptionNotifier.email_to = ["joe@fixieconsulting.com", "jordan@fixieconsulting.com"]
-    ExceptionNotifier.email_from = "PSRC Website <your-mom@psrc.org>"
   end
 end
 
- 
+HoptoadNotifier.configure do |config|
+   config.api_key = '9786b95cf10aa5b13c9ddc78432dd55d'
+end
