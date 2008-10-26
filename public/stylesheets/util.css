@@ -1,78 +1,256 @@
-/*
-Sass::SyntaxError: Invalid attribute: ":margin-right ".
-on line 77 of /Users/jordanisip/Documents/Rails/psrc/public/stylesheets/sass/util.sass
 
-73: ul.projects
-74:   li
-75:     :height 23em
-76:     :padding 0.6em
-77:     :margin-right 
-78: 
-79: .float-left
-80:   :float left
-81: 
-82: .float-right
-83:   :float right
+.align-center {
+  text-align: center; }
 
+.align-left {
+  text-align: left; }
 
-Backtrace:
-/Users/jordanisip/Documents/Rails/psrc/public/stylesheets/sass/util.sass:77
-/Users/jordanisip/Documents/Rails/psrc/vendor/plugins/haml/lib/sass/tree/attr_node.rb:20:in `to_s'
-/Users/jordanisip/Documents/Rails/psrc/vendor/plugins/haml/lib/sass/tree/rule_node.rb:75:in `to_s'
-/Users/jordanisip/Documents/Rails/psrc/vendor/plugins/haml/lib/sass/tree/rule_node.rb:75:in `map'
-/Users/jordanisip/Documents/Rails/psrc/vendor/plugins/haml/lib/sass/tree/rule_node.rb:75:in `to_s'
-/Users/jordanisip/Documents/Rails/psrc/vendor/plugins/haml/lib/sass/tree/rule_node.rb:83:in `to_s'
-/Users/jordanisip/Documents/Rails/psrc/vendor/plugins/haml/lib/sass/tree/rule_node.rb:82:in `each'
-/Users/jordanisip/Documents/Rails/psrc/vendor/plugins/haml/lib/sass/tree/rule_node.rb:82:in `to_s'
-/Users/jordanisip/Documents/Rails/psrc/vendor/plugins/haml/lib/sass/tree/node.rb:26:in `to_s'
-/Users/jordanisip/Documents/Rails/psrc/vendor/plugins/haml/lib/sass/tree/node.rb:22:in `each'
-/Users/jordanisip/Documents/Rails/psrc/vendor/plugins/haml/lib/sass/tree/node.rb:22:in `to_s'
-/Users/jordanisip/Documents/Rails/psrc/vendor/plugins/haml/lib/sass/engine.rb:88:in `render'
-/Users/jordanisip/Documents/Rails/psrc/vendor/plugins/haml/lib/sass/plugin.rb:61:in `update_stylesheets'
-/Users/jordanisip/Documents/Rails/psrc/vendor/plugins/haml/lib/sass/plugin.rb:46:in `each'
-/Users/jordanisip/Documents/Rails/psrc/vendor/plugins/haml/lib/sass/plugin.rb:46:in `update_stylesheets'
-/Users/jordanisip/Documents/Rails/psrc/vendor/plugins/haml/lib/sass/plugin/rails.rb:16:in `process'
-/Users/jordanisip/Documents/Rails/psrc/vendor/rails/actionpack/lib/action_controller/rescue.rb:55:in `process_with_exception'
-/Users/jordanisip/Documents/Rails/psrc/vendor/rails/actionpack/lib/action_controller/dispatcher.rb:188:in `failsafe_rescue'
-/Users/jordanisip/Documents/Rails/psrc/vendor/rails/actionpack/lib/action_controller/dispatcher.rb:49:in `failsafe_response'
-/Users/jordanisip/Documents/Rails/psrc/vendor/rails/actionpack/lib/action_controller/dispatcher.rb:186:in `failsafe_rescue'
-/Users/jordanisip/Documents/Rails/psrc/vendor/rails/actionpack/lib/action_controller/dispatcher.rb:117:in `dispatch'
-/Users/jordanisip/Documents/Rails/psrc/vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
-/Users/jordanisip/Documents/Rails/psrc/vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
-/standard-rails/install/lib/ruby/gems/1.8/gems/mongrel-1.1.3/bin/../lib/mongrel/rails.rb:76:in `process'
-/standard-rails/install/lib/ruby/gems/1.8/gems/mongrel-1.1.3/bin/../lib/mongrel/rails.rb:74:in `synchronize'
-/standard-rails/install/lib/ruby/gems/1.8/gems/mongrel-1.1.3/bin/../lib/mongrel/rails.rb:74:in `process'
-/standard-rails/install/lib/ruby/gems/1.8/gems/mongrel-1.1.3/lib/mongrel.rb:159:in `process_client'
-/standard-rails/install/lib/ruby/gems/1.8/gems/mongrel-1.1.3/lib/mongrel.rb:158:in `each'
-/standard-rails/install/lib/ruby/gems/1.8/gems/mongrel-1.1.3/lib/mongrel.rb:158:in `process_client'
-/standard-rails/install/lib/ruby/gems/1.8/gems/mongrel-1.1.3/lib/mongrel.rb:285:in `run'
-/standard-rails/install/lib/ruby/gems/1.8/gems/mongrel-1.1.3/lib/mongrel.rb:285:in `initialize'
-/standard-rails/install/lib/ruby/gems/1.8/gems/mongrel-1.1.3/lib/mongrel.rb:285:in `new'
-/standard-rails/install/lib/ruby/gems/1.8/gems/mongrel-1.1.3/lib/mongrel.rb:285:in `run'
-/standard-rails/install/lib/ruby/gems/1.8/gems/mongrel-1.1.3/lib/mongrel.rb:268:in `initialize'
-/standard-rails/install/lib/ruby/gems/1.8/gems/mongrel-1.1.3/lib/mongrel.rb:268:in `new'
-/standard-rails/install/lib/ruby/gems/1.8/gems/mongrel-1.1.3/lib/mongrel.rb:268:in `run'
-/standard-rails/install/lib/ruby/gems/1.8/gems/mongrel-1.1.3/lib/mongrel/configurator.rb:282:in `run'
-/standard-rails/install/lib/ruby/gems/1.8/gems/mongrel-1.1.3/lib/mongrel/configurator.rb:281:in `each'
-/standard-rails/install/lib/ruby/gems/1.8/gems/mongrel-1.1.3/lib/mongrel/configurator.rb:281:in `run'
-/standard-rails/install/lib/ruby/gems/1.8/gems/mongrel-1.1.3/bin/mongrel_rails:131:in `run'
-/standard-rails/install/lib/ruby/gems/1.8/gems/mongrel-1.1.3/lib/mongrel/command.rb:212:in `run'
-/standard-rails/install/lib/ruby/gems/1.8/gems/mongrel-1.1.3/bin/mongrel_rails:284
-/Users/jordanisip/Documents/Rails/psrc/vendor/rails/activesupport/lib/active_support/dependencies.rb:489:in `load'
-/Users/jordanisip/Documents/Rails/psrc/vendor/rails/activesupport/lib/active_support/dependencies.rb:489:in `load'
-/Users/jordanisip/Documents/Rails/psrc/vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
-/Users/jordanisip/Documents/Rails/psrc/vendor/rails/activesupport/lib/active_support/dependencies.rb:489:in `load'
-/Users/jordanisip/Documents/Rails/psrc/vendor/rails/railties/lib/commands/servers/mongrel.rb:64
-/standard-rails/install//lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `gem_original_require'
-/standard-rails/install//lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
-/Users/jordanisip/Documents/Rails/psrc/vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
-/Users/jordanisip/Documents/Rails/psrc/vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
-/Users/jordanisip/Documents/Rails/psrc/vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
-/Users/jordanisip/Documents/Rails/psrc/vendor/rails/railties/lib/commands/server.rb:39
-script/server:3:in `require'
-script/server:3
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Sass::SyntaxError: Invalid attribute: \":margin-right \".\A on line 77 of /Users/jordanisip/Documents/Rails/psrc/public/stylesheets/sass/util.sass\A \A 73: ul.projects\A 74:   li\A 75:     :height 23em\A 76:     :padding 0.6em\A 77:     :margin-right \A 78: \A 79: .float-left\A 80:   :float left\A 81: \A 82: .float-right\A 83:   :float right\A "; }
+.align-right {
+  text-align: right; }
+
+.back {
+  float: right;
+  margin-top: 0.5em; }
+
+#page-header .back-link {
+  margin-bottom: 0;
+  margin-top: 1em;
+  margin-right: 0.5em;
+  color: white; }
+
+.clear {
+  display: inline-block; }
+  .clear:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+
+* html .clear {
+  height: 1%; }
+
+.clear, .block {
+  display: block; }
+
+.clear-both {
+  clear: both; }
+
+.date {
+  float: right;
+  font-family: arial,helvetica,clean,sans-serif;
+  font-size: 85%;
+  color: #AAA;
+  margin-top: 0.1em;
+  margin-bottom: 0; }
+
+.email {
+  background: url(/images/email.png) no-repeat;
+  padding: 1px 0 2px 19px; }
+
+ul.features, ul.projects {
+  margin: 0; }
+  ul.features li,   ul.projects li {
+    margin: 0;
+    list-style: none;
+    float: left;
+    margin-right: 0.8em;
+    width: 125px; }
+    ul.features li img,     ul.projects li img {
+      border: 2px solid #DFD0C3; }
+    ul.features li a:hover img,     ul.projects li a:hover img {
+      border-color: #29B0E8; }
+    ul.features li p,     ul.projects li p {
+      font-size: 85%;
+      line-height: 1.3em;
+      margin-bottom: 0; }
+    ul.features li.last,     ul.projects li.last {
+      margin-right: 0; }
+
+ul.projects li {
+  height: 23em;
+  padding: 0;
+  margin-right: 0.6em; }
+
+.float-left {
+  float: left; }
+
+.float-right {
+  float: right; }
+
+.header-description {
+  font-size: 93%;
+  margin-bottom: 0;
+  padding-bottom: 0.2em;
+  color: #7F6F67; }
+
+.hide {
+  display: none; }
+
+.info a:link, .info a:visited {
+  text-decoration: underline; }
+
+div.info {
+  line-height: 1.6em;
+  margin-bottom: 1.2em; }
+
+dl.items dt {
+  font-family: "Trebuchet MS", arial,helvetica,clean,sans-serif; }
+  dl.items dt a {
+    font-weight: normal; }
+dl.items dd {
+  margin-bottom: 1em; }
+
+div.item {
+  margin-bottom: 2em; }
+
+.list-header {
+  font-family: arial,helvetica,clean,sans-serif;
+  margin-top: 1em;
+  font-weight: bold; }
+
+ul.links {
+  margin: 0;
+  padding: 0; }
+  ul.links li {
+    margin: 0;
+    padding: 0;
+    padding-bottom: 0.25em;
+    list-style: none; }
+
+dl.meetups dt {
+  margin-top: 0.75em;
+  font-weight: normal; }
+dl.meetups dd {
+  font-size: 93%;
+  color: #AAA;
+  margin-bottom: 0.75em; }
+
+.pTop-s {
+  padding-top: 0.5em; }
+
+.pTop-m {
+  padding-top: 1em; }
+
+.pTop-l {
+  padding-top: 1.5em; }
+
+.mTop-s {
+  margin-top: 0.5em; }
+
+.mTop-m {
+  margin-top: 1em; }
+
+.mTop-l {
+  margin-top: 1.5em; }
+
+.p-s {
+  padding: 0.5em; }
+
+.p-m {
+  padding: 1em; }
+
+.p-l {
+  padding: 1.5em; }
+
+.indent-s {
+  margin-left: 0.5em; }
+
+.indent-m {
+  margin-left: 1em; }
+
+.indent-l {
+  margin-left: 1.5em; }
+
+.outdent-s {
+  margin-left: -0.5em; }
+
+.outdent-m {
+  margin-left: -1em; }
+
+.outdent-l {
+  margin-left: -1.5em; }
+
+dl.people dt {
+  margin-top: 0.75em;
+  font-weight: normal; }
+dl.people dd {
+  color: #AAA;
+  font-style: italic;
+  font-size: 85%; }
+
+dl.photo-summary dt {
+  float: left; }
+  dl.photo-summary dt img {
+    border: 2px solid #BFBA9B; }
+dl.photo-summary dd {
+  margin-left: 130px; }
+
+.quiet {
+  color: #AAA; }
+
+.rickmap {
+  width: 115px;
+  float: right;
+  font-size: 85%;
+  text-align: center; }
+  .rickmap a {
+    font-family: arial,helvetica,clean,sans-serif;
+    display: block;
+    height: 1%; }
+
+.reset-grid {
+  width: 100% !important;
+  margin-left: 0 !important;
+  float: none !important; }
+
+.small {
+  font-size: 93%; }
+
+ul.spaced li {
+  margin-bottom: 0.5em; }
+
+.strong {
+  font-weight: bold; }
+
+.strong-links a {
+  font-weight: bold; }
+
+td.x2 {
+  width: 50%; }
+
+td.x3 {
+  width: 33%; }
+
+td.x4 {
+  width: 25%; }
+
+table.x2 td {
+  width: 50%; }
+
+table.x3 td {
+  width: 33%; }
+
+table.x4 td {
+  width: 25%; }
+
+.title {
+  margin-bottom: 0.1em !important;
+  padding-bottom: 0 !important; }
+
+.top {
+  margin-top: 0 !important;
+  padding-top: 0 !important; }
+
+dl.two-col dt {
+  float: left;
+  width: 55px; }
+
+.view-more {
+  text-align: right;
+  font-size: 85%; }
+
+.view-all {
+  font-family: arial,helvetica,clean,sans-serif;
+  font-size: 85%;
+  margin-top: 0.75em; }
