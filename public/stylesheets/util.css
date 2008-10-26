@@ -88,8 +88,9 @@ div.info {
   margin-bottom: 1.2em; }
 
 dl.items dt {
-  font-family: "Trebuchet MS", arial,helvetica,clean,sans-serif;
-  font-weight: normal; }
+  font-family: "Trebuchet MS", arial,helvetica,clean,sans-serif; }
+  dl.items dt a {
+    font-weight: normal; }
 dl.items dd {
   margin-bottom: 1em; }
 
@@ -111,7 +112,8 @@ ul.links {
     list-style: none; }
 
 dl.meetups dt {
-  margin-top: 0.75em; }
+  margin-top: 0.75em;
+  font-weight: normal; }
 dl.meetups dd {
   font-size: 93%;
   color: #AAA;
