@@ -18,9 +18,9 @@ teButtons.push(new TextileEditorButton('ed_block',   		'blockquote.png',    'bq'
 //teButtons.push(new TextileEditorButton('ed_justifyc',		'center.png',        '=',   '\n', 'e', 'Center Text'));
 //teButtons.push(new TextileEditorButton('ed_justifyr',		'right.png',         '>',   '\n', 'r', 'Right Justify'));
 //teButtons.push(new TextileEditorButton('ed_justify', 		'justify.png',       '<>',  '\n', 'j', 'Justify'));
-teButtons.push(new TextileEditorButton('ed_image', 		  'bold.png',          '<r:assets:image title="IMAGE TITLE" />',   '',  '!', 'Image'));
-teButtons.push(new TextileEditorButton('ed_link', 		  'bold.png',          '"LINK TITLE":/path/to/page',   '',  'a', 'Link'));
-teButtons.push(new TextileEditorButton('ed_section', 		'bold.png',          '\n<r:snippet name="section" title="YOUR TITLE HERE">\n\n</r:snippet>',   '',  'a', 'Section'));
-teButtons.push(new TextileEditorButton('ed_subsection', 'bold.png',          '\n<r:snippet name="subsection" title="YOUR TITLE HERE">\n\n</r:snippet>',   '',  'a', 'Sub Section'));
+teButtons.push(new TextileEditorButton('ed_image', 		  'bold.png',          '<r:assets:image title="IMAGE NAME" /> ',   '',  '!', 'Image'));
+teButtons.push(new TextileEditorButton('ed_link', 		  'bold.png',          '"LINK TITLE":/path/to/page ',   '',  'a', 'Link'));
+teButtons.push(new TextileEditorButton('ed_section', 		'bold.png',          '\n<r:snippet name="section" title="YOUR TITLE HERE">\nCONTENT\n</r:snippet>',   '',  'a', 'Section'));
+teButtons.push(new TextileEditorButton('ed_subsection', 'bold.png',          '\n<r:snippet name="subsection" title="YOUR TITLE HERE">\nCONTENT\n</r:snippet>',   '',  'a', 'Sub Section'));
 
 // teButtons.push(new TextileEditorButton('ed_code','code','@','@','c','Code'));
