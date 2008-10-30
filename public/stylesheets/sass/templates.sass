@@ -12,9 +12,9 @@
   /:padding 1em
   /:padding-top 0.9em
   #page-header
-    :background #25190F
+    :background #E3E8E9
   h2
-    :color #C8BCA6
+    :color #125E69
     /:color #4E3114
     :margin 0
     :padding 0.2em 0.5em
@@ -60,15 +60,15 @@
 / === LINKS === /
 a
   &:link, &:active
-    color: #015C82
+    color: #1B2D9C
     / RED color: #CC3300
     :text-decoration none
   &:visited
-    color: #015C82
+    color: #1B2D9C
     / RED color: #993300
     :text-decoration none
   &:hover
-    :color #29b0e8
+    :color #0D1C6F
     :text-decoration underline
   &:focus
     :outline none
@@ -126,9 +126,8 @@ a
       :display inline
 
 #header
-  :font-weight bold
   :font-size 85%
-  :background #BF5B0B
+  :background #CCC url(/images/bg-header-chrome.png) repeat-x
   :padding 0
   :margin-bottom 1em
   ul#nav
@@ -143,35 +142,33 @@ a
       :z-index 99
       :text-align center
       :float left
-      :border-right 1px solid #EF974A
+      :background url(/images/bg-white.png)
+      :margin 0.2em
       a:link, a:visited
         :display block
-        :padding 0.8em 2em
+        :padding 0.2em 0
         :vertical-align middle
-        :color #FFF
+        :color #000
         :text-transform capitalize
       a.sub-nav
-        :padding-right 2.2em !important
-        :padding-left 1.4em !important
-        :background url(/images/global-nav-arrow-white.gif) no-repeat right 1.2em
+        :padding-right 1.7em !important
+        :padding-left 0.9em !important
+        :background url(/images/global-nav-arrow-orange.gif) no-repeat right 0.65em
       a:hover
-        :background #9F4C09
-        /:background #666 url(/images/bg-header-hover.png)
+        :background #666 url(/images/bg-header-hover.png)
         :color #FFF
         :text-decoration none
-      &.first
-        :border-left 1px solid #EF974A
       &.current
         a:link, a:visited
-          :background #9F4C09
+          :background #185F70
           /:background #666 url(/images/bg-header-hover.png)
           :color #FFF
         li
           a:link, a:visited
-            :background #FFF7EF
+            :background #FFF
             :color #333     
           a:hover
-            :background #AF5D15
+            :background #185F70
             /:background #666 url(/images/bg-header-hover.png)
             :color #FFF
             :text-decoration none   
@@ -180,13 +177,13 @@ a
         :position absolute
         :z-index 100
         :left 0
-        :top 2.75em
+        :top 2em
         :border-left 1px solid #DDD
         :border-right 1px solid #DDD
         :border-bottom 1px solid #DDD
         :margin 0
         :padding 0
-        :background-color #EFEAE0
+        :background-color #FFF
         li
           :margin 0
           :padding 0
@@ -232,25 +229,26 @@ a
   :color #7F6F67
 
 .section
-  :border 1px solid #EFE5D1
+  :border 1px solid #DBDBDB
   :margin-bottom 1em
   :background #FFF
-  :-moz-border-radius-bottomleft 10px
-  :-moz-border-radius-topright 10px
-  :-webkit-border-radius-bottomleft 10px
-  :-webkit-border-radius-topright 10px
-  .section-header
+  /
+    :-moz-border-radius-bottomleft 10px
     :-moz-border-radius-topright 10px
+    :-webkit-border-radius-bottomleft 10px
     :-webkit-border-radius-topright 10px
+  .section-header
+    /
+      :-moz-border-radius-topright 10px
+      :-webkit-border-radius-topright 10px
     :font-size 93%
-    :background #25190F
+    :background #E3E8E9
     / url(/images/bg-section-header2.png) repeat-x
-    /:border-bottom 1px solid #81B1CF
-    :padding 0.5em 0.5em
+    :border-bottom 1px solid #5E99A8
+    :padding 0.2em 0.5em
     h3, h4
-      :font-weight bold
-      :color #C8BCA6 !important
-      :text-transform uppercase
+      :color #125E69 !important
+      /:text-transform uppercase
     h3
       :font-size 116%
       :padding 0

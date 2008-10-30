@@ -1,13 +1,12 @@
 html {
-  background: #FFFAEF;
+  /* background: #FFFAEF; */
 }
 body {
-  color: #333; 
-  font-family: "Georgia", "serif";
+  color: #000;
   }
 
 h1, h2, h3, h4 {
-  font-family: "Trebuchet MS", arial,helvetica,clean,sans-serif;
+  /*font-family: "Trebuchet MS", arial,helvetica,clean,sans-serif;*/
   margin: 1em 0;
   }
   h1.title,   h2.title,   h3.title,   h4.title {
@@ -52,12 +51,11 @@ ul, ol {
 
 blockquote {
   padding: 0.5em 40px;
-  background: #F3F0DC url(/images/quote.gif) no-repeat 0.2em 0.2em;
+  background: #F9F9F9 url(/images/quote.gif) no-repeat 0.2em 0.2em;
   font-size: 108%;
-  border-top: 1px solid #DFD0C3;
-  border-bottom: 1px solid #DFD0C3;
+  border-top: 1px solid #DBDBDB;
+  border-bottom: 1px solid #DBDBDB;
   font-style: italic; 
-  color: #4E3114;
   }
 ol, ul {
   margin-left: 2em; }

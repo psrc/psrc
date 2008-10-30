@@ -57,9 +57,9 @@ ul.features, ul.projects {
     margin-right: 0.8em;
     width: 125px; }
     ul.features li img,     ul.projects li img {
-      border: 2px solid #DFD0C3; }
+      border: 2px solid #DBDBDB; }
     ul.features li a:hover img,     ul.projects li a:hover img {
-      border-color: #29B0E8; }
+      border-color: #0D1C6F; }
     ul.features li p,     ul.projects li p {
       font-size: 85%;
       line-height: 1.3em;
