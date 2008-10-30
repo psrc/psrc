@@ -81,6 +81,7 @@
             = save_model_and_continue_editing_button(@page)
             or
             = link_to 'Cancel', page_index_url
+    = textile_editor_initialize
   - main.edit_popups do
     - content_for 'popups' do
       #add-part-popup.popup{:style => "display: none"}
