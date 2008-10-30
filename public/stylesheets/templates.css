@@ -280,12 +280,11 @@ ul#page-navigation {
       font-size: 93%;
       font-weight: bold; }
     ul#page-navigation li.active {
-      background: #F36523 url(/images/nav-arrow.gif) no-repeat 155px 0.25em; }
-      ul#page-navigation li.active / {
-        -moz-border-radius-topright: 10px;
-        -webkit-border-radius-topright: 10px;
-        -moz-border-radius-bottomleft: 10px;
-        -webkit-border-radius-bottomleft: 10px; }
+      background: #F36523 url(/images/nav-arrow.gif) no-repeat 155px 0.25em;
+      -moz-border-radius-topright: 10px;
+      -webkit-border-radius-topright: 10px;
+      -moz-border-radius-bottomleft: 10px;
+      -webkit-border-radius-bottomleft: 10px; }
       ul#page-navigation li.active a:link, ul#page-navigation li.active a:visited {
         color: #FFF; }
     ul#page-navigation li.first {
