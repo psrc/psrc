@@ -238,7 +238,7 @@ a:focus {
       padding: 0;
       margin: 0; }
   .section .section-content {
-    padding: 0.5em;
+    padding: 1 0.5em 0em;
     font-size: 93%; }
     .section .section-content h4.title, .section .section-content h5.title {
       margin: 0;
