@@ -13,6 +13,8 @@
     });
     Event.addBehavior({ '#add-page-link': AddSelector('placement')});
 
+= render :partial => "/assets/show_bucket_link"
+= render :partial => "/assets/assets_bucket"
 - content_for :page_css do
   :sass
     a.add-link, a.delete-link
@@ -34,30 +36,10 @@
 
 - form_for @banner do |f|
   .form-area
-    %p.title
-      = f.label :name
-      = f.text_field :name, :class => 'textbox'
-    %br/
     %p
-      = f.label :background_image
+      = f.label :background_image, "URL Of Banner Image"
       %br/
       = f.text_field :background_image, :class => 'textbox', :size => 72
-    %p
-      = f.label :foreground_image
-      %br/
-      = f.text_field :foreground_image, :class => 'textbox', :size => 72
-    %p
-      = f.label :link_url, 'Link URL'
-      %br/
-      = f.text_field :link_url, :class => 'textbox', :size => 72
-    %p
-      = f.label :link_target, "Target window (use _blank for new window)"
-      %br/
-      = f.select :link_target, ['', '_blank', '_top']
-    %p
-      = f.label :image_style, "Image Style (CSS)"
-      %br/
-      ~ f.text_area :image_style, :size => '72x5'
     %div
       %p
         %label
@@ -73,3 +55,5 @@
     = save_model_button(@banner)
     or
     = link_to "Cancel", banners_path
+    or
+    = link_to "Delete?", banner_path(@banner), :method => "Delete", :confirm => "Are you sure?"

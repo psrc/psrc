@@ -13,7 +13,7 @@ module BannerRotator
     tag 'banner' do |tag|
       page = tag.locals.page
       tag.locals.banner = page.select_banner
-      tag.expand if tag.locals.banner && page.show_banner?
+      tag.expand if tag.locals.banner
     end
 
     %w{name background_image foreground_image link_url link_target image_style}.each do |att|
