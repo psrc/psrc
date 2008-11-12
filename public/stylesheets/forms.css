@@ -54,3 +54,44 @@ form dd {
   margin-bottom: 0.5em; }
 form hr {
   noshade: noshade; }
+
+
+.notice, .success, .error {
+  margin-bottom: 1em;
+  text-align: center;
+  font-weight: bold;
+  padding: 0.5em; }
+  .notice a,   .success a,   .error a {
+    font-weight: bold; }
+  .notice h2,   .success h2,   .error h2 {
+    padding: 0;
+    margin: 0;
+    text-transform: capitalize; }
+
+.errorExplanation {
+  background: #FBE3E4;
+  color: #8a1f11;
+  border: 1px solid #FBC2C4;
+  text-align: center;
+  font-weight: bold; }
+  .errorExplanation h2 {
+    margin: 0; }
+
+.error {
+  background: #CF001D;
+  color: #FFF; }
+
+.notice {
+  background: #FFF6BF;
+  color: #514721;
+  border-color: #FFD324; }
+
+.success {
+  background: #E6EFC2;
+  color: #264409;
+  border-color: #C6D880; }
+
+.fieldWithErrors {
+  display: inline; }
+  .fieldWithErrors input {
+    background: #FFDFE1; }
