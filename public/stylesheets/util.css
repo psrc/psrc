@@ -195,15 +195,16 @@ dl.photo-summary dd {
 
 .rickmap-sm {
   width: 62px;
-  float: left;
-  text-align: center; }
+  float: left; }
 
 .rickmap {
   width: 115px;
   float: right;
-  font-size: 85%;
+  font-size: 85%; }
+
+.rickmap, .rickmap-sm {
   text-align: center; }
-  .rickmap a {
+  .rickmap a,   .rickmap-sm a {
     font-family: arial,helvetica,clean,sans-serif;
     display: block;
     height: 1%; }
