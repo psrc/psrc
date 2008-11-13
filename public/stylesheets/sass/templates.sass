@@ -8,9 +8,10 @@
   :-webkit-border-radius-topright 10px
 
   #page-header
-    :background #E3E8E9
+    :background #E0ECEF
+    :font-weight normal
   h2
-    :color #125E69
+    :color #185F70
     /:color #4E3114
     :margin 0
     :padding 0.2em 0.5em
@@ -22,9 +23,11 @@
     :padding 1em
   #page-content
     :padding 1em 1em 0.5em 1em
-    :border 1px solid #DFD0C3
-    :border-top 1px solid #BFAC9B
+    :border 1px solid #E0ECEF
+    :border-top 1px solid #D1DCDF
   #main-content, #page-content
+    h2,h3
+      :font-weight normal
     h2,h3,h4,h5
       :color #8F883E
       :padding-left 0
@@ -37,10 +40,6 @@
       :margin-top 1em
     img.border
       :border 4px solid #DFD0C3
-    .info
-      :font-size 93%
-      p
-        :margin-bottom 0
     
 #custom-doc, #banner, #breadcrumbs, #nav, #branding, #ft
   :margin auto
@@ -58,12 +57,13 @@
 / === LINKS === /
 a
   &:link, &:active
-    color: #1A4175
+    :color #1A4175
     :text-decoration none
   &:visited
-    color: #355C8F
+    :color #355C8F
     :text-decoration none
   &:hover
+    :color #FF7F00
     :text-decoration underline
   &:focus
     :outline none
@@ -103,7 +103,7 @@ a
   :font-family arial,helvetica,clean,sans-serif
   :font-size 85%
   :margin-bottom 0.3em
-  :padding-top 0.5em
+  :padding-top 0em
   :color #7F6F67
   a:link, a:visited
     :text-decoration underline
@@ -124,7 +124,7 @@ a
   :font-size 85%
   :background #CCC url(/images/bg-header-chrome.png) repeat-x
   :padding 0
-  :margin-bottom 1em
+  :margin-bottom 0.8em
   ul#nav
     :font-family "Trebuchet MS", arial,helvetica,clean,sans-serif
     :display block
@@ -146,8 +146,7 @@ a
         :padding 0.2em 0
         :vertical-align middle
         :color #000
-        /:font-size 108%
-        /:font-weight bold
+        :font-size 108%
         :text-transform capitalize
       a.sub-nav
         :padding-right 1.7em !important
@@ -203,19 +202,21 @@ a
   h1
     :margin 0
   #search-container
-    :width 20em
+    :background #CCC url(/images/bg-header-chrome.png) repeat-x
     :float right
-    :text-align left
+    :text-align right
     #search-form
+      :padding 0.1em 0.3em
       :vertical-align middle
       :margin 0
-      :padding 0.5em
       .text
         :width 71%
     #search-button
+      :font-family "Trebuchet MS", arial,helvetica,clean,sans-serif
       :font-size 85%
-      :color #264409
-
+      :color #FFF
+      :background #758A95
+      :border 1px solid #185F70
 #page-header
   :margin 0 0 0.3em 0
   
@@ -228,7 +229,7 @@ a
   :color #7F6F67
 
 .section
-  :border 1px solid #E3E8E9
+  :border 1px solid #E0ECEF
   :margin-bottom 1em
   :background #FFF
   /
@@ -240,14 +241,14 @@ a
     /
       :-moz-border-radius-topright 10px
       :-webkit-border-radius-topright 10px
-    :font-size 93%
-    :background #EAEAEA
-    / url(/images/bg-section-header2.png) repeat-x
+    :font-size 77%
+    :background #758A95
     :border-bottom 1px solid #999
-    :padding 0.2em 0.5em
+    :padding 0.2em 0.5em 0.1em
     h3, h4
-      :color #1A2B2F !important
-      /:text-transform uppercase
+      :font-weight bold
+      :color #EFFCFF !important
+      :text-transform uppercase
     h3
       :font-size 116%
       :padding 0

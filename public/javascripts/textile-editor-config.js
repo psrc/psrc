@@ -14,8 +14,8 @@ teButtons.push(new TextileEditorButton('ed_block',   		'blockquote.png',    'bq'
 teButtons.push(new TextileEditorButton('ed_image', 		  'image.png',          '<r:assets:image title="IMAGE NAME" /> ',   '',  '!', 'Image'));
 teButtons.push(new TextileEditorButton('ed_link', 		  'link.png',          '"LINK TITLE":/path/to/page ',   '',  'a', 'Link'));
 teButtons.push(new TextileEditorButton('ed_section', 		'section.png',       '\n<r:snippet name="section" title="YOUR TITLE HERE">\nCONTENT\n</r:snippet>',   '',  'a', 'Section'));
-teButtons.push(new TextileEditorButton('ed_subsection', 'sub-section.png',   '\n<r:snippet name="subsection" title="YOUR TITLE HERE">\nCONTENT\n</r:snippet>',   '',  'a', 'Sub Section'));
 
+//teButtons.push(new TextileEditorButton('ed_subsection', 'sub-section.png',   '\n<r:snippet name="subsection" title="YOUR TITLE HERE">\nCONTENT\n</r:snippet>',   '',  'a', 'Sub Section'));
 // teButtons.push(new TextileEditorButton('ed_code','code','@','@','c','Code'));
 //teButtons.push(new TextileEditorButton('ed_outdent', 		'outdent.png',       ')',   '\n', ']', 'Outdent'));
 //teButtons.push(new TextileEditorButton('ed_indent',  		'indent.png',        '(',   '\n', '[', 'Indent'));

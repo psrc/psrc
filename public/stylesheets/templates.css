@@ -6,9 +6,10 @@
   -moz-border-radius-topright: 10px;
   -webkit-border-radius-topright: 10px; }
   #main-content-wrapper #page-header {
-    background: #E3E8E9; }
+    background: #E0ECEF;
+    font-weight: normal; }
   #main-content-wrapper h2 {
-    color: #125E69;
+    color: #185F70;
     margin: 0;
     padding: 0.2em 0.5em; }
   #main-content-wrapper #main-content {
@@ -18,8 +19,10 @@
     padding: 1em; }
   #main-content-wrapper #page-content {
     padding: 1em 1em 0.5em 1em;
-    border: 1px solid #DFD0C3;
-    border-top: 1px solid #BFAC9B; }
+    border: 1px solid #E0ECEF;
+    border-top: 1px solid #D1DCDF; }
+  #main-content-wrapper #main-content h2, #main-content-wrapper #main-content h3,   #main-content-wrapper #page-content h2, #main-content-wrapper #page-content h3 {
+    font-weight: normal; }
   #main-content-wrapper #main-content h2, #main-content-wrapper #main-content h3, #main-content-wrapper #main-content h4, #main-content-wrapper #main-content h5,   #main-content-wrapper #page-content h2, #main-content-wrapper #page-content h3, #main-content-wrapper #page-content h4, #main-content-wrapper #page-content h5 {
     color: #8F883E;
     padding-left: 0; }
@@ -31,10 +34,6 @@
     margin-top: 1em; }
   #main-content-wrapper #main-content img.border,   #main-content-wrapper #page-content img.border {
     border: 4px solid #DFD0C3; }
-  #main-content-wrapper #main-content .info,   #main-content-wrapper #page-content .info {
-    font-size: 93%; }
-    #main-content-wrapper #main-content .info p,     #main-content-wrapper #page-content .info p {
-      margin-bottom: 0; }
 
 #custom-doc, #banner, #breadcrumbs, #nav, #branding, #ft {
   margin: auto;
@@ -57,6 +56,7 @@ a:visited {
   color: #355C8F;
   text-decoration: none; }
 a:hover {
+  color: #FF7F00;
   text-decoration: underline; }
 a:focus {
   outline: none; }
@@ -94,7 +94,7 @@ a:focus {
   font-family: arial,helvetica,clean,sans-serif;
   font-size: 85%;
   margin-bottom: 0.3em;
-  padding-top: 0.5em;
+  padding-top: 0em;
   color: #7F6F67; }
   #breadcrumbs a:link, #breadcrumbs a:visited {
     text-decoration: underline; }
@@ -116,7 +116,7 @@ a:focus {
   font-size: 85%;
   background: #CCC url(/images/bg-header-chrome.png) repeat-x;
   padding: 0;
-  margin-bottom: 1em; }
+  margin-bottom: 0.8em; }
   #header ul#nav {
     font-family: "Trebuchet MS", arial,helvetica,clean,sans-serif;
     display: block;
@@ -138,6 +138,7 @@ a:focus {
         padding: 0.2em 0;
         vertical-align: middle;
         color: #000;
+        font-size: 108%;
         text-transform: capitalize; }
       #header ul#nav li a.sub-nav {
         padding-right: 1.7em !important;
@@ -189,18 +190,21 @@ a:focus {
   #branding h1 {
     margin: 0; }
   #branding #search-container {
-    width: 20em;
+    background: #CCC url(/images/bg-header-chrome.png) repeat-x;
     float: right;
-    text-align: left; }
+    text-align: right; }
     #branding #search-container #search-form {
+      padding: 0.1em 0.3em;
       vertical-align: middle;
-      margin: 0;
-      padding: 0.5em; }
+      margin: 0; }
       #branding #search-container #search-form .text {
         width: 71%; }
     #branding #search-container #search-button {
+      font-family: "Trebuchet MS", arial,helvetica,clean,sans-serif;
       font-size: 85%;
-      color: #264409; }
+      color: #FFF;
+      background: #758A95;
+      border: 1px solid #185F70; }
 
 #page-header {
   margin: 0 0 0.3em 0; }
@@ -214,7 +218,7 @@ a:focus {
   color: #7F6F67; }
 
 .section {
-  border: 1px solid #E3E8E9;
+  border: 1px solid #E0ECEF;
   margin-bottom: 1em;
   background: #FFF; }
   .section / {
@@ -223,15 +227,17 @@ a:focus {
     -webkit-border-radius-bottomleft: 10px;
     -webkit-border-radius-topright: 10px; }
   .section .section-header {
-    font-size: 93%;
-    background: #EAEAEA;
+    font-size: 77%;
+    background: #758A95;
     border-bottom: 1px solid #999;
-    padding: 0.2em 0.5em; }
+    padding: 0.2em 0.5em 0.1em; }
     .section .section-header / {
       -moz-border-radius-topright: 10px;
       -webkit-border-radius-topright: 10px; }
     .section .section-header h3, .section .section-header h4 {
-      color: #1A2B2F !important; }
+      font-weight: bold;
+      color: #EFFCFF !important;
+      text-transform: uppercase; }
     .section .section-header h3 {
       font-size: 116%;
       padding: 0;
