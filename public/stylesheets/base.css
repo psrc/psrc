@@ -8,13 +8,13 @@ body {
 strong, legend {
   font-weight: bold; }
 
-h1, h2, h3, h4 {
-  font-family: "Trebuchet MS",Arial,Verdana,sans-serif clean;
+h1, h2, h3, h4, h5 {
+  font-family: "Trebuchet MS",Arial,Verdana,sans-serif,clean;
   margin: 1em 0;
   font-weight: bold; }
-  h1.title,   h2.title,   h3.title,   h4.title {
+  h1.title,   h2.title,   h3.title,   h4.title,   h5.title {
     margin-bottom: 0; }
-  h1.first,   h2.first,   h3.first,   h4.first {
+  h1.first,   h2.first,   h3.first,   h4.first,   h5.first {
     margin-top: 0; }
 
 h1 {
@@ -54,6 +54,7 @@ blockquote {
   font-style: italic; }
 
 ol, ul {
+  margin: 0.2em;
   margin-left: 2em; }
 
 ol li {
