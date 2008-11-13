@@ -87,10 +87,8 @@ ul.projects li {
 .hide {
   display: none; }
 
-.info {
-  font-size: 93%; }
-  .info p {
-    display: inline; }
+.info p {
+  display: inline; }
 
 div.info {
   line-height: 1.6em;
