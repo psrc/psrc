@@ -18,20 +18,23 @@ h1, h2, h3, h4 {
     margin-top: 0; }
 
 h1 {
-  font-size: 182%; }
-
-h2 {
   font-size: 153.9%; }
 
+h2 {
+  font-size: 138.5%; }
+
 h3 {
-  font-size: 138.5%;
+  font-size: 123.1%;
   margin: 1em 0 0.3em; }
 
 h4 {
-  font-size: 123.1%;
+  font-size: 116%;
   margin: 1em 0 0.3em; }
   h4.first {
     margin-top: 0.5em; }
+
+h5 {
+  font-size: 108%; }
 
 abbr, acronym {
   border-bottom: 1px dotted #000;
