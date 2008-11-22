@@ -6,34 +6,37 @@
   -moz-border-radius-topright: 10px;
   -webkit-border-radius-topright: 10px; }
   #main-content-wrapper #page-header {
-    background: #E0ECEF;
-    font-weight: normal; }
+    background: #CBDCDE;
+    color: #000;
+    font-weight: normal;
+    font-size: 168%; }
   #main-content-wrapper h2 {
     color: #185F70;
     margin: 0;
     padding: 0.2em 0.5em; }
-  #main-content-wrapper #main-content {
-    border: 1px solid #E3E8E9;
+  #main-content-wrapper #main-content, #main-content-wrapper #page-content {
     border-top: none;
     background: #FFF;
-    padding: 1em; }
-  #main-content-wrapper #page-content {
-    padding: 1em 1em 0.5em 1em;
-    border: 1px solid #E0ECEF;
-    border-top: 1px solid #D1DCDF; }
-  #main-content-wrapper #main-content h2, #main-content-wrapper #main-content h3,   #main-content-wrapper #page-content h2, #main-content-wrapper #page-content h3 {
-    font-weight: normal; }
-  #main-content-wrapper #main-content h2, #main-content-wrapper #main-content h3, #main-content-wrapper #main-content h4,   #main-content-wrapper #page-content h2, #main-content-wrapper #page-content h3, #main-content-wrapper #page-content h4 {
-    color: #8F883E;
-    padding-left: 0; }
-  #main-content-wrapper #main-content a h2, #main-content-wrapper #main-content a h3, #main-content-wrapper #main-content a h4, #main-content-wrapper #main-content a h5,   #main-content-wrapper #page-content a h2, #main-content-wrapper #page-content a h3, #main-content-wrapper #page-content a h4, #main-content-wrapper #page-content a h5 {
-    color: #015C82;
-    font-family: "Trebuchet MS", arial,helvetica,clean,sans-serif;
-    font-weight: bold; }
-  #main-content-wrapper #main-content h2,   #main-content-wrapper #page-content h2 {
-    margin-top: 1em; }
-  #main-content-wrapper #main-content img.border,   #main-content-wrapper #page-content img.border {
-    border: 4px solid #DFD0C3; }
+    padding: 0.5em;
+    font-size: 108%; }
+    #main-content-wrapper #main-content h2, #main-content-wrapper #main-content h3,     #main-content-wrapper #page-content h2, #main-content-wrapper #page-content h3 {
+      font-weight: normal; }
+    #main-content-wrapper #main-content h2, #main-content-wrapper #main-content h3, #main-content-wrapper #main-content h4,     #main-content-wrapper #page-content h2, #main-content-wrapper #page-content h3, #main-content-wrapper #page-content h4 {
+      color: #8F883E;
+      padding-left: 0; }
+    #main-content-wrapper #main-content a h2, #main-content-wrapper #main-content a h3, #main-content-wrapper #main-content a h4, #main-content-wrapper #main-content a h5,     #main-content-wrapper #page-content a h2, #main-content-wrapper #page-content a h3, #main-content-wrapper #page-content a h4, #main-content-wrapper #page-content a h5 {
+      color: #015C82;
+      font-family: "Trebuchet MS", arial,helvetica,clean,sans-serif;
+      font-weight: bold; }
+    #main-content-wrapper #main-content h2,     #main-content-wrapper #page-content h2 {
+      margin-top: 1em; }
+    #main-content-wrapper #main-content img.border,     #main-content-wrapper #page-content img.border {
+      border: 4px solid #DFD0C3; }
+    #main-content-wrapper #main-content ul,     #main-content-wrapper #page-content ul {
+      margin: 1.5em 1em; }
+      #main-content-wrapper #main-content ul li,       #main-content-wrapper #page-content ul li {
+        margin: 0.5em 0;
+        list-style-position: outside; }
 
 #custom-doc, #banner, #breadcrumbs, #nav, #branding, #ft {
   margin: auto;
@@ -192,7 +195,8 @@ a:focus {
     margin: 0; }
   #branding #search-container {
     background: #CCC url(/images/bg-header-chrome.png) repeat-x;
-    float: right; }
+    float: right;
+    margin-top: .5em; }
     #branding #search-container #search-form {
       padding: 0.2em 0.3em;
       text-align: right;
@@ -209,7 +213,7 @@ a:focus {
         font-family: "Trebuchet MS", arial,helvetica,clean,sans-serif;
         font-size: 77%;
         color: #FFF;
-        background: #758A95;
+        background: #185F70;
         border: 1px solid #185F70; }
 
 #page-header {
@@ -291,15 +295,11 @@ ul#page-navigation {
     ul#page-navigation li a:link, ul#page-navigation li a:visited {
       height: 1%;
       display: block;
-      padding: 0.5em 0.4em;
+      padding: 0.3em;
       font-size: 93%;
       font-weight: bold; }
     ul#page-navigation li.active {
-      background: #F36523 url(/images/nav-arrow.gif) no-repeat 155px 0.25em;
-      -moz-border-radius-topright: 10px;
-      -webkit-border-radius-topright: 10px;
-      -moz-border-radius-bottomleft: 10px;
-      -webkit-border-radius-bottomleft: 10px; }
+      background: #FF7F00 url(/images/nav-arrow.gif) no-repeat 155px 0em; }
       ul#page-navigation li.active a:link, ul#page-navigation li.active a:visited {
         color: #FFF; }
     ul#page-navigation li.first {

@@ -55,7 +55,8 @@ ul.features, ul.projects {
     list-style: none;
     float: left;
     margin-right: 0.8em;
-    width: 125px; }
+    width: 125px;
+    font-family: arial,helvetica,clean,sans-serif; }
     ul.features li img,     ul.projects li img {
       border: 2px solid #DBDBDB; }
     ul.features li a:hover img,     ul.projects li a:hover img {
@@ -79,7 +80,7 @@ ul.projects li {
   float: right !important; }
 
 .header-description {
-  font-size: 93%;
+  font-size: 85%;
   margin-bottom: 0;
   padding-bottom: 0.2em;
   color: #7F6F67; }
@@ -121,8 +122,9 @@ dl.meetups dt {
   margin-top: 0.75em;
   font-weight: normal; }
 dl.meetups dd {
-  font-size: 93%;
-  color: #A4ABAF;
+  font-family: arial,helvetica,clean,sans-serif;
+  font-size: 85%;
+  color: #758A95;
   margin-bottom: 0.75em; }
 
 .pTop-s {
@@ -177,9 +179,10 @@ dl.people dt {
   margin-top: 0.75em;
   font-weight: normal; }
 dl.people dd {
-  color: #A4ABAF;
+  color: #758A95;
   font-style: italic;
-  font-size: 85%; }
+  font-size: 85%;
+  font-family: arial,helvetica,clean,sans-serif; }
 
 dl.photo-summary dt {
   float: left; }
@@ -189,7 +192,7 @@ dl.photo-summary dd {
   margin-left: 130px; }
 
 .quiet {
-  color: #A4ABAF; }
+  color: #758A95; }
 
 .rickmap-sm {
   width: 56px;
@@ -198,7 +201,8 @@ dl.photo-summary dd {
 .rickmap {
   width: 115px;
   float: right;
-  font-size: 85%; }
+  font-size: 85%;
+  font-family: arial,helvetica,clean,sans-serif; }
 
 .rickmap, .rickmap-sm {
   text-align: center; }
@@ -213,7 +217,8 @@ dl.photo-summary dd {
   float: none !important; }
 
 .small {
-  font-size: 93%; }
+  font-size: 85%;
+  font-family: arial,helvetica,clean,sans-serif; }
 
 ul.spaced li {
   margin-bottom: 0.5em; }
@@ -256,7 +261,8 @@ dl.two-col dt {
 
 .view-more {
   text-align: right;
-  font-size: 85%; }
+  font-size: 85%;
+  font-family: arial,helvetica,clean,sans-serif; }
 
 .view-all {
   font-family: arial,helvetica,clean,sans-serif;
