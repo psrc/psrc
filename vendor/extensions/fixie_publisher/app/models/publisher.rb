@@ -6,10 +6,10 @@
 # TODO: Also copy over user-provided photos from the dev env to the production one
 require 'open3'
 class Publisher
-  TABLES = %w( events event_options users page_parts pages layouts snippets )
+  TABLES = %w( events event_options users page_parts pages layouts snippets assets banners banner_placements page_attachments )
   def self.publish!
     table_string = TABLES.map { |t| "-t #{t} " }
-    dump_command = "pg_dump #{ connection_options("staging") } #{current_dev} -a #{table_string}"
+    dump_command = "pg_dump #{ connection_options(RAILS_ENV) } #{current_dev} -a #{table_string}"
     psql_command = "psql #{ connection_options("production") } #{current_prod}"
     puts "Dumping with #{ dump_command }"
     puts "Loading with #{ psql_command }"
@@ -33,7 +33,7 @@ class Publisher
     config = Rails::Configuration.new.database_configuration[env]
     user = config["username"]
     host = config["host"]
-    " -h #{ host } -U #{ user } "
+    " -h #{ host } -U #{ user } " if user and host
   end
 
   def self.current_dev
