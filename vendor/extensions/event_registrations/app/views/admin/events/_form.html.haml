@@ -5,3 +5,4 @@
   = form.text_field   :location,    :label => "Location",                             :hint => "(eg. PSRC Room 113)"
   = form.text_area    :description, :label => "Event Description",  :class => "full", :hint => "Describe the event"
   = form.text_area    :schedule,    :label => "Event Schedule",     :class => "full", :hint => "The schedule for the event"
+  = form.select       :layout,      options_for_layouts, :label => "Layout",     :class => "full", :hint => "The layout for the event"

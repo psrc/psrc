@@ -1,0 +1,55 @@
+!!! XML
+!!! Strict
+%html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => "en" }
+  %head
+    %meta{ 'http-equiv' => "Content-Type", :content => "text/html; charset=utf-8" }
+    %meta{ 'http-equiv' => "Content-Language", :content => "en" }
+    %meta{ :name => "keywords", :content => "Puget Sound Regional Council, PSRC, Prosperity Partnership, Puget Sound Region, Transportation, Growth Management, Economic Development" }
+    %meta{ :name => "description", :content => "Puget Sound Regional Council" }
+    %meta{ :name => "author", :content => "FixieConsulting.com" }
+    %meta{ :name => "robots", :content => "all, follow" }
+    %meta{ :name => "googlebot", :content => "index, follow, snippet, archive" }
+
+    %link{ :rel => "shortcut icon", :href => "/favicon.ico" }
+    %link{ :rel => "icon", :href=> "/favicon.ico" }
+
+    = javascript_include_tag 'jquery', 'jquery-ui', 'facebox', 'application', :cache => "cache/all"
+    = stylesheet_link_tag 'yui', 'events', 'forms', 'util'
+    = stylesheet_link_tag 'yui', 'events', 'forms', 'util', 'event-print', :media => "print"
+
+    = yield(:head)
+
+    /[if lte IE 7]
+      = stylesheet_link_tag 'ie'
+    /[if lt IE 7]
+      %script{:type=>"text/javascript", :src=>"/admin/javascripts/pngfix.js"}
+      = stylesheet_link_tag 'ie6'
+
+    %title
+      = @page_title ||= "PSRC Event Registration"
+  %body{:class => :prosperity}
+    - document :class => "event-page" do
+      - grid :one_fourth, :id => "event-container" do
+        - grid_unit :id => "event-branding-progress", :first => true do
+          #event-logo
+            = link_to image_tag("prosperity-logo-sm-filled.png", :alt => "Prosperity Partnership"), "http://www.psrc.org"
+          - unless current_page?(event_path(@event))
+            %ol#progress
+              = progress_step 1, "Attendee Information"
+              = progress_step 2, "Contact Information"
+              = progress_step 3, "Payment Type"
+              = progress_step 4, "Payment"
+              = progress_step 5, "Confirmation"
+
+
+        - grid_unit do
+          #main-content-container
+            #main-content-wrapper
+              %h2#page-header== #{@event.name} Registration
+              %h3#page-sub-header== #{ relative_date_span [@event.start_date, @event.end_date] } - #{ @event.location }
+              #main-content
+                = simple_format @event.description if current_page?(event_path(@event))
+                = flash_messages
+                = yield
+      #ft
+        == Brought to you by #{ link_to "PSRC", "http://www.psrc.org" }

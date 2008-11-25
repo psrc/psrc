@@ -3,7 +3,8 @@ class RegistrationsController < ApplicationController
   include SslRequirement
   ssl_required :payment_by_credit_card, :submit_payment_by_credit_card, :poll_for_credit_card_payment
   
-  layout 'events'
+  layout :load_layout
+
   no_login_required
 
   STEPS = { "attendee_info" => 1, "contact_info" => 2, "payment_type" => 3, 
@@ -187,4 +188,7 @@ class RegistrationsController < ApplicationController
     end
   end
 
+  def load_layout
+    @event.layout
+  end
 end
