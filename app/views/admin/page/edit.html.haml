@@ -113,4 +113,28 @@
         #filter-reference= filter_reference(default_filter_name)
         %p
           = link_to_function 'Close', "Element.hide('filter-reference-popup')", :class => 'close-link'
+
+      #page-reference-popup.popup{ :style => "display:none;" }
+        %h3
+          %span Link Maker
+        %p
+          Title:
+          = text_field_tag :link_text
+        %p
+          Page:
+          = select_tag :selected_page, options_for_select(pages_for_select)
+        %p#link_maker
+        %p
+          = link_to_function 'Close', "Element.hide('page-reference-popup')", :class => 'close-link'
+        %script
+          function updateLinkMaker() {
+          $('link_maker').innerHTML = "\"" + $F('link_text') + "\":" + $F('selected_page');
+          }
+          $('selected_page').observe('change', function() {
+          updateLinkMaker();
+          });
+          $('link_text').observe('keyup', function() {
+          updateLinkMaker();
+          });
+
       = render_region :popups

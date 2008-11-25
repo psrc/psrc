@@ -1,5 +1,17 @@
 module Admin::PageHelper
   include Admin::NodeHelper
+
+  def pages_for_select
+    @pages_for_select ||= begin
+      collect_children = lambda do |page|
+        [page] + (page.children.any? ? page.children.map(&collect_children) : [])
+      end
+      collect_children[Page.find_by_parent_id(nil)].flatten.uniq.map do |page|
+        name = page.parent ? "#{'--' * page.ancestors.size} #{page.title}" : page.title
+        [name, page.url]
+      end
+    end
+  end
   
   def meta_errors?
     !!(@page.errors[:slug] or @page.errors[:breadcrumb])
@@ -61,6 +73,13 @@ module Admin::PageHelper
         center(popup);
         Element.toggle(popup);
       }
+      return false;
+    }
+
+    function load_page_reference(part) {
+      popup = $('page-reference-popup');
+      center(popup);
+      Element.toggle(popup);
       return false;
     }
     

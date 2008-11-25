@@ -7,6 +7,8 @@
       = select_tag "part[#{@index}][filter_id]", options_for_select([['<none>', '']] + TextFilter.descendants.map { |s| s.filter_name }.sort, part.filter_id), :id => "part_#{@index}_filter_id"
       %span#reference-links
         Reference:
+        %span{:id => "page-reference-link-#{@index}"}
+          = link_to_function "Link Maker", "load_page_reference(#{@index});"
         %span{:id => "filter-reference-link-#{@index}"}
           = link_to_function "Filter", "load_filter_reference(#{@index});"
         %span{:id => "tag-reference-link-#{@index}"}
