@@ -27,6 +27,8 @@
     h2,h3,h4
       :color #8F883E
       :padding-left 0
+    h4
+      :color #4F423B
     a
       h2,h3,h4,h5
         :color #015C82
@@ -36,11 +38,20 @@
       :margin-top 1em
     img.border
       :border 4px solid #DFD0C3
-    ul
+    ul, ol
       :margin 1.5em 1em
       li
         :margin 0.5em 0
-        :list-style-position outside
+        :list-style-position inside
+        ol
+          li
+            :list-style-type lower-roman
+        ul, ol
+          :margin-top 0
+          :margin-bottom 0
+          li
+            :margin 0.2em 0
+
     
 #custom-doc, #banner, #breadcrumbs, #nav, #branding, #ft
   :margin auto
@@ -272,30 +283,6 @@ a
     h4.title,h5.title
       :margin 0
       :padding-top 0.1em
-
-.photo-caption-left
-  :float left
-  :margin-right 0.5em
-
-.photo-caption-right
-  :float right
-  :margin-left 0.5em
-
-.photo-caption-left, .photo-caption-right
-  dt
-    :margin 0
-    :padding 0
-    :background white
-    :padding 0.3em 0.3em 0 0.3em
-    :border 1px solid #EEE
-    img
-      :padding 0
-      :margin 0
-  dd
-    :color #684234
-    :font-size 85%
-    :font-style italic
-    :padding 0.2em
 
 ul#page-navigation
   :font-family "Trebuchet MS", arial,helvetica,clean,sans-serif
