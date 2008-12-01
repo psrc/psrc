@@ -82,7 +82,7 @@
             or
             = link_to 'Cancel', page_index_url
             or
-            = link_to 'View Public Page (new window)', @page.url, :target => "blank"
+            = link_to 'View Public Page (new window)', @page.url, :target => "blank" unless @page.url.blank?
     = textile_editor_initialize
   - main.edit_popups do
     - content_for 'popups' do
