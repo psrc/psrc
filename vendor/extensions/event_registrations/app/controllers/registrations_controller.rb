@@ -62,6 +62,10 @@ class RegistrationsController < ApplicationController
   end
 
   def payment_type
+    unless session[:registration].payment_required?
+      session[:registration].save!
+      redirect_to confirmation_path
+    end
   end
 
   def submit_payment_type

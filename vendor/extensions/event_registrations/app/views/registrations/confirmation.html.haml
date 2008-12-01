@@ -1,21 +1,24 @@
 %h2.title Success! You're all done!
-%p Your payment information was successfully submitted and a confirmation invoice e-mail has been sent.
+- if @registration.payment_required?
+  %p Your payment information was successfully submitted and a confirmation invoice e-mail has been sent.
+- else
+  %p A confirmation invoice e-mail has been sent.
 
 %p 
   %span.strong Registration confirmation #: 
   = @registration.id
-%p
-  %span.strong Payment Method: 
-  = @registration.payment.payment_method
+- if @registration.payment_required?
+  %p
+    %span.strong Payment Method:
+    = @registration.payment.payment_method
 
-- unless @registration.invoiceable?
-  %h4 Invoice
-  %p== Please mail your payment of #{ number_to_currency @registration.payment_amount } with a copy of this invoice to:
-  = render :partial => "psrc_address"
-
-- else
-  %h4 Payment Information
-  %p== Note, this is not an invoice.  Your credit card was successfully charged #{ number_to_currency @registration.payment_amount }.
+  - unless @registration.invoiceable?
+    %h4 Invoice
+    %p== Please mail your payment of #{ number_to_currency @registration.payment_amount } with a copy of this invoice to:
+    = render :partial => "psrc_address"
+  - else
+    %h4 Payment Information
+    %p== Note, this is not an invoice.  Your credit card was successfully charged #{ number_to_currency @registration.payment_amount }.
 
 %h4 Registered Attendees
 %table#registered-attendees

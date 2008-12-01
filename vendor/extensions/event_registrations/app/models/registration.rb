@@ -7,12 +7,16 @@ class Registration < ActiveRecord::Base
   after_create :send_confirmation_email
 
   validates_presence_of :registration_contact
-  validates_presence_of :payment
+  validates_presence_of :payment, :if => :payment_required?
   validates_presence_of :registration_groups
   validates_presence_of :event
 
   def payment_amount
     read_attribute(:payment_amount) || calculate_payment_amount
+  end
+
+  def payment_required?
+    self.payment_amount > 0
   end
 
   def event_attendees
