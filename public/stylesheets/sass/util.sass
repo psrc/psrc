@@ -50,6 +50,15 @@
   :background url(/images/email.png) no-repeat
   :padding 1px 0 2px 19px
   
+.example, .example-sidebar
+  :border 2px solid #CBDCDE
+  :background #E0EEEF
+  :padding 5px
+  :margin-bottom 0.5em
+
+.example-sidebar
+  :width 260px
+
 ul.features, ul.projects
   :margin 0
   li
@@ -85,6 +94,9 @@ ul.projects
   :float right !important
   :margin-left 0.8em
 
+p.float-left, p.float-right
+  :margin-bottom 0 !important
+
 .header-description
   :font-size 85%
   :margin-bottom 0
@@ -105,7 +117,7 @@ div.info
 
 dl.items
   dt
-    :font-family "Trebuchet MS", arial,helvetica,clean,sans-serif
+    :font-family arial,helvetica,clean,sans-serif
     a
       :font-weight normal
   dd
@@ -118,7 +130,7 @@ div.item
   :font-weight normal
   :margin 1em 0 0 0
 
-ul.links
+ul.links, ul.no-bullets
   :margin 0
   :padding 0
   li
@@ -137,26 +149,17 @@ dl.meetups
     :color #758A95
     :margin-bottom 0.75em
 
-p.photo-caption-left
-  :float left
-  :margin-right 0.5em
-
-p.photo-caption-right
-  :float right
-  :margin-left 0.5em
-
-p.photo-caption-left, p.photo-caption-right
-  line-height: 1.2em
-  img
+dl.photo-caption
+  :width 130px !important
+  dt img
     :padding 2px
     :margin 0
-    :border 2px solid #E0EEEF
-  span
+    :border 1px solid #CBDCDE
+  dd
+    :font-family arial,helvetica,clean,sans-serif
     :margin 0
     :display block
-    :color #684234
     :font-size 85%
-    :font-style italic
 
 .pTop-s
   :padding-top 0.5em
@@ -210,7 +213,8 @@ dl.photo-summary
   dt
     :float left
     img
-      :border 2px solid #BFBA9B
+      :padding 2px
+      :border 1px solid #BFBA9B
   dd
     :margin-left 130px
 

@@ -25,9 +25,8 @@
           %tr
             %td.event-name= link_to_if(changeable?, event.name, edit_admin_event_path(event))
             %td.attendees=  link_to event.number_of_attendees, admin_registration_path(event)
-            %td.date=       date_span(event)
+            %td.event-date=       date_span(event)
             %td=            event.layout
-
             - if changeable?
               %td.child=      link_to image_tag("admin/add-registration-option.png"), new_admin_event_option_path(:event_id => event)
               %td.remove=     link_to image_tag("admin/remove.png"), admin_event_path(event), :method => :delete, :confirm => "Are you want to remove this event? There is no undo."

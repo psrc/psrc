@@ -48,6 +48,15 @@
   background: url(/images/email.png) no-repeat;
   padding: 1px 0 2px 19px; }
 
+.example, .example-sidebar {
+  border: 2px solid #CBDCDE;
+  background: #E0EEEF;
+  padding: 5px;
+  margin-bottom: 0.5em; }
+
+.example-sidebar {
+  width: 260px; }
+
 ul.features, ul.projects {
   margin: 0; }
   ul.features li,   ul.projects li {
@@ -81,6 +90,9 @@ ul.projects li {
   float: right !important;
   margin-left: 0.8em; }
 
+p.float-left, p.float-right {
+  margin-bottom: 0 !important; }
+
 .header-description {
   font-size: 85%;
   margin-bottom: 0;
@@ -98,7 +110,7 @@ div.info {
   margin-bottom: 1.2em; }
 
 dl.items dt {
-  font-family: "Trebuchet MS", arial,helvetica,clean,sans-serif; }
+  font-family: arial,helvetica,clean,sans-serif; }
   dl.items dt a {
     font-weight: normal; }
 dl.items dd {
@@ -111,10 +123,10 @@ div.item {
   font-weight: normal;
   margin: 1em 0 0 0; }
 
-ul.links {
+ul.links, ul.no-bullets {
   margin: 0;
   padding: 0; }
-  ul.links li {
+  ul.links li,   ul.no-bullets li {
     margin: 0;
     padding: 0;
     padding-bottom: 0.25em;
@@ -129,26 +141,17 @@ dl.meetups dd {
   color: #758A95;
   margin-bottom: 0.75em; }
 
-p.photo-caption-left {
-  float: left;
-  margin-right: 0.5em; }
-
-p.photo-caption-right {
-  float: right;
-  margin-left: 0.5em; }
-
-p.photo-caption-left, p.photo-caption-right {
-  line-height: 1.2em; }
-  p.photo-caption-left img,   p.photo-caption-right img {
+dl.photo-caption {
+  width: 130px !important; }
+  dl.photo-caption dt img {
     padding: 2px;
     margin: 0;
-    border: 2px solid #E0EEEF; }
-  p.photo-caption-left span,   p.photo-caption-right span {
+    border: 1px solid #CBDCDE; }
+  dl.photo-caption dd {
+    font-family: arial,helvetica,clean,sans-serif;
     margin: 0;
     display: block;
-    color: #684234;
-    font-size: 85%;
-    font-style: italic; }
+    font-size: 85%; }
 
 .pTop-s {
   padding-top: 0.5em; }
@@ -210,7 +213,8 @@ dl.people dd {
 dl.photo-summary dt {
   float: left; }
   dl.photo-summary dt img {
-    border: 2px solid #BFBA9B; }
+    padding: 2px;
+    border: 1px solid #BFBA9B; }
 dl.photo-summary dd {
   margin-left: 130px; }
 
