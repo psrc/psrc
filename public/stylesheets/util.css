@@ -141,17 +141,21 @@ dl.meetups dd {
   color: #758A95;
   margin-bottom: 0.75em; }
 
-dl.photo-caption {
-  width: 130px !important; }
-  dl.photo-caption dt img {
+dl.photo-caption, dl.photo-caption-sm {
+  width: 130px !important;
+  margin-bottom: 1em; }
+  dl.photo-caption dt img,   dl.photo-caption-sm dt img {
     padding: 2px;
     margin: 0;
     border: 1px solid #CBDCDE; }
-  dl.photo-caption dd {
+  dl.photo-caption dd,   dl.photo-caption-sm dd {
     font-family: arial,helvetica,clean,sans-serif;
     margin: 0;
     display: block;
     font-size: 85%; }
+
+dl.photo-caption-sm {
+  width: 100px !important; }
 
 .pTop-s {
   padding-top: 0.5em; }
