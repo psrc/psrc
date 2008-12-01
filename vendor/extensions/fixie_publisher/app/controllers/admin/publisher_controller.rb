@@ -1,4 +1,4 @@
-class PublisherController < ApplicationController
+class Admin::PublisherController < ApplicationController
   def new
   end
 
