@@ -273,7 +273,7 @@ a:focus {
       padding-top: 0.1em; }
 
 ul#page-navigation {
-  font-family: "Trebuchet MS", arial,helvetica,clean,sans-serif;
+  font-family: arial,helvetica,clean,sans-serif;
   margin: 0; }
   ul#page-navigation li {
     list-style: none;
@@ -284,12 +284,19 @@ ul#page-navigation {
       padding: 0.3em;
       font-size: 93%;
       font-weight: bold; }
-    ul#page-navigation li.active {
+    ul#page-navigation li.active a:link, ul#page-navigation li.active a:visited {
+      color: #FFF;
       background: #FF7F00 url(/images/nav-arrow.gif) no-repeat 155px 0em; }
-      ul#page-navigation li.active a:link, ul#page-navigation li.active a:visited {
-        color: #FFF; }
+    ul#page-navigation li.active ul {
+      font-size: 85%;
+      margin: 0 0 0 2em; }
+      ul#page-navigation li.active ul li.active {
+        border: none; }
+        ul#page-navigation li.active ul li.active a:link, ul#page-navigation li.active ul li.active a:visited {
+          color: #FFF;
+          background: #FF7F00; }
+      ul#page-navigation li.active ul li a:link, ul#page-navigation li.active ul li a:visited {
+        background: white;
+        color: #1A4175; }
     ul#page-navigation li.first {
       border-top: none; }
-    ul#page-navigation li ul li.active {
-      background: white;
-      color: #355C8F; }
