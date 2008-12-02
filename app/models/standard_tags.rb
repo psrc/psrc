@@ -811,6 +811,61 @@ module StandardTags
       keywords
     end    
   end
+
+  class LinkTree
+    attr_accessor :link, :selected, :children
+    def initialize link, selected
+      @link = link
+      @selected = selected
+      @children = []
+    end
+  end
+
+  tag 'fixie_navigate' do |tag|
+    count_depth = Proc.new { |link| r = link.scan(/\A\-*/); r.empty? ? 0 : r.first.size }
+    url = Proc.new { |a| a.split.last }
+    format_link = Proc.new do |l| 
+      a = l.gsub(/\A\-*/, '') 
+     "<a href='#{url.call(a)}'>#{a.split[0..-2].join(" ")}</a>" 
+    end
+    show_line = Proc.new { |line| !line.scan(/\A\-/).empty? }
+    current_link = Proc.new { |link| remove_trailing_slash(url.call(link)).scan(Regexp.compile('^' + Regexp.quote(remove_trailing_slash(self.url)))).empty? ? '' : "class='active'" }
+    current_depth = 0
+    links = tag.block.call
+    result = []
+    trees = []
+    current_selected = false
+    parent = nil
+    links.each do |link|
+      if show_line.call(link)
+        current_style = current_selected ? '' : current_link.call(link)
+        current_selected = true if  !current_style.blank? and !current_selected
+        formatted_link = format_link.call(link)
+        if count_depth.call(link) == 1
+          parent = LinkTree.new(formatted_link, current_style)
+          trees << parent
+        else
+          parent.children << LinkTree.new(formatted_link, current_style)
+        end
+        current_depth = count_depth.call(link)
+      end
+    end
+    result << "<ul id='#{tag.attr['id']}'>"
+    trees.each do |tree|
+      if tree.children.find { |c| !c.selected.blank? }
+        tree.selected = "class='active'"
+      end
+      result << "<li #{ tree.selected }>#{tree.link}<ul>"
+      tree.children.each do |c|
+        result << "<li #{ c.selected }>#{c.link}</li>"
+      end
+      result << "</ul></li>"
+    end
+    result << "</ul>"
+
+    result.join
+  end
+
   
   private
   
