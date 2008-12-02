@@ -290,3 +290,6 @@ ul#page-navigation {
         color: #FFF; }
     ul#page-navigation li.first {
       border-top: none; }
+    ul#page-navigation li ul li.active {
+      background: white;
+      color: #355C8F; }
