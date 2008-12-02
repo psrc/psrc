@@ -36,8 +36,7 @@ module Radiant
         if self[name]
           raise DuplicateTabNameError.new("duplicate tab name `#{name}'")
         else
-          if tab_name
-            index = @tabs.index(self[tab_name])
+          if tab_name and index = @tabs.index(self[tab_name])
             index += 1 if before.nil?
             @tabs.insert(index, Tab.new(name, url, options))
           else

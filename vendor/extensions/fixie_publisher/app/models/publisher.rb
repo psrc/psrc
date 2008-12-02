@@ -25,6 +25,7 @@ class Publisher
       stdin.flush
     end
 
+    `rsync -avz /data/psrc_draft/shared/assets/ /data/psrc/shared/assets/`
   end
 
   private
