@@ -7,7 +7,9 @@ document.observe("dom:loaded", function() {
         var asset_id = element.id.split('_').last();
         var classes = element.className.split(' ');
         var tag_type = classes[0];
-        var tag = '<r:assets:' + tag_type + ' id="' + asset_id + '" size="original" />'
+        var text = "";
+        if (tag_type == "link") { text = "text=\"" + link.readAttribute('title') + "\""; }
+        var tag = '<r:assets:' + tag_type + ' id="' + asset_id + '" size="original" ' + text + ' />'
         //Form.Element.focus(box);
       	if(!!document.selection){
       		box.focus();
