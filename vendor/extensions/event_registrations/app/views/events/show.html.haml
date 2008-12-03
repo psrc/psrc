@@ -9,8 +9,8 @@
   %table.registration{:cellpadding=>0, :cellspacing=>0, :border=>0}
     = render :partial => "event_table_head"
     %tbody= render :partial => "event_option", :collection => @event.individual_options
-
-  %p= link_to "View list of Partners", "http://www.prosperitypartnership.org/coalition/partners.htm"
+  - if @event.layout == "prosperity"
+    %p= link_to "View list of Partners", "http://www.prosperitypartnership.org/coalition/partners.htm"
 
 - else
   %p.quiet Registration for this event is closed.
