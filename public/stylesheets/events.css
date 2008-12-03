@@ -77,35 +77,31 @@ input[type=text], input[type=password], textarea {
   width: 12.25em;
   *width: 11.9em; }
 
-#main-content-wrapper {
-  background: #185F70;
-  color: #333;
-  padding: 1em; }
-  #main-content-wrapper #main-content {
-    border: 1px solid #E9E9E9;
-    border-top: 1px solid #CCC;
-    background: #FFF;
-    padding: 1em; }
-  #main-content-wrapper #page-content {
-    padding: 1em 1em 0.5em 1em;
-    border: 1px solid #EEE;
-    border-top: 1px solid #CCC; }
+a:link, a:active {
+  color: #1A4175;
+  text-decoration: none; }
+a:visited {
+  color: #355C8F;
+  text-decoration: none; }
+a:hover {
+  color: #FF7F00;
+  text-decoration: underline; }
+a:focus {
+  outline: none; }
 
-#custom-doc, #nav, #branding, #ft {
+#custom-doc, #psrc-logo, #branding, #ft {
   margin: auto;
   text-align: left;
   width: 63.46em;
   *width: 61.93em;
   min-width: 825px; }
 
-.event-page {
-  padding-top: 2em !important; }
-  .event-page h1, .event-page h2, .event-page h3, .event-page h4 {
-    font-family: arial,helvetica,clean,sans-serif; }
-  .event-page h4 {
-    font-weight: bold; }
-  .event-page #ft {
-    color: #A9A9A9; }
+.event-page h1, .event-page h2, .event-page h3, .event-page h4 {
+  font-family: arial,helvetica,clean,sans-serif; }
+.event-page h4 {
+  font-weight: bold; }
+.event-page #ft {
+  color: #A9A9A9; }
 
 #ft {
   margin: auto;
@@ -121,64 +117,45 @@ input[type=text], input[type=password], textarea {
       margin-right: 2em;
       display: inline; }
 
-.prosperity h4 {
-  color: #1A4175 !important; }
-.prosperity th {
-  background: #1A4175;
-  color: #EFFAFF; }
-.prosperity td {
-  border-color: #E9E9E9; }
-.prosperity #event-logo {
-  text-align: center;
-  margin-top: 1em; }
-  .prosperity #event-logo img {
-    width: 167px;
-    margin: auto; }
-.prosperity #event-container {
-  padding: 1em 0;
-  background: #1A4175; }
-.prosperity #main-content-container {
-  margin-right: 1em;
-  background: #FFF url(/images/pp-circles.png) no-repeat center 3px;
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-  padding: 1em;
-  padding-top: 120px; }
-.prosperity #main-content-wrapper {
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  background: #1A4175;
-  border: none; }
-  .prosperity #main-content-wrapper #main-content {
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px; }
-.prosperity ol#progress li {
-  background-color: #566A9A;
-  color: white; }
-  .prosperity ol#progress li.current {
-    background-color: white;
-    color: #333; }
-.prosperity #page-header {
-  color: #FFF; }
-.prosperity #page-sub-header {
-  color: #C2E0EF; }
-.prosperity #ft {
-  text-align: left; }
 
+#main-content-wrapper {
+  background: #CBDCDE;
+  color: #333; }
+  #main-content-wrapper #main-content {
+    border: 1px solid #E9E9E9;
+    border-top: 1px solid #CCC;
+    background: #FFF;
+    padding: 10px; }
+  #main-content-wrapper #page-content {
+    padding: 1em 1em 0.5em 1em;
+    border: 1px solid #EEE;
+    border-top: 1px solid #CCC; }
+
+#page-header, #page-sub-header {
+  margin: 0 0 0 10px; }
 
 #page-header {
-  margin: 0;
-  color: #FFF; }
+  color: #000;
+  font-size: 146.5%;
+  padding-top: 5px; }
 
 #page-sub-header {
-  margin: 0;
-  margin-bottom: 0.5em;
-  color: #CBDCDE; }
+  color: #8EACAF;
+  padding-bottom: 5px;
+  font-size: 132%; }
 
+
+#psrc-logo {
+  text-align: left;
+  margin-top: 1em; }
+
+#branding-banner {
+  background: #FFF url(/images/bg-header-chrome.png) repeat-x; }
 
 #event-banner {
-  margin-bottom: 0.5em;
-  background: url(/images/banner3.png) no-repeat;
+  margin: 1em 0;
+  background: url(/images/assembly.png) repeat-x center center;
+  border: 1px solid #CBDCDE;
   height: 145px; }
 
 #event-branding-progress {
@@ -196,7 +173,7 @@ ol#progress {
     -moz-border-radius-topleft: 5px;
     -moz-border-radius-bottomleft: 5px;
     margin: 0.5em 0;
-    background-color: #CBDCDE;
+    background-color: #E0EEEF;
     background-repeat: no-repeat;
     background-position: 0.15em 0.25em;
     padding: 0.4em 0;
@@ -275,3 +252,53 @@ h4.title .hint {
   color: #7F6F67;
   font-weight: normal;
   letter-spacing: 0; }
+
+.prosperity .event-page {
+  padding-top: 2em; }
+.prosperity h4 {
+  color: #1A4175 !important; }
+.prosperity th {
+  background: #1A4175;
+  color: #EFFAFF; }
+.prosperity td {
+  border-color: #E9E9E9; }
+.prosperity #event-logo {
+  text-align: center;
+  margin-top: 1em; }
+  .prosperity #event-logo img {
+    width: 167px;
+    margin: auto; }
+.prosperity #event-container {
+  padding: 1em 0;
+  background: #1A4175; }
+.prosperity #main-content-container {
+  margin-right: 1em;
+  background: #FFF url(/images/pp-circles.png) no-repeat center 3px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  padding: 1em;
+  padding-top: 120px; }
+.prosperity #main-content-wrapper {
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  background: #1A4175;
+  padding: 1em;
+  border: none; }
+  .prosperity #main-content-wrapper #main-content {
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px; }
+.prosperity ol#progress li {
+  background-color: #566A9A;
+  color: white; }
+  .prosperity ol#progress li.current {
+    background-color: white;
+    color: #333; }
+.prosperity #page-header, .prosperity #page-sub-header {
+  margin-left: 0; }
+.prosperity #page-header {
+  color: #FFF; }
+.prosperity #page-sub-header {
+  color: #C2E0EF;
+  padding-bottom: 10px; }
+.prosperity #ft {
+  text-align: left; }
