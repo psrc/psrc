@@ -1,0 +1,10 @@
+- unless current_page?(event_path(@event))
+  %ol#progress
+    = progress_step 1, "Attendee Information"
+    = progress_step 2, "Contact Information"
+    - if @event_option.payment_required?
+      = progress_step 3, "Payment Type"
+      = progress_step 4, "Payment"
+      = progress_step 5, "Confirmation"
+    - else
+      = progress_step 3, "Confirmation"

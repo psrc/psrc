@@ -56,7 +56,8 @@ th, td {
   border-bottom: 1px solid #CFF0FF; }
 
 thead {
-  background: #CFF0FF; }
+  background: #185F70;
+  color: #FFF; }
 
 th {
   font-weight: bold;
@@ -77,8 +78,7 @@ input[type=text], input[type=password], textarea {
   *width: 11.9em; }
 
 #main-content-wrapper {
-  background: #FCFCFC url(/images/bg-main-content.png) repeat-x 0 -20px;
-  border: 1px solid #DDD;
+  background: #185F70;
   color: #333;
   padding: 1em; }
   #main-content-wrapper #main-content {
@@ -111,7 +111,8 @@ input[type=text], input[type=password], textarea {
   margin: auto;
   padding: 1em 0 0.5em;
   color: #999;
-  font-size: 85%; }
+  font-size: 85%;
+  text-align: right; }
   #ft ul {
     margin: 0;
     padding: 0; }
@@ -146,22 +147,39 @@ input[type=text], input[type=password], textarea {
 .prosperity #main-content-wrapper {
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
-  background: #1A4175; }
+  background: #1A4175;
+  border: none; }
   .prosperity #main-content-wrapper #main-content {
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px; }
+.prosperity ol#progress li {
+  background-color: #566A9A;
+  color: white; }
+  .prosperity ol#progress li.current {
+    background-color: white;
+    color: #333; }
 .prosperity #page-header {
   color: #FFF; }
 .prosperity #page-sub-header {
   color: #C2E0EF; }
+.prosperity #ft {
+  text-align: left; }
 
 
 #page-header {
-  margin: 0; }
+  margin: 0;
+  color: #FFF; }
 
 #page-sub-header {
   margin: 0;
-  margin-bottom: 0.5em; }
+  margin-bottom: 0.5em;
+  color: #CBDCDE; }
+
+
+#event-banner {
+  margin-bottom: 0.5em;
+  background: url(/images/banner3.png) no-repeat;
+  height: 145px; }
 
 #event-branding-progress {
   position: relative; }
@@ -178,11 +196,11 @@ ol#progress {
     -moz-border-radius-topleft: 5px;
     -moz-border-radius-bottomleft: 5px;
     margin: 0.5em 0;
-    background-color: #566A9A;
+    background-color: #CBDCDE;
     background-repeat: no-repeat;
     background-position: 0.15em 0.25em;
     padding: 0.4em 0;
-    color: white;
+    color: #333;
     padding-left: 2em;
     list-style: none; }
   ol#progress li.step-1 {
@@ -196,8 +214,8 @@ ol#progress {
   ol#progress li.step-5 {
     background-image: url(/images/step-5.gif); }
   ol#progress li.current {
-    background-color: white;
-    color: #1A4175; }
+    color: white;
+    background-color: #185F70; }
 
 
 table.registration {

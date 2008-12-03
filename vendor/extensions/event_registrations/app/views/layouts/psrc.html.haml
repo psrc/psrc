@@ -27,29 +27,21 @@
 
     %title
       = @page_title ||= "PSRC Event Registration"
-  %body{:class => :prosperity}
+  %body{:class => :psrc}
     - document :class => "event-page" do
-      - grid :one_fourth, :id => "event-container" do
-        - grid_unit :id => "event-branding-progress", :first => true do
-          #event-logo
-            = link_to image_tag("prosperity-logo-sm-filled.png", :alt => "Prosperity Partnership"), "http://www.psrc.org"
-          - unless current_page?(event_path(@event))
-            %ol#progress
-              = progress_step 1, "Attendee Information"
-              = progress_step 2, "Contact Information"
-              = progress_step 3, "Payment Type"
-              = progress_step 4, "Payment"
-              = progress_step 5, "Confirmation"
+      #event-logo
+        = link_to image_tag("psrc-logo.gif", :alt => "PSRC"), "http://www.psrc.org"
+      /
+        #event-banner
+          &nbsp;
+      - if current_page?(event_path(@event))
+        = render :partial => "/events/page_content"
+      - else
+        - grid :one_fourth, :id => "event-container" do
+          - grid_unit :id => "event-branding-progress", :first => true do
+            = render :partial => "/events/progress"
 
-
-        - grid_unit do
-          #main-content-container
-            #main-content-wrapper
-              %h2#page-header== #{@event.name} Registration
-              %h3#page-sub-header== #{ relative_date_span [@event.start_date, @event.end_date] } - #{ @event.location }
-              #main-content
-                = simple_format @event.description if current_page?(event_path(@event))
-                = flash_messages
-                = yield
-      #ft
-        == Brought to you by #{ link_to "PSRC", "http://www.psrc.org" }
+          - grid_unit do
+            = render :partial => "/events/page_content"
+        #ft
+          == Brought to you by #{ link_to "PSRC", "http://www.psrc.org" }
