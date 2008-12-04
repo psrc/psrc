@@ -813,8 +813,9 @@ module StandardTags
   end
 
   class LinkTree
-    attr_accessor :link, :selected, :children
-    def initialize link, selected
+    attr_accessor :link, :selected, :children, :url
+    def initialize url, link, selected
+      @url = url
       @link = link
       @selected = selected
       @children = []
@@ -829,7 +830,6 @@ module StandardTags
      "<a href='#{url.call(a)}'>#{a.split[0..-2].join(" ")}</a>" 
     end
     show_line = Proc.new { |line| !line.scan(/\A\-/).empty? }
-    # bug in here on /about selected on main page
     current_link = Proc.new do |link| 
       current_page = remove_trailing_slash(self.url)
       current_page_regex = /^#{Regexp.quote(current_page)}$/
@@ -847,18 +847,19 @@ module StandardTags
         current_style = current_selected ? '' : current_link.call(link)
         current_selected = true if  !current_style.blank? and !current_selected
         formatted_link = format_link.call(link)
+        u = url.call(link)
         if count_depth.call(link) == 1
-          parent = LinkTree.new(formatted_link, current_style)
+          parent = LinkTree.new(u, formatted_link, current_style)
           trees << parent
         else
-          parent.children << LinkTree.new(formatted_link, current_style)
+          parent.children << LinkTree.new(u, formatted_link, current_style)
         end
         current_depth = count_depth.call(link)
       end
     end
     result << "<ul id='#{tag.attr['id']}'>"
     trees.each do |tree|
-      if tree.children.find { |c| !c.selected.blank? }
+      if tree.children.find { |c| !c.selected.blank? } or !self.url.scan(Regexp.quote(tree.url)).empty?
         tree.selected = "class='active'"
       end
       result << "<li #{ tree.selected }>#{tree.link}<ul>"
