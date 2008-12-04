@@ -1,46 +1,29 @@
 #facebox .b {
-  background:url(/images/b.png);
+  background:url(/facebox/b.png);
 }
 
 #facebox .tl {
-  background:url(/images/tl.png);
+  background:url(/facebox/tl.png);
 }
 
 #facebox .tr {
-  background:url(/images/tr.png);
+  background:url(/facebox/tr.png);
 }
 
 #facebox .bl {
-  background:url(/images/bl.png);
+  background:url(/facebox/bl.png);
 }
 
 #facebox .br {
-  background:url(/images/br.png);
+  background:url(/facebox/br.png);
 }
 
 #facebox {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 100000;
+  z-index: 100;
   text-align: left;
-}
-
-#facebox form table tr th{
-  padding-top: 0.6em !important; 
-}
-
-#facebox form table tr td {
-  padding-top: 0.5em !important; 
-}
-
-#facebox form table tr {
-  margin-bottom: 0.5em !important;
-}
-
-#facebox h2 {
-  font-size: 172%;
-  border-bottom: 2px solid #E9E9E9;
 }
 
 #facebox .popup {

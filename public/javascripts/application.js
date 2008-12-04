@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+$(document).ready(function($) {
   observeFocus();
   observeNavigation();
   //$('#caption-container').hide().fadeIn(1000);
