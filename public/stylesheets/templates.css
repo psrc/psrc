@@ -152,8 +152,7 @@ a:focus {
         vertical-align: middle;
         color: #000;
         font-size: 108%;
-        text-transform: capitalize; }
-      #header ul#nav li a.sub-nav {
+        text-transform: capitalize;
         padding-right: 1.7em !important;
         padding-left: 0.9em !important;
         background: url(/images/global-nav-arrow-orange.gif) no-repeat right 0.65em; }
@@ -161,13 +160,17 @@ a:focus {
         background: #666 url(/images/bg-header-hover.png);
         color: #FFF;
         text-decoration: none; }
-      #header ul#nav li.current a:link, #header ul#nav li.current a:visited {
+      #header ul#nav li.active a:link, #header ul#nav li.active a:visited {
+        background: #185F70;
+        color: #FFF;
+        padding-left: 1.3em !important; }
+      #header ul#nav li.active li.active a:link, #header ul#nav li.active li.active a:visited {
         background: #185F70;
         color: #FFF; }
-      #header ul#nav li.current li a:link, #header ul#nav li.current li a:visited {
+      #header ul#nav li.active li a:link, #header ul#nav li.active li a:visited {
         background: #FFF;
         color: #333; }
-      #header ul#nav li.current li a:hover {
+      #header ul#nav li.active li a:hover {
         background: #185F70;
         color: #FFF;
         text-decoration: none; }
@@ -186,16 +189,21 @@ a:focus {
         #header ul#nav li ul li {
           margin: 0;
           padding: 0;
-          width: 18em;
+          width: 20em;
           font-weight: normal;
           float: none;
           border: none;
           text-align: left; }
           #header ul#nav li ul li a:link, #header ul#nav li ul li a:visited {
+            background: url(/images/bg-white.png);
             display: block;
             padding: 0.2em;
             padding-left: 1.3em;
             height: 1%; }
+          #header ul#nav li ul li a:hover {
+            background: #185F70;
+            color: #FFF;
+            text-decoration: none; }
 
 #branding {
   margin-top: 1.2em;

@@ -865,7 +865,6 @@ module StandardTags
 
     result.join
   end
-
   
   private
   
