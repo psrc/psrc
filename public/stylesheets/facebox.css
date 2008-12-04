@@ -32,6 +32,7 @@
 
 #facebox table {
   border-collapse: collapse;
+  width: auto !important;
 }
 
 #facebox td {
