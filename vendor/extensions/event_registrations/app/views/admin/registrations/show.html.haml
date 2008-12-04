@@ -14,7 +14,7 @@
       - for registration in option.registrations
         %tr
           %td= registration.created_at
-          %td= registration.payment.payment_method
+          %td= registration.payment.payment_method if registration.payment
           %td
             %address
               = registration.registration_contact
