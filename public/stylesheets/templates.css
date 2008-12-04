@@ -58,7 +58,13 @@
   margin: auto;
   text-align: left;
   width: 34.6em;
-  min-width: 450px; }
+  min-width: 450px;
+  font-family: arial,helvetica,clean,sans-serif; }
+  #module address {
+    display: inline;
+    font-style: italic; }
+  #module dl {
+    margin: 1em 0 0.5em; }
 
 
 a:link, a:active {
