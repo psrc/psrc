@@ -829,7 +829,13 @@ module StandardTags
      "<a href='#{url.call(a)}'>#{a.split[0..-2].join(" ")}</a>" 
     end
     show_line = Proc.new { |line| !line.scan(/\A\-/).empty? }
-    current_link = Proc.new { |link| remove_trailing_slash(url.call(link)).scan(Regexp.compile('^' + Regexp.quote(remove_trailing_slash(self.url)))).empty? ? '' : "class='active'" }
+    # bug in here on /about selected on main page
+    current_link = Proc.new do |link| 
+      current_page = remove_trailing_slash(self.url)
+      current_page_regex = /^#{Regexp.quote(current_page)}$/
+      the_current_link = remove_trailing_slash(url.call(link))
+      the_current_link.scan(current_page_regex).empty? ? '' : "class='active'"
+    end
     current_depth = 0
     links = tag.block.call
     result = []
