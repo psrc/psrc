@@ -58,7 +58,7 @@
   width: 260px; }
 
 ul.features, ul.projects {
-  margin: 0; }
+  margin: 0 !important; }
   ul.features li,   ul.projects li {
     margin: 0;
     list-style: none;
@@ -71,7 +71,7 @@ ul.features, ul.projects {
     ul.features li a:hover img,     ul.projects li a:hover img {
       border-color: #FF7F00; }
     ul.features li h5,     ul.projects li h5 {
-      margin-bottom: 0; }
+      margin: 0.1em 0; }
     ul.features li p,     ul.projects li p {
       font-size: 85%;
       line-height: 1.3em;
@@ -80,9 +80,9 @@ ul.features, ul.projects {
       margin-right: 0; }
 
 ul.projects li {
-  height: 23em;
-  padding: 0;
-  margin-right: 0.6em; }
+  margin-right: 0.6em !important;
+  height: 16em;
+  padding: 0; }
 
 .float-left {
   float: left !important;
