@@ -22,6 +22,17 @@
   - main.edit_form do
     - form_tag({}, {:multipart => true}) do
       = hidden_field 'page', 'lock_version'
+      - render_region :form_bottom do |form_bottom|
+        - form_bottom.edit_buttons do
+          - @buttons_partials.each do |partial|
+            = render :partial => partial
+          %p.buttons
+            = save_model_button(@page)
+            = save_model_and_continue_editing_button(@page)
+            or
+            = link_to 'Cancel', page_index_url
+            or
+            = link_to 'View Public Page (new window)', @page.url, :target => "blank" unless @page.new_record?
       = render_region :form_top
       .form-area
         - render_region :form do |form|
