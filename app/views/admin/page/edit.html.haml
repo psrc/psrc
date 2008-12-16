@@ -151,3 +151,19 @@
           });
 
       = render_region :popups
+
+:javascript
+
+  $('part_0_content').observe('keydown', function(){
+    window.onbeforeunload = goodbye;
+    $('part_0_content').stopObserving();
+  })
+  
+  $$('.button').invoke('observe','click', function(){
+    window.onbeforeunload = null;
+  })
+  
+  function goodbye(){
+    message = "Your changes have not been saved"
+    return message;
+  }
