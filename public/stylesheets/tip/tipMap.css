@@ -51,6 +51,15 @@ div.projDataInner{
 	background: InfoBackground;
 }
 
+div.projDataInner td {
+  border: none;
+}
+
+div.projectData {
+  font-family: Arial,Helvetica,Verdana,sans-serif,clean;
+  margin-top: 1em;
+}
+
 span.divhead1{
 	margin-top: 10px;
 	font-weight: bold;
