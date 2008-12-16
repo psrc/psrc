@@ -55,7 +55,7 @@ div.projDataInner td {
   border: none;
 }
 
-div.projectData {
+div#projectData {
   font-family: Arial,Helvetica,Verdana,sans-serif,clean;
   margin-top: 1em;
 }
