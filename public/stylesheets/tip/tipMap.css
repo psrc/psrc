@@ -30,7 +30,7 @@ table.details tr th{
 }
 
 tr.projHeadRow {
-	font-size: smallest;
+	font-size: 93%;
 }
 
 td.subTotal{
@@ -41,34 +41,14 @@ div.gmap{
 	border-style: solid;
 	border-width: thick;
 	border-color: Silver;
-	width:90%;
 	height:400px;
-	margin-left:5%;
-	margin-top: 20px;
-}
-
-div.projdata{
-	width:90%;
-	margin-left:5%;
-	margin-top:10px;
-	background-color:white;
 }
 
 div.projDataInner{
 	border-style:solid;
-	width:90%
-	position: relative;
 	border-color: Silver;
 	border-width: medium;
 	background: InfoBackground;
-}
-
-div.nonmap{
-	text-align: left;
-	margin-top: 20px;
-	width: 90%;
-	margin-left: 5%;
-	font-size: larger;
 }
 
 span.divhead1{
