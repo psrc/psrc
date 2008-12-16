@@ -1,0 +1,85 @@
+table.details{
+	position: relative;
+	vertical-align: top;
+}
+
+table.pTitle{
+	border-width: thin;
+	vertical-align: top;
+}
+
+table.pTitle tr td{
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+table.details tr{
+	vertical-align: top;
+}
+
+table.details tr td{
+	padding-right: 5px;
+	padding-left: 15px
+}
+
+table.details tr th{
+	padding-right: 5px;
+	padding-left: 15px;
+	font-weight:bold;
+	font-size: 10px;
+}
+
+tr.projHeadRow {
+	font-size: smallest;
+}
+
+td.subTotal{
+	text-align: right;
+}
+
+div.gmap{
+	border-style: solid;
+	border-width: thick;
+	border-color: Silver;
+	width:90%;
+	height:400px;
+	margin-left:5%;
+	margin-top: 20px;
+}
+
+div.projdata{
+	width:90%;
+	margin-left:5%;
+	margin-top:10px;
+	background-color:white;
+}
+
+div.projDataInner{
+	border-style:solid;
+	width:90%
+	position: relative;
+	border-color: Silver;
+	border-width: medium;
+	background: InfoBackground;
+}
+
+div.nonmap{
+	text-align: left;
+	margin-top: 20px;
+	width: 90%;
+	margin-left: 5%;
+	font-size: larger;
+}
+
+span.divhead1{
+	margin-top: 10px;
+	font-weight: bold;
+}
+
+span.subTotal{
+	text-align: right;
+	font-weight: bold;
+}
+span.dataTitle{
+	font-weight:bold;
+}
