@@ -180,15 +180,15 @@ ol#progress {
     padding-left: 2em;
     list-style: none; }
   ol#progress li.step-1 {
-    background-image: url(/images/step-1.gif); }
+    background-image: url(/images/step-1.png); }
   ol#progress li.step-2 {
-    background-image: url(/images/step-2.gif); }
+    background-image: url(/images/step-2.png); }
   ol#progress li.step-3 {
-    background-image: url(/images/step-3.gif); }
+    background-image: url(/images/step-3.png); }
   ol#progress li.step-4 {
-    background-image: url(/images/step-4.gif); }
+    background-image: url(/images/step-4.png); }
   ol#progress li.step-5 {
-    background-image: url(/images/step-5.gif); }
+    background-image: url(/images/step-5.png); }
   ol#progress li.current {
     color: white;
     background-color: #185F70; }
@@ -289,6 +289,16 @@ h4.title .hint {
 .prosperity ol#progress li {
   background-color: #566A9A;
   color: white; }
+  .prosperity ol#progress li li.step-1 {
+    background-image: url(/images/step-1.gif); }
+  .prosperity ol#progress li li.step-2 {
+    background-image: url(/images/step-2.gif); }
+  .prosperity ol#progress li li.step-3 {
+    background-image: url(/images/step-3.gif); }
+  .prosperity ol#progress li li.step-4 {
+    background-image: url(/images/step-4.gif); }
+  .prosperity ol#progress li li.step-5 {
+    background-image: url(/images/step-5.gif); }
   .prosperity ol#progress li.current {
     background-color: white;
     color: #333; }
