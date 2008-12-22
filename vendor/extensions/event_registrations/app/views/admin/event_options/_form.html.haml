@@ -1,6 +1,43 @@
 = form.hidden_field :event_id
 = form.text_field :description, :label => "Name", :hint => "(eg. Partner, General, etc.)", :class => "title"
-= form.text_field :early_price, :label => "Early Bird Price", :hint => "(eg. 70.00)"
 = form.text_field :normal_price, :label => "Standard Price", :hint => "(eg. 90.00)"
-= form.date_select :early_price_date, :label => "Early Bird End Date"
-= form.text_field :max_number_of_attendees, :label => "Maximum Number of Attendees Per Table", :hint => "Set this to '1' if option is for individuals.", :class => "short"
+
+.form-option
+  = check_box_tag :early_bird_toggler, nil,nil, :onclick => "Effect.toggle('early-bird', 'blind')"
+  %label{:for => 'early_bird_toggler'} Allow Early Bird Discount?
+
+  #early-bird
+    = form.text_field :early_price, :label => "Early Bird Price", :hint => "(eg. 70.00)"
+    = form.date_select :early_price_date, :label => "Early Bird End Date"
+
+.form-option
+  = check_box_tag :max_attendees_toggler
+  %label{:for => 'max_attendees_toggler'} Allow Table Registration?
+
+  #max-attendees
+    = form.text_field :max_number_of_attendees, :label => "Maximum Number of Attendees Per Table", :class => "short"
+
+%script{:type=>"text/javascript"}
+  == var hasEarlyBird = #{ !@event_option.early_price.blank? }
+  == var hasTables= #{ !@event_option.max_number_of_attendees.blank? }
+
+:javascript
+  function initHiddenOption( hasOption, togglerId, contId ){
+    var toggler = $(togglerId);
+    var cont = $(contId)
+    
+    toggler.checked = hasOption;    
+    (hasOption) ? cont.show() : cont.hide()
+
+    toggler.observe('click', function(event){
+      Effect.toggle(contId, 'blind');
+      if(!this.checked){
+        var inputSelector = '#' + contId + ' input';
+        $$(inputSelector).invoke('clear');
+      }
+     });
+  }
+  
+  initHiddenOption(hasEarlyBird, 'early_bird_toggler', 'early-bird')
+  initHiddenOption(hasTables, 'max_attendees_toggler', 'max-attendees')
+  

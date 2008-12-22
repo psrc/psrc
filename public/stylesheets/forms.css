@@ -55,6 +55,11 @@ form dd {
 form hr {
   noshade: noshade; }
 
+.form-option {
+  margin-top: 15px; }
+  .form-option div {
+    margin: 15px; }
+
 
 .notice, .success, .error {
   margin-bottom: 1em;
