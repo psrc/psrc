@@ -146,6 +146,7 @@
           }
           $('selected_page').observe('change', function() {
           updateLinkMaker();
+          $('link_maker').activate();
           });
           $('link_text').observe('keyup', function() {
           updateLinkMaker();
