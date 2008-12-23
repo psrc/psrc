@@ -9,6 +9,10 @@ class Event < ActiveRecord::Base
   validates_presence_of :start_date
   validates_presence_of :end_date
 
+  def early_available?
+    self.event_options.any? { |option| option.early_available? }
+  end
+  
   def table_options
      self.event_options.find :all, :conditions => "max_number_of_attendees > 1"
   end

@@ -1,6 +1,7 @@
 %thead
   %tr
     %th{:scope => "col"} Type
-    %th{:scope => "col"} Early Bird
+    - if @event.early_available?
+      %th{:scope => "col"} Early Bird
     %th{:scope => "col"} Standard
     %th{:scope => "col"} &nbsp;
