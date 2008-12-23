@@ -548,20 +548,20 @@ h1 {
 }
 /* popups */
 
-#popups .popup {
+.popup {
   background-color: white;
   border: 5px solid silver;
   padding: 2em;
   padding-top: 1em;
   padding-bottom: .5em;
 }
-#popups .popup .busy {
+.popup .busy {
   float: right;
 }
-#popups .popup h3 {
+.popup h3 {
   margin-top: 0;
 }
-#popups .popup .close-link {
+.popup .close-link {
   font-size: 85%;
 }
 #add-part-popup {

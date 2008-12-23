@@ -136,18 +136,23 @@
         %p
           Page:
           = select_tag :selected_page, options_for_select(pages_for_select)
-        %p#link_maker
+        %p Copy and Paste this Link:
+        %input{:type=>"text", :id => "link_maker", :style=> "width: 100%", :class => "text"}
         %p
           = link_to_function 'Close', "Element.hide('page-reference-popup')", :class => 'close-link'
         %script
           function updateLinkMaker() {
-          $('link_maker').innerHTML = "\"" + $F('link_text') + "\":" + $F('selected_page');
+          $('link_maker').value = "\"" + $F('link_text') + "\":" + $F('selected_page');
           }
           $('selected_page').observe('change', function() {
           updateLinkMaker();
           });
           $('link_text').observe('keyup', function() {
           updateLinkMaker();
+          });
+          
+          $('link_maker').observe('click', function() {
+          this.activate();
           });
 
       = render_region :popups
