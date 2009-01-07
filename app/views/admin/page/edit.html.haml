@@ -159,10 +159,10 @@
 
 :javascript
 
-  $('part_0_content').observe('keydown', function(){
+  //$('part_0_content').observe('change', function(){
     window.onbeforeunload = goodbye;
-    $('part_0_content').stopObserving();
-  })
+    //$('part_0_content').stopObserving();
+  //})
   
   $$('.button').invoke('observe','click', function(){
     window.onbeforeunload = null;
