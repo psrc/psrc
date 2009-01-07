@@ -49,7 +49,7 @@ document.observe('dom:loaded', function() {
       }
     });
 
-    popup.down('p a.close').observe('click', function(e) {
+    popup.down('a').observe('click', function(e) {
       e.findElement('.popup').hide();
       e.stop();
     });

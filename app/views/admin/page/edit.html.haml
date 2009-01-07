@@ -94,7 +94,6 @@
             = link_to 'Cancel', page_index_url
             or
             = link_to 'View Public Page (new window)', @page.url, :target => "blank" unless @page.new_record?
-    = textile_editor_initialize
   - main.edit_popups do
     - content_for 'popups' do
       #add-part-popup.popup{:style => "display: none"}
@@ -115,9 +114,9 @@
         %h3
           Available Tags for
           %span#page-type= @page.class.display_name
-        #tag-reference= tag_reference(@page.class.name)
-        %p
-          = link_to 'Close', '#', :class => 'close'
+        #tag-reference
+          = tag_reference(@page.class.name)
+          = link_to 'Close', '#', :class => 'close-link'
 
       #filter-reference-popup.popup{ :style => "display:none;" }
         %h3
