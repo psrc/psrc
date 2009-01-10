@@ -166,6 +166,11 @@ function boot_wym(elem) {
                + "<a href='#' class='wym_cancel'>{Cancel}</a>"
                + "</div>"
                + "</fieldset>"
+               + "<script type='text/javascript'>"
+               + "var linkOptionsHTML = jQuery(window.opener.document.body).find('#selected_page').html();"
+               + "jQuery('.row:first').find('input').remove().end().append('<select class=\"wym_href\"></select>');"
+               + "jQuery('.wym_href').html(linkOptionsHTML);"
+               + "</script>"
                + "</form>"
                + "</body>",
 
@@ -318,6 +323,7 @@ function boot_wym(elem) {
 
   });
 }
+
 
 /**
  * Unboots the WYMeditor:
