@@ -279,12 +279,6 @@ function boot_wym(elem) {
       
       jQuery(wym._box).find('.wym_buttons').css("float", "left");
       
-      jQuery(this._box).find(".wym_dropdown")
-          .find(WYMeditor.H2)
-          .append("<span>&nbsp;&gt;</span>")
-          .css('color','black');
-      
-      
 
       // map the index of this instance to it's page_part
       editors[elem.id] = wym._index;
