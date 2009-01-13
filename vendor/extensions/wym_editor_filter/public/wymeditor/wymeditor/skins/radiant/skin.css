@@ -144,6 +144,7 @@
             * html .wym_dialog div.row       { height: 1%; }
             .wym_dialog div.row              { display: block; }
             /* End hide from IE-mac */                
+        .wym_dialog #assets { background: #FFF; border: 2px solid #CDC295; height: 300px; overflow: auto; }          
             
 /*WYMEDITOR_LINK*/
         a.wym_wymeditor_link        { visibility: hidden;  }

@@ -168,8 +168,12 @@ function boot_wym(elem) {
                + "</fieldset>"
                + "<script type='text/javascript'>"
                + "var linkOptionsHTML = jQuery(window.opener.document.body).find('#selected_page').html();"
-               + "jQuery('.row:first').find('input').remove().end().append('<select class=\"wym_href\"></select>');"
-               + "jQuery('.wym_href').html(linkOptionsHTML);"
+               + "jQuery('.row:first').prepend('<select class=\"wym_pages\"></select>').end();"
+               + "jQuery('.wym_pages').html(linkOptionsHTML).prepend('<option selected=\"true\">Custom URL Below</option>');"
+               + "jQuery('.wym_pages').change(function(){"
+               + "jQuery('.wym_href').val($(this).val());"
+               + "jQuery('.wym_title').val($(this).find('option:selected').text().replace(/-/g,''));"
+               + "});"
                + "</script>"
                + "</form>"
                + "</body>",
@@ -179,6 +183,7 @@ function boot_wym(elem) {
                + ">"
                + "<form>"
                + "<fieldset>"
+               + "<p class='small'>Need to upload a new image or asset?  <a href='/admin/assets/new'>Click here to go to the New Asset Form</a>, then come back and refresh this sub-window."
                + "<input type='hidden' class='wym_dialog_type' value='"
                + WYMeditor.DIALOG_IMAGE
                + "' />"
@@ -201,6 +206,14 @@ function boot_wym(elem) {
                + "<a href='#' class='wym_cancel'>{Cancel}</a>"
                + "</div>"
                + "</fieldset>"
+               + "<script type='text/javascript'>"               
+               + "jQuery('<label>Select an asset to populate the fields below</label><div id=\"assets\"><dl><dt><img src=\"/assets/54/reverse_icon.png\" /><dt><dd>Reverse Fixie Logo</dd></dl><dl><dt><img src=\"/assets/52/question_icon.png\" /><dt><dd>Question Icon</dd></dl></div>').insertAfter('legend');"
+               + "jQuery('dl').click(function(){"
+               + "jQuery('.wym_src').val(jQuery(this).find('img').attr('src'));"
+               + "jQuery('.wym_alt, .wym_title').val(jQuery(this).find('dd').text());"
+               + "});"
+               + "jQuery('dl').hover(function(){jQuery(this).addClass(\"hover\")}, function(){jQuery(this).removeClass(\"hover\")})"
+               + "</script>"
                + "</form>"
                + "</body>",
 
