@@ -40,7 +40,7 @@
   blockquote,
   pre           { background: #FFFFFF no-repeat 2px 2px;
                   padding:8px 5px 5px;
-                  margin:10px; }
+                  margin:10px; display: block;}
   table         { background: #eae3c5 no-repeat 2px 2px;
                   padding:8px 5px 5px;
                   margin:10px; }

@@ -151,6 +151,7 @@
         .wym_dialog #assets dl { margin: 5px; display: inline-block; border: 1px solid #CDC295; background: #F5F5F5; height: 42px; float: left;}
         .wym_dialog #assets dl.hover { background-color: #CDC295; border-color: #9F956D; cursor: pointer; }
         .wym_dialog #assets dl dt, .wym_dialog #assets dl dd { display:block; float:left;  vertical-align:middle; margin: 0; padding: 0;}
+        .wym_dialog #assets dl dt img { width: 42px; height: 42px; }
         .wym_dialog #assets dl dd { font-size: 85%; margin-top: 13px; padding: 0 5px;}
 /*WYMEDITOR_LINK*/
         a.wym_wymeditor_link        { visibility: hidden;  }

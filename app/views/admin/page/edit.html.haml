@@ -156,6 +156,9 @@
           });
 
       = render_region :popups
+      
+%script{:type=>"text/javascript"} 
+  == var assets = #{Asset.find(:all).to_json}
 
 :javascript
   
