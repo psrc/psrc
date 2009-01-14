@@ -32,7 +32,7 @@
             or
             = link_to 'Cancel', page_index_url
             or
-            = link_to 'View Public Page (new window)', @page.url, :target => "blank" unless @page.new_record?
+            = link_to_preview
       = render_region :form_top
       .form-area
         - render_region :form do |form|
@@ -93,7 +93,7 @@
             or
             = link_to 'Cancel', page_index_url
             or
-            = link_to 'View Public Page (new window)', @page.url, :target => "blank" unless @page.new_record?
+            = link_to_preview
   - main.edit_popups do
     - content_for 'popups' do
       #add-part-popup.popup{:style => "display: none"}
@@ -162,10 +162,10 @@
 
 :javascript
   
-  $('part_0_content').observe('change', function(){
+  //$('part_0_content').observe('change', function(){
     window.onbeforeunload = goodbye;
-    $('part_0_content').stopObserving();
-  })
+  //  $('part_0_content').stopObserving();
+  //})
   
   $$('.button').invoke('observe','click', function(){
     window.onbeforeunload = null;

@@ -82,7 +82,7 @@
         .wym_skin_radiant .wym_panel h2           { display: block; }
         .wym_skin_radiant .wym_panel li           { font-size:115%; font-weight: bold; border-bottom: 1px solid #EAEAEA; }
         .wym_skin_radiant .wym_panel li a         { padding:4px; }
-
+        .wym_classes            { display: none;}
 
     /*option: add this class to a section to make it render as a dropdown menu*/
         .wym_skin_radiant .wym_dropdown h2        { display: block; }

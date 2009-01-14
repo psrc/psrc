@@ -67,17 +67,17 @@
     margin: 1em 0 0.5em; }
 
 
-a:link, a:active {
-  color: #1A4175;
-  text-decoration: none; }
-a:visited {
-  color: #355C8F;
+a:link, a:active, a:visited {
+  color: #00557F;
   text-decoration: none; }
 a:hover {
   color: #FF7F00;
   text-decoration: underline; }
 a:focus {
   outline: none; }
+
+p a:link, p a:active, p a:visited {
+  color: #008ACF; }
 
 #banner {
   position: relative;

@@ -13,6 +13,10 @@ module Admin::PageHelper
     end
   end
   
+  def link_to_preview
+    link_to 'View Public Page (new window)', "#", :onclick => "window.open('#{@page.url}', 'Preview', 'status=1,toolbar=1,menubar=1,resizeable=1,scrollbars=1,height=768,width=1024')" unless @page.new_record?
+  end
+  
   def meta_errors?
     !!(@page.errors[:slug] or @page.errors[:breadcrumb])
   end
