@@ -6,6 +6,9 @@
       - asset_type = asset.image? ? "image" : "link"
       %div{ :class => "#{asset_type} asset", :id => "asset_#{asset.id}"}
         = link_to image_tag(asset.thumbnail(:thumbnail)), asset.thumbnail, :onclick => "return false;", :class => "bucket_link", :title => asset.title
+        - unless asset.title.blank?
+          %br
+          .align-center.small= asset.title 
       .info{ :id => "#{dom_id}_info" }
         %strong
           = link_to "edit", edit_asset_url(asset.id), :id => "edit_asset", :title => "Edit #{asset.title}"
