@@ -3,7 +3,6 @@
     %tr
       %th.asset Image
       %th.asset-title Title
-      %th.asset-title Path
       %th.content_type Type
       %th.modify{ :colspan =>"2"} Modify
 
@@ -19,8 +18,6 @@
             &nbsp;
             %span.caption
               = asset.caption
-          %td
-            = asset.asset.url
           %td.content_type
             = asset.asset_content_type
           %td.add-to-bucket
