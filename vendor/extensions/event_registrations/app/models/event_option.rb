@@ -45,4 +45,12 @@ class EventOption < ActiveRecord::Base
   def is_table?
     self.max_number_of_attendees > 1
   end
+
+  def after_initialize
+    self.max_number_of_attendees ||= 1
+  end
+
+  def before_validation
+    self.max_number_of_attendees ||= 1
+  end
 end
