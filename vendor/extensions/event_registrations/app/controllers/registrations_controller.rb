@@ -52,6 +52,7 @@ class RegistrationsController < ApplicationController
   end
 
   def submit_contact_info
+    make_them_start_over and return false unless session[:registration]
     session[:contact] = @registration_contact = session[:registration].build_registration_contact(params[:registration_contact])
     if @registration_contact.valid?
       redirect_to_next_step
@@ -62,6 +63,7 @@ class RegistrationsController < ApplicationController
   end
 
   def payment_type
+    make_them_start_over and return false unless session[:registration]
     unless session[:registration].payment_required?
       session[:registration].save!
       redirect_to confirmation_path
@@ -69,6 +71,7 @@ class RegistrationsController < ApplicationController
   end
 
   def submit_payment_type
+    make_them_start_over and return false unless session[:registration]
     if params[:payment]
       if params[:payment][:type] =~ /credit/i
         redirect_to payment_by_credit_card_path
@@ -88,6 +91,7 @@ class RegistrationsController < ApplicationController
   end
 
   def submit_payment_by_credit_card
+    make_them_start_over and return false unless session[:registration]
     @registration = session[:registration]
     @card = session[:payment].card if session[:payment]
     begin
@@ -107,6 +111,8 @@ class RegistrationsController < ApplicationController
   end
 
   def submit_payment_by_check
+    make_them_start_over and return false unless session[:registration]
+    @registration = session[:registration]
     @payment = PaymentByCheck.new :agreement    => params[:payment][:agreement], :amount => session[:registration].payment_amount,
                                   :payment_date => convert_date(params[:payment], :payment_date)
     if @payment.valid?
@@ -120,6 +126,7 @@ class RegistrationsController < ApplicationController
   end
 
   def poll_for_credit_card_payment
+    make_them_start_over and return false unless session[:registration]
     make_them_start_over and return false unless session[:payment]
     if session[:payment].completed?
       session[:registration] = session[:payment].registration
@@ -131,6 +138,7 @@ class RegistrationsController < ApplicationController
   end
   
   def confirmation
+    make_them_start_over and return false unless session[:registration]
     @registration = session[:registration]
     make_them_start_over if @registration.new_record?
     @registration_group = @registration.registration_groups.first
