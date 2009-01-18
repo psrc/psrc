@@ -2,6 +2,7 @@ class EventOption < ActiveRecord::Base
   belongs_to :event
   has_many :registration_groups
   has_many :registrations, :through => :registration_groups
+  has_many :menu_choices
   validates_presence_of :description
   validates_presence_of :max_number_of_attendees
   validates_presence_of :normal_price
@@ -52,5 +53,9 @@ class EventOption < ActiveRecord::Base
 
   def before_validation
     self.max_number_of_attendees ||= 1
+  end
+
+  def has_menus?
+    !self.menu_choices.blank?
   end
 end

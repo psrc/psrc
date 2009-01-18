@@ -11,7 +11,9 @@ class EventRegistrationsExtension < Radiant::Extension
        m.resources :events
        m.resources :event_options
        m.resources :registrations
+       m.resources :menu_choices
      end
+
      map.event '/event/:id', :controller => 'events', :action => 'show'
      map.with_options(:path_prefix => 'event-registrations', :controller => 'registrations') do |m|
 
