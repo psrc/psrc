@@ -11,10 +11,12 @@ module EventsHelper
     relative_date_span [event.start_date, event.end_date]
   end
   
-  def progress_step step_num, name
-    current = (step_num == @progress_step)
+  def progress_step name
+    @step ||= 0
+    @step += 1
+    current = (@step == @progress_step)
     # Adding <b> if current in case stylesheet is not included
-    "<li class='step-#{step_num}#{' current' if current}'>#{"<b>" if current}#{ name }#{"</b>" if current}</li>"
+    "<li class='step-#{@step}#{' current' if current}'>#{"<b>" if current}#{ name }#{"</b>" if current}</li>"
   end
   
   def state_province_options

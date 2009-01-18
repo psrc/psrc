@@ -7,9 +7,6 @@ class RegistrationsController < ApplicationController
 
   no_login_required
 
-  STEPS = { "attendee_info" => 1, "contact_info" => 2, "payment_type" => 3, 
-            "payment_by_check" => 4, "payment_by_credit_card" => 4, "poll_for_credit_card_payment" => 4, "confirmation" => 5 }
-
   before_filter :redirect_to_correct_host
   before_filter :get_event_and_option
   before_filter :set_progress_step
@@ -18,11 +15,16 @@ class RegistrationsController < ApplicationController
 
   def attendee_info
     remember_event_and_option
+    session[:current_registration_step] = 1
     @number_of_attendees = @event_option.max_number_of_attendees
     session[:registration] = Registration.new :event => @event
     @group = RegistrationGroup.new :event_option => @event_option
     1.upto(@event_option.max_number_of_attendees) do |a|
       @group.event_attendees.build
+    end
+
+    if @event.attendee_same_as_contact?
+      redirect_to :action => 'contact_info'
     end
   end
 
@@ -47,6 +49,8 @@ class RegistrationsController < ApplicationController
   end
 
   def contact_info
+    remember_event_and_option
+    session[:registration] ||= Registration.new :event => @event
     make_them_start_over and return false unless session[:registration]
     @registration_contact = session[:contact] || RegistrationContact.new(:state => "WA")
   end
@@ -54,12 +58,27 @@ class RegistrationsController < ApplicationController
   def submit_contact_info
     make_them_start_over and return false unless session[:registration]
     session[:contact] = @registration_contact = session[:registration].build_registration_contact(params[:registration_contact])
+    if session[:registration].registration_groups.blank?
+      group = session[:registration].registration_groups.build :event_option => @event_option, :registration => session[:registration]
+      group.event_attendees.build :name => @registration_contact.name, :email => @registration_contact.email
+    end
+
     if @registration_contact.valid?
       redirect_to_next_step
     else
       flash.now[:error] = "Please fix errors below"
       render :action => :contact_info
     end
+  end
+
+  def menu
+    @menu_choices = @event_option.menu_choices
+  end
+
+  def submit_menu
+    group = session[:registration].registration_groups.first
+    group.event_attendees.first.menu_choice = MenuChoice.find params[:menu_choices]
+    redirect_to_next_step
   end
 
   def payment_type
@@ -139,6 +158,9 @@ class RegistrationsController < ApplicationController
   
   def confirmation
     make_them_start_over and return false unless session[:registration]
+    if ! session[:registration].payment_required?
+      session[:registration].save!
+    end
     @registration = session[:registration]
     make_them_start_over if @registration.new_record?
     @registration_group = @registration.registration_groups.first
@@ -152,13 +174,13 @@ class RegistrationsController < ApplicationController
   end
 
   def redirect_to_next_step
-    current_step = session[:current_registration_step]
-    next_step = STEPS.index(current_step + 1)
+    current_step = session[:current_registration_step] || 0
+    next_step = steps.index(current_step + 1)
     redirect_to :action => next_step
   end
 
   def set_progress_step
-    if current_step = STEPS[self.action_name]
+    if current_step = steps[self.action_name]
       @progress_step = session[:current_registration_step] = current_step
     end
     true
@@ -181,6 +203,7 @@ class RegistrationsController < ApplicationController
   end
 
   def make_them_start_over
+    raise 'ugh'
     flash[:notice] = "Please continue your registration process."
     redirect_to event_path(@event)
     return false
@@ -203,4 +226,35 @@ class RegistrationsController < ApplicationController
   def load_layout
     @event.layout
   end
+
+  def steps
+    steps = {}
+    current_step = 0
+    unless @event.attendee_same_as_contact?
+      current_step += 1
+      steps["attendee_info"] = current_step
+    end
+
+    current_step += 1
+    steps["contact_info"] = current_step
+
+    if @event_option.has_menu?
+      current_step += 1
+      steps["menu"] = current_step
+    end
+
+    if @event_option.payment_required?
+      current_step += 1
+      steps["payment_type"] = current_step
+      current_step += 1
+      steps["payment_by_check"] = current_step
+      steps["payment_by_credit_card"] = current_step
+      steps["poll_for_credit_card_payment"] = current_step
+    end
+
+    current_step += 1
+    steps["confirmation"] = current_step
+    steps
+  end
+
 end

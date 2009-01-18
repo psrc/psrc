@@ -55,7 +55,7 @@ class EventOption < ActiveRecord::Base
     self.max_number_of_attendees ||= 1
   end
 
-  def has_menus?
+  def has_menu?
     !self.menu_choices.blank?
   end
 end
