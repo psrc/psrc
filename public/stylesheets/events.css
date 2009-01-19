@@ -118,7 +118,7 @@ a:focus {
 
 
 #main-content-wrapper {
-  background: #CBDCDE;
+  background: #185F70;
   color: #333; }
   #main-content-wrapper #main-content {
     border: 1px solid #E9E9E9;
@@ -134,12 +134,12 @@ a:focus {
   margin: 0 0 0 10px; }
 
 #page-header {
-  color: #000;
+  color: #FFF;
   font-size: 146.5%;
   padding-top: 5px; }
 
 #page-sub-header {
-  color: #111;
+  color: #B5CACF;
   padding-bottom: 5px;
   font-size: 132%; }
 
@@ -189,6 +189,8 @@ ol#progress {
     background-image: url(/images/step-4.png); }
   ol#progress li.step-5 {
     background-image: url(/images/step-5.png); }
+  ol#progress li.step-6 {
+    background-image: url(/images/step-6.png); }
   ol#progress li.current {
     color: white;
     background-color: #185F70; }
