@@ -83,6 +83,7 @@ class Admin::PageController < Admin::AbstractModelController
       @meta << {:field => "breadcrumb", :type => "text_field", :args => [{:class => 'textbox', :maxlength => 160}]}
       @meta << {:field => "description", :type => "text_field", :args => [{:class => 'textbox', :maxlength => 200}]}
       @meta << {:field => "keywords", :type => "text_field", :args => [{:class => 'textbox', :maxlength => 200}]}
+      @meta << {:field => "created_at", :type => "datetime_select", :args => []}
     end
     
     def save

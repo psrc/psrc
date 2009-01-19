@@ -832,29 +832,39 @@ module StandardTags
     show_line = Proc.new { |line| !line.scan(/\A\-/).empty? }
     current_link = Proc.new do |link| 
       current_page = remove_trailing_slash(self.url)
-      current_page_regex = /^#{Regexp.quote(current_page)}$/
       the_current_link = remove_trailing_slash(url.call(link))
-      the_current_link.scan(current_page_regex).empty? ? '' : "class='active'"
+      the_current_link_regex = /^#{Regexp.quote(the_current_link)}/
+      !current_page.scan(the_current_link_regex).empty? 
     end
-    current_depth = 0
-    links = tag.block.call
+
+    lines = tag.block.call
     result = []
     trees = []
     current_selected = false
     parent = nil
-    links.each do |link|
-      if show_line.call(link)
-        current_style = current_selected ? '' : current_link.call(link)
-        current_selected = true if  !current_style.blank? and !current_selected
-        formatted_link = format_link.call(link)
-        u = url.call(link)
-        if count_depth.call(link) == 1
-          parent = LinkTree.new(u, formatted_link, current_style)
+    parent_selected = false
+    
+    # Iterate over each of the lines
+    lines.each do |line|
+      # If the line has a '-' in it, we should process it.
+      if show_line.call(line)
+        link_selected = current_link.call(line)
+
+        # Generate the html tag for the link
+        formatted_link = format_link.call(line)
+
+        # Get the URL from the line
+        u = url.call(line)
+
+        if count_depth.call(line) == 1
+          # If we're on a top-level link, create new parent linktree object
           trees << parent
-        else
-          parent.children << LinkTree.new(u, formatted_link, current_style)
+          parent_selected = link_selected
+        elsif parent_selected
+          # Otherwise, add the child to the tree if the parent is selected
+          child = LinkTree.new(u, formatted_link, link_selected)
+          parent.children << child
         end
-        current_depth = count_depth.call(link)
       end
     end
     result << "<ul id='#{tag.attr['id']}'>"
@@ -864,7 +874,7 @@ module StandardTags
       end
       result << "<li #{ tree.selected }>#{tree.link}<ul>"
       tree.children.each do |c|
-        result << "<li #{ c.selected }>#{c.link}</li>"
+        result << "<li #{ "class='active'" unless c.selected.blank?  }>#{c.link}</li>"
       end
       result << "</ul></li>"
     end
