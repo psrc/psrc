@@ -115,9 +115,10 @@
         %h3
           Available Tags for
           %span#page-type= @page.class.display_name
-        #tag-reference= tag_reference(@page.class.name)
-        %p
-          = link_to 'Close', '#', :class => 'close'
+        #tag-reference
+          = tag_reference(@page.class.name)
+          %p
+            = link_to 'Close', '#', :class => 'close'
 
       #filter-reference-popup.popup{ :style => "display:none;" }
         %h3
