@@ -62,7 +62,9 @@
   width: 50em;
   min-width: 650px; }
   #facebox .content.wide img {
-    float: left; }
+    float: left;
+    display: block;
+    margin-right: 10px; }
 
 #module {
   margin: auto;
