@@ -244,6 +244,15 @@ input#set_table_name {
   width: 3.5em !important; }
 
 
+ul#menu-options {
+  margin-left: 0;
+  margin-bottom: 3em; }
+  ul#menu-options li {
+    list-style: none; }
+    ul#menu-options li * {
+      vertical-align: middle; }
+
+
 table#registered-attendees {
   width: 99%; }
   table#registered-attendees th, table#registered-attendees td {
