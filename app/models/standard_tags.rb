@@ -858,6 +858,7 @@ module StandardTags
 
         if count_depth.call(line) == 1
           # If we're on a top-level link, create new parent linktree object
+          parent = LinkTree.new(u, formatted_link, link_selected)
           trees << parent
           parent_selected = link_selected
         elsif parent_selected
