@@ -1,0 +1,13 @@
+#menu
+  %h2.first Menu Options
+
+  - form_tag submit_menu_path, :builder => ::WebSgFormBuilder do 
+    %ul
+    - @menu_choices.each_with_index do |menu, i|
+      %li 
+        = radio_button_tag "menu_choices", menu.id, i == 0
+        %label{:for => "menu_choices_#{menu.id}" }= menu.description
+    
+    %p
+      = submit_tag "Continue"
+      == or #{ link_to "back to contact information", contact_info_path }

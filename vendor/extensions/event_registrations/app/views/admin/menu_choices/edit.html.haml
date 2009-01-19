@@ -1,0 +1,8 @@
+%h1== Edit Registration Option
+
+- form_for [:admin, @menu_choice], :builder => ::WebSgFormBuilder do |f|
+  = render :partial => 'form', :object => f
+  = f.submit
+  or
+  = link_to "Cancel", edit_admin_event_option_path(@menu_choice.event_option)
+

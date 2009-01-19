@@ -19,7 +19,7 @@
 
 %script{:type=>"text/javascript"}
   == var hasEarlyBird = #{ !@event_option.early_price.blank? }
-  == var hasTables= #{ !@event_option.max_number_of_attendees.blank? }
+  == var hasTables= #{ @event_option.is_table? }
 
 :javascript
   function initHiddenOption( hasOption, togglerId, contId ){

@@ -11,7 +11,9 @@ class EventRegistrationsExtension < Radiant::Extension
        m.resources :events
        m.resources :event_options
        m.resources :registrations
+       m.resources :menu_choices
      end
+
      map.event '/event/:id', :controller => 'events', :action => 'show'
      map.with_options(:path_prefix => 'event-registrations', :controller => 'registrations') do |m|
 
@@ -20,6 +22,9 @@ class EventRegistrationsExtension < Radiant::Extension
 
        m.submit_contact_info   'submit-contact-info', :action => 'submit_contact_info'
        m.contact_info          'contact-info',        :action => 'contact_info'
+
+       m.submit_menu          'submit-menu', :action => 'submit_menu'
+       m.menu                 'menu',        :action => 'menu'
 
        m.submit_payment_type  'submit-payment-type', :action => 'submit_payment_type'
        m.payment_type         'payment-type', :action => 'payment_type'

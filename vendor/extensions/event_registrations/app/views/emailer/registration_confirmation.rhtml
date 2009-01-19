@@ -31,6 +31,13 @@ Note, this is not an invoice.  Your credit card assigned to <%= @registration.pa
 <% end %>
 For all billing questions, please contact Andrew Werfelmann at 206-971-3292 or awerfelmann@psrc.org
 
+<% unless @registration.event.refund_policy.blank? %>
+===================================================================
+REFUND POLICY
+===================================================================
+<%= @registration.event.refund_policy %>
+<% end %>
+
 ===================================================================
 REGISTERED ATTENDEES (<%= @registration.number_of_attendees %>)
 ===================================================================

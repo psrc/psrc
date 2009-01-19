@@ -27,7 +27,7 @@
       %th Name
       %th Organization
       %th E-mail
-      %th Vegetarian?
+      %th Menu Choice
       - unless @registration_group.group_name.blank?
         %th Table Name
   %tbody
@@ -37,13 +37,17 @@
         %td.name= person.name
         %td.organization= person.organization
         %td.mail= person.email
-        %td.vegetarian= person.vegetarian ? "Yes" : "No"
+        %td.menu-choice= person.menu_choice.description if person.menu_choice
         - unless @registration_group.group_name.blank?
           %td.table-name= @registration_group.group_name
 
 %p
   %span.strong Event Schedule
   = textilize @event.schedule
+
+- unless @event.refund_policy.blank?
+  %h3.title Refund Policy
+  = textilize @event.refund_policy
   
 %h3.title Billing Questions?
 %p== If you have questions, please contact Andrew Werfelmann at 206-971-3292 or by e-mail at #{ mail_to "awerfelmann@psrc.org" }

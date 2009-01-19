@@ -1,0 +1,10 @@
+%h1.title New Menu Option
+
+= error_messages_for :menu_choice
+
+- form_for [:admin, @menu_choice], :builder => ::WebSgFormBuilder do |f|
+  = render :partial => 'form', :object => f
+  %br
+  = submit_tag "Create Menu Option"
+  or
+  = link_to "cancel", admin_events_path

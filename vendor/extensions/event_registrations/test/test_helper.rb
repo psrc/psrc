@@ -50,7 +50,6 @@ module TestHelpers
     options[:attendees].each_with_index do |attendee, i|
       fills_in "person[#{i}][name]",      :with => attendee[:name]
       fills_in "person[#{i}][email]",     :with => attendee[:email]
-      checks   "person[#{i}][vegetarian]" if attendee[:vegetarian]
     end
 
     clicks_button "Continue"

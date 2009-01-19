@@ -6,3 +6,14 @@
   or
   = link_to "Cancel", admin_events_path
 
+- unless @event_option.new_record?
+  %h3 Menu Options
+  %ul
+    - for menu_choice in @event_option.menu_choices
+      %li
+        = link_to image_tag("admin/trash.gif", :alt => "Delete"), admin_menu_choice_path(menu_choice) , :method => :delete, :confirm => "Are you sure?"
+        %span.small= link_to "Edit", edit_admin_menu_choice_path(menu_choice)
+        == #{ menu_choice.description } (#{ menu_choice.title })
+    %li= link_to image_tag("admin/add-menu-option.png", :alt => "Create new menu option"), new_admin_menu_choice_path(:event_option_id => @event_option.id)
+    
+%p= link_to "Back to all event registration options", admin_events_path
