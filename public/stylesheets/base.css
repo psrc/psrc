@@ -37,6 +37,10 @@ h5 {
   font-size: 108%;
   color: #2F2520; }
 
+h6 {
+  font-size: 100%;
+  font-weight: bold; }
+
 abbr, acronym {
   border-bottom: 1px dotted #000;
   cursor: help; }
