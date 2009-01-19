@@ -138,9 +138,9 @@ class AssetsController < ApplicationController
 
       if not @file_types.empty?
         Asset.paginate_by_content_types(@file_types, :all, :conditions => @conditions, :order => 'created_at DESC', 
-          :page => params[:page], :per_page => 10, :total_entries => count_by_conditions)
+          :page => params[:page], :per_page => 50, :total_entries => count_by_conditions)
       else
-        Asset.paginate(:all, :conditions => @conditions, :order => 'created_at DESC', :page => params[:page], :per_page => 10)
+        Asset.paginate(:all, :conditions => @conditions, :order => 'created_at DESC', :page => params[:page], :per_page => 50)
       end
     end
     
