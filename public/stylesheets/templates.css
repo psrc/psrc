@@ -80,7 +80,7 @@
         text-transform: none !important; }
     #module .section .section-content {
       padding: 10px 5px 0; }
-      #module .section .section-content strong, #module .section .section-content .strong {
+      #module .section .section-content strong, #module .section .section-content .strong, #module .section .section-content h6 {
         color: #333B3F; }
   #module .footer {
     border-size: 2px; }
