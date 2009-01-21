@@ -823,6 +823,7 @@ module StandardTags
   end
 
   tag 'fixie_navigate' do |tag|
+    show_all = tag.attr['show_all'] == 'true'
     count_depth = Proc.new { |link| r = link.scan(/\A\-*/); r.empty? ? 0 : r.first.size }
     url = Proc.new { |a| a.split.last }
     format_link = Proc.new do |l| 
@@ -861,7 +862,7 @@ module StandardTags
           parent = LinkTree.new(u, formatted_link, link_selected)
           trees << parent
           parent_selected = link_selected
-        elsif parent_selected
+        elsif parent_selected or show_all
           # Otherwise, add the child to the tree if the parent is selected
           child = LinkTree.new(u, formatted_link, link_selected)
           parent.children << child
