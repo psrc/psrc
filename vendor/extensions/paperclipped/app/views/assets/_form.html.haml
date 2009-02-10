@@ -4,8 +4,4 @@
 %p.caption
   %label{ :for => "asset_caption" } Searchable Tags
   = form.text_field :caption, :class => 'textbox', :maxlength => 100
-%p
-  %small
-    %a{ :id => "more-extended-metadata", :href => "#", :onclick => "#{toggle_javascript_for('extended-metadata')}; return false;" } More
-    %a{ :id => "less-extended-metadata", :href => "#", :onclick => "#{toggle_javascript_for('extended-metadata')}; return false;", :style => "display: none" } Less
 
