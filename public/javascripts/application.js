@@ -3,6 +3,7 @@ $(document).ready(function($) {
   observeNavigation();
   //$('#caption-container').hide().fadeIn(1000);
   jQuery('a[rel*=facebox]').facebox();
+  observeQuestionLists();
 })
 
 function comingSoon(elm){
@@ -12,6 +13,24 @@ function comingSoon(elm){
 function observeFocus(){
   if($('input.focus').length > 0)
     $('input.focus')[0].focus();
+}
+
+function observeQuestionLists(){
+  $('.toggler li strong')
+    .next().hide()
+    .end()
+    .hover(
+      function(){
+        $(this).addClass('hover');
+      },
+      function(){
+        $(this).removeClass('hover');
+      })
+    .click(
+      function(){
+        $(this).next().toggle();
+      });
+    
 }
 
 function disableSubmit(form){

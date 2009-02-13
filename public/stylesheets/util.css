@@ -224,6 +224,25 @@ dl.photo-summary dt {
 dl.photo-summary dd {
   margin-left: 130px; }
 
+ol.toggler, ul.toggler {
+  margin: 0;
+  margin-bottom: 2em;
+  padding: 0; }
+  ol.toggler li,   ul.toggler li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6em; }
+    ol.toggler li strong,     ul.toggler li strong {
+      color: #00557F;
+      display: block;
+      margin-top: 1em;
+      cursor: pointer;
+      font-weight: normal; }
+      ol.toggler li strong.hover,       ul.toggler li strong.hover {
+        color: #FF7F00;
+        text-decoration: underline; }
+
 .quiet {
   color: #758A95; }
 
