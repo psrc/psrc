@@ -1,13 +1,13 @@
 class DatabaseFormPage < Page
   class DatabaseFormTagError < StandardError; end
  
-  attr_reader :form_name, :form_error, :form_data, :tag_attr
+  attr_reader :form_name, :form_error, :form_data, :tag_attr, :form_email
 
   # Page processing. If the page has posted-back, it will try to save to contacts 
   # table and redirect to a different page, if specified.
   def process(request, response)
     @request, @response = request, response
-    @form_name, @form_error = nil, nil
+    @form_email, @form_name, @form_error = nil, nil, nil
     if request.post?
       @form_data = request.parameters[:content].to_hash
 
@@ -16,6 +16,7 @@ class DatabaseFormPage < Page
       form_data.delete("Ignore")  
       form_data.delete_if { |key, value| key.match(/_verify$/) }
 
+      @form_email = request.parameters[:form_email]
       @form_name = request.parameters[:form_name]
       redirect_to = request.parameters[:redirect_to]
 
@@ -98,6 +99,7 @@ class DatabaseFormPage < Page
         results << %Q(</script>)
       end
 
+      results << %Q(<input type="hidden" name="form_email" value="#{tag_attr[:email]}" />) unless tag_attr[:email].nil?
       results << %Q(<input type="hidden" name="form_name" value="#{tag_attr[:name]}" />)
       results << %Q(<input type="hidden" name="redirect_to" value="#{tag_attr[:redirect_to]}" />) unless tag_attr[:redirect_to].nil?
       results << %Q(<div class="database-error">#{form_error}</div>) if form_error

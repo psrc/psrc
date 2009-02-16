@@ -30,10 +30,20 @@ class DatabaseFormPageTest < Test::Unit::TestCase
     assert_equal "upload.txt", FormResponse.find_by_name("uploadtest").form_files.first.filename
   end
 
+  def test_should_send_email
+    post_form_with_email
+    raise "well, i'm not done yet"
+  end
+
   private
 
   def post_form
     post :show_page, :url => ["contact"], "form_name" => "contact", 
+      :redirect_to => "/", :content => { "home_phone" => "111-222-3333", "name" => "nick" }
+  end
+
+  def post_form_with_email
+    post :show_page, :url => ["contact"], "form_name" => "contact", :form_email => "joe@fixieconsulting.com",
       :redirect_to => "/", :content => { "home_phone" => "111-222-3333", "name" => "nick" }
   end
   
