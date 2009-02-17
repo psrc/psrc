@@ -9,6 +9,7 @@ class DatabaseFormPageTest < Test::Unit::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
     login_as(:existing)
+    ActionMailer::Base.deliveries = []
   end
 
   def test_should_save_form
@@ -31,8 +32,12 @@ class DatabaseFormPageTest < Test::Unit::TestCase
   end
 
   def test_should_send_email
-    post_form_with_email
-    raise "well, i'm not done yet"
+    assert_difference ActionMailer::Base.deliveries, :size do
+      post_form_with_email 
+      email = ActionMailer::Base.deliveries.first
+      assert_equal email.to, ["joe@fixieconsulting.com"]
+      assert_match 'nick', email.body
+    end
   end
 
   private

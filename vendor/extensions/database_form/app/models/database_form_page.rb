@@ -46,6 +46,7 @@ class DatabaseFormPage < Page
       @form_error = "Error encountered while trying to submit form. #{$!}"
       false
     else 
+      DatabaseFormEmailer.deliver_form_submission(self, form_response) if !form_email.blank?
       true
     end
   end
