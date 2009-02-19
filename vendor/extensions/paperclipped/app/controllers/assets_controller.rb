@@ -18,6 +18,11 @@ class AssetsController < ApplicationController
         @page = Page.find(params[:page])
         @asset.pages << @page
       end
+
+      if Asset.count(:conditions => ["asset_file_name ilike ?", @asset.asset_file_name]) > 0
+        flash[:error] ||= ""
+        flash[:error] << "There is already another file uploaded with a filename #{ @asset.asset_file_name }."
+      end
     end
     response_for :update do |format|
       format.html { 
