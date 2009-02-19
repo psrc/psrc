@@ -59,6 +59,17 @@
               %span.details
                 = "Updated by #{updater_name_for(layout)} #{time_ago_in_words layout.updated_at.to_time} ago."
                 = link_to "Edit", layout_edit_path(layout)
+
+#updated_assets.dashboard_module
+  %h2 Recently Updated Assets
+  %ul
+    - @updated_assets.each do |asset|
+      %li
+        %span.title= link_to asset.title, asset.asset.url
+        %span.details
+          = "Updated by #{updater_name_for(asset)} #{time_ago_in_words asset.updated_at.to_time} ago."
+          = link_to "Edit", edit_asset_path(asset)
+
 = render_region :extensions
         
 - include_stylesheet 'admin/dashboard'

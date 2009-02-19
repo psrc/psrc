@@ -1,7 +1,7 @@
 class Admin::DashboardController < ApplicationController
 
   def index
-    recent_range = Time.now - 7.days
+    recent_range = 60.days.ago
     recent_conditions = {
       :conditions => ["updated_at > :updated_at", {:updated_at => recent_range}], 
       :limit =>100, 
@@ -13,5 +13,6 @@ class Admin::DashboardController < ApplicationController
       :conditions => ["status_id = :status_id and updated_at > :updated_at",
         {:status_id => Status['Reviewed'].id, :updated_at => recent_range}], :limit => 100)
     @updated_layouts = Layout.find(:all, recent_conditions)
+    @updated_assets = Asset.find(:all, recent_conditions)
   end
 end
