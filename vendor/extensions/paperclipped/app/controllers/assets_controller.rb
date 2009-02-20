@@ -25,10 +25,6 @@ class AssetsController < ApplicationController
       end
     end
     response_for :update do |format|
-      if Asset.count(:conditions => ["asset_file_name ilike ?", @asset.asset_file_name]) > 1
-        flash[:error] ||= ""
-        flash[:error] << "There is already another file uploaded with a filename #{ @asset.asset_file_name }."
-      end
       format.html { 
         flash[:notice] = "Asset successfully updated."
         redirect_to(params[:continue] ? edit_asset_path(@asset) : assets_path) 
