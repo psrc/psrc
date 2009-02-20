@@ -16,6 +16,7 @@ set :repository,          "github-psrc:joevandyk/psrc.git"
 set :user,                "tanga"
 set :deploy_to,           defer { "/data/#{application}" }
 set :password,            "k31bv4j3"
+set :deploy_via,           :remote_cache
 
 # This will execute the Git revision parsing on the *remote* server rather than locally
 set :real_revision, 			lambda { source.query_revision(revision) { |cmd| capture(cmd) } }
