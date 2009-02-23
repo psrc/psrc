@@ -27,7 +27,7 @@
 
     %title
       = @page_title ||= "PSRC Event Registration"
-  %body{:class => :psrc}
+  %body{ :id => 'psrc', :class=> params[:action] }
     #psrc-logo
       = link_to image_tag("psrc-logo.gif", :alt => "PSRC"), "http://www.psrc.org"
     #branding-banner

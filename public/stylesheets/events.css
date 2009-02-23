@@ -116,6 +116,9 @@ a:focus {
       margin-right: 2em;
       display: inline; }
 
+body#psrc.show #main-content-container {
+  margin-left: 25.7%; }
+
 
 #main-content-wrapper {
   background: #185F70;
@@ -264,62 +267,62 @@ h4.title .hint {
   font-weight: normal;
   letter-spacing: 0; }
 
-.prosperity .event-page {
+body#prosperity .event-page {
   padding-top: 2em; }
-.prosperity h4 {
+body#prosperity h4 {
   color: #1A4175 !important; }
-.prosperity th {
+body#prosperity th {
   background: #1A4175;
   color: #EFFAFF; }
-.prosperity td {
+body#prosperity td {
   border-color: #E9E9E9; }
-.prosperity #event-logo {
+body#prosperity #event-logo {
   text-align: center;
   margin-top: 1em; }
-  .prosperity #event-logo img {
+  body#prosperity #event-logo img {
     width: 167px;
     margin: auto; }
-.prosperity #event-container {
+body#prosperity #event-container {
   padding: 1em 0;
   background: #1A4175; }
-.prosperity #main-content-container {
+body#prosperity #main-content-container {
   margin-right: 1em;
   background: #FFF url(/images/pp-circles.png) no-repeat center 3px;
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
   padding: 1em;
   padding-top: 120px; }
-.prosperity #main-content-wrapper {
+body#prosperity #main-content-wrapper {
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   background: #1A4175;
   padding: 1em;
   border: none; }
-  .prosperity #main-content-wrapper #main-content {
+  body#prosperity #main-content-wrapper #main-content {
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px; }
-.prosperity ol#progress li {
+body#prosperity ol#progress li {
   background-color: #566A9A;
   color: white; }
-  .prosperity ol#progress li li.step-1 {
+  body#prosperity ol#progress li li.step-1 {
     background-image: url(/images/step-1.gif); }
-  .prosperity ol#progress li li.step-2 {
+  body#prosperity ol#progress li li.step-2 {
     background-image: url(/images/step-2.gif); }
-  .prosperity ol#progress li li.step-3 {
+  body#prosperity ol#progress li li.step-3 {
     background-image: url(/images/step-3.gif); }
-  .prosperity ol#progress li li.step-4 {
+  body#prosperity ol#progress li li.step-4 {
     background-image: url(/images/step-4.gif); }
-  .prosperity ol#progress li li.step-5 {
+  body#prosperity ol#progress li li.step-5 {
     background-image: url(/images/step-5.gif); }
-  .prosperity ol#progress li.current {
+  body#prosperity ol#progress li.current {
     background-color: white;
     color: #333; }
-.prosperity #page-header, .prosperity #page-sub-header {
+body#prosperity #page-header, body#prosperity #page-sub-header {
   margin-left: 0; }
-.prosperity #page-header {
+body#prosperity #page-header {
   color: #FFF; }
-.prosperity #page-sub-header {
+body#prosperity #page-sub-header {
   color: #C2E0EF;
   padding-bottom: 10px; }
-.prosperity #ft {
+body#prosperity #ft {
   text-align: left; }

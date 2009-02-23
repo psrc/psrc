@@ -27,7 +27,7 @@
 
     %title
       = @page_title ||= "Prosperity Partnership Event Registration"
-  %body{:class => :prosperity}
+  %body{ :id => 'prosperity', :class=> params[:action] }
     - document :class => "event-page" do
       - grid :one_fourth, :id => "event-container" do
         - grid_unit :id => "event-branding-progress", :first => true do
