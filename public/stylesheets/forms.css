@@ -103,6 +103,7 @@ form hr {
 
 
 form.dynamic-form p {
+  margin-bottom: 1.7em;
   line-height: 1.231; }
   form.dynamic-form p * {
     vertical-align: middle; }
@@ -122,3 +123,10 @@ form.dynamic-form p {
     padding: 0.1em; }
   form.dynamic-form p textarea, form.dynamic-form p input, form.dynamic-form p select {
     width: 97%; }
+form.dynamic-form .button {
+  background: #185F70;
+  border: 1px solid #0C353F;
+  color: #FFFFFF;
+  font-family: arial,helvetica,clean,sans-serif;
+  font-weight: bold;
+  padding: 0.3em; }
