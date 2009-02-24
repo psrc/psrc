@@ -131,3 +131,5 @@ form.dynamic-form {
     font-family: arial,helvetica,clean,sans-serif;
     font-weight: bold;
     padding: 0.3em; }
+  form.dynamic-form .validation-advice {
+    color: red; }
