@@ -124,13 +124,13 @@ form.dynamic-form {
       padding: 0.1em; }
     form.dynamic-form p textarea, form.dynamic-form p input, form.dynamic-form p select {
       width: 97%; }
-      form.dynamic-form p textarea .tiny,       form.dynamic-form p input .tiny,       form.dynamic-form p select .tiny {
+      form.dynamic-form p textarea.tiny,       form.dynamic-form p input.tiny,       form.dynamic-form p select.tiny {
         width: 15%; }
-      form.dynamic-form p textarea .short,       form.dynamic-form p input .short,       form.dynamic-form p select .short {
+      form.dynamic-form p textarea.short,       form.dynamic-form p input.short,       form.dynamic-form p select.short {
         width: 25%; }
-      form.dynamic-form p textarea .medium,       form.dynamic-form p input .medium,       form.dynamic-form p select .medium {
+      form.dynamic-form p textarea.medium,       form.dynamic-form p input.medium,       form.dynamic-form p select.medium {
         width: 50%; }
-      form.dynamic-form p textarea .long,       form.dynamic-form p input .long,       form.dynamic-form p select .long {
+      form.dynamic-form p textarea.long,       form.dynamic-form p input.long,       form.dynamic-form p select.long {
         width: 75%; }
   form.dynamic-form .button {
     background: #185F70;
