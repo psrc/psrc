@@ -73,10 +73,10 @@ class Asset < ActiveRecord::Base
   belongs_to :updated_by, :class_name => 'User'
   
   validates_attachment_presence :asset, :message => "You must choose a file to upload!"
-  validates_attachment_content_type :asset, 
-    :content_type => Radiant::Config["assets.content_types"].split(', ') if Radiant::Config.table_exists? && Radiant::Config["assets.content_types"]
-  validates_attachment_size :asset, 
-    :less_than => Radiant::Config["assets.max_asset_size"].to_i.megabytes if Radiant::Config.table_exists? && Radiant::Config["assets.max_asset_size"]
+  #validates_attachment_content_type :asset, 
+    #:content_type => Radiant::Config["assets.content_types"].split(', ') if Radiant::Config.table_exists? && Radiant::Config["assets.content_types"]
+  #validates_attachment_size :asset, 
+    #:less_than => Radiant::Config["assets.max_asset_size"].to_i.megabytes if Radiant::Config.table_exists? && Radiant::Config["assets.max_asset_size"]
     
     
   before_save :assign_title
