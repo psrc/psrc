@@ -1,1 +1,3 @@
-<%= @response.to_xml %>
+<% @response.content.each do |key, value| %>
+  <%= key %>: <%= value %>
+<% end %>
