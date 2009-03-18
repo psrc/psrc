@@ -20,9 +20,13 @@ class Admin::FormResponsesController < ApplicationController
 
     if params[:commit] == "Export as CSV"
       buf = ''
-      CSV.generate_row @form_responses.first.content.keys, @form_responses.first.content.keys.size, buf
+      return "No form responses detected" if @form_responses.blank?
+      keys = @form_responses.last.content.keys.sort
+      CSV.generate_row keys, keys.size, buf
       @form_responses.each do |response|
-        CSV.generate_row response.content.values, response.content.values.size, buf
+        arr = []
+        keys.each { |k| arr << response.content[k] }
+        CSV.generate_row arr, arr.size, buf
       end
       send_data buf, :type => "text/csv", :filename => "#{params[:filter][:name]}-form_responses.csv"
     end
