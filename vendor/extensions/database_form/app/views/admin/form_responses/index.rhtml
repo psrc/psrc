@@ -9,15 +9,7 @@
       <td><%= select(:filter, :name, @form_names) %></td>
     </tr>
     <tr>
-      <td>Start Date:</td>
-      <td><%= datetime_select(:filter, :start_time) %></td>
-    </tr>
-    <tr>
-      <td>End Date:</td>
-      <td><%= datetime_select(:filter, :end_time) %></td>
-    </tr>
-    <tr>
-      <td colspan="2"><%= submit_tag('View online') %><%= submit_tag('Export as XML') %></td>
+      <td colspan="2"><%= submit_tag('View online') %><%= submit_tag('Export as CSV') %></td>
     </tr>
   </table>
 <% end -%>

@@ -1,4 +1,5 @@
 require 'ostruct'
+require 'csv'
 
 class Admin::FormResponsesController < ApplicationController
   def index
@@ -16,9 +17,14 @@ class Admin::FormResponsesController < ApplicationController
       options[:conditions] = conditions.join(" AND ")
     end
     @form_responses = FormResponse.find(:all, options)
-    
-    if params[:commit] == "Export as XML"
-      return render(:xml => @form_responses.to_xml(:root => "form-responses"))
+
+    if params[:commit] == "Export as CSV"
+      buf = ''
+      CSV.generate_row @form_responses.first.content.keys, @form_responses.first.content.keys.size, buf
+      @form_responses.each do |response|
+        CSV.generate_row response.content.values, response.content.values.size, buf
+      end
+      send_data buf, :type => "text/csv", :filename => "#{params[:filter][:name]}-form_responses.csv"
     end
     
   end
