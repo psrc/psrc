@@ -335,5 +335,5 @@ ul#page-navigation {
       border-top: none; }
 
 
-.yui-gc .yui-u.first table {
-  width: 400px; }
+.yui-gc .first table {
+  width: 400px !important; }
