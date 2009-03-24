@@ -292,7 +292,7 @@ a:focus {
       padding: 0;
       margin: 0; }
   .section .section-content {
-    padding: 0.5em;
+    padding: 0.8em;
     font-size: 93%; }
     .section .section-content * {
       line-height: 1.3em !important; }
@@ -314,6 +314,8 @@ ul#page-navigation {
       padding: 0.3em;
       font-size: 93%;
       font-weight: bold; }
+    ul#page-navigation li ul {
+      margin: 0; }
     ul#page-navigation li.active a:link, ul#page-navigation li.active a:visited {
       color: #FFF;
       background: #FF7F00 url(/images/nav-arrow.gif) no-repeat 155px 0em; }
