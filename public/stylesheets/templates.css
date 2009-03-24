@@ -280,11 +280,12 @@ a:focus {
       -moz-border-radius-topright: 10px;
       -webkit-border-radius-topright: 10px; }
     .section .section-header h3, .section .section-header h4 {
-      font-weight: bold;
+      font-weight: bold !important;
       color: #EFFCFF !important;
-      text-transform: uppercase; }
+      text-transform: uppercase !important;
+      line-height: 1.2em !important; }
     .section .section-header h3 {
-      font-size: 131%;
+      font-size: 123%;
       padding: 0;
       margin: 0; }
     .section .section-header h4 {
