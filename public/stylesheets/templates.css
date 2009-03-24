@@ -325,6 +325,7 @@ ul#page-navigation {
       ul#page-navigation li.active ul li.active {
         border: none; }
         ul#page-navigation li.active ul li.active a:link, ul#page-navigation li.active ul li.active a:visited {
+          border-top: 1px solid #FFB255;
           color: #FFF;
           background: #FF7F00; }
       ul#page-navigation li.active ul li a:link, ul#page-navigation li.active ul li a:visited {
