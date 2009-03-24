@@ -60,8 +60,7 @@ blockquote {
     margin: 0; }
 
 ol, ul {
-  margin: 0.2em;
-  margin-left: 2em; }
+  margin: 0 1.5em 1.5em; }
 
 ol li {
   list-style: decimal outside; }

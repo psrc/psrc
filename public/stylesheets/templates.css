@@ -34,8 +34,10 @@
       margin-top: 1em; }
     #main-content-wrapper #main-content img.border,     #main-content-wrapper #page-content img.border {
       border: 4px solid #DFD0C3; }
-    #main-content-wrapper #main-content ul li ol li,     #main-content-wrapper #main-content ol li ol li,     #main-content-wrapper #page-content ul li ol li,     #main-content-wrapper #page-content ol li ol li {
-      list-style-type: lower-roman; }
+    #main-content-wrapper #main-content ul li,     #main-content-wrapper #main-content ol li,     #main-content-wrapper #page-content ul li,     #main-content-wrapper #page-content ol li {
+      margin-bottom: 0.7em; }
+      #main-content-wrapper #main-content ul li ol li,       #main-content-wrapper #main-content ol li ol li,       #main-content-wrapper #page-content ul li ol li,       #main-content-wrapper #page-content ol li ol li {
+        list-style-type: lower-roman; }
 
 #custom-doc, #banner, #breadcrumbs, #nav, #branding, #ft {
   margin: auto;
@@ -293,6 +295,8 @@ a:focus {
     .section .section-content h4.title, .section .section-content h5.title {
       margin: 0;
       padding-top: 0.1em; }
+    .section .section-content ul li,     .section .section-content ol li {
+      margin-bottom: 0.2em !important; }
 
 ul#page-navigation {
   font-family: arial,helvetica,clean,sans-serif;
