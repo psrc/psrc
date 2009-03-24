@@ -300,7 +300,7 @@ a:focus {
       margin: 0;
       padding-top: 0.1em; }
     .section .section-content ul li,     .section .section-content ol li {
-      margin-bottom: 0.2em !important; }
+      margin-bottom: 0.35em !important; }
 
 ul#page-navigation {
   font-family: arial,helvetica,clean,sans-serif;
@@ -333,3 +333,7 @@ ul#page-navigation {
         color: #1A4175; }
     ul#page-navigation li.first {
       border-top: none; }
+
+
+.yui-gc yui-u.first table {
+  width: 400px; }
