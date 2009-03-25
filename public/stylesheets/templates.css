@@ -53,9 +53,13 @@
   min-width: 450px; }
 
 #facebox .content.wide {
-  width: 37em;
-  min-width: 481px; }
-  #facebox .content.wide img {
+  width: 45em;
+  min-width: 585px; }
+
+#facebox .content.publication {
+  width: 34.6em;
+  min-width: 450px; }
+  #facebox .content.publication img {
     float: left;
     display: block;
     margin-right: 10px; }
