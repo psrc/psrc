@@ -65,13 +65,15 @@ ul.features, ul.projects {
     float: left;
     margin-right: 0.6em;
     width: 125px;
-    font-family: arial,helvetica,clean,sans-serif;
-    line-height: 1em !important; }
+    font-family: arial,helvetica,clean,sans-serif; }
+    ul.features li *,     ul.projects li * {
+      line-height: 1em !important; }
     ul.features li img,     ul.projects li img {
       border: 2px solid #DBDBDB; }
     ul.features li a:hover img,     ul.projects li a:hover img {
       border-color: #FF7F00; }
     ul.features li h5,     ul.projects li h5 {
+      line-height: 1em !important;
       margin: 0.1em 0 !important; }
     ul.features li p,     ul.projects li p {
       font-size: 85%;
