@@ -28,7 +28,7 @@
       padding-left: 0; }
     #main-content-wrapper #main-content h4,     #main-content-wrapper #page-content h4 {
       color: #4F423B; }
-    #main-content-wrapper #main-content a h2, #main-content-wrapper #main-content a h3, #main-content-wrapper #main-content a h4, #main-content-wrapper #main-content a h5,     #main-content-wrapper #page-content a h2, #main-content-wrapper #page-content a h3, #main-content-wrapper #page-content a h4, #main-content-wrapper #page-content a h5 {
+    #main-content-wrapper #main-content a:link h2, #main-content-wrapper #main-content a:link h3, #main-content-wrapper #main-content a:link h4, #main-content-wrapper #main-content a:link h5,     #main-content-wrapper #main-content a:visited h2, #main-content-wrapper #main-content a:visited h3, #main-content-wrapper #main-content a:visited h4, #main-content-wrapper #main-content a:visited h5,     #main-content-wrapper #page-content a:link h2, #main-content-wrapper #page-content a:link h3, #main-content-wrapper #page-content a:link h4, #main-content-wrapper #page-content a:link h5,     #main-content-wrapper #page-content a:visited h2, #main-content-wrapper #page-content a:visited h3, #main-content-wrapper #page-content a:visited h4, #main-content-wrapper #page-content a:visited h5 {
       color: #015C82;
       font-family: arial,helvetica,clean,sans-serif;
       font-weight: bold; }
