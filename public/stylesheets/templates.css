@@ -288,6 +288,8 @@ a:focus {
       color: #EFFCFF !important;
       text-transform: uppercase !important;
       line-height: 1.2em !important; }
+      .section .section-header h3 *,       .section .section-header h4 * {
+        line-height: 1.2em !important; }
     .section .section-header h3 {
       font-size: 123%;
       padding: 0;
