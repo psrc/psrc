@@ -71,10 +71,11 @@ ul.features, ul.projects {
     ul.features li a:hover img,     ul.projects li a:hover img {
       border-color: #FF7F00; }
     ul.features li h5,     ul.projects li h5 {
-      margin: 0.1em 0; }
+      margin: 0.1em 0;
+      line-height: 1.3em !important; }
     ul.features li p,     ul.projects li p {
       font-size: 85%;
-      line-height: 1.3em;
+      line-height: 1.3em !important;
       margin-bottom: 0; }
     ul.features li.last,     ul.projects li.last {
       margin-right: 0; }
