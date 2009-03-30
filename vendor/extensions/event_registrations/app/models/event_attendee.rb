@@ -5,7 +5,7 @@ class EventAttendee < ActiveRecord::Base
   def to_s
     result = "#{name} <#{email}>"
     result += " of #{ organization }" if !organization.blank?
-    result += " wants to eat #{ menu_choice }" if menu_choice
+    result += " menu choice: #{ menu_choice }" if menu_choice
     result
   end
 end

@@ -46,3 +46,14 @@ REGISTERED ATTENDEES (<%= @registration.number_of_attendees %>)
 <%= person -%>
 <%= "| Table: #{ person.registration_group.group_name }" unless person.registration_group.group_name.blank? %>
 <% end %>
+
+===================================================================
+CONTACT INFORMATION
+===================================================================
+<% r = @registration.registration_contact %>
+Name: <%= r.name %>
+<% unless r.title.blank? %>Title: <%= r.title %> <% end %>
+<% unless r.organization.blank? %>Organization: <%= r.organization %> <% end %>
+Address: <%= r.address %> <%= r.state %>, <%= r.zip %>
+E-mail: <%= r.email %>
+Phone: <%= r.phone %>
