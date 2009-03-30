@@ -3,6 +3,6 @@
     %h2#page-header== #{@event.name} Registration
     %h3#page-sub-header== #{ relative_date_span [@event.start_date, @event.end_date] } - #{ @event.location }
     #main-content
-      = simple_format @event.description if current_page?(event_path(@event))
+      = textilize(@event.description) if current_page?(event_path(@event))
       = flash_messages
       = yield
