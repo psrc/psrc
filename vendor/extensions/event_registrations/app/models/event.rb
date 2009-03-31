@@ -29,4 +29,8 @@ class Event < ActiveRecord::Base
     sum
   end
 
+  def psrc?
+    self.layout =~ /psrc/i
+  end
+
 end
