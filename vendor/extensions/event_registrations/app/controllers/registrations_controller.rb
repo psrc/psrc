@@ -157,7 +157,10 @@ class RegistrationsController < ApplicationController
   end
   
   def confirmation
-    make_them_start_over and return false unless session[:registration]
+    if !session[:registration] or !session[:registration].valid?
+      make_them_start_over 
+      return false 
+    end
     if ! session[:registration].payment_required?
       session[:registration].save!
     end
@@ -203,10 +206,9 @@ class RegistrationsController < ApplicationController
   end
 
   def make_them_start_over
-    raise 'ugh'
     flash[:notice] = "Please continue your registration process."
     redirect_to event_path(@event)
-    return false
+    return true
   end
 
   def remember_event_and_option
