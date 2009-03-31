@@ -57,6 +57,7 @@ RegistrationContact
 RegistrationGroup
 EventAttendee
 Event
+MenuChoice
 require 'big_decimal'
 
 case RAILS_ENV
