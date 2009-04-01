@@ -50,7 +50,7 @@ class PaymentByCreditCard
 
   # Authorize purchase from gateway
   def execute_purchase
-    attempt = $gateway.purchase((@amount*100).to_i, @card, :billing_address => @card.billing_address )
+    attempt = PaymentGateway.for_event(self.registration_object.event).purchase((@amount*100).to_i, @card, :billing_address => @card.billing_address )
     if attempt.success?
       @registration_object.payment = Payment.create_from_card(self)
       @registration_object.save!

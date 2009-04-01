@@ -68,3 +68,5 @@ else
   $prosperity_gateway = ActiveMerchant::Billing::ViaklixGateway.new :login => "405372", :user => "512psrc", :password => "TM2ZS9", :test => true
   $psrc_gateway       = ActiveMerchant::Billing::ViaklixGateway.new :login => "405372", :user => "439psrc", :password => "6C0YYD", :test => true
 end
+
+require 'gateway'

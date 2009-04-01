@@ -1,6 +1,6 @@
-module Payment
-  def payment_gateway event
-    if @event.psrc?
+module PaymentGateway
+  def self.for_event event
+    if event.psrc?
       $psrc_gateway
     else
       $prosperity_gateway
