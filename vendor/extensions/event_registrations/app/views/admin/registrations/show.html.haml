@@ -1,5 +1,6 @@
 #content
   %h2== Registrations for #{ link_to @event.name, admin_events_path }
+  = link_to "Export to CSV", export_admin_registration_path(@event)
 
   - for option in @event.event_options
     %h3= option.description
