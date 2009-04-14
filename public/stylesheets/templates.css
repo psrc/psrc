@@ -325,7 +325,7 @@ ul#page-navigation {
       margin: 0; }
     ul#page-navigation li.active a:link, ul#page-navigation li.active a:visited {
       color: #FFF;
-      background: #FF7F00 url(/images/nav-arrow.gif) no-repeat 165px 6px; }
+      background: #FF7F00 url(/images/nav-arrow.gif) no-repeat right 6px; }
     ul#page-navigation li.active ul {
       font-size: 85%;
       margin: 0 0 0 2em; }
