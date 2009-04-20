@@ -321,17 +321,28 @@ a
     ul, ol
       li
         :margin-bottom 0.35em !important
-
+#sidebar h3
+  :background #185F70
+  :color white
+  :border 1px solid #EEE
+  :border-bottom none
+  :margin 0
+  :text-transform uppercase
+  :padding 2px 7px 1px
+  :font-size 146%
+  :font-weight normal
 ul#page-navigation
+  :border 1px solid #EEE
+  :border-top none
   :font-family arial,helvetica,clean,sans-serif
   :margin 0
   li
     :list-style none
-    :border-top 1px solid #EEE
     a:link, a:visited
       :height 1%
       :display block
-      :padding 0.3em
+      :padding 0.3em 0.5em
+      :color #185F70
       :font-size 93%
       :font-weight bold
     ul
@@ -342,7 +353,7 @@ ul#page-navigation
         :background #FF7F00 url(/images/nav-arrow.gif) no-repeat right center 
       ul 
         :font-size 85%
-        :margin 0 0 0 2em
+        :margin 0
         li.active
           :border none
           a:link,a:visited
@@ -352,7 +363,11 @@ ul#page-navigation
         li
           a:link,a:visited
             :background white
-            :color #1A4175
+            :color #185F70
+            :padding 0.1em 0
+            :padding-left 1.5em
+            :margin 0.4em 0
+            :font-weight normal
           
         
     &.first
