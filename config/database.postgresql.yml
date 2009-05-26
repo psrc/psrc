@@ -6,6 +6,10 @@
 development:
   adapter: postgresql
   database: psrc_dev
+
+staging:
+  adapter: postgresql
+  database: psrc_draft
   
 test:
   adapter: postgresql
