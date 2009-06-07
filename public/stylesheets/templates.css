@@ -319,6 +319,8 @@ a:focus {
   padding: 2px 7px 1px;
   font-size: 116%;
   font-weight: bold; }
+  #sidebar h3 a {
+    color: white; }
 
 ul#page-navigation {
   border: 1px solid #EEE;
@@ -350,7 +352,7 @@ ul#page-navigation {
           background: #FF7F00; }
       ul#page-navigation li.active ul li a:link, ul#page-navigation li.active ul li a:visited {
         background: white;
-        color: #185F70;
+        color: #10424E;
         padding: 0.1em 0;
         padding-left: 1.5em;
         margin: 0.4em 0;
