@@ -159,9 +159,12 @@ dl.photo-caption, dl.photo-caption-sm {
     margin: 0;
     display: block;
     font-size: 85%; }
+  dl.photo-caption dl.photo-caption-sm,   dl.photo-caption-sm dl.photo-caption-sm {
+    width: 100px !important; }
 
-dl.photo-caption-sm {
-  width: 100px !important; }
+
+div.section dl.photo-caption, div.section dl.photo-caption-sm {
+  width: 100% !important; }
 
 .pTop-s {
   padding-top: 0.5em; }
