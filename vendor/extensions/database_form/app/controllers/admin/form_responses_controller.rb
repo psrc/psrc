@@ -33,6 +33,12 @@ class Admin::FormResponsesController < ApplicationController
     
   end
 
+  def clear
+    FormResponse.destroy_all ["name = ?", params[:name]]
+    flash[:notice] = "Responses deleted!"
+    redirect_to :action => :index
+  end
+
   protected
 
   # Reconstruct a datetime object from datetime_select helper form params

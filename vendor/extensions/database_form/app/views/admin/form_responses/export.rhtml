@@ -1,5 +1,7 @@
 <h1>Exported Form Responses</h1>
 
+<p><%= link_to "Delete these responses", { :controller => 'admin/form_responses', :action => 'clear', :name => params[:filter][:name]}, { :confirm => "Are you sure?"} %> </p>
+
 <% @form_responses.each do |response| -%>
 
 <table border="1" cellspacing="5" cellpadding="5">
