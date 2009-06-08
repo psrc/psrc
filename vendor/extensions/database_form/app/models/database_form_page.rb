@@ -34,14 +34,18 @@ class DatabaseFormPage < Page
   def save_form
     form_response = FormResponse.new(:name => form_name)
 
-    form_data.keys.each do |k|
+    form_data.keys.sort.each do |k|
       if form_data[k].class.to_s =~ /ActionController::.*Uploaded/
       	file = form_response.form_files.build(:uploaded_data => form_data[k])
 	      form_data.delete(k)
       end
     end
 
-    form_response.content = form_data
+    form_response.content = ActiveSupport::OrderedHash.new
+    form_data.keys.sort.each do |key|
+      form_response.content[key] = form_data[key]
+    end
+
     if !form_response.save
       @form_error = "Error encountered while trying to submit form. #{$!}"
       false

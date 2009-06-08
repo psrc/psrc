@@ -1,6 +1,6 @@
 class FormResponse < ActiveRecord::Base
   validates_presence_of :name, :content
-  serialize :content, Hash
+  serialize :content
   has_many :form_files
 
   def to_xml(options = {})
