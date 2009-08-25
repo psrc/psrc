@@ -2,7 +2,7 @@
 %p== We are verifying your credit card information.  This could take a minute or two.  This page will automatically refresh. Not refreshing? #{ link_to "Click here to refresh", poll_for_credit_card_payment_path }.
 
 %h3.title Problems?
-%p== If you have problems processing your credit card, please contact us at #{ mail_to @event.contact_email }
+%p== If you have problems processing your credit card, please contact us at #{ mail_to "awerfelmann@psrc.org"}
 
 %script
   == window.setTimeout('location.href="#{poll_for_credit_card_payment_path}"', 3000);
