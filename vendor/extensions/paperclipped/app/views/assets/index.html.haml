@@ -28,6 +28,10 @@
     %label Search
     %input{ :type => "text", :id => "search", :name => "search" }
     = observe_field 'search',  :frequency => 1, :update => 'assets_table', :url =>  { :controller => 'assets', :action=> 'index' }, :method => 'get', :with => "'search=' + escape(value)"
+
+    = check_box_tag 'search_by_id'
+    %label{:for => 'search_by_id'} Search only by ID?
+    = observe_field 'search_by_id',  :frequency => 1, :update => 'assets_table', :url =>  { :controller => 'assets', :action=> 'index' }, :method => 'get', :with => "'search='+ escape($F('search')) + '&search_by_id='+$F('search_by_id')"
     
 #assets_table
   = render :partial => 'asset_table'

@@ -121,20 +121,25 @@ class AssetsController < ApplicationController
   
     def current_objects
       unless params['search'].blank?
-        term = params['search'].downcase
+        if params[:search_by_id] == "1"
+          @conditions = {:id => params[:search]}
+        else
+          term = params['search'].downcase
 
-        search_cond_sql = []
-        cond_params = {}
-      
-        search_cond_sql << 'LOWER(asset_file_name) LIKE (:term)'
-        search_cond_sql << 'LOWER(title) LIKE (:term)'
-        search_cond_sql << 'LOWER(caption) LIKE (:term)'
+          search_cond_sql = []
+          cond_params = {}
+        
+          search_cond_sql << 'LOWER(asset_file_name) LIKE (:term)'
+          search_cond_sql << 'LOWER(title) LIKE (:term)'
+          search_cond_sql << 'LOWER(caption) LIKE (:term)'
+          search_cond_sql << '(substr(cast (id as text), 0)) like (:term)'
 
-        cond_sql = search_cond_sql.join(" or ")
-      
-        cond_params[:term] = "%#{term}%"
-      
-        @conditions = [cond_sql, cond_params]
+          cond_sql = search_cond_sql.join(" or ")
+        
+          cond_params[:term] = "%#{term}%"
+        
+          @conditions = [cond_sql, cond_params]
+        end
       else
         @conditions = []
       end
