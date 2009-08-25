@@ -5,7 +5,7 @@ class Emailer < ActionMailer::Base
   def registration_confirmation registration
     @from         = PSRC_SYSTEM
     @recipients   = registration.registration_contact.email 
-    @bcc          = PSRC_CONTACT
+    @bcc          = registration.event.contact_email
     @subject      = "#{ registration.event.name } Registration Confirmation!"
     body :registration => registration
   end

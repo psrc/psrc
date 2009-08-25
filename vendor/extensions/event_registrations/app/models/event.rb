@@ -33,4 +33,12 @@ class Event < ActiveRecord::Base
     self.layout =~ /psrc/i
   end
 
+  def contact_email
+    if psrc?
+      "srogers@psrc.org"
+    else
+      "orobinson@psrc.org"
+    end
+  end
+
 end
