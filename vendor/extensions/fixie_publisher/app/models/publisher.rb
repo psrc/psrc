@@ -25,7 +25,7 @@ class Publisher
       stdin.flush
     end
 
-    `rsync -avz /data/psrc_draft/shared/assets/ /data/psrc/shared/assets/`
+    `rsync -avz /data/psrc-staging/shared/assets/ /data/psrc/shared/assets/`
   end
 
   private
@@ -39,7 +39,7 @@ class Publisher
 
   def self.current_dev
     config = Rails::Configuration.new
-    config.database_configuration["development"]["database"]
+    config.database_configuration[RAILS_ENV]["database"]
   end
 
   def self.current_prod
