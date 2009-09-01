@@ -17,4 +17,4 @@ test:
 
 production:
   adapter: postgresql
-  database: psrc_prod
+  database: psrc_production
