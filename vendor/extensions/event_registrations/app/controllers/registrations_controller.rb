@@ -1,7 +1,6 @@
 class RegistrationsController < ApplicationController
 
   include SslRequirement
-  ssl_required :payment_by_credit_card, :submit_payment_by_credit_card, :poll_for_credit_card_payment
   
   layout :load_layout
 
@@ -257,6 +256,10 @@ class RegistrationsController < ApplicationController
     current_step += 1
     steps["confirmation"] = current_step
     steps
+  end
+
+  def ssl_required
+    true
   end
 
 end
