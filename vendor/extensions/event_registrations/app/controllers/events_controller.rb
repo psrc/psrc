@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   no_login_required
+  include SslRequirement
   layout :load_layout
 
   def show
@@ -9,6 +10,10 @@ class EventsController < ApplicationController
   end
 
   protected
+
+  def ssl_required?
+    true
+  end
 
   def load_layout
     @event.layout
