@@ -258,7 +258,7 @@ class RegistrationsController < ApplicationController
     steps
   end
 
-  def ssl_required
+  def ssl_required?
     true
   end
 
