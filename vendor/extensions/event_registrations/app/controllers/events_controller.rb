@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   layout :load_layout
 
   def show
-    redirect_to "http://secure.psrc.org/events/#{params[:id]}" and return unless params[:stay_here]
+    redirect_to "http://secure.psrc.org/event/#{params[:id]}" and return unless params[:stay_here]
     @event = Event.find params[:id]
     @progress_step = 1
     session[:registration] = nil
