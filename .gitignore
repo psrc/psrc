@@ -9,6 +9,7 @@ script/pids
 config/memcached.yml
 t.sql
 .*.swp
+.*.sw*
 *.pid
 *.sqlite3
 db/schema.rb
