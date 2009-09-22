@@ -59,7 +59,6 @@
 #header ul li.current a:link, #header ul li.current a:visited {
   background: #666 url(/images/bg-header-hover.png) !important;
   color: #FFF;
-  border: 0.75px solid #185F70;
 }
 
 #header ul li a:hover {
