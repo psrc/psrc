@@ -68,7 +68,7 @@ ul.features, ul.projects {
     font-family: arial,helvetica,clean,sans-serif; }
     ul.features li *,     ul.projects li * {
       line-height: 1em !important; }
-    ul.features li img,     ul.projects li img, a:hover img {
+    ul.features li img,     ul.projects li img {
       border: 2px solid #DBDBDB; }
     ul.features li a:hover img,     ul.projects li a:hover img, a:hover img {
       border-color: #FF7F00; }
@@ -81,6 +81,10 @@ ul.features, ul.projects {
       margin-bottom: 0; }
     ul.features li.last,     ul.projects li.last {
       margin-right: 0; }
+
+a img {
+  border: 2px solid transparent;
+}
 
 ul.projects li {
   margin-right: 1em !important;
