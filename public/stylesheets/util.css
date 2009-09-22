@@ -70,7 +70,7 @@ ul.features, ul.projects {
       line-height: 1em !important; }
     ul.features li img,     ul.projects li img {
       border: 2px solid #DBDBDB; }
-    ul.features li a:hover img,     ul.projects li a:hover img {
+    ul.features li a:hover img,     ul.projects li a:hover img, a:hover img {
       border-color: #FF7F00; }
     ul.features li h5,     ul.projects li h5 {
       line-height: 1em !important;
