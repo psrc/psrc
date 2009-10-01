@@ -269,7 +269,9 @@ a:focus {
 .section {
   border: 1px solid #E0ECEF;
   margin-bottom: 1em;
-  background: #FFF; }
+  background: #FFF;
+  overflow: hidden;
+  width: 100%; }
   .section / {
     -moz-border-radius-bottomleft: 10px;
     -moz-border-radius-topright: 10px;
