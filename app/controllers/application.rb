@@ -3,6 +3,7 @@ require_dependency 'radiant'
 class ApplicationController < ActionController::Base
   include HoptoadNotifier::Catcher
   include LoginSystem
+  before_filter :do_old_redirects
   
   filter_parameter_logging :password, :password_confirmation
   
@@ -35,6 +36,42 @@ class ApplicationController < ActionController::Base
         #super
     #end
   #end
+
+  def do_old_redirects
+    redirects = {
+      "/projects/its/ritsip-docs.htm" =>  "/transportation/its/ritsip-docs",
+      "/recovery.htm" =>  "/funding/arra/",
+      "/projects/tip" =>  "/transportation/tip/",
+      "/projects/tip/currenttip/index.htm" =>  "/transportation/tip/current",
+      "/projects/tip/selection/index.htm" =>  "/transportation/tip/selection/",
+      "/publications/pubs/trends/index.htm" =>  "/data/trends/",
+      "/projects/trans2040" =>  "/transportation/t2040/",
+      "/projects/vision/index.htm" =>  "/growth/vision2040/",
+      "/publications/pubs/view/viewmain.htm" =>  "/about/news/",
+      "/publications/pubs/view/" =>  "/about/news/",
+      "/data/index.htm" =>  "/data/",
+      "/boards/" =>  "/about/boards/",
+      "/boards/advisory/" =>  "/about/advisory/",
+      "/about/members.htm" =>  "/about/members/",
+      "/about/who/index.htm" =>  "/about/contact/staff-roster/",
+      "/speakers/bob_drewel_bio.htm" =>  "/about/public/bobbio/",
+      "/about/titlevi/index.htm" =>  "/about/public/titlevi/",
+      "/publications/index.htm" =>  "/about/pubs/",
+      "/about/rfps/index.htm" =>  "/about/rfp/",
+      "/links.htm" =>  "/about/infocenter/useful-links/",
+      "/about/jobs/index.htm" =>  "/about/careers/",
+      "/boards/execbd/" =>  "/about/boards/exec",
+      "/boards/operations/" =>  "/about/boards/ops",
+      "/boards/tpb/" =>  "/about/boards/tpb",
+      "/boards/gmpb/" =>  "/about/boards/gmpb",
+      "/boards/cpsedd/index.htm" =>  "/about/boards/edd",
+      "/boards/advisory/rtoc.htm" =>  "/about/advisory/rtoc"
+    }
+
+    if new_page = redirects[request.request_uri] or new_page = redirects[request.request_uri + "/"]
+      redirect_to new_page and return false
+    end
+  end
   
   private
   
