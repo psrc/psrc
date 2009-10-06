@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
     redirects = {
       "/projects/its/ritsip-docs.htm" =>  "/transportation/its/ritsip-docs",
       "/recovery.htm" =>  "/funding/arra/",
-      "/projects/tip" =>  "/transportation/tip/",
+      "/projects/tip/" =>  "/transportation/tip/",
       "/projects/tip/currenttip/index.htm" =>  "/transportation/tip/current",
       "/projects/tip/selection/index.htm" =>  "/transportation/tip/selection/",
       "/publications/pubs/trends/index.htm" =>  "/data/trends/",
