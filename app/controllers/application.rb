@@ -65,7 +65,17 @@ class ApplicationController < ActionController::Base
       "/boards/tpb/" =>  "/about/boards/tpb",
       "/boards/gmpb/" =>  "/about/boards/gmpb",
       "/boards/cpsedd/index.htm" =>  "/about/boards/edd",
-      "/boards/advisory/rtoc.htm" =>  "/about/advisory/rtoc"
+      "/boards/advisory/rtoc.htm" =>  "/about/advisory/rtoc",
+      "/index.htm" => "/",
+      "/projects/tip/index.htm" => "/transportation/tip",
+      "/projects/tip/application/index.htm" => "/transportation/tip/applications/",
+      "/projects/tip/applications/index.htm" => "/transportation/tip/applications/",
+      "/projects/tip/applications/reference.htm" => "/transportation/tip/applications/tipreference",
+      "/projects/tip/application/reference.htm" => "/transportation/tip/applications/tipreference",
+      "/projects/tip/applications/tipinfo3.pdf" => "/assets/461/TIPINFO3.pdf",
+      "/projects/tip/applications/tipinfo9.pdf" => "/assets/467/TIPINFO9.pdf",
+      "/projects/tip/applications/SecuredUnsecured.pdf" => "/assets/469/SecuredUnsecured.pdf",
+      "/projects/tip/currentTIP/index.htm" => "/transportation/tip/current"
     }
 
     if new_page = redirects[request.request_uri] or new_page = redirects[request.request_uri + "/"]
