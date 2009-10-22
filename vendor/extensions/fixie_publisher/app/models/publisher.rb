@@ -8,6 +8,11 @@ require 'open3'
 class Publisher
   TABLES = %w( events event_options users page_parts pages layouts snippets assets banners banner_placements page_attachments )
   def self.publish!
+    Bj.submit("./script/runner Publisher.publish_job")
+  end
+
+  # Ran by Bj
+  def self.publish_job
     table_string = TABLES.map { |t| "-t #{t} " }
     dump_command = "pg_dump #{ connection_options(RAILS_ENV) } #{current_dev} -a #{table_string}"
     psql_command = "psql #{ connection_options("production") } #{current_prod}"
