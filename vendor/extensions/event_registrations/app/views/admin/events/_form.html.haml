@@ -3,6 +3,7 @@
   = form.date_select  :start_date,    :label => "Start Date"
   = form.date_select  :end_date,      :label => "End Date"
   = form.text_field   :location,      :label => "Location",                             :hint => "(eg. PSRC Room 113)"
+  = form.text_field   :contact_email, :label => "Registration Contact Email",           :hint => "Who receives confirmation emails"
   = form.text_area    :description,   :label => "Event Description",  :class => "full", :hint => "Describe the event"
   = form.text_area    :refund_policy, :label => "Refund Policy",  :class => "full", :hint => "The Refund Policy for the event"
   = form.text_area    :schedule,      :label => "Event Schedule",     :class => "full", :hint => "The schedule for the event"

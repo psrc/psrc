@@ -18,12 +18,16 @@
           %td= registration.payment.payment_method if registration.payment
           %td
             %address
-              = registration.registration_contact
-              %br= registration.registration_contact.address
-              %br= registration.registration_contact.city
-              %br= registration.registration_contact.state
-              %br= registration.registration_contact.zip
-              %br= registration.registration_contact.phone
+              - r = registration.registration_contact
+              = r
+              %br= r.address
+              %br= r.city
+              %br= r.state
+              %br= r.zip
+              %br= r.phone
+              - %w( assistant_name assistant_email assistant_phone ).each do |attribute|
+                - if !r.send(attribute).blank?
+                  %br== #{ attribute.humanize}: #{r.send(attribute)}
           %td
             - if group_name = registration.registration_groups.first.group_name
               %li

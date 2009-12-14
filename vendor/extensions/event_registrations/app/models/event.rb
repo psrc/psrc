@@ -8,6 +8,7 @@ class Event < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :start_date
   validates_presence_of :end_date
+  validates_presence_of :contact_email
 
   def early_available?
     self.event_options.any? { |option| option.early_available? }
@@ -33,7 +34,7 @@ class Event < ActiveRecord::Base
     self.layout =~ /psrc/i
   end
 
-  def contact_email
+  def default_contact_email
     if psrc?
       "srogers@psrc.org"
     else
