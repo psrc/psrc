@@ -10,7 +10,7 @@ task :production do
   set :deploy_to, "/data/psrc"
 end
 
-set :repository,  "git@github.com:joevandyk/psrc.git"
+set :repository,  "git@git.fixiconsulting.com:psrc.git"
 set :scm, :git
 set :ssh_options, { :forward_agent => true }
 set :user, 'monkey'
