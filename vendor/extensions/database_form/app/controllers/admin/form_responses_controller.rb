@@ -22,10 +22,12 @@ class Admin::FormResponsesController < ApplicationController
       buf = ''
       return "No form responses detected" if @form_responses.blank?
       keys = @form_responses.last.content.keys.sort
+      keys << "Answer Date"
       CSV.generate_row keys, keys.size, buf
       @form_responses.each do |response|
         arr = []
         keys.each { |k| arr << response.content[k] }
+        arr << response.created_at
         CSV.generate_row arr, arr.size, buf
       end
       send_data buf, :type => "text/csv", :filename => "#{params[:filter][:name]}-form_responses.csv"
