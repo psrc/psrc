@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../../test_helper'
+require 'test_helper'
 
 class <%= class_name %>NotificationTest < Test::Unit::TestCase
   include ActiveMerchant::Billing::Integrations
@@ -23,7 +23,7 @@ class <%= class_name %>NotificationTest < Test::Unit::TestCase
   end
 
   # Replace with real successful acknowledgement code
-  def test_acknowledgement
+  def test_acknowledgement    
 
   end
 
@@ -37,5 +37,5 @@ class <%= class_name %>NotificationTest < Test::Unit::TestCase
   private
   def http_raw_data
     ""
-  end
+  end  
 end

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../test_helper'
+require 'test_helper'
 
 class AuthorizeNetCimTest < Test::Unit::TestCase
   def setup
@@ -15,7 +15,7 @@ class AuthorizeNetCimTest < Test::Unit::TestCase
     @payment = {
       :credit_card => @credit_card
     }
-    @profile = {
+    @profile = { 
       :merchant_customer_id => 'Up to 20 chars', # Optional
       :description => 'Up to 255 Characters', # Optional
       :email => 'Up to 255 Characters', # Optional
@@ -25,8 +25,8 @@ class AuthorizeNetCimTest < Test::Unit::TestCase
         :payment => @payment
       },
       :ship_to_list => {
-        :first_name => 'John',
-        :last_name => 'Doe',
+        :first_name => 'John', 
+        :last_name => 'Doe', 
         :company => 'Widgets, Inc',
         :address1 => '1234 Fake Street',
         :city => 'Anytown',
@@ -42,15 +42,12 @@ class AuthorizeNetCimTest < Test::Unit::TestCase
       :profile => @profile
     }
   end
-
+  
   def test_expdate_formatting
-    assert_equal '2009-09', @gateway.send(:expdate, @credit_card)
-
-    assert_equal '2013-11', @gateway.send(:expdate, credit_card('4111111111111111',
-                                          :month => 11,
-                                          :year => 2013))
+    assert_equal '2009-09', @gateway.send(:expdate, credit_card('4111111111111111', :month => "9", :year => "2009"))
+    assert_equal '2013-11', @gateway.send(:expdate, credit_card('4111111111111111', :month => "11", :year => "2013"))
   end
-
+  
   def test_should_create_customer_profile_request
     @gateway.expects(:ssl_post).returns(successful_create_customer_profile_response)
 
@@ -85,8 +82,8 @@ class AuthorizeNetCimTest < Test::Unit::TestCase
     assert response = @gateway.create_customer_shipping_address(
       :customer_profile_id => @customer_profile_id,
       :address => {
-        :first_name => 'John',
-        :last_name => 'Doe',
+        :first_name => 'John', 
+        :last_name => 'Doe', 
         :company => 'Widgets, Inc',
         :address1 => '1234 Fake Street',
         :city => 'Anytown',
@@ -107,9 +104,9 @@ class AuthorizeNetCimTest < Test::Unit::TestCase
 
     assert response = @gateway.create_customer_profile_transaction(
       :transaction => {
-        :customer_profile_id => @customer_profile_id,
-        :customer_payment_profile_id => @customer_payment_profile_id,
-        :type => :auth_only,
+        :customer_profile_id => @customer_profile_id, 
+        :customer_payment_profile_id => @customer_payment_profile_id, 
+        :type => :auth_only, 
         :amount => @amount
       }
     )
@@ -119,6 +116,44 @@ class AuthorizeNetCimTest < Test::Unit::TestCase
     assert_equal 'This transaction has been approved.', response.params['direct_response']['message']
     assert_equal 'auth_only', response.params['direct_response']['transaction_type']
     assert_equal 'Gw4NGI', approval_code = response.params['direct_response']['approval_code']
+    assert_equal '508223659', response.params['direct_response']['transaction_id']
+
+    assert_equal '1', response.params['direct_response']['response_code']
+    assert_equal '1', response.params['direct_response']['response_subcode']
+    assert_equal '1', response.params['direct_response']['response_reason_code']
+    assert_equal 'Y', response.params['direct_response']['avs_response']
+    assert_equal '', response.params['direct_response']['invoice_number']
+    assert_equal '', response.params['direct_response']['order_description']
+    assert_equal '100.00', response.params['direct_response']['amount']
+    assert_equal 'CC', response.params['direct_response']['method']
+    assert_equal 'Up to 20 chars', response.params['direct_response']['customer_id']
+    assert_equal '', response.params['direct_response']['first_name']
+    assert_equal '', response.params['direct_response']['last_name']
+    assert_equal '', response.params['direct_response']['company']
+    assert_equal '', response.params['direct_response']['address']
+    assert_equal '', response.params['direct_response']['city']
+    assert_equal '', response.params['direct_response']['state']
+    assert_equal '', response.params['direct_response']['zip_code']
+    assert_equal '', response.params['direct_response']['country']
+    assert_equal '', response.params['direct_response']['phone']
+    assert_equal '', response.params['direct_response']['fax']
+    assert_equal 'Up to 255 Characters', response.params['direct_response']['email_address']
+    assert_equal '', response.params['direct_response']['ship_to_first_name']
+    assert_equal '', response.params['direct_response']['ship_to_last_name']
+    assert_equal '', response.params['direct_response']['ship_to_company']
+    assert_equal '', response.params['direct_response']['ship_to_address']
+    assert_equal '', response.params['direct_response']['ship_to_city']
+    assert_equal '', response.params['direct_response']['ship_to_state']
+    assert_equal '', response.params['direct_response']['ship_to_zip_code']
+    assert_equal '', response.params['direct_response']['ship_to_country']
+    assert_equal '', response.params['direct_response']['tax']
+    assert_equal '', response.params['direct_response']['duty']
+    assert_equal '', response.params['direct_response']['freight']
+    assert_equal '', response.params['direct_response']['tax_exempt']
+    assert_equal '', response.params['direct_response']['purchase_order_number']
+    assert_equal '6E5334C13C78EA078173565FD67318E4', response.params['direct_response']['md5_hash']
+    assert_equal '', response.params['direct_response']['card_code']
+    assert_equal '2', response.params['direct_response']['cardholder_authentication_verification_response']
 
     @gateway.expects(:ssl_post).returns(successful_create_customer_profile_transaction_response(:capture_only))
 
@@ -277,7 +312,7 @@ class AuthorizeNetCimTest < Test::Unit::TestCase
 
   def test_should_validate_customer_payment_profile_request
     @gateway.expects(:ssl_post).returns(successful_validate_customer_payment_profile_response)
-
+  
     assert response = @gateway.validate_customer_payment_profile(
       :customer_profile_id => @customer_profile_id,
       :customer_payment_profile_id => @customer_payment_profile_id,
@@ -291,42 +326,42 @@ class AuthorizeNetCimTest < Test::Unit::TestCase
   end
 
   private
-
+  
   def successful_create_customer_profile_response
     <<-XML
-      <?xml version="1.0" encoding="utf-8" ?>
-      <createCustomerProfileResponse
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
-        <refId>refid1</refId>
-        <messages>
-          <resultCode>Ok</resultCode>
-          <message>
-            <code>I00001</code>
-            <text>Successful.</text>
-          </message>
-        </messages>
-        <customerProfileId>#{@customer_profile_id}</customerProfileId>
+      <?xml version="1.0" encoding="utf-8" ?> 
+      <createCustomerProfileResponse 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"> 
+        <refId>refid1</refId> 
+        <messages> 
+          <resultCode>Ok</resultCode> 
+          <message> 
+            <code>I00001</code> 
+            <text>Successful.</text> 
+          </message> 
+        </messages> 
+        <customerProfileId>#{@customer_profile_id}</customerProfileId> 
       </createCustomerProfileResponse>
     XML
   end
 
   def successful_create_customer_payment_profile_response
     <<-XML
-      <?xml version="1.0" encoding="utf-8" ?>
-      <createCustomerPaymentProfileResponse
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
-        <refId>refid1</refId>
+      <?xml version="1.0" encoding="utf-8" ?> 
+      <createCustomerPaymentProfileResponse 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"> 
+        <refId>refid1</refId> 
         <messages>
-          <resultCode>Ok</resultCode>
-          <message>
-            <code>I00001</code>
-            <text>Successful.</text>
-          </message>
-        </messages>
+          <resultCode>Ok</resultCode> 
+          <message> 
+            <code>I00001</code> 
+            <text>Successful.</text> 
+          </message> 
+        </messages> 
         <customerPaymentProfileId>#{@customer_payment_profile_id}</customerPaymentProfileId>
         <validationDirectResponse>This output is only present if the ValidationMode input parameter is passed with a value of testMode or liveMode</validationDirectResponse>
       </createCustomerPaymentProfileResponse>
@@ -335,19 +370,19 @@ class AuthorizeNetCimTest < Test::Unit::TestCase
 
   def successful_create_customer_shipping_address_response
     <<-XML
-      <?xml version="1.0" encoding="utf-8" ?>
-      <createCustomerShippingAddressResponse
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
-        <refId>refid1</refId>
+      <?xml version="1.0" encoding="utf-8" ?> 
+      <createCustomerShippingAddressResponse 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"> 
+        <refId>refid1</refId> 
         <messages>
-          <resultCode>Ok</resultCode>
-          <message>
-            <code>I00001</code>
-            <text>Successful.</text>
-          </message>
-        </messages>
+          <resultCode>Ok</resultCode> 
+          <message> 
+            <code>I00001</code> 
+            <text>Successful.</text> 
+          </message> 
+        </messages> 
         <customerAddressId>customerAddressId</customerAddressId>
       </createCustomerShippingAddressResponse>
     XML
@@ -355,77 +390,77 @@ class AuthorizeNetCimTest < Test::Unit::TestCase
 
   def successful_delete_customer_profile_response
     <<-XML
-      <?xml version="1.0" encoding="utf-8" ?>
-      <deleteCustomerProfileResponse
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
-        <refId>refid1</refId>
-        <messages>
-          <resultCode>Ok</resultCode>
-          <message>
-            <code>I00001</code>
-            <text>Successful.</text>
-          </message>
-        </messages>
-        <customerProfileId>#{@customer_profile_id}</customerProfileId>
+      <?xml version="1.0" encoding="utf-8" ?> 
+      <deleteCustomerProfileResponse 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"> 
+        <refId>refid1</refId> 
+        <messages> 
+          <resultCode>Ok</resultCode> 
+          <message> 
+            <code>I00001</code> 
+            <text>Successful.</text> 
+          </message> 
+        </messages> 
+        <customerProfileId>#{@customer_profile_id}</customerProfileId> 
       </deleteCustomerProfileResponse>
     XML
   end
 
   def successful_delete_customer_payment_profile_response
     <<-XML
-      <?xml version="1.0" encoding="utf-8" ?>
-      <deleteCustomerPaymentProfileResponse
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
-        <refId>refid1</refId>
-        <messages>
-          <resultCode>Ok</resultCode>
-          <message>
-            <code>I00001</code>
-            <text>Successful.</text>
-          </message>
-        </messages>
+      <?xml version="1.0" encoding="utf-8" ?> 
+      <deleteCustomerPaymentProfileResponse 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"> 
+        <refId>refid1</refId> 
+        <messages> 
+          <resultCode>Ok</resultCode> 
+          <message> 
+            <code>I00001</code> 
+            <text>Successful.</text> 
+          </message> 
+        </messages> 
       </deleteCustomerPaymentProfileResponse>
     XML
   end
 
   def successful_delete_customer_shipping_address_response
     <<-XML
-      <?xml version="1.0" encoding="utf-8" ?>
-      <deleteCustomerShippingAddressResponse
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
-        <refId>refid1</refId>
-        <messages>
-          <resultCode>Ok</resultCode>
-          <message>
-            <code>I00001</code>
-            <text>Successful.</text>
-          </message>
-        </messages>
+      <?xml version="1.0" encoding="utf-8" ?> 
+      <deleteCustomerShippingAddressResponse 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"> 
+        <refId>refid1</refId> 
+        <messages> 
+          <resultCode>Ok</resultCode> 
+          <message> 
+            <code>I00001</code> 
+            <text>Successful.</text> 
+          </message> 
+        </messages> 
       </deleteCustomerShippingAddressResponse>
     XML
   end
 
   def successful_get_customer_profile_response
     <<-XML
-      <?xml version="1.0" encoding="utf-8" ?>
-      <getCustomerProfileResponse
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
-        <refId>refid1</refId>
-        <messages>
-          <resultCode>Ok</resultCode>
-          <message>
-            <code>I00001</code>
-            <text>Successful.</text>
-          </message>
-        </messages>
+      <?xml version="1.0" encoding="utf-8" ?> 
+      <getCustomerProfileResponse 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"> 
+        <refId>refid1</refId> 
+        <messages> 
+          <resultCode>Ok</resultCode> 
+          <message> 
+            <code>I00001</code> 
+            <text>Successful.</text> 
+          </message> 
+        </messages> 
         <customerProfileId>#{@customer_profile_id}</customerProfileId>
         <profile>
           <paymentProfiles>
@@ -484,19 +519,19 @@ class AuthorizeNetCimTest < Test::Unit::TestCase
 
   def successful_get_customer_payment_profile_response
     <<-XML
-      <?xml version="1.0" encoding="utf-8" ?>
-      <getCustomerPaymentProfileResponse
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
-        <refId>refid1</refId>
-        <messages>
-          <resultCode>Ok</resultCode>
-          <message>
-            <code>I00001</code>
-            <text>Successful.</text>
-          </message>
-        </messages>
+      <?xml version="1.0" encoding="utf-8" ?> 
+      <getCustomerPaymentProfileResponse 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"> 
+        <refId>refid1</refId> 
+        <messages> 
+          <resultCode>Ok</resultCode> 
+          <message> 
+            <code>I00001</code> 
+            <text>Successful.</text> 
+          </message> 
+        </messages> 
         <profile>
           <paymentProfiles>
             <customerPaymentProfileId>#{@customer_payment_profile_id}</customerPaymentProfileId>
@@ -514,19 +549,19 @@ class AuthorizeNetCimTest < Test::Unit::TestCase
 
   def successful_get_customer_shipping_address_response
     <<-XML
-      <?xml version="1.0" encoding="utf-8" ?>
-      <getCustomerShippingAddressResponse
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
-        <refId>refid1</refId>
-        <messages>
-          <resultCode>Ok</resultCode>
-          <message>
-            <code>I00001</code>
-            <text>Successful.</text>
-          </message>
-        </messages>
+      <?xml version="1.0" encoding="utf-8" ?> 
+      <getCustomerShippingAddressResponse 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"> 
+        <refId>refid1</refId> 
+        <messages> 
+          <resultCode>Ok</resultCode> 
+          <message> 
+            <code>I00001</code> 
+            <text>Successful.</text> 
+          </message> 
+        </messages> 
         <address>
           <customerAddressId>#{@customer_address_id}</customerAddressId>
         </address>
@@ -536,58 +571,58 @@ class AuthorizeNetCimTest < Test::Unit::TestCase
 
   def successful_update_customer_profile_response
     <<-XML
-      <?xml version="1.0" encoding="utf-8" ?>
-      <updateCustomerProfileResponse
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
-        <refId>refid1</refId>
-        <messages>
-          <resultCode>Ok</resultCode>
-          <message>
-            <code>I00001</code>
-            <text>Successful.</text>
-          </message>
-        </messages>
-        <customerProfileId>#{@customer_profile_id}</customerProfileId>
+      <?xml version="1.0" encoding="utf-8" ?> 
+      <updateCustomerProfileResponse 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"> 
+        <refId>refid1</refId> 
+        <messages> 
+          <resultCode>Ok</resultCode> 
+          <message> 
+            <code>I00001</code> 
+            <text>Successful.</text> 
+          </message> 
+        </messages> 
+        <customerProfileId>#{@customer_profile_id}</customerProfileId> 
       </updateCustomerProfileResponse>
     XML
   end
 
   def successful_update_customer_payment_profile_response
     <<-XML
-      <?xml version="1.0" encoding="utf-8" ?>
-      <updateCustomerPaymentProfileResponse
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
-        <refId>refid1</refId>
-        <messages>
-          <resultCode>Ok</resultCode>
-          <message>
-            <code>I00001</code>
-            <text>Successful.</text>
-          </message>
-        </messages>
+      <?xml version="1.0" encoding="utf-8" ?> 
+      <updateCustomerPaymentProfileResponse 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"> 
+        <refId>refid1</refId> 
+        <messages> 
+          <resultCode>Ok</resultCode> 
+          <message> 
+            <code>I00001</code> 
+            <text>Successful.</text> 
+          </message> 
+        </messages> 
       </updateCustomerPaymentProfileResponse>
     XML
   end
 
   def successful_update_customer_shipping_address_response
     <<-XML
-      <?xml version="1.0" encoding="utf-8" ?>
-      <updateCustomerShippingAddressResponse
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
-        <refId>refid1</refId>
-        <messages>
-          <resultCode>Ok</resultCode>
-          <message>
-            <code>I00001</code>
-            <text>Successful.</text>
-          </message>
-        </messages>
+      <?xml version="1.0" encoding="utf-8" ?> 
+      <updateCustomerShippingAddressResponse 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"> 
+        <refId>refid1</refId> 
+        <messages> 
+          <resultCode>Ok</resultCode> 
+          <message> 
+            <code>I00001</code> 
+            <text>Successful.</text> 
+          </message> 
+        </messages> 
       </updateCustomerShippingAddressResponse>
     XML
   end
@@ -600,42 +635,42 @@ class AuthorizeNetCimTest < Test::Unit::TestCase
 
   def successful_create_customer_profile_transaction_response(transaction_type)
     <<-XML
-      <?xml version="1.0" encoding="utf-8" ?>
-      <createCustomerProfileTransactionResponse
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
-        <refId>refid1</refId>
-        <messages>
-          <resultCode>Ok</resultCode>
-          <message>
-            <code>I00001</code>
-            <text>Successful.</text>
-          </message>
-        </messages>
+      <?xml version="1.0" encoding="utf-8" ?> 
+      <createCustomerProfileTransactionResponse 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"> 
+        <refId>refid1</refId> 
+        <messages> 
+          <resultCode>Ok</resultCode> 
+          <message> 
+            <code>I00001</code> 
+            <text>Successful.</text> 
+          </message> 
+        </messages> 
         <directResponse>#{SUCCESSFUL_DIRECT_RESPONSE[transaction_type]}</directResponse>
       </createCustomerProfileTransactionResponse>
     XML
   end
-
+  
   def successful_validate_customer_payment_profile_response
     <<-XML
-      <?xml version="1.0" encoding="utf-8" ?>
-      <validateCustomerPaymentProfileResponse
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
-        <refId>refid1</refId>
-        <messages>
-          <resultCode>Ok</resultCode>
-          <message>
-            <code>I00001</code>
-            <text>Successful.</text>
-          </message>
-        </messages>
+      <?xml version="1.0" encoding="utf-8" ?> 
+      <validateCustomerPaymentProfileResponse 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+        xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"> 
+        <refId>refid1</refId> 
+        <messages> 
+          <resultCode>Ok</resultCode> 
+          <message> 
+            <code>I00001</code> 
+            <text>Successful.</text> 
+          </message> 
+        </messages> 
         <directResponse>1,1,1,This transaction has been approved.,DEsVh8,Y,508276300,none,Test transaction for ValidateCustomerPaymentProfile.,0.01,CC,auth_only,Up to 20 chars,,,,,,,,,,,Up to 255 Characters,John,Doe,Widgets, Inc,1234 Fake Street,Anytown,MD,12345,USA,0.0000,0.0000,0.0000,TRUE,none,7EB3A44624C0C10FAAE47E276B48BF17,,2,,,,,,,,,,,,,,,,,,,,,,,,,,,,</directResponse>
       </validateCustomerPaymentProfileResponse>
     XML
   end
-
+  
 end

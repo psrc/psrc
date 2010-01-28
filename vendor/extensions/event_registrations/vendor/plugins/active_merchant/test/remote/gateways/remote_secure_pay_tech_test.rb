@@ -1,18 +1,18 @@
-require File.dirname(__FILE__) + '/../../test_helper'
+require 'test_helper'
 
 class RemoteSecurePayTechTest < Test::Unit::TestCase
   $verbose = true
 
   def setup
     @gateway = SecurePayTechGateway.new(fixtures(:secure_pay_tech))
-
+    
     @accepted_amount = 10000
     @declined_amount = 10075
-
+    
     @credit_card = credit_card('4987654321098769', :month => '5', :year => '2013')
     @options = { :billing_address => address }
   end
-
+  
   def test_successful_purchase
     assert response = @gateway.purchase(@accepted_amount, @credit_card, @options)
     assert_equal 'Transaction OK', response.message

@@ -1,5 +1,5 @@
 # Author::    MoneySpyder, www.moneyspyder.co.uk
-require File.dirname(__FILE__) + '/../../test_helper'
+require 'test_helper'
 
 class RemoteDataCashTest < Test::Unit::TestCase
 
@@ -10,8 +10,8 @@ class RemoteDataCashTest < Test::Unit::TestCase
     @mastercard = CreditCard.new(
       :number => '5473000000000007',
       :month => 3,
-      :year => Date.today.year + 2,
-      :first_name => 'Mark',
+      :year => Date.today.year + 2,              
+      :first_name => 'Mark',      
       :last_name => 'McBride',
       :type => :master,
       :verification_value => '547'
@@ -20,8 +20,8 @@ class RemoteDataCashTest < Test::Unit::TestCase
     @mastercard_declined = CreditCard.new(
       :number => '5473000000000106',
       :month => 3,
-      :year => Date.today.year + 2,
-      :first_name => 'Mark',
+      :year => Date.today.year + 2,              
+      :first_name => 'Mark',      
       :last_name => 'McBride',
       :type => :master,
       :verification_value => '547'
@@ -30,8 +30,8 @@ class RemoteDataCashTest < Test::Unit::TestCase
     @visa_delta = CreditCard.new(
       :number => '4539792100000003',
       :month => 3,
-      :year => Date.today.year + 2,
-      :first_name => 'Mark',
+      :year => Date.today.year + 2,              
+      :first_name => 'Mark',      
       :last_name => 'McBride',
       :type => :visa,
       :verification_value => '444'
@@ -50,7 +50,7 @@ class RemoteDataCashTest < Test::Unit::TestCase
       :verification_value => 444
     )
 
-    @address = {
+    @address = { 
       :name     => 'Mark McBride',
       :address1 => 'Flat 12/3',
       :address2 => '45 Main Road',
@@ -106,7 +106,7 @@ class RemoteDataCashTest < Test::Unit::TestCase
     response = @gateway.purchase(@amount, @mastercard, @params)
     assert_success response
     assert response.authorization.to_s.split(';')[2].blank?
-    assert response.test?
+    assert response.test?    
   end
 
   # Testing purchase with request to set up recurring payment account
@@ -128,7 +128,7 @@ class RemoteDataCashTest < Test::Unit::TestCase
     @params[:set_up_continuous_authority] = true
     response = @gateway.purchase(@amount, @visa_delta, @params)
     assert_success response
-    assert !response.authorization.to_s.split(';')[2].blank?
+    assert !response.authorization.to_s.split(';')[2].blank? 
     assert response.test?
 
     #Make second payment on the continuous authorization that was set up in the first purchase
@@ -142,7 +142,7 @@ class RemoteDataCashTest < Test::Unit::TestCase
     @params[:set_up_continuous_authority] = true
     response = @gateway.purchase(@amount, @solo, @params)
     assert_equal '92', response.params['status'] # Error code for CA not supported
-    assert_equal 'CA Not Supported', response.message
+    assert_equal 'CA Not Supported', response.message 
     assert response.test?
   end
 
@@ -207,7 +207,7 @@ class RemoteDataCashTest < Test::Unit::TestCase
     assert response.test?
   end
 
-  def test_successful_authorization_and_capture
+  def test_successful_authorization_and_capture    
     authorization = @gateway.authorize(@amount, @mastercard, @params)
     assert_success authorization
     assert authorization.test?
@@ -224,7 +224,7 @@ class RemoteDataCashTest < Test::Unit::TestCase
     assert response.test?
   end
 
-  def test_successful_authorization_and_void
+  def test_successful_authorization_and_void    
     authorization = @gateway.authorize(@amount, @mastercard, @params)
     assert_success authorization
     assert authorization.test?
@@ -243,14 +243,14 @@ class RemoteDataCashTest < Test::Unit::TestCase
     assert_success void
     assert void.test?
   end
-
-
+  
+  
   def test_successful_refund
     response = @gateway.credit(@amount, @mastercard, @params)
     assert_success response
     assert !response.params['datacash_reference'].blank?
     assert !response.params['merchantreference'].blank?
-
+    
     assert response.test?
   end
 
@@ -263,7 +263,7 @@ class RemoteDataCashTest < Test::Unit::TestCase
     assert_success refund
     assert !refund.params['datacash_reference'].blank?
     assert !refund.params['merchantreference'].blank?
-
+    
     assert refund.test?
   end
 
@@ -312,7 +312,7 @@ class RemoteDataCashTest < Test::Unit::TestCase
     assert refund_too_much.test?
   end
 
-  def test_fail_to_refund_with_declined_purchase_reference
+  def test_fail_to_refund_with_declined_purchase_reference    
     declined_purchase = @gateway.purchase(@amount, @mastercard_declined, @params)
     assert_failure declined_purchase
     assert declined_purchase.test?
@@ -323,7 +323,7 @@ class RemoteDataCashTest < Test::Unit::TestCase
     assert refund.test?
   end
 
-  def test_fail_to_refund_purchase_which_is_already_refunded
+  def test_fail_to_refund_purchase_which_is_already_refunded    
     purchase = @gateway.purchase(@amount, @mastercard, @params)
     assert_success purchase
     assert purchase.test?

@@ -4,7 +4,7 @@ module ActiveMerchant #:nodoc:
       module Chronopay
         class Helper < ActiveMerchant::Billing::Integrations::Helper
           self.country_format = :alpha3
-
+          
           def initialize(order, account, options = {})
             super
             add_field('cb_type', 'p')
@@ -46,17 +46,17 @@ module ActiveMerchant #:nodoc:
             # The appropriate format for Chronopay is the alpha 3 country code
             country_code = lookup_country_code(mapping.delete(:country))
             add_field(mappings[:billing_address][:country], country_code)
-
+            
             countries_with_supported_states = ['USA', 'CAN']
             if !countries_with_supported_states.include?(country_code)
               mapping.delete(:state)
               add_field(mappings[:billing_address][:state], 'XX')
-            end
+            end  
             mapping.each do |k, v|
               field = mappings[:billing_address][k]
               add_field(field, v) unless field.nil?
-            end
-          end
+            end 
+          end        
 
           # card_no
           # exp_month

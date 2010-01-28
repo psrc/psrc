@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../test_helper'
+require 'test_helper'
 
 class RemoteTransFirstTest < Test::Unit::TestCase
 
@@ -7,13 +7,13 @@ class RemoteTransFirstTest < Test::Unit::TestCase
 
     @credit_card = credit_card('4111111111111111')
     @amount = 100
-    @options = {
+    @options = { 
       :order_id => generate_unique_id,
       :invoice => 'ActiveMerchant Sale',
       :billing_address => address
     }
   end
-
+  
   def test_successful_purchase
     assert response = @gateway.purchase(@amount, @credit_card, @options)
     assert_equal 'test transaction', response.message
