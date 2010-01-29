@@ -50,7 +50,8 @@ class PaymentByCreditCard
 
   # Authorize purchase from gateway
   def execute_purchase
-    attempt = PaymentGateway.for_event(self.registration_object.event).purchase((@amount*100).to_i, @card, :billing_address => @card.billing_address )
+    address = @card.billing_address[0..19] # Evalon has 20 character billing address limit
+    attempt = PaymentGateway.for_event(self.registration_object.event).purchase((@amount*100).to_i, @card, :billing_address => address )
     if attempt.success?
       @registration_object.payment = Payment.create_from_card(self)
       @registration_object.save!
