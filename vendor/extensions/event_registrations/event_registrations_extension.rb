@@ -62,8 +62,8 @@ require 'big_decimal'
 
 case RAILS_ENV
 when 'production'
-  $prosperity_gateway = ActiveMerchant::Billing::ViaklixGateway.new :login => "405372", :user => "512psrc", :password => "TM2ZS9"
-  $psrc_gateway       = ActiveMerchant::Billing::ViaklixGateway.new :login => "405372", :user => "439psrc", :password => "6C0YYD"
+  $prosperity_gateway = ActiveMerchant::Billing::ElavonGateway.new :login => "543799", :user => "Fixie10", :password => "VP6SGD"#, :test => true
+  $psrc_gateway       = ActiveMerchant::Billing::ElavonGateway.new :login => "543799", :user => "Fixie10", :password => "VP6SGD"#, :test => true
 else
   $prosperity_gateway = ActiveMerchant::Billing::ElavonGateway.new :login => "543799", :user => "Fixie10", :password => "VP6SGD"#, :test => true
   $psrc_gateway       = ActiveMerchant::Billing::ElavonGateway.new :login => "543799", :user => "Fixie10", :password => "VP6SGD"#, :test => true
