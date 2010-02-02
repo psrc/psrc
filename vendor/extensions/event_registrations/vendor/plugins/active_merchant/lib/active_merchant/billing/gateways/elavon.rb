@@ -97,14 +97,14 @@ module ActiveMerchant #:nodoc:
         billing_address = options[:billing_address] || options[:address] 
         
         if billing_address
-          form[:avs_address]    = billing_address[:address1].to_s.slice(0, 30)
-          form[:address2]       = billing_address[:address2].to_s.slice(0, 30)
+          form[:avs_address]    = billing_address[:address1].to_s.slice(0, 19)
+          form[:address2]       = billing_address[:address2].to_s.slice(0, 19)
           form[:avs_zip]        = billing_address[:zip].to_s.slice(0, 10)
-          form[:city]           = billing_address[:city].to_s.slice(0, 30)
+          form[:city]           = billing_address[:city].to_s.slice(0, 19)
           form[:state]          = billing_address[:state].to_s.slice(0, 10)
-          form[:company]        = billing_address[:company].to_s.slice(0, 50)
-          form[:phone]          = billing_address[:phone].to_s.slice(0, 20)
-          form[:country]        = billing_address[:country].to_s.slice(0, 50)
+          form[:company]        = billing_address[:company].to_s.slice(0, 19)
+          form[:phone]          = billing_address[:phone].to_s.slice(0, 19)
+          form[:country]        = billing_address[:country].to_s.slice(0, 19)
         end
                 
         if shipping_address = options[:shipping_address]
