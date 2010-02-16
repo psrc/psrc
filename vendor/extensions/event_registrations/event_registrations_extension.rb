@@ -60,13 +60,12 @@ Event
 MenuChoice
 require 'big_decimal'
 
-case RAILS_ENV
-when 'production'
-  $prosperity_gateway = ActiveMerchant::Billing::ElavonGateway.new :login => "543799", :user => "Fixie10", :password => "VP6SGD"#, :test => true
-  $psrc_gateway       = ActiveMerchant::Billing::ElavonGateway.new :login => "543799", :user => "Fixie10", :password => "VP6SGD"#, :test => true
-else
-  $prosperity_gateway = ActiveMerchant::Billing::ElavonGateway.new :login => "543799", :user => "Fixie10", :password => "VP6SGD"#, :test => true
-  $psrc_gateway       = ActiveMerchant::Billing::ElavonGateway.new :login => "543799", :user => "Fixie10", :password => "VP6SGD"#, :test => true
-end
+$prosperity_gateway = ActiveMerchant::Billing::ElavonGateway.new :login => "Puget Sound Regional Council", :user => "Fixie10", :password => "A74DZ9"#, :test => true
+$psrc_gateway       = ActiveMerchant::Billing::ElavonGateway.new :login => "543799", :user => "Fixie10", :password => "VP6SGD"#, :test => true
+
+#case RAILS_ENV
+#when 'production'
+#else
+#end
 
 require 'gateway'
