@@ -4,7 +4,7 @@ module ActiveRecord
   class Base
     # Establishes a connection to the database that's used by all Active Record objects
     def self.postgresql_connection(config) # :nodoc:
-      require_library_or_gem 'postgres' unless self.class.const_defined?(:PGconn)
+      require_library_or_gem 'pg' unless self.class.const_defined?(:PGconn)
 
       config = config.symbolize_keys
       host     = config[:host]
