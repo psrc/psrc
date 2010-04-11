@@ -14,8 +14,8 @@ class Publisher
   # Ran by Bj
   def self.publish_job
     table_string = TABLES.map { |t| "-t #{t} " }
-    dump_command = "pg_dump #{ connection_options(RAILS_ENV) } #{current_dev} -a #{table_string}"
-    psql_command = "psql #{ connection_options("production") } #{current_prod}"
+    dump_command = "/usr/local/bin/pg_dump #{ connection_options(RAILS_ENV) } #{current_dev} -a #{table_string}"
+    psql_command = "/usr/local/bin/psql #{ connection_options("production") } #{current_prod}"
     puts "Dumping with #{ dump_command }"
     puts "Loading with #{ psql_command }"
 
