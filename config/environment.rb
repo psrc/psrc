@@ -20,6 +20,7 @@ end
 # Specifies gem version of Rails to use when vendor/rails is not present
 require File.join(File.dirname(__FILE__), 'boot')
 
+require 'rubygems'
 require 'radius'
 require 'RedCloth' # version 4.1.0
 require 'postgres' # not compatible with pg 0.9, I think
