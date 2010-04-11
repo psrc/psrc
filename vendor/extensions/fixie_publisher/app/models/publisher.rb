@@ -30,7 +30,7 @@ class Publisher
       stdin.flush
     end
 
-    `rsync -avz /data/psrc-staging/shared/assets/ /data/psrc/shared/assets/`
+    `rsync -avz /sites/psrc-staging/shared/assets/ /sites/psrc-production/shared/assets/`
   end
 
   private

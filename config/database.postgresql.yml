@@ -9,7 +9,8 @@ development:
 
 staging:
   adapter: postgresql
-  database: psrc_draft
+  database: psrc_staging
+  user: deploy
   
 test:
   adapter: postgresql
