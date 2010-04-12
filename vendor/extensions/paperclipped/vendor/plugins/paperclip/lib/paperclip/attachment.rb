@@ -48,7 +48,7 @@ module Paperclip
       normalize_style_definition
       initialize_storage
 
-      log("Paperclip attachment #{name} on #{instance.class} initialized.")
+      # log("Paperclip attachment #{name} on #{instance.class} initialized.")
     end
 
     # What gets called when you call instance.attachment = File. It clears
