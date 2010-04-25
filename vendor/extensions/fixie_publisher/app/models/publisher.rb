@@ -6,7 +6,7 @@
 # TODO: Also copy over user-provided photos from the dev env to the production one
 require 'open3'
 class Publisher
-  TABLES = %w( events event_options users page_parts pages layouts snippets assets banners banner_placements page_attachments )
+  TABLES = %w( events event_options users page_parts pages layouts snippets assets banners banner_placements page_attachments menu_choices )
   def self.publish!
     Bj.submit("./script/runner Publisher.publish_job")
   end
