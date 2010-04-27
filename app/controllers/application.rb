@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include HoptoadNotifier::Catcher
   include LoginSystem
   before_filter :do_old_redirects
+  before_filter :password_protect_staging_site
   
   filter_parameter_logging :password, :password_confirmation
   
@@ -28,14 +29,13 @@ class ApplicationController < ActionController::Base
     @javascripts << script
   end
   
-  #def rescue_action_in_public(exception)
-    #case exception
-      #when ActiveRecord::RecordNotFound, ActionController::UnknownController, ActionController::UnknownAction, ActionController::RoutingError
-        #render :template => "site/not_found", :status => 404
-      #else
-        #super
-    #end
-  #end
+  def password_protect_staging_site
+    if RAILS_ENV == 'staging'
+      authenticate_or_request_with_http_basic do |username, password|
+        username == "psrc" && password == "staging"
+      end
+    end
+  end
 
   def do_old_redirects
     redirects = {
