@@ -820,6 +820,12 @@ module StandardTags
       @selected = selected
       @children = []
     end
+
+    def style
+      if @selected == true
+        "class='active'"
+      end
+    end
   end
 
   tag 'fixie_navigate' do |tag|
@@ -872,9 +878,9 @@ module StandardTags
     result << "<ul id='#{tag.attr['id']}'>"
     trees.each do |tree|
       if tree.children.find { |c| !c.selected.blank? } or !self.url.scan(Regexp.quote(tree.url)).empty?
-        tree.selected = "class='active'"
+        tree.selected = true
       end
-      result << "<li #{ tree.selected }>#{tree.link}<ul>"
+      result << "<li #{ tree.style }>#{tree.link}<ul>"
       tree.children.each do |c|
         result << "<li #{ "class='active'" unless c.selected.blank?  }>#{c.link}</li>"
       end
