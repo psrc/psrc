@@ -7,6 +7,8 @@ jQuery.noConflict();
       //$('#caption-container').hide().fadeIn(1000);
       jQuery('a[rel*=facebox]').facebox();
       observeQuestionLists();
+
+      jQuery('a.link-popup').attr('target', '_blank');
     })
 
     function comingSoon(elm){
