@@ -8,6 +8,7 @@ class RegistrationsController < ApplicationController
 
   before_filter :redirect_to_correct_host
   before_filter :get_event_and_option
+  before_filter :check_for_open_event
   before_filter :set_progress_step
   before_filter :check_for_started_registration,   :except => :attendee_info
   before_filter :check_for_completed_registration, :except => :confirmation
@@ -173,6 +174,12 @@ class RegistrationsController < ApplicationController
   def get_event_and_option
     @event = Event.find(params[:event_id] || session[:event_id])
     @event_option = @event.event_options.find(params[:event_option_id] || session[:event_option_id])
+  end
+
+  def check_for_open_event
+    if @event.registration_closed?
+      flash[:error] = "Sorry, registration is closed." and redirect_to(event_path(@event))
+    end
   end
 
   def redirect_to_next_step

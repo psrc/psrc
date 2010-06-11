@@ -8,4 +8,6 @@
   = form.text_area    :refund_policy, :label => "Refund Policy",  :class => "full", :hint => "The Refund Policy for the event"
   = form.text_area    :schedule,      :label => "Event Schedule",     :class => "full", :hint => "The schedule for the event"
   = form.check_box    :attendee_same_as_contact,      :label => "Hide the Attendee Information page?",     :class => "full"
+  %br
+  = form.check_box    :registration_closed, :label => "Check this when the event is closed for registration",     :class => "full"
   = form.select       :layout,        options_for_layouts, :label => "Theme",     :class => "full", :hint => "The theme for the event"
