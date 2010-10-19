@@ -11,33 +11,26 @@ task :production do
   set :deploy_to, "/sites/psrc-production"
 end
 
-set :repository,  "git@git.fixieconsulting.com:psrc.git"
+set :repository,  "git@tesly.unfuddle.com:tesly/psrc.git"
 set :scm, :git
 set :ssh_options, { :forward_agent => true }
 set :user, 'deploy'
-#set :deploy_via, :remote_cache
+set :deploy_via, :remote_cache
 set :use_sudo, false
 role :app, "bbg.psrc.org"
 role :web, "bbg.psrc.org"
 role :db,  "bbg.psrc.org", :primary => true
 
+after 'deploy:update_code', 'deploy:additional_symlinks'
 
 namespace :deploy do
   task :restart, :roles => :app do
+    run "mkdir -p #{current_path}/tmp"
     invoke_command "touch #{current_path}/tmp/restart.txt"
   end
-
-  task :symlink do
-    run "mkdir -p #{current_path}/tmp"
-  end # Don't symlink
-
-  task :update_code, :except => { :no_release => true } do
-    run "cd #{current_path}; git fetch origin; git reset --hard origin/#{branch}"
-    run "ln -nfs #{current_path}/config/database.postgresql.yml #{ current_path }/config/database.yml"
-    run "ln -nfs #{shared_path}/assets #{ current_path }/public/assets"
-  end 
-
-  task :after_setup, :roles => [:app] do
-    run "cd #{shared_path}/..; git clone #{repository} current"
+  
+  task :additional_symlinks do
+    run "ln -nfs #{shared_path}/assets #{release_path}/public/assets"
+    run "ln -nfs #{shared_path}/config/*.yml #{release_path}/config/"
   end
 end
