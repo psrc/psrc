@@ -1,0 +1,10 @@
+<tr>
+  <td class="label"><label for="page_tags">Tags</label></td>
+  <td class="field"><input class="textbox" id="page_tags" name="page[meta_tags]" size="160" type="text" value="<%= @page.tag_list %>" autocomplete="off" /><div id="autocomplete_list" class="autocomplete"></div></td>
+</tr>
+<%= javascript_include_tag 'controls.js', 'effects.js' %>
+<%= stylesheet_link_tag 'autocomplete.css' %>
+<script type="text/javascript" charset="utf-8">
+  var tags = <%= MetaTag.find(:all, :select => 'name', :order => 'name').collect(&:name).to_json %>
+  new Autocompleter.Local('page_tags', 'autocomplete_list', tags, { fullSearch: true, tokens: ', ' });
+</script>
