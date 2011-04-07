@@ -51,7 +51,7 @@ TaggingMethods = Proc.new do
    
      tag_list_condition = tag_list.map {|name| "'#{name}'"}.join(", ")
    
-     sql << "AND (meta_tags.name IN (#{sanitize_sql(tag_list_condition)})) "
+     sql << "AND (lower(meta_tags.name) IN (#{sanitize_sql(tag_list_condition)})) "
      sql << "AND #{sanitize_sql(options[:conditions])} " if options[:conditions]
       
      columns = column_names.map do |column| 
