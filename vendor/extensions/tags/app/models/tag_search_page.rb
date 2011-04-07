@@ -84,7 +84,7 @@ class TagSearchPage < Page
   end
   
   def query_as_array
-    @query_as_array ||= query.nil? ? [] : (query.is_a?(Array) ? query : query.split(MetaTag::DELIMITER))
+    @query_as_array ||= query.nil? ? [] : (query.is_a?(Array) ? query : query.split(MetaTag::DELIMITER)).reject(&:blank?)
   end
   
 end
