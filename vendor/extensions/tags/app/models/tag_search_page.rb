@@ -71,7 +71,7 @@ class TagSearchPage < Page
   def render
     @query_result = []
     tag = @request.parameters[:tag]
-    self.title = "Tag Search Results"
+    # self.title = "Tag Search Results"
     unless (@query = tag).blank?
       @query_result = Page.tagged_with(tag).delete_if { |p| !p.published? }
     end
