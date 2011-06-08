@@ -1,6 +1,20 @@
 - render_region :main do |main|
   - main.header do
     %h1= "#{Radiant::Config['admin.title']} Dashboard"
+  - main.updated_pages do
+    - unless @updated_pages.blank?
+      #updated_pages.dashboard_module
+        %h2 Recently Updated Pages
+        %ul
+          - @updated_pages.each do |page|
+            %li
+              - if page.virtual? or !page.published?
+                %span.virtual.title= page.title
+              - else
+                %span.title= link_to page.title, page.url
+              %span.details
+                = "Updated by #{updater_name_for(page)} #{time_ago_in_words page.updated_at.to_time} ago."
+                = link_to "Edit", page_edit_path(page)
   - main.draft_pages do
     - unless @draft_pages.blank?
       #draft_pages.dashboard_module
@@ -20,20 +34,6 @@
           - @reviewed_pages.each do |page|
             %li
               %span.title= page.title
-              %span.details
-                = "Updated by #{updater_name_for(page)} #{time_ago_in_words page.updated_at.to_time} ago."
-                = link_to "Edit", page_edit_path(page)
-  - main.updated_pages do
-    - unless @updated_pages.blank?
-      #updated_pages.dashboard_module
-        %h2 Recently Updated Pages
-        %ul
-          - @updated_pages.each do |page|
-            %li
-              - if page.virtual? or !page.published?
-                %span.virtual.title= page.title
-              - else
-                %span.title= link_to page.title, page.url
               %span.details
                 = "Updated by #{updater_name_for(page)} #{time_ago_in_words page.updated_at.to_time} ago."
                 = link_to "Edit", page_edit_path(page)
