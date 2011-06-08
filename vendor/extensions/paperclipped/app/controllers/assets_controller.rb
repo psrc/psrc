@@ -131,6 +131,7 @@ class AssetsController < ApplicationController
         
           search_cond_sql << 'LOWER(asset_file_name) LIKE (:term)'
           search_cond_sql << 'LOWER(title) LIKE (:term)'
+          search_cond_sql << term.split(' ').map {|w| "LOWER(title) LIKE (E'%#{w}%')" }.join(' or ') if term.match(/ /)
           search_cond_sql << 'LOWER(caption) LIKE (:term)'
           search_cond_sql << '(substr(cast (id as text), 0)) like (:term)'
 
