@@ -6,7 +6,11 @@ TaggingMethods = Proc.new do
     return if tags == tag_list
     # do we need to delete any tags?
     tags_to_delete = tag_list.split(' ') - tags.split(' ')
-    tags_to_delete.select{|t| meta_tags.delete(MetaTag.find_by_name(t))}
+    
+    tags_to_delete.each do |tag_name|
+      tag_record = MetaTag.find_by_name(tag_name)
+      meta_tags.delete(tag_record) if tag_record
+    end
     
     tags.split(MetaTag::DELIMITER).each do |tag|
       begin
