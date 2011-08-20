@@ -1,6 +1,7 @@
 module Admin::NodeHelper
 
   def render_node(page, locals = {})
+    return if RAILS_ENV=="development" && page.is_a?(InternalServerErrorPage)
     @current_node = page
     locals.reverse_merge!(:level => 0, :simple => false).merge!(:page => page)
     render :partial => 'node', :locals =>  locals
