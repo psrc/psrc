@@ -4,22 +4,21 @@ TaggingMethods = Proc.new do
     self.save if self.new_record?
     # just skip the whole method if the tags string hasn't changed
     return if tags == tag_list
-    # do we need to delete any tags?
-    tags_to_delete = tag_list.split(' ') - tags.split(' ')
-    
-    tags_to_delete.each do |tag_name|
-      tag_record = MetaTag.find_by_name(tag_name)
-      meta_tags.delete(tag_record) if tag_record
+
+    # clear all
+    self.meta_tags.to_a.clone.each do |tag|
+      meta_tags.delete(tag) 
     end
     
+    # recreate the collection
     tags.split(MetaTag::DELIMITER).each do |tag|
-      begin
+      # begin
         MetaTag.find_or_create_by_name(tag).taggables << self
-      rescue ActiveRecord::StatementInvalid => e
-        # With SQLite3 - a duplicate tagging will result in the following message:
-        # SQLite3::SQLException: SQL logic error or missing database: INSERT INTO taggings ("meta_tag_id", "taggable_type", "taggable_id") VALUES(11, 'Page', 74)
-        # raise unless e.to_s =~ /duplicate/i
-      end
+      # rescue ActiveRecord::StatementInvalid => e
+      #   # With SQLite3 - a duplicate tagging will result in the following message:
+      #   # SQLite3::SQLException: SQL logic error or missing database: INSERT INTO taggings ("meta_tag_id", "taggable_type", "taggable_id") VALUES(11, 'Page', 74)
+      #   # raise unless e.to_s =~ /duplicate/i
+      # end
     end
   end
   
