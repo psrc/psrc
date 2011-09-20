@@ -73,7 +73,7 @@ class TagSearchPage < Page
     tag = @request.parameters[:tag]
     # self.title = "Tag Search Results"
     unless (@query = tag).blank?
-      @query_result = Page.tagged_with(tag).delete_if { |p| !p.published? }
+      @query_result = Page.tagged_with(tag).delete_if { |p| !p.published? }.sort_by(&:title)
     end
     lazy_initialize_parser_and_context
     if layout
