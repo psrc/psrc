@@ -82,8 +82,8 @@ class RegistrationsController < ApplicationController
   end
 
   def payment_type
-    make_them_start_over and return false unless session[:registration]
-    unless session[:registration].payment_required?
+    if session[:registration].payment_required?
+    else
       session[:registration].save!
       redirect_to confirmation_path
     end
