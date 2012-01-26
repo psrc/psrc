@@ -11,7 +11,7 @@ class RegistrationsController < ApplicationController
   before_filter :check_for_open_event
   before_filter :set_progress_step
   before_filter :check_for_started_registration,   :except => :attendee_info
-  before_filter :check_for_completed_registration, :except => [:confirmation]
+  before_filter :check_for_completed_registration, :except => :confirmation
 
   def attendee_info
     remember_event_and_option
