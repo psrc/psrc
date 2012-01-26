@@ -11,7 +11,7 @@ class RegistrationsController < ApplicationController
   before_filter :check_for_open_event
   before_filter :set_progress_step
   before_filter :check_for_started_registration,   :except => :attendee_info
-  before_filter :check_for_completed_registration, :except => :confirmation
+  before_filter :check_for_completed_registration, :except => [:confirmation]
 
   def attendee_info
     remember_event_and_option
@@ -93,7 +93,7 @@ class RegistrationsController < ApplicationController
     make_them_start_over and return false unless session[:registration]
     if params[:payment]
       if params[:payment][:type] =~ /credit/i
-        redirect_to payment_by_credit_card_path
+        redirect_to payment_by_elavon_path
       else
         redirect_to payment_by_check_path
       end
@@ -101,6 +101,29 @@ class RegistrationsController < ApplicationController
       flash[:error] = "Please select a payment method."
       render :action => 'payment_type'
     end
+  end
+  
+  def payment_by_elavon
+    make_them_start_over and return false unless session[:registration]
+    @registration = session[:registration]
+  end
+  
+  def submit_payment_by_elavon
+    make_them_start_over and return false unless session[:registration] && params[:ssl_result] == '0'
+    
+    @registration = session[:registration]
+    @payment = Payment.create!({
+      :amount => params[:ssl_amount],
+      :payment_method => "Elavon",
+      :last_digits => params[:ssl_card_number][/(\d{4})$/],
+      :remote_payment_id => params[:ssl_txn_id]
+    })
+    
+    @registration.registration_contact = session[:contact]
+    @registration.payment = @payment
+    @registration.save!
+    
+    redirect_to confirmation_path
   end
   
   def payment_by_credit_card
@@ -257,6 +280,7 @@ class RegistrationsController < ApplicationController
       current_step += 1
       steps["payment_by_check"] = current_step
       steps["payment_by_credit_card"] = current_step
+      steps["payment_by_elavon"] = current_step
       steps["poll_for_credit_card_payment"] = current_step
     end
 

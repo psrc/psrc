@@ -36,6 +36,9 @@ class EventRegistrationsExtension < Radiant::Extension
 
        m.payment_by_check   'get-check',      :action => 'payment_by_check'
        m.submit_payment_by_check   'submit-check',      :action => 'submit_payment_by_check'
+       
+       m.payment_by_elavon   'get-elavon',      :action => 'payment_by_elavon'
+       m.submit_payment_by_elavon   'submit-elavon',      :action => 'submit_payment_by_elavon'
 
        m.confirmation   'confirmation',      :action => 'confirmation'
      end

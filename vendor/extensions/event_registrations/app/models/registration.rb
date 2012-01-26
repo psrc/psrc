@@ -28,7 +28,7 @@ class Registration < ActiveRecord::Base
   end
   
   def invoiceable?
-    self.payment.payment_method == "Credit Card"
+    ['Credit Card', 'Elavon'].include?(self.payment.payment_method)
   end
 
   private

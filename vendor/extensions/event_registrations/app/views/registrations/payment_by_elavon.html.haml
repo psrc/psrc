@@ -1,0 +1,49 @@
+- form_tag 'https://www.myvirtualmerchant.com/VirtualMerchant/process.do' do
+  = hidden_field_tag :ssl_merchant_id, '543799'
+  = hidden_field_tag :ssl_user_id, 'webpage'
+  = hidden_field_tag :ssl_pin, 'TH3MS7'
+  = hidden_field_tag :ssl_show_form, 'true'
+  = hidden_field_tag :ssl_transaction_type, 'ccsale'
+  = hidden_field_tag :ssl_test_mode, RAILS_ENV == 'development' ? 'true' : 'false'
+  = hidden_field_tag :ssl_email, @registration.registration_contact.email
+  = hidden_field_tag :ssl_amount, @registration.payment_amount
+  
+  = hidden_field_tag :ssl_result_format, 'HTML'
+  = hidden_field_tag :ssl_receipt_decl_method, 'GET'
+  = hidden_field_tag :ssl_receipt_decl_post_url, payment_by_elavon_url
+  = hidden_field_tag :ssl_receipt_apprvl_method, 'POST'
+  = hidden_field_tag :ssl_receipt_apprvl_post_url, submit_payment_by_elavon_url
+  = hidden_field_tag :ssl_receipt_link_text, 'Continue'
+  
+  %fieldset
+    %p
+      %label{:for => :ssl_card_number} Credit Card Number
+      %br/
+      = text_field_tag :ssl_card_number, ''
+
+    %p
+      %label{:for => :ssl_exp_date} Expiration Date (MMYY)
+      %br/
+      = text_field_tag :ssl_exp_date, '', :maxlength => 4
+
+    %p
+      %label{:for => :ssl_cvv2cvc2} CVV
+      %br/
+      = hidden_field_tag :ssl_cvv2cvc2_indicator, '1'
+      = text_field_tag :ssl_cvv2cvc2
+  
+    %p
+      %label{:for => :ssl_avs_address} Address
+      %br/
+      = text_field_tag :ssl_avs_address
+
+    %p
+      %label{:for => :ssl_avs_zip} Zip Code
+      %br/
+      = text_field_tag :ssl_avs_zip
+  
+  
+  = submit_tag 'Continue'
+  
+  %p
+    %small Your payment information will be submitted securely to our 3rd party payment processor.
