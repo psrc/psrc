@@ -37,7 +37,7 @@ Spec::Runner.configure do |config|
 end
 
 def create_event
-  event = Event.new :name => "Joe's Event", :layout => 'psrc'
+  event = Event.new :name => "Joe's Event", :contact_email => Emailer::PSRC_CONTACT, :layout => 'psrc'
   event.event_options.build :description => "Descrition of option 1", :max_number_of_attendees => 2, :normal_price => 10
   event.event_options.build :description => "Descrition of option 2", :max_number_of_attendees => 1, :normal_price => 20
   event.start_date = Date.today
