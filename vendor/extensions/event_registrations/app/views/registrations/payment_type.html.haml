@@ -1,0 +1,17 @@
+%h2.first How would you like to pay?
+
+- form_for :payment, :url => submit_payment_type_path, :builder => ::WebSgFormBuilder do |f|
+  - f.fieldset do
+    %p= f.radio_button :type, "credit card", :label => "Credit Card (Visa and MasterCard only)"
+    %p= f.radio_button :type, "Check"
+
+
+
+    %p
+      = f.submit "Continue"
+      or 
+      = link_to "back to contact information", contact_info_path
+
+    - unless @event.refund_policy.blank?
+      %h3.title Refund Policy
+      = textilize @event.refund_policy
