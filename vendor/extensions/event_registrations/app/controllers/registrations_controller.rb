@@ -110,16 +110,17 @@ class RegistrationsController < ApplicationController
   
   def submit_payment_by_elavon
     make_them_start_over and return false unless session[:registration] && params[:ssl_result] == '0'
-    
     @registration = session[:registration]
+    
+    # Note: could save params[:ssl_txn_id] to identify payment for transaction
+    # Payment#remote_payment_id is an integer, and does not seem to be in use
+    
     @payment = Payment.create!({
       :amount => params[:ssl_amount],
-      :payment_method => "Elavon",
-      :last_digits => params[:ssl_card_number][/(\d{4})$/],
-      :remote_payment_id => params[:ssl_txn_id]
+      :payment_method => "Credit Card",
+      :last_digits => params[:ssl_card_number][/(\d{4})$/]
     })
     
-    @registration.registration_contact = session[:contact]
     @registration.payment = @payment
     @registration.save!
     
