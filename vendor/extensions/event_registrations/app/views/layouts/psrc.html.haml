@@ -18,6 +18,14 @@
     = stylesheet_link_tag 'yui', 'events', 'forms', 'util', 'event-print', :media => "print"
 
     = yield(:head)
+    
+    - if @event.event_banner
+      :plain
+        <style type="text/css">
+          #event-banner {
+            background: url('#{@event.event_banner.public_filename}') 50% 50%!important;
+          }
+        </style>
 
     /[if lte IE 7]
       = stylesheet_link_tag 'ie'

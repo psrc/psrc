@@ -11,3 +11,5 @@
   %br
   = form.check_box    :registration_closed, :label => "Check this when the event is closed for registration",     :class => "full"
   = form.select       :layout,        options_for_layouts, :label => "Theme",     :class => "full", :hint => "The theme for the event"
+  = form.file_field   :banner_data,      :label => "Banner",     :class => "full"
+    

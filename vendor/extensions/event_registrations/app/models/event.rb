@@ -1,14 +1,26 @@
 class Event < ActiveRecord::Base
   has_many :event_options, :order => "description"
   has_many :registration_groups
-  delegate :max_table_seating, :to => :event_options
   has_many :registrations
+  has_one :event_banner
+  
+  delegate :max_table_seating, :to => :event_options
   delegate :event_attendees, :to => :registrations
 
   validates_presence_of :name
   validates_presence_of :start_date
   validates_presence_of :end_date
   validates_presence_of :contact_email
+
+  def banner_data=(data)
+    return if data.blank?
+    params = { :uploaded_data => data }
+    if event_banner
+      event_banner.update_attributes(params)
+    else
+      build_event_banner(params)
+    end
+  end
 
   def early_available?
     self.event_options.any? { |option| option.early_available? }
