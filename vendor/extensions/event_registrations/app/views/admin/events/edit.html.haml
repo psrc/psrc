@@ -1,6 +1,6 @@
 %h1== Edit Event
 
-- form_for [:admin, @event], :builder => ::WebSgFormBuilder, :html => { :multipart => true } do |f|
+- form_for [:admin, @event], :builder => ::WebSgFormBuilder do |f|
   = render :partial => 'form', :object => f
   = f.submit
   or

@@ -1,6 +1,6 @@
 %h2 Create New Event
 
-- form_for @event, :url => admin_events_path, :builder => WebSgFormBuilder, :html => { :multipart => true } do |f|
+- form_for @event, :url => admin_events_path, :builder => WebSgFormBuilder do |f|
   = render :partial => 'form', :object => f
   = submit_tag "Create!"
   or
