@@ -15,7 +15,7 @@ module Admin::EventsHelper
       session[:bucket].values.map{|b| [b[:title], b[:id]] }
     else
       []
-    end
+    end | (@event.banner ? [[@event.banner.title, @event.banner.id]] : [])
   end
 
 end
