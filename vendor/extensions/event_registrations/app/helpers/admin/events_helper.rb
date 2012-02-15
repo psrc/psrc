@@ -9,5 +9,13 @@ module Admin::EventsHelper
       [extract_name.call(layout).humanize, extract_name.call(layout)]
     end
   end
+  
+  def options_for_banner
+    if session[:bucket]
+      session[:bucket].values.map{|b| [b[:title], b[:id]] }
+    else
+      []
+    end
+  end
 
 end
