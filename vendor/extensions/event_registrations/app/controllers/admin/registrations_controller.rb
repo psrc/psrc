@@ -6,11 +6,13 @@ class Admin::RegistrationsController < ApplicationController
 
   def export
     buf = ''
-    header = ["Contact Name", "Contact Address", "Contact Phone", "Contact Email", "Attendees"]
+    header = ["Contact Name", "Title", "Organization", "Contact Address", "Contact Phone", "Contact Email", "Attendees"]
     CSV.generate_row header, header.size, buf
     @event.registrations.each do |r|
       a = []
       a << r.registration_contact.name
+      a << r.registration_contact.title
+      a << r.registration_contact.organization
       a << r.registration_contact.formatted_address
       a << r.registration_contact.phone
       a << r.registration_contact.email
