@@ -9,6 +9,8 @@ class Event < ActiveRecord::Base
   validates_presence_of :start_date
   validates_presence_of :end_date
   validates_presence_of :contact_email
+  
+  belongs_to :banner, :class_name => "Asset"
 
   def early_available?
     self.event_options.any? { |option| option.early_available? }
