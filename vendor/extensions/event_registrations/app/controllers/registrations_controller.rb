@@ -1,7 +1,6 @@
 class RegistrationsController < ApplicationController
 
   include SslRequirement
-  
   layout :load_layout
 
   no_login_required
@@ -17,7 +16,7 @@ class RegistrationsController < ApplicationController
     remember_event_and_option
     session[:current_registration_step] = 1
     @number_of_attendees = @event_option.max_number_of_attendees
-    session[:registration] = Registration.new :event => @event
+    session[:registration] = Registration.new :event_id => @event.id
     @group = RegistrationGroup.new :event_option => @event_option
     1.upto(@event_option.max_number_of_attendees) do |a|
       @group.event_attendees.build
@@ -50,7 +49,7 @@ class RegistrationsController < ApplicationController
 
   def contact_info
     remember_event_and_option
-    session[:registration] ||= Registration.new :event => @event
+    session[:registration] ||= Registration.new :event_id => @event.id
     make_them_start_over and return false unless session[:registration]
     @registration_contact = session[:contact] || RegistrationContact.new(:state => "WA")
   end
@@ -102,31 +101,30 @@ class RegistrationsController < ApplicationController
       render :action => 'payment_type'
     end
   end
-  
+
   def payment_by_elavon
     make_them_start_over and return false unless session[:registration]
     @registration = session[:registration]
   end
-  
+
   def submit_payment_by_elavon
     make_them_start_over and return false unless session[:registration] && params[:ssl_result] == '0'
+
     @registration = session[:registration]
-    
     # Note: could save params[:ssl_txn_id] to identify payment for transaction
     # Payment#remote_payment_id is an integer, and does not seem to be in use
-    
     @payment = Payment.create!({
       :amount => params[:ssl_amount],
       :payment_method => "Credit Card",
       :last_digits => params[:ssl_card_number][/(\d{4})$/]
     })
-    
+
     @registration.payment = @payment
     @registration.save!
-    
+
     redirect_to confirmation_path
   end
-  
+
   def payment_by_credit_card
     make_them_start_over and return false unless session[:registration]
     @registration = session[:registration]
@@ -179,7 +177,7 @@ class RegistrationsController < ApplicationController
       redirect_to payment_by_credit_card_path
     end
   end
-  
+
   def confirmation
     if !session[:registration] or !session[:registration].valid?
       make_them_start_over 
@@ -194,7 +192,7 @@ class RegistrationsController < ApplicationController
   end
 
   private
-  
+
   def get_event_and_option
     @event = Event.find(params[:event_id] || session[:event_id])
     @event_option = @event.event_options.find(params[:event_option_id] || session[:event_option_id])

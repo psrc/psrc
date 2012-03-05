@@ -19,7 +19,24 @@ class RegistrationTest < ActionController::IntegrationTest
   def test_payment_with_elavon_single_signup
     pending "it should redirect to virtual merchant payment form"
   end
-  
+
+  def test_payment_with_elavon_prosperity_pin
+    @event.update_attribute(:layout, 'prosperity')
+    click_on_event @group_option
+    fill_in_table_attendee_info 
+    fill_in_contact_info
+    select_credit_card
+    assert response_body.include? %(<input id="ssl_pin" name="ssl_pin" type="hidden" value="TH3MS7" />)
+  end
+
+  def test_payment_with_elavon_psrc_pin
+    click_on_event @group_option
+    fill_in_table_attendee_info 
+    fill_in_contact_info
+    select_credit_card
+    assert response_body.include? %(<input id="ssl_pin" name="ssl_pin" type="hidden" value="90MM5J" />)
+  end
+
   # ActiveMerchant payment by credit card
   # Uncomment if using payment_by_credit_card instead of payment_by_elavon
   # def test_payment_with_credit_card_table_signup

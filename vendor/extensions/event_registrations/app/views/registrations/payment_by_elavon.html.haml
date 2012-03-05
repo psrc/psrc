@@ -1,7 +1,7 @@
 - form_tag 'https://www.myvirtualmerchant.com/VirtualMerchant/process.do' do
   = hidden_field_tag :ssl_merchant_id, '543799'
   = hidden_field_tag :ssl_user_id, 'webpage'
-  = hidden_field_tag :ssl_pin, 'TH3MS7'
+  = hidden_field_tag :ssl_pin, @event.layout == 'prosperity' ? 'TH3MS7' : '90MM5J'
   = hidden_field_tag :ssl_show_form, 'true'
   = hidden_field_tag :ssl_transaction_type, 'ccsale'
   = hidden_field_tag :ssl_test_mode, RAILS_ENV == 'production' ? 'false' : 'true'
