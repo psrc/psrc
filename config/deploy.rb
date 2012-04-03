@@ -11,7 +11,7 @@ task :production do
   set :deploy_to, "/sites/psrc-production"
 end
 
-set :repository,  "git@github.com:galori/psrc.git"
+set :repository,  "git@github.com:psrc/psrc.git"
 set :scm, :git
 set :ssh_options, { :forward_agent => true }
 set :user, 'deploy'
