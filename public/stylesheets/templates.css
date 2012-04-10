@@ -234,8 +234,9 @@ a:focus {
     margin-top: 0.5em; }
     #branding #search-container #cse-search-form {
       width: 300px;
-      padding: 0.2em 0.3em;
       margin: 0; }
+      #branding #search-container #cse-search-form .gsc-search-box {
+        margin: 0; }
       #branding #search-container #cse-search-form .gsc-clear-button {
         display: none; }
       #branding #search-container #cse-search-form .gsc-input input {
