@@ -1,7 +1,7 @@
-/ PUGET SOUND REGIONAL COUNCIL (http://www.psrc.org)
-/ by Fixie Consulting (http://www.fixieconsulting.com)
+// PUGET SOUND REGIONAL COUNCIL (http://www.psrc.org)
+// by Fixie Consulting (http://www.fixieconsulting.com)
 
-/ === YUI PiggyBack ===  /
+// === YUI PiggyBack ===  //
 #main-content-wrapper
   :background #FFF
   :-moz-border-radius-topright 10px
@@ -14,7 +14,7 @@
     :font-size 168%
   h2
     :color #185F70
-    /:color #4E3114
+    //:color #4E3114
     :margin 0
     :padding 0.2em 0.5em
   #main-content, #page-content
@@ -94,7 +94,7 @@
   dl
     :margin 1em 0 0.5em
 
-/ === LINKS === /
+// === LINKS === //
 a
   &:link, &:active, &:visited
     :color #006699
@@ -164,7 +164,7 @@ a
   :padding 0
   :margin-bottom 0.8em
   ul#nav
-    /:font-family "Trebuchet MS", arial,helvetica,clean,sans-serif
+    //:font-family "Trebuchet MS", arial,helvetica,clean,sans-serif
     :font-family arial,helvetica,clean,sans-serif
     :display block
     :padding 0
@@ -248,17 +248,17 @@ a
     :background #CCC url(/images/bg-header-chrome.png) repeat-x
     :float right
     :margin-top .5em
-    #search-form
+    #cse-search-form
+      :width 300px
       :padding 0.2em 0.3em
-      :text-align right
       :margin 0
-      .text
-        :width 71%
-      input
+      .gsc-clear-button
+        :display none
+      .gsc-input input
         :vertical-align middle
         :background #FFF
-        :border 1px solid #185F70      
-      #search-button
+        :border 1px solid #185F70
+      .gsc-search-button input
         :margin 0
         :padding 0
         :font-family arial,helvetica,clean,sans-serif
@@ -266,7 +266,7 @@ a
         :color #FFF
         :background #185F70
         :border 1px solid #185F70
-        
+
 #page-header
   :margin 0 0 0.3em 0
   
@@ -284,13 +284,13 @@ a
   :background #FFF
   :overflow hidden
   :width 100%
-  /
+  //
     :-moz-border-radius-bottomleft 10px
     :-moz-border-radius-topright 10px
     :-webkit-border-radius-bottomleft 10px
     :-webkit-border-radius-topright 10px
   .section-header
-    /
+    //
       :-moz-border-radius-topright 10px
       :-webkit-border-radius-topright 10px
     :font-size 77%
@@ -378,6 +378,6 @@ ul#page-navigation
     &.first
       :border-top none
       
-/hacks
+//hacks
 .yui-gc .first table, .yui-ge .first table
   :width 400px !important
