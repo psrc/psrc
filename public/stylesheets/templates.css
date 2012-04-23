@@ -233,7 +233,7 @@ a:focus {
     float: right;
     margin-top: 0.5em; }
     #branding #search-container #cse-search-form {
-      width: 300px;
+      width: 200px;
       margin: 0; }
       #branding #search-container #cse-search-form .gsc-search-box {
         margin: 0; }
@@ -242,15 +242,18 @@ a:focus {
       #branding #search-container #cse-search-form .gsc-input input {
         vertical-align: middle;
         background: white;
-        border: 1px solid #185f70; }
-      #branding #search-container #cse-search-form .gsc-search-button input {
+        border: 1px solid #666666; }
+      #branding #search-container #cse-search-form input.gsc-search-button {
+        font-size: 100%;
+        font-weight: normal;
+        min-width: 0;
         margin: 0;
-        padding: 0;
+        padding: 0 5px;
         font-family: arial, helvetica, clean, sans-serif;
-        font-size: 77%;
-        color: white;
-        background: #185f70;
-        border: 1px solid #185f70; }
+        color: black;
+        background: transparent;
+        border: 0;
+        cursor: pointer; }
 
 #page-header {
   margin: 0 0 0.3em 0; }
