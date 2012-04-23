@@ -98,7 +98,7 @@ a:focus {
   position: relative;
   margin-bottom: 1em; }
   #banner #banner-content {
-    border: 0;
+    border: 1px solid transparent;
     height: 145px;
     background: transparent; }
     #banner #banner-content #caption-container {
