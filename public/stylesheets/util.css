@@ -1,4 +1,3 @@
-
 .align-center {
   text-align: center; }
 
@@ -38,9 +37,9 @@
 
 .date {
   float: right;
-  font-family: arial,helvetica,clean,sans-serif;
+  font-family: arial, helvetica, clean, sans-serif;
   font-size: 85%;
-  color: #A4ABAF;
+  color: #a4abaf;
   margin-top: 0.1em;
   margin-bottom: 0; }
 
@@ -49,44 +48,40 @@
   padding: 1px 0 2px 19px; }
 
 .example, .example-sidebar {
-  border: 2px solid #CBDCDE;
-  background: #E0EEEF;
+  border: 2px solid #cbdcde;
+  background: #e0eeef;
   padding: 5px;
   margin-bottom: 0.5em; }
 
 .example-sidebar {
   width: 260px; }
 
-a:hover img {
-  border-color: #FF7F00; }
-
 a img {
-  border: 2px solid transparent;
-  *border: 0px; }
+  border: 2px solid transparent; }
 
 ul.features, ul.projects {
   margin: 0 !important; }
-  ul.features li,   ul.projects li {
+  ul.features li, ul.projects li {
     margin: 0;
     list-style: none;
     float: left;
     margin-right: 0.6em;
     width: 125px;
-    font-family: arial,helvetica,clean,sans-serif; }
-    ul.features li *,     ul.projects li * {
+    font-family: arial, helvetica, clean, sans-serif; }
+    ul.features li *, ul.projects li * {
       line-height: 1em !important; }
-    ul.features li img,     ul.projects li img {
-      border: 2px solid #DBDBDB; }
-    ul.features li a:hover img,     ul.projects li a:hover img {
-      border-color: #FF7F00; }
-    ul.features li h5,     ul.projects li h5 {
+    ul.features li img, ul.projects li img {
+      border: 2px solid #dbdbdb; }
+    ul.features li a:hover img, ul.projects li a:hover img {
+      border-color: #ff7f00; }
+    ul.features li h5, ul.projects li h5 {
       line-height: 1em !important;
       margin: 0.1em 0 !important; }
-    ul.features li p,     ul.projects li p {
+    ul.features li p, ul.projects li p {
       font-size: 85%;
       line-height: 1.3em !important;
       margin-bottom: 0; }
-    ul.features li.last,     ul.projects li.last {
+    ul.features li.last, ul.projects li.last {
       margin-right: 0; }
 
 ul.projects li {
@@ -111,7 +106,7 @@ p.float-left, p.float-right {
   font-size: 85%;
   margin-bottom: 0;
   padding-bottom: 0.2em;
-  color: #7F6F67; }
+  color: #7f6f67; }
 
 .hide {
   display: none; }
@@ -124,7 +119,7 @@ div.info {
   margin-bottom: 1.2em; }
 
 dl.items dt {
-  font-family: arial,helvetica,clean,sans-serif; }
+  font-family: arial, helvetica, clean, sans-serif; }
   dl.items dt a {
     font-weight: normal; }
 dl.items dd {
@@ -149,26 +144,25 @@ dl.meetups dt {
   margin-top: 0.75em;
   font-weight: normal; }
 dl.meetups dd {
-  font-family: arial,helvetica,clean,sans-serif;
+  font-family: arial, helvetica, clean, sans-serif;
   font-size: 85%;
-  color: #758A95;
+  color: #758a95;
   margin-bottom: 0.75em; }
 
 dl.photo-caption, dl.photo-caption-sm {
   width: 130px !important;
   margin-bottom: 1em; }
-  dl.photo-caption dt img,   dl.photo-caption-sm dt img {
+  dl.photo-caption dt img, dl.photo-caption-sm dt img {
     padding: 2px;
     margin: 0;
-    border: 1px solid #CBDCDE; }
-  dl.photo-caption dd,   dl.photo-caption-sm dd {
-    font-family: arial,helvetica,clean,sans-serif;
+    border: 1px solid #cbdcde; }
+  dl.photo-caption dd, dl.photo-caption-sm dd {
+    font-family: arial, helvetica, clean, sans-serif;
     margin: 0;
     display: block;
     font-size: 85%; }
-  dl.photo-caption dl.photo-caption-sm,   dl.photo-caption-sm dl.photo-caption-sm {
+  dl.photo-caption dl.photo-caption-sm, dl.photo-caption-sm dl.photo-caption-sm {
     width: 100px !important; }
-
 
 div.section dl.photo-caption, div.section dl.photo-caption-sm {
   width: 100% !important; }
@@ -225,16 +219,16 @@ dl.people dt {
   margin-top: 0.75em;
   font-weight: normal; }
 dl.people dd {
-  color: #758A95;
+  color: #758a95;
   font-style: italic;
   font-size: 85%;
-  font-family: arial,helvetica,clean,sans-serif; }
+  font-family: arial, helvetica, clean, sans-serif; }
 
 dl.photo-summary dt {
   float: left; }
   dl.photo-summary dt img {
     padding: 2px;
-    border: 1px solid #BFBA9B; }
+    border: 1px solid #bfba9b; }
 dl.photo-summary dd {
   margin-left: 130px; }
 
@@ -242,23 +236,23 @@ ol.toggler, ul.toggler {
   margin: 0;
   margin-bottom: 2em;
   padding: 0; }
-  ol.toggler li,   ul.toggler li {
+  ol.toggler li, ul.toggler li {
     list-style: none;
     margin: 0;
     padding: 0;
     line-height: 1.6em; }
-    ol.toggler li strong,     ul.toggler li strong {
-      color: #00557F;
+    ol.toggler li strong, ul.toggler li strong {
+      color: #00557f;
       display: block;
       margin-top: 1em;
       cursor: pointer;
       font-weight: normal; }
-      ol.toggler li strong.hover,       ul.toggler li strong.hover {
-        color: #FF7F00;
+      ol.toggler li strong.hover, ul.toggler li strong.hover {
+        color: #ff7f00;
         text-decoration: underline; }
 
 .quiet {
-  color: #758A95; }
+  color: #758a95; }
 
 .rickmap-sm {
   width: 56px;
@@ -268,12 +262,12 @@ ol.toggler, ul.toggler {
   width: 115px;
   float: right;
   font-size: 85%;
-  font-family: arial,helvetica,clean,sans-serif; }
+  font-family: arial, helvetica, clean, sans-serif; }
 
 .rickmap, .rickmap-sm {
   text-align: center; }
-  .rickmap a,   .rickmap-sm a {
-    font-family: arial,helvetica,clean,sans-serif;
+  .rickmap a, .rickmap-sm a {
+    font-family: arial, helvetica, clean, sans-serif;
     display: block;
     height: 1%; }
 
@@ -284,7 +278,7 @@ ol.toggler, ul.toggler {
 
 .small {
   font-size: 85%;
-  font-family: arial,helvetica,clean,sans-serif; }
+  font-family: arial, helvetica, clean, sans-serif; }
 
 ul.spaced li {
   margin-bottom: 0.5em; }
@@ -328,9 +322,9 @@ dl.two-col dt {
 .view-more {
   text-align: right;
   font-size: 85%;
-  font-family: arial,helvetica,clean,sans-serif; }
+  font-family: arial, helvetica, clean, sans-serif; }
 
 .view-all {
-  font-family: arial,helvetica,clean,sans-serif;
+  font-family: arial, helvetica, clean, sans-serif;
   font-size: 85%;
   margin-top: 0.5em; }

@@ -1,4 +1,3 @@
-
 html {
   color: #232323; }
 
@@ -9,12 +8,12 @@ strong, legend {
   font-weight: bold; }
 
 h1, h2, h3, h4, h5 {
-  font-family: Arial,Helvetica,Verdana,sans-serif,clean;
+  font-family: Arial, Helvetica, Verdana, sans-serif, clean;
   margin: 1em 0;
   font-weight: bold; }
-  h1.title,   h2.title,   h3.title,   h4.title,   h5.title {
+  h1.title, h2.title, h3.title, h4.title, h5.title {
     margin-bottom: 0; }
-  h1.first,   h2.first,   h3.first,   h4.first,   h5.first {
+  h1.first, h2.first, h3.first, h4.first, h5.first {
     margin-top: 0; }
 
 h1 {
@@ -35,14 +34,14 @@ h4 {
 
 h5 {
   font-size: 108%;
-  color: #2F2520; }
+  color: #2f2520; }
 
 h6 {
   font-size: 100%;
   font-weight: bold; }
 
 abbr, acronym {
-  border-bottom: 1px dotted #000;
+  border-bottom: 1px dotted black;
   cursor: help; }
 
 em {
@@ -51,10 +50,10 @@ em {
 blockquote {
   margin: 1em;
   padding: 0.5em 35px;
-  background: #FFF0DF url(/images/quote.gif) no-repeat left 0.2em;
+  background: #fff0df url(/images/quote.gif) no-repeat left 0.2em;
   font-size: 93%;
-  border-top: 1px solid #DFC5A7;
-  border-bottom: 1px solid #DFC5A7;
+  border-top: 1px solid #dfc5a7;
+  border-bottom: 1px solid #dfc5a7;
   font-style: italic; }
   blockquote p {
     margin: 0; }
@@ -74,17 +73,17 @@ table {
 th, td {
   padding: 0.3em;
   vertical-align: middle;
-  border-bottom: 1px solid #E0ECEF; }
+  border-bottom: 1px solid #e0ecef; }
 
 th {
-  background: #758A95;
+  background: #758a95;
   text-transform: uppercase;
   color: white;
   text-align: left;
   font-size: 93%; }
 
 caption {
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   text-align: center; }
 
 p, fieldset, table, pre {
@@ -92,7 +91,6 @@ p, fieldset, table, pre {
 
 p {
   line-height: 1.6em; }
-
 
 input[type=text], input[type=password], textarea {
   width: 12.25em;
