@@ -245,32 +245,42 @@ a
   h1
     :margin 0
   #search-container
-    :background #CCC url(/images/bg-header-chrome.png) repeat-x
     :float right
     :margin-top .5em
-    #cse-search-form
+    .cse-search-container
+      :position relative
+      :background #CCC url(/images/search-bg.png) repeat-x
       :width 240px
-      :margin 0
-      .gsc-search-box
+      :height 24px
+      .cse-search-input
+        :position absolute
+        top: 3px
+        left: 3px
+        :width 184px
+        :height 16px
+        :line-height 16px
+        :background white
+        :border 1px solid #c0c0c0
         :margin 0
-      .gsc-clear-button
-        :display none
-      .gsc-input input
-        :vertical-align middle
-        :background #FFF
-        :border 1px solid #C3C3C3
-      input.gsc-search-button
-        :font-size 80%
+        :font-size 12px
+      .cse-search-button
+        :display block
+        :position absolute
+        :right 0px
+        :width 52px
+        :height 24px
+        :line-height 24px
+        :margin 0
+        :padding 0
+        :border 0
+        :text-align center
+        :font-size 10px
         :text-transform uppercase
         :font-weight normal
-        :min-width 0
-        :margin 0
-        :padding 0 5px
         :font-family arial,helvetica,clean,sans-serif
         :color #333333
-        :background transparent
-        :border 0
-        :cursor pointer
+        &:hover
+          :text-decoration none
 
 #page-header
   :margin 0 0 0.3em 0

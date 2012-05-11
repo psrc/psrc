@@ -229,32 +229,42 @@ a:focus {
   #branding h1 {
     margin: 0; }
   #branding #search-container {
-    background: #cccccc url(/images/bg-header-chrome.png) repeat-x;
     float: right;
     margin-top: 0.5em; }
-    #branding #search-container #cse-search-form {
+    #branding #search-container .cse-search-container {
+      position: relative;
+      background: #cccccc url(/images/search-bg.png) repeat-x;
       width: 240px;
-      margin: 0; }
-      #branding #search-container #cse-search-form .gsc-search-box {
-        margin: 0; }
-      #branding #search-container #cse-search-form .gsc-clear-button {
-        display: none; }
-      #branding #search-container #cse-search-form .gsc-input input {
-        vertical-align: middle;
+      height: 24px; }
+      #branding #search-container .cse-search-container .cse-search-input {
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 184px;
+        height: 16px;
+        line-height: 16px;
         background: white;
-        border: 1px solid #c3c3c3; }
-      #branding #search-container #cse-search-form input.gsc-search-button {
-        font-size: 80%;
+        border: 1px solid silver;
+        margin: 0;
+        font-size: 12px; }
+      #branding #search-container .cse-search-container .cse-search-button {
+        display: block;
+        position: absolute;
+        right: 0px;
+        width: 52px;
+        height: 24px;
+        line-height: 24px;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        text-align: center;
+        font-size: 10px;
         text-transform: uppercase;
         font-weight: normal;
-        min-width: 0;
-        margin: 0;
-        padding: 0 5px;
         font-family: arial, helvetica, clean, sans-serif;
-        color: #333333;
-        background: transparent;
-        border: 0;
-        cursor: pointer; }
+        color: #333333; }
+        #branding #search-container .cse-search-container .cse-search-button:hover {
+          text-decoration: none; }
 
 #page-header {
   margin: 0 0 0.3em 0; }
