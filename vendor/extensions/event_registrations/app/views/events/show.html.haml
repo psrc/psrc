@@ -10,7 +10,7 @@
     = render :partial => "event_table_head"
     %tbody= render :partial => "event_option", :collection => @event.individual_options
   - if @event.layout == "prosperity"
-    %p= link_to "View list of Partners", "http://www.prosperitypartnership.org/coalition/partners.htm"
+    %p= link_to "View list of Partners", "http://psrc.org/econdev/prosperity/partners-cochairs"
 
 - else
   %p.quiet Registration for this event is closed.
