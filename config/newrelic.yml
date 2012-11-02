@@ -131,4 +131,5 @@ production:
 staging:
   <<: *default_settings
   enabled: true
+  app_name: PSRC (staging)
 
