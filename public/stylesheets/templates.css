@@ -365,5 +365,17 @@ ul#page-navigation {
     ul#page-navigation li.first {
       border-top: none; }
 
+.feed-entries .feed-entry {
+  margin-bottom: 1em; }
+  .feed-entries .feed-entry .feed-entry-title {
+    font-size: 120%;
+    font-weight: bold;
+    margin-bottom: 0.5em; }
+    .feed-entries .feed-entry .feed-entry-title a:link, .feed-entries .feed-entry .feed-entry-title a:visited {
+      color: #10424e; }
+  .feed-entries .feed-entry .feed-entry-meta {
+    margin-bottom: 0.5em;
+    color: #999999; }
+
 .yui-gc .first table, .yui-ge .first table {
   width: 400px !important; }
