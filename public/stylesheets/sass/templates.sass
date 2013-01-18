@@ -1,6 +1,22 @@
 // PUGET SOUND REGIONAL COUNCIL (http://www.psrc.org)
 // by Fixie Consulting (http://www.fixieconsulting.com)
 
+.clearfix
+  &:after
+    :content "."
+    :display block
+    :clear both
+    :visibility hidden
+    :line-height 0
+    :height 0
+  :display inline-block
+
+html[xmlns] .clearfix
+  :display block
+
+* html .clearfix
+  :height 1%
+
 // === YUI PiggyBack ===  //
 #main-content-wrapper
   :background #FFF
@@ -396,6 +412,7 @@ ul#page-navigation
 .feed-entries
   .feed-entry
     :margin-bottom 1em
+    @extend .clearfix
     .feed-entry-title
       :font-size 120%
       :font-weight bold
@@ -406,6 +423,10 @@ ul#page-navigation
       :margin-bottom 0.5em
       :color #999
     .feed-entry-summary
+      .feed-entry-image
+        :float left
+        :margin 0 0.75em 0.5em 0
+        :border 0
 
 
 //hacks

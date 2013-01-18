@@ -1,3 +1,19 @@
+.clearfix, .feed-entries .feed-entry {
+  display: inline-block; }
+  .clearfix:after, .feed-entries .feed-entry:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0; }
+
+html[xmlns] .clearfix, html[xmlns] .feed-entries .feed-entry, .feed-entries html[xmlns] .feed-entry {
+  display: block; }
+
+* html .clearfix, * html .feed-entries .feed-entry, .feed-entries * html .feed-entry {
+  height: 1%; }
+
 #main-content-wrapper {
   background: white;
   -moz-border-radius-topright: 10px;
@@ -376,6 +392,10 @@ ul#page-navigation {
   .feed-entries .feed-entry .feed-entry-meta {
     margin-bottom: 0.5em;
     color: #999999; }
+  .feed-entries .feed-entry .feed-entry-summary .feed-entry-image {
+    float: left;
+    margin: 0 0.75em 0.5em 0;
+    border: 0; }
 
 .yui-gc .first table, .yui-ge .first table {
   width: 400px !important; }

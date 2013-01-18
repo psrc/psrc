@@ -29,9 +29,9 @@ module FeedReaderTags
     block in the context of the entry.  The @url@ attribute is required
     if a parent tag does not define it. Optional @limit@, @by@, and @order@ 
     attributes.
-    
+
     *Usage:*
-    
+
     <pre><code><r:feed:entries:each url="http://somefeed.com/rss" [limit="10"] [order="desc"] [by="published"]>
       output something for the entry
     </r:feed:entries:each></code></pre>
@@ -50,9 +50,9 @@ module FeedReaderTags
   [:title, :url, :author, :summary].each do |attribute|
     desc %{
       Outputs an entry's #{attribute}.
-      
+
       *Usage:*
-      
+
       <pre><code><r:feed:entries:each url="http://somefeed.com/rss">
         <r:#{attribute} />
       </r:feed:entries:each></code></pre>
@@ -65,9 +65,9 @@ module FeedReaderTags
 
   desc %{
     Outputs an entry's body.
-    
+
     *Usage:*
-    
+
     <pre><code><r:feed:entries:each url="http://somefeed.com/rss">
       <r:body />
     </r:feed:entries:each></code></pre>
@@ -77,11 +77,31 @@ module FeedReaderTags
   end
 
   desc %{
+    Outputs an entry's image, if found.
+
+    *Usage:*
+
+    <pre><code><r:feed:entries:each url="http://somefeed.com/rss">
+      <r:image />
+    </r:feed:entries:each></code></pre>
+  }
+  tag "feed:entries:each:image" do |tag|
+    html_attrs = {}
+    html_attrs.merge!(:width => tag.attr['width']) if tag.attr['width']
+    html_attrs.merge!(:height => tag.attr['height']) if tag.attr['height']
+    html_attrs.merge!(:style => tag.attr['style']) if tag.attr['style']
+    html_attrs.merge!(:class => tag.attr['class']) if tag.attr['class']
+
+    doc = Nokogiri::HTML(tag.locals.entry.content)
+    (image = doc.xpath('//img').first) ? %(<img src="#{image.attributes['src'].to_s}"#{html_attrs.map{|a| %(#{a[0]}="#{a[1]}") }.join("\s")} />) : nil
+  end
+
+  desc %{
     Outputs an entry's published datetime.  The format may be specified with the
     @format@ attribute using Ruby's @strftime@ syntax.
-    
+
     *Usage:*
-    
+
     <pre><code><r:feed:entries:each url="http://somefeed.com/rss">
       <r:date [format="%c"] />
     </r:feed:entries:each></code></pre>
@@ -95,17 +115,17 @@ module FeedReaderTags
     Creates an HTML link to the original source of the entry, adding
     any additional attributes to the @<a>@ tag.  If no content is given,
     the entry title will be used.
-    
+
     *Usage:*
-    
+
     <pre><code><r:feed:entries:each url="http://somefeed.com/rss">
       <r:link />
     </r:feed:entries:each></code></pre>
-    
+
     <pre><code><r:feed:entries:each url="http://somefeed.com/rss">
       <r:link class="foo"/>
     </r:feed:entries:each></code></pre>
-    
+
     <pre><code><r:feed:entries:each url="http://somefeed.com/rss">
       <r:link>Read more...</r:link>
     </r:feed:entries:each></code></pre>
