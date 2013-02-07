@@ -23,7 +23,7 @@ class FormResponse < ActiveRecord::Base
     if content && ! content['nickname'].blank?
       errors.add(:base, 'uhoh')
     else
-      content.delete('nickname') if content
+      content.delete_if { |key, value| key == 'nickname' } if content
     end
   end
 end
