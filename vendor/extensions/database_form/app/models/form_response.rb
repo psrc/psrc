@@ -20,6 +20,10 @@ class FormResponse < ActiveRecord::Base
   # The nickname field should always be hidden, and therefore intentionally
   # blank. Any submissions with nickname filled out are likely spam bots.
   def honeypot
-    errors.add(:base, 'uhoh') if content && ! content.delete('nickname').blank?
+    if content && ! content['nickname'].blank?
+      errors.add(:base, 'uhoh')
+    else
+      content.delete('nickname') if content
+    end
   end
 end
