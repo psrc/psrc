@@ -21,6 +21,13 @@ class FormResponseTest < Test::Unit::TestCase
     assert_equal "can't be blank", @form_response.errors.on(:content)
   end
 
+  def test_validation_honeypot
+    @form_response = FormResponse.new
+    @form_response.content = { 'nickname' => 'asdf' }
+    assert !@form_response.valid?
+    assert_equal "uhoh", @form_response.errors.on(:base)
+  end
+
   def test_serialized_content_to_hash
     @form_response.save
     assert_equal "email@test.net", @form_response.reload.content['email']
