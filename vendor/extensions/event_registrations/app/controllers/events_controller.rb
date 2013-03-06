@@ -4,7 +4,6 @@ class EventsController < ApplicationController
   layout :load_layout
 
   def show
-    #redirect_to "https://secure.psrc.org/event/#{params[:id]}" and return if RAILS_ENV == 'staging'
     @event = Event.find params[:id]
     @progress_step = 1
     session[:registration] = nil
@@ -19,5 +18,4 @@ class EventsController < ApplicationController
   def load_layout
     @event.layout
   end
-
 end
