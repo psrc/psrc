@@ -1,5 +1,17 @@
 require 'feedzirra'
 
+module Feedzirra
+  module Parser
+    class RSSEntry
+      # Add enclosure/media tags to rss entry.
+      # Backported from feedzirra 0.1.4:
+      # https://github.com/pauldix/feedzirra/blob/b82f8ec1939056404a22e89a12e827c1658cacb0/lib/feedzirra/parser/rss_entry.rb#L17
+      element :"media:content", :as => :image, :value => :url
+      element :enclosure, :as => :image, :value => :url
+    end
+  end
+end
+
 module FeedReaderTags
   include Radiant::Taggable
 
@@ -92,8 +104,8 @@ module FeedReaderTags
     html_attrs.merge!(:style => tag.attr['style']) if tag.attr['style']
     html_attrs.merge!(:class => tag.attr['class']) if tag.attr['class']
 
-    doc = Nokogiri::HTML(tag.locals.entry.content)
-    (image = doc.xpath('//img').first) ? %(<img src="#{image.attributes['src'].to_s}"#{html_attrs.map{|a| %(#{a[0]}="#{a[1]}") }.join("\s")} />) : nil
+    src = tag.locals.entry.image
+    src ? %(<img src="#{src}"#{html_attrs.map{|a| %(#{a[0]}="#{a[1]}") }.join("\s")} />) : nil
   end
 
   desc %{
