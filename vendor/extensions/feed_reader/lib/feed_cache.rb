@@ -40,7 +40,7 @@ class FeedCache
   end
 
   def update_cache?(url)
-    File.mtime(cache_file(url)) < 6.hours.ago
+    File.mtime(cache_file(url)) < 1.hour.ago
   end
 
   def cache_key(url)
