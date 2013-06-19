@@ -70,7 +70,11 @@ module FeedReaderTags
       </r:feed:entries:each></code></pre>
     }
     tag "feed:entries:each:#{attribute}" do |tag|
-      tag.locals.entry.send(attribute)
+      if tag.attr['truncate']
+        truncate(tag.locals.entry.send(attribute), tag.attr['truncate'].to_i)
+      else
+        tag.locals.entry.send(attribute)
+      end
     end
   end
 
