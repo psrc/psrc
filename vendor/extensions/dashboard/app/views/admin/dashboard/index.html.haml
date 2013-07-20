@@ -63,12 +63,18 @@
 #updated_assets.dashboard_module
   %h2 Recently Updated Assets
   %ul
-    - @updated_assets.each do |asset|
+    - @asset_activities.each do |activity|
+      - asset = activity.subject
       %li
-        %span.title= link_to asset.title, asset.asset.url
+        %span.title
+          - if asset
+            = link_to activity.subject_attribute(:title, false), asset.asset.url
+          - else
+            = activity.subject_attribute(:title, false)
         %span.details
-          = "Updated by #{updater_name_for(asset)} #{time_ago_in_words asset.updated_at.to_time} ago."
-          = link_to "Edit", edit_asset_path(asset)
+          = "#{activity.action} by #{ activity.user_attribute(:name) || 'System' } #{time_ago_in_words activity.created_at.to_time} ago."
+          - if asset
+            = link_to "Edit", edit_asset_path(asset)
 
 = render_region :extensions
         
