@@ -15,12 +15,13 @@ class ActivityLogExtension < Radiant::Extension
       after_update { |asset| asset.track_activity("updated", asset.updated_by) }
       after_destroy { |asset| asset.track_activity("destroyed", asset.updated_by) }
 
-      def track_activity(action, user)
+      def track_activity(action, user = nil, occurred_at = Time.now.utc)
         Activity.create! :action => action,
                          :subject => self,
                          :user => user,
                          :subject_attributes => attributes,
-                         :user_attributes => user.attributes.except('password', 'salt')
+                         :user_attributes => user ? user.attributes.except('password', 'salt') : {},
+                         :occurred_at => occurred_at
       end
     end
   end

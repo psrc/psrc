@@ -72,7 +72,7 @@
           - else
             = activity.subject_attribute(:title, false)
         %span.details
-          = "#{activity.action} by #{ activity.user_attribute(:name) || 'System' } #{time_ago_in_words activity.created_at.to_time} ago."
+          = "#{activity.action} by #{ activity.user_attribute(:name, true, 'Radiant System') } #{time_ago_in_words activity.occurred_at.to_time} ago."
           - if asset
             = link_to "Edit", edit_asset_path(asset)
 

@@ -9,4 +9,3 @@ class AddUserAttributesToActivities < ActiveRecord::Migration
     add_column :activities, :subject_changes, :text
   end
 end
-

@@ -15,8 +15,8 @@ class Admin::DashboardController < ApplicationController
     @updated_layouts = Layout.find(:all, recent_conditions)
     @updated_assets = Asset.find(:all, recent_conditions)
     @asset_activities = Activity.find(:all, recent_conditions.merge(:conditions => [
-      "updated_at > :updated_at AND subject_type = :subject_type",
-      {:updated_at => recent_range, :subject_type => 'Asset'}
-    ]))
+      "occurred_at > :occurred_at AND subject_type = :subject_type",
+      {:occurred_at => recent_range, :subject_type => 'Asset'}
+    ], :order => 'occurred_at DESC'))
   end
 end

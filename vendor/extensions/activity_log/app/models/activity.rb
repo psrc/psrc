@@ -4,19 +4,19 @@ class Activity < ActiveRecord::Base
   serialize :subject_attributes, Hash
   serialize :user_attributes, Hash
 
-  def subject_attribute(attribute, current = true)
+  def subject_attribute(attribute, current = true, default = 'N/A')
     if current && subject
       subject.send(attribute)
     else
-      subject_attributes[attribute.to_s] || 'N/A'
+      subject_attributes[attribute.to_s] || default
     end
   end
 
-  def user_attribute(attribute, current = true)
+  def user_attribute(attribute, current = true, default = 'N/A')
     if current && user
       user.send(attribute)
     else
-      user_attributes[attribute.to_s] || 'N/A'
+      user_attributes[attribute.to_s] || default
     end
   end
 end

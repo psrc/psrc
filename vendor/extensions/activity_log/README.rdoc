@@ -1,5 +1,0 @@
-= Activity log for Radiant
-
-== Todo
-
-* Tests
