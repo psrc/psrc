@@ -122,7 +122,7 @@ class AssetsController < ApplicationController
     def current_objects
       unless params['search'].blank?
         if params[:search_by_id] == "1"
-          @conditions = {:id => params[:search]}
+          @conditions = {:id => params[:search].to_i}
         else
           term = params['search'].downcase
 
@@ -131,7 +131,7 @@ class AssetsController < ApplicationController
         
           search_cond_sql << 'LOWER(asset_file_name) LIKE (:term)'
           search_cond_sql << 'LOWER(title) LIKE (:term)'
-          search_cond_sql << term.split(' ').map {|w| "LOWER(title) LIKE (E'%#{w}%')" }.join(' or ') if term.match(/ /)
+          search_cond_sql << term.split(' ').map {|w| "LOWER(title) LIKE (E'%#{w}%')" }.join(params[:search_inclusion] == 'or' ? ' OR ' : ' AND ') if term.match(/ /)
           search_cond_sql << 'LOWER(caption) LIKE (:term)'
           search_cond_sql << '(substr(cast (id as text), 0)) like (:term)'
 
