@@ -7,7 +7,7 @@ module Feedzirra
       # Backported from feedzirra 0.1.4:
       # https://github.com/pauldix/feedzirra/blob/b82f8ec1939056404a22e89a12e827c1658cacb0/lib/feedzirra/parser/rss_entry.rb#L17
       element :"media:content", :as => :image, :value => :url
-      element :enclosure, :as => :image, :value => :url
+      element :enclosure, :as => :image, :value => :url, :with => {:type => "image/jpg"}
     end
   end
 end
