@@ -68,11 +68,11 @@
       %li
         %span.title
           - if asset
-            = link_to activity.subject_attribute(:title, false), asset.asset.url
+            = link_to asset.asset.url, asset.asset.url
           - else
             = activity.subject_attribute(:title, false)
         %span.details
-          = "#{activity.action} by #{ activity.user_attribute(:name, true, 'Radiant System') } #{time_ago_in_words activity.occurred_at.to_time} ago."
+          = "#{activity.action} by #{ activity.user_attribute(:name, true, 'Radiant System') } at #{timestamp activity.occurred_at.to_time}."
           - if asset
             = link_to "Edit", edit_asset_path(asset)
 
