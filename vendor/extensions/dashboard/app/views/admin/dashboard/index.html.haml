@@ -13,7 +13,7 @@
               - else
                 %span.title= link_to page.title, page.url
               %span.details
-                = "Updated by #{updater_name_for(page)} #{time_ago_in_words page.updated_at.to_time} ago."
+                = "Updated by #{updater_name_for(page)} at #{timestamp page.updated_at.to_time}."
                 = link_to "Edit", page_edit_path(page)
   - main.draft_pages do
     - unless @draft_pages.blank?
@@ -24,7 +24,7 @@
             %li
               %span.title= page.title
               %span.details
-                = "Updated by #{updater_name_for(page)} #{time_ago_in_words page.updated_at.to_time} ago."
+                = "Updated by #{updater_name_for(page)} at #{timestamp page.updated_at.to_time}."
                 = link_to "Edit", page_edit_path(page)
   - main.reviewed_pages do
     - unless @reviewed_pages.blank?
@@ -35,7 +35,7 @@
             %li
               %span.title= page.title
               %span.details
-                = "Updated by #{updater_name_for(page)} #{time_ago_in_words page.updated_at.to_time} ago."
+                = "Updated by #{updater_name_for(page)} at #{timestamp page.updated_at.to_time}."
                 = link_to "Edit", page_edit_path(page)
   - main.updated_snippets do
     - unless @updated_snippets.blank?
@@ -46,7 +46,7 @@
             %li
               %span.title= snippet.name
               %span.details
-                = "Updated by #{updater_name_for(snippet)} #{time_ago_in_words snippet.updated_at.to_time} ago."
+                = "Updated by #{updater_name_for(snippet)} at #{timestamp snippet.updated_at.to_time}."
                 = link_to "Edit", snippet_edit_path(snippet)
   - main.updated_layouts do
     - if (developer? or admin?) and !@updated_layouts.blank?
@@ -57,7 +57,7 @@
             %li
               %span.title= layout.name
               %span.details
-                = "Updated by #{updater_name_for(layout)} #{time_ago_in_words layout.updated_at.to_time} ago."
+                = "Updated by #{updater_name_for(layout)} at #{timestamp layout.updated_at.to_time}."
                 = link_to "Edit", layout_edit_path(layout)
 
 #updated_assets.dashboard_module
