@@ -70,9 +70,9 @@
           - if asset
             = link_to asset.asset.url, asset.asset.url
           - else
-            - original_file_name = activity.subject_attribute(:asset_file_name, false, nil)
             - original_id = activity.subject_attribute(:id, false, nil)
-            - if original_file_name && original_id
+            - original_file_name = activity.subject_attribute(:asset_file_name, false, nil)
+            - if original_id && original_file_name
               = "/assets/#{original_id}/#{original_file_name}"
             - else
               = activity.subject_attribute(:title, false)
