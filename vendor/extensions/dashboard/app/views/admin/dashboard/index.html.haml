@@ -70,7 +70,12 @@
           - if asset
             = link_to asset.asset.url, asset.asset.url
           - else
-            = activity.subject_attribute(:title, false)
+            - original_file_name = activity.subject_attribute(:asset_file_name, false, nil)
+            - original_id = activity.subject_attribute(:id, false, nil)
+            - if original_file_name && original_id
+              = "/assets/#{original_id}/#{original_file_name}"
+            - else
+              = activity.subject_attribute(:title, false)
         %span.details
           = "#{activity.action} by #{ activity.user_attribute(:name, true, 'Radiant System') } at #{timestamp activity.occurred_at.to_time}."
           - if asset

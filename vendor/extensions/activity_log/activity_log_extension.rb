@@ -11,15 +11,15 @@ class ActivityLogExtension < Radiant::Extension
     Asset.class_eval do
       has_many :activities, :as => :subject
 
-      after_create { |asset| asset.track_activity("created", asset.created_by) }
-      after_update { |asset| asset.track_activity("updated", asset.updated_by) }
-      after_destroy { |asset| asset.track_activity("destroyed", asset.updated_by) }
+      def cache_activity_attributes
+        @activity_attributes = attributes.dup
+      end
 
       def track_activity(action, user = nil, occurred_at = Time.now.utc)
         Activity.create! :action => action,
                          :subject => self,
                          :user => user,
-                         :subject_attributes => attributes,
+                         :subject_attributes => @activity_attributes || attributes,
                          :user_attributes => user ? user.attributes.except('password', 'salt') : {},
                          :occurred_at => occurred_at
       end
