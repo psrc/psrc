@@ -24,5 +24,11 @@ class ActivityLogExtension < Radiant::Extension
                          :occurred_at => occurred_at
       end
     end
+
+    UserActionObserver.class_eval do
+      def before_destroy(model)
+        model.updated_by = self.class.current_user
+      end
+    end
   end
 end
