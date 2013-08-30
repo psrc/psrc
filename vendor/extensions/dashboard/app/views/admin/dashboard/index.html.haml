@@ -1,20 +1,6 @@
 - render_region :main do |main|
   - main.header do
     %h1= "#{Radiant::Config['admin.title']} Dashboard"
-  - main.updated_pages do
-    - unless @updated_pages.blank?
-      #updated_pages.dashboard_module
-        %h2 Recently Updated Pages
-        %ul
-          - @updated_pages.each do |page|
-            %li
-              - if page.virtual? or !page.published?
-                %span.virtual.title= page.title
-              - else
-                %span.title= link_to page.title, page.url
-              %span.details
-                = "Updated by #{updater_name_for(page)} at #{timestamp page.updated_at.to_time}."
-                = link_to "Edit", page_edit_path(page)
   - main.draft_pages do
     - unless @draft_pages.blank?
       #draft_pages.dashboard_module
@@ -60,6 +46,23 @@
                 = "Updated by #{updater_name_for(layout)} at #{timestamp layout.updated_at.to_time}."
                 = link_to "Edit", layout_edit_path(layout)
 
+  - main.updated_pages do
+    #updated_pages.dashboard_module
+      %h2 Recently Updated Pages
+      %ul
+        - @page_activities.each do |activity|
+          - page = activity.subject
+          %li
+            %span.title
+              - if page
+                = link_to activity.subject_attribute(:title), page_edit_path(page)
+              - else
+                = activity.subject_attribute(:title, false)
+            %span.details
+              = "#{activity.action} by #{ activity.user_attribute(:name, true, 'Radiant System') } at #{timestamp activity.occurred_at.to_time}."
+              - if page
+                = link_to "Edit", page_edit_path(page)
+
 #updated_assets.dashboard_module
   %h2 Recently Updated Assets
   %ul
@@ -82,5 +85,5 @@
             = link_to "Edit", edit_asset_path(asset)
 
 = render_region :extensions
-        
+
 - include_stylesheet 'admin/dashboard'

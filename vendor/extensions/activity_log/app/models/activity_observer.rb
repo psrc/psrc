@@ -1,5 +1,5 @@
 class ActivityObserver < ActiveRecord::Observer
-  observe Asset
+  observe Asset, Page
 
   def before_destroy(model)
     model.cache_activity_attributes

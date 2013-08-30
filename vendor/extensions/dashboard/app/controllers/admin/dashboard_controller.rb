@@ -18,5 +18,9 @@ class Admin::DashboardController < ApplicationController
       "occurred_at > :occurred_at AND subject_type = :subject_type",
       {:occurred_at => recent_range, :subject_type => 'Asset'}
     ], :order => 'occurred_at DESC'))
+    @page_activities = Activity.find(:all, recent_conditions.merge(:conditions => [
+      "occurred_at > :occurred_at AND subject_type = :subject_type",
+      {:occurred_at => recent_range, :subject_type => 'Page'}
+    ], :order => 'occurred_at DESC'))
   end
 end
