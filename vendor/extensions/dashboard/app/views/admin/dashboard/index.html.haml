@@ -62,6 +62,7 @@
               = "#{activity.action} by #{ activity.user_attribute(:name, true, 'Radiant System') } at #{timestamp activity.occurred_at.to_time}."
               - if page
                 = link_to "Edit", page_edit_path(page)
+      = link_to 'Export CSV', admin_activities_path(:subject_type => 'Page', :format => 'csv')
 
 #updated_assets.dashboard_module
   %h2 Recently Updated Assets
@@ -83,6 +84,7 @@
           = "#{activity.action} by #{ activity.user_attribute(:name, true, 'Radiant System') } at #{timestamp activity.occurred_at.to_time}."
           - if asset
             = link_to "Edit", edit_asset_path(asset)
+  = link_to 'Export CSV', admin_activities_path(:subject_type => 'Asset', :format => 'csv')
 
 = render_region :extensions
 

@@ -4,7 +4,7 @@ class ActivityLogExtension < Radiant::Extension
   url "http://www.psrc.org/"
 
   define_routes do |map|
-    map.connect 'admin/activities.:format', :controller => 'admin/activities'
+    map.admin_activities 'admin/activities.:format', :controller => 'admin/activities'
   end
 
   def activate
