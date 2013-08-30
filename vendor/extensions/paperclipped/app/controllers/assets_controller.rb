@@ -144,6 +144,10 @@ class AssetsController < ApplicationController
       else
         @conditions = []
       end
+
+      if params[:search_orphaned] == '1'
+        @conditions << '(SELECT 1 FROM page_attachments WHERE page_attachments.asset_id = assets.id LIMIT 1) IS NULL'
+      end
       
       @file_types = params[:filter].blank? ? [] : params[:filter].keys
 
