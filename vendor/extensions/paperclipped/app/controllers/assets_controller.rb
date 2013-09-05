@@ -146,9 +146,13 @@ class AssetsController < ApplicationController
       end
 
       if params[:search_orphaned] == '1'
-        @conditions << '(SELECT 1 FROM page_attachments WHERE page_attachments.asset_id = assets.id LIMIT 1) IS NULL'
+        cond_params = @conditions.extract_options!
+        cond_params[:bound] = '%'
+        cond_params[:assets] = 'r:assets'
+        @conditions << %((SELECT 1 FROM page_parts WHERE page_parts.content LIKE (:bound || :assets || :bound || assets.id || :bound) LIMIT 1) IS NULL)
+        @conditions << cond_params
       end
-      
+
       @file_types = params[:filter].blank? ? [] : params[:filter].keys
 
       if not @file_types.empty?
@@ -158,7 +162,7 @@ class AssetsController < ApplicationController
         Asset.paginate(:all, :conditions => @conditions, :order => 'created_at DESC', :page => params[:page], :per_page => 50)
       end
     end
-    
+
     def count_by_conditions
       type_conditions = @file_types.blank? ? nil : Asset.types_to_conditions(@file_types.dup).join(" OR ")
       @count_by_conditions ||= @conditions.empty? ? Asset.count(:all, :conditions => type_conditions) : Asset.count(:all, :conditions => @conditions)

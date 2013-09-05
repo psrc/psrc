@@ -130,6 +130,10 @@ class Asset < ActiveRecord::Base
   [:movie, :audio, :image, :other, :pdf].each do |content|
     define_method("#{content}?") { self.class.send("#{content}?", asset_content_type) }
   end
+
+  def related_pages
+    Page.find :all, :joins => :parts, :conditions => ['page_parts.content LIKE ?', "%r:assets%#{ id }%"]
+  end
   
   
   private

@@ -8,10 +8,10 @@
   %strong.warning permanently remove
   the following asset?
 
-- if @asset.pages.any?
+- if (pages = @asset.related_pages).any?
   %h2 This assets is currently in use on the following pages:
   %ul
-    - @asset.pages.each do |page|
+    - pages.each do |page|
       %li= link_to page.title, page_edit_path(page)
 
 %table#site-map.index{ :cellpadding => "0", :cellspacing => "0", :border => "0" }
