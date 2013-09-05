@@ -132,7 +132,7 @@ class Asset < ActiveRecord::Base
   end
 
   def related_pages
-    Page.find :all, :joins => :parts, :conditions => ['page_parts.content LIKE ?', "%r:assets%#{ id }%"]
+    Page.find :all, :joins => :parts, :conditions => ['(page_parts.content LIKE ?) OR (SELECT 1 FROM page_attachments WHERE page_attachments.page_id = pages.id AND page_attachments.asset_id = ? LIMIT 1) IS NOT NULL', "%r:assets%#{ id }%", id], :group => 'pages.id'
   end
   
   
