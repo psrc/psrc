@@ -145,14 +145,6 @@ class AssetsController < ApplicationController
         @conditions = []
       end
 
-      if params[:search_orphaned] == '1'
-        cond_params = @conditions.extract_options!
-        cond_params[:bound] = '%'
-        cond_params[:assets] = 'r:assets'
-        @conditions << %((SELECT 1 FROM page_parts WHERE page_parts.content LIKE (:bound || :assets || :bound || assets.id || :bound) LIMIT 1) IS NULL)
-        @conditions << cond_params
-      end
-
       @file_types = params[:filter].blank? ? [] : params[:filter].keys
 
       if not @file_types.empty?
