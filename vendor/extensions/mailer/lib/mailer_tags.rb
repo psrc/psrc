@@ -343,6 +343,11 @@ module MailerTags
 
   def add_required(result, tag)
     result << %(<input type="hidden" name="mailer[required][#{tag.attr['name']}]" value="#{tag.attr['required']}" />) if tag.attr['required']
+    add_honeypot(result, tag)
+  end
+
+  def add_honeypot(result, tag)
+    result << %(<input type="hidden" name="mailer[honeypot][#{tag.attr['name']}]" value="#{tag.attr['honeypot']}" />) if tag.attr['honeypot']
     result
   end
 
