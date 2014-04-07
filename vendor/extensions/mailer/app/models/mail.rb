@@ -4,7 +4,7 @@ class Mail
   def initialize(page, config, data)
     @page, @config, @data = page, config.with_indifferent_access, data
     @required = @data.delete(:required)
-    @send, @honeypot = true, @data.delete(:honeypot)
+    @send, @honeypot = true, Array(@config[:honeypot])
     @errors = {}
   end
 
