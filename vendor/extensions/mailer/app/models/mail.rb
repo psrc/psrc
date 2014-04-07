@@ -4,6 +4,7 @@ class Mail
   def initialize(page, config, data)
     @page, @config, @data = page, config.with_indifferent_access, data
     @required = @data.delete(:required)
+    @send, @honeypot = true, @data.delete(:honeypot)
     @errors = {}
   end
 
@@ -48,6 +49,12 @@ class Mail
       if !valid_email?(from)
         errors['form'] = 'From is invalid.'
         @valid = false
+      end
+
+      if @honeypot
+        @honeypot.each do |name, _|
+          @send = false unless data[name].blank?
+        end
       end
 
       if @required
@@ -123,6 +130,7 @@ class Mail
 
   def send
     return false if not valid?
+    return true unless @send
 
     if plain_body.blank? and html_body.blank?
       @plain_body = <<-EMAIL
