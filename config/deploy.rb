@@ -32,6 +32,6 @@ namespace :deploy do
   task :additional_symlinks do
     run "ln -nfs #{shared_path}/assets #{release_path}/public/assets"
     run "ln -nfs #{shared_path}/config/*.yml #{release_path}/config/"
-    run "ln -nfs #{shared_path}/config/.htaccess #{release_path}/public/.htaccess"
+    run "ln -nfs #{shared_path}/htaccess #{release_path}/public/.htaccess"
   end
 end
