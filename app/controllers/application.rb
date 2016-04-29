@@ -3,8 +3,11 @@ require_dependency 'radiant'
 class ApplicationController < ActionController::Base
   include HoptoadNotifier::Catcher
   include LoginSystem
+
+  ADMIN_PATH = /\A\/admin*\z/
+
   before_filter :do_old_redirects
-  before_filter :password_protect_staging_site
+  before_filter :password_protect_admin
   
   filter_parameter_logging :password, :password_confirmation
   
@@ -29,10 +32,10 @@ class ApplicationController < ActionController::Base
     @javascripts << script
   end
   
-  def password_protect_staging_site
-    if RAILS_ENV == 'staging'
+  def password_protect_admin
+    if request.path =~ ADMIN_PATH
       authenticate_or_request_with_http_basic do |username, password|
-        username == "psrc" && password == "staging"
+        username == 'psrc' && password == 'staging'
       end
     end
   end
