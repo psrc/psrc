@@ -1,0 +1,5 @@
+#!/bin/bash
+
+ln -s $OPENSHIFT_DATA_DIR/assets/ $OPENSHIFT_REPO_DIR/public/
+ln -s $OPENSHIFT_DATA_DIR/system/ $OPENSHIFT_REPO_DIR/public/
+ln -s $OPENSHIFT_DATA_DIR/htaccess $OPENSHIFT_REPO_DIR/public/.htaccess
